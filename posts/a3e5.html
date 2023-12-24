@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ffmpy3批量合并ts文件 · 万圣节恶魔的领地</title><meta name="description" content="ffmpy3批量合并ts文件 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ffmpy3批量合并ts文件</h1><div class="post-info">2023/1/20</div><div class="post-content"><p>如何使用Python的ffmpy3包来批量合并ts文件至单个mp4文件。</p>
+<span id="more"></span>
+<div class="danger">
+开始阅读前，需要知道：
+<ul>
+<li>ffmpy3是FFmpeg的Python包装器</li>
+<li>ffmpy3根据提供的参数和选项来编译FFmpeg命令行</li>
+</ul>
+</div>
+<h1 id="ffmpy3使用"><a class="markdownIt-Anchor" href="#ffmpy3使用"></a> ffmpy3使用</h1>
+<h2 id="安装ffmpy3包"><a class="markdownIt-Anchor" href="#安装ffmpy3包"></a> 安装ffmpy3包</h2>
+<p>使用pip来安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ffmpy3</span><br></pre></td></tr></table></figure>
+<h2 id="ffmpy3简单例子"><a class="markdownIt-Anchor" href="#ffmpy3简单例子"></a> ffmpy3简单例子</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ffmpy3</span><br><span class="line">ff = ffmpy3.FFmpeg (</span><br><span class="line">    inputs = &#123;<span class="string">&#x27;输入文件&#x27;</span>: <span class="string">&#x27;参数1&#x27;</span>&#125;,</span><br><span class="line">    outputs = &#123;<span class="string">&#x27;输出文件&#x27;</span>: <span class="string">&#x27;参数2&#x27;</span>&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>最终得出结果相当于在终端里输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg 参数1 -i 输入文件 参数2 输出文件</span><br></pre></td></tr></table></figure>
+<h1 id="批量合并ts文件"><a class="markdownIt-Anchor" href="#批量合并ts文件"></a> 批量合并ts文件</h1>
+<h2 id="路径构造"><a class="markdownIt-Anchor" href="#路径构造"></a> 路径构造</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├───文件夹</span><br><span class="line">│    Python文件.py</span><br><span class="line">│    file.txt</span><br><span class="line">│    文件A.ts</span><br><span class="line">│    文件B.ts</span><br><span class="line">│    文件C.ts</span><br><span class="line">│    文件D.ts</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="filetxt"><a class="markdownIt-Anchor" href="#filetxt"></a> file.txt</h2>
+<p>在 file.txt 内部写下ts文件名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file &#x27;文件A.ts&#x27;</span><br><span class="line">file &#x27;文件B.ts&#x27;</span><br><span class="line">file &#x27;文件C.ts&#x27;</span><br><span class="line">file &#x27;文件D.ts&#x27;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>使用单引号，而非双引号，后者会导致报错！</li>
+<li>引号内的路径使用相对路径</li>
+</ol>
+</blockquote>
+<h2 id="python文件py"><a class="markdownIt-Anchor" href="#python文件py"></a> <a target="_blank" rel="noopener" href="http://xn--Python-n18ip45m.py">Python文件.py</a></h2>
+<p>使用这段代码来批量合并ts文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ff = ffmpy3.FFmpeg(</span><br><span class="line">        inputs=&#123;<span class="string">f&#x27;file.txt&#x27;</span>: <span class="string">&#x27;-f concat&#x27;</span>&#125;,</span><br><span class="line">        outputs=&#123;<span class="string">f&#x27;文件名.mp4&#x27;</span>: <span class="string">&#x27;-c copy&#x27;</span>&#125;</span><br><span class="line">)</span><br><span class="line">ff.run()</span><br></pre></td></tr></table></figure>
+<p>上述代码相当于在终端中输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg -f concat -i file.txt -c copy 文件名.mp4</span><br></pre></td></tr></table></figure>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/891a.html">上一篇</a><a class="next" href="/posts/d995.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/a3e5.html';
+var disqus_title = 'ffmpy3批量合并ts文件';
+var disqus_url = 'https://cytrogen.github.io/posts/a3e5.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2023 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

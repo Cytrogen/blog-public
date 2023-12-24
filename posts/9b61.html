@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hoka-bot部署教程 · 万圣节恶魔的领地</title><meta name="description" content="Hoka-bot部署教程 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hoka-bot部署教程</h1><div class="post-info">2022/6/30</div><div class="post-content"><p>该文档将讲述如何部署Hoka-bot（以下称为Hoka）。</p>
+<span id="more"></span>
+<img src="/posts/9b61/HOKA简介.png" alt="Hokabot-bot">
+<div class="danger">
+<p>在开始本教程前，需要知道该教程：</p>
+<ul>
+<li>基于Python3.9</li>
+<li>基于Linux系统 / Ubuntu（我是20.04.1版本）</li>
+<li>是<strong>6月30日</strong>版本的Hoka-bot部署教程</li>
+</ul>
+</div>
+<h1 id="开始部署之前"><a class="markdownIt-Anchor" href="#开始部署之前"></a> 开始部署之前</h1>
+<blockquote>
+<p>理所当然的，你需要将Hoka的代码克隆至本地。</p>
+</blockquote>
+<ol>
+<li>
+<p>进入<a target="_blank" rel="noopener" href="https://github.com/Cytrogen/Hoka-Bot">Hoka的仓库</a>。</p>
+</li>
+<li>
+<p>如下图所示，克隆或下载代码的压缩文件：</p>
+</li>
+</ol>
+<img src="/posts/9b61/Clone.png" alt="克隆或下载ZIP">
+<ol start="3">
+<li>得到的文件夹应如下图：</li>
+</ol>
+<img src="/posts/9b61/主文件夹.png" alt="主文件夹">
+<blockquote>
+<p>关于bot代码结构可以看看<a target="_blank" rel="noopener" href="https://cytrogen.netlify.app/2022/02/01/nonebot-beta1%E6%95%99%E7%A8%8B/">这篇Nonebot2教程</a></p>
+</blockquote>
+<p>你已经得到了一个Hoka！但他还是个空壳，无法立马投入使用。</p>
+<center>————————</center>
+<h1 id="配置hoka的环境配置文件"><a class="markdownIt-Anchor" href="#配置hoka的环境配置文件"></a> 配置Hoka的环境配置文件</h1>
+<blockquote>
+<p>Hoka部署最为紧要的部分是<code>.env</code>文件，也就是<strong>环境配置文件</strong>。</p>
+</blockquote>
+<ol>
+<li>进入<code>.env</code>文件进行编辑：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"># .env</span><br><span class="line"></span><br><span class="line">ENVIRONMENT=dev</span><br><span class="line"></span><br><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br><span class="line"></span><br><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br><span class="line"></span><br><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;uin&quot;: ,</span><br><span class="line">    &quot;password&quot;: &quot;&quot;,</span><br><span class="line">    &quot;protocol&quot;: 1</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br><span class="line"></span><br><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br><span class="line"></span><br><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br><span class="line"></span><br><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="2">
+<li>
+<ul>
+<li>环境默认为<code>dev</code>，即<code>development</code>、开发环境；</li>
+<li>可更改为<code>prod</code>，即<code>production</code>、生产环境；</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="3">
+<li>如下，这里分别是<code>HOST 监听IP/主机名</code>、<code>PORT 监听端口</code>、<code>LOG LEVEL 日志等级</code>和<code>FASTAPI_RELOAD</code>的配置：
+<ul>
+<li>下面的端口如果已被使用可以修改为其他数字，其它则都不需要碰。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="4">
+<li>
+<ul>
+<li>配置<code>SUPERUSERS 超级用户</code>：超级用户是Hoka的管理员，有着最高权限。<br>
+这里推荐只写你自己的QQ号；</li>
+<li>配置<code>NICKNAME bot昵称</code>：不建议修改，因为我都是直接在代码里写的Hoka，改了没啥用；</li>
+<li>配置<code>COMMAND_START 命令前缀</code>：不建议修改，但也不是不能改；</li>
+<li>配置<code>COMMAND_SEP 命令隔开符</code>：不咋用到这个，随意更改。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br></pre></td></tr></table></figure>
+<br>
+<ol>
+<li>配置<code>Go-CQHTTP插件</code>：
+<ul>
+<li><strong>介于该插件的前端可以登录账号，你不需要配置<code>GOCQ_ACCOUNR</code>；</strong></li>
+<li>该插件将会下载<code>GOCQ_URL</code>中填写的地址，什么都不输入将自动使用该插件默认的镜像站以及最新版本。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;uin&quot;: ,</span><br><span class="line">    &quot;password&quot;: &quot;&quot;,</span><br><span class="line">    &quot;protocol&quot;: 1</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="6">
+<li>不需要管这俩。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="7">
+<li><code>rauthman 权限管理插件</code>的配置项：
+<ul>
+<li>其实只是指令名更改，不建议修改。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="8">
+<li><code>game 群组游戏插件</code>的配置项：
+<ul>
+<li><code>GAME_PATH</code>不要碰；</li>
+<li><code>MAX_BET_GOLD</code>为俄罗斯轮盘中赌注的上限，可以调低防止一夜暴富一夜回到解放前。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="9">
+<li><code>read_60s 60秒读世界插件</code>的配置项：
+<ul>
+<li><code>READ_QQ_FRIENDS</code>为每日定时发送的QQ好友号；</li>
+<li><code>READ_QQ_GROUPS</code>为每日定时发送的QQ群聊号；</li>
+<li><code>READ_INFORM_TIME</code>为每日定时发送的时间，按照本地时间为标准，如下便是每日早上9点5分。</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+<br>
+<ol start="10">
+<li>你已经配置好了环境配置文件！</li>
+</ol>
+<center>————————</center>
+<h1 id="配置hoka的群组游戏"><a class="markdownIt-Anchor" href="#配置hoka的群组游戏"></a> 配置Hoka的群组游戏</h1>
+<blockquote>
+<p>需要配置的只有群组卡池。</p>
+</blockquote>
+<ol>
+<li>进入<code>src/plugins/game/gacha.py</code>，找到<code>class NormalData</code>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class NormalData:</span><br><span class="line">    sixList = []</span><br><span class="line"></span><br><span class="line">    fiveList = []</span><br><span class="line"></span><br><span class="line">    fourList = []</span><br><span class="line"></span><br><span class="line">    threeList = []</span><br><span class="line"></span><br><span class="line">    onelist = [&#x27;虾虾&#x27;]</span><br><span class="line"></span><br><span class="line">    fiveListUp = []</span><br><span class="line">    sixListUP = []</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>
+<p><code>sixList</code>为卡池的六星角色，<code>fiveList</code>为五星…以此类推。<br>
+<code>oneList</code>建议保留为虾虾，因为虾虾这个名字也在代码内，当然你也可以自己一次性全部修改。<br>
+<code>fiveListUp</code>和<code>sixListUP</code>都是概率UP角色。</p>
+</li>
+<li>
+<p>填写格式像这样：<code>sixList = ['名字', '另一个名字']</code>。</p>
+</li>
+</ol>
+<center>————————</center>
+<h1 id="配置go-cqhttp-运行hoka"><a class="markdownIt-Anchor" href="#配置go-cqhttp-运行hoka"></a> 配置Go-CQHTTP &amp; 运行Hoka</h1>
+<ol>
+<li>
+<p>首先需要运行一次Hoka。<br>
+在有<code>bot.py</code>的主文件夹内开终端输入<code>python3.9 bot.py</code>。</p>
+</li>
+<li>
+<p>在终端中找到这么一行：</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] nonebot_plugin_gocqhttp | Startup complete, Web UI has served to http://127.0.0.1:56766/go-cqhttp/</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>进入后面的这个地址，页面应如下：</li>
+</ol>
+<img src="gocqhttp.png" alt="Go-CQHTTP前端">
+<ol start="4">
+<li>
+<p>点击左上角的<code>添加账号</code>。<br>
+依次输入bot的QQ号、密码，并选择登录设备类型。个人通常使用Android Phone。</p>
+</li>
+<li>
+<p>提交后关闭页面，回到终端关闭过程，再次输入<code>python3.9 bot.py</code>。<br>
+此时终端会多出来自于<code>nonebot_plugin_gocqhttp</code>的信息，并开始登录bot账号。<br>
+在网络诊断完成后，Hoka便运行成功，可以使用了。</p>
+</li>
+</ol>
+<center>————————</center>
+<h1 id="后言"><a class="markdownIt-Anchor" href="#后言"></a> 后言</h1>
+<p>你已经学会如何配置&amp;部署Hoka了！</p>
+<blockquote>
+<p>如有任何疑惑、建议、反馈，<a target="_blank" rel="noopener" href="https://cytrogen.netlify.app/2050/11/11/%E6%9C%89%E5%85%B3%E4%BD%9C%E8%80%85/#%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%EF%BC%9A">务必联系我</a>！<br>
+Hoka本体号：3363863549，将会有最新功能<s>我又鸽了</s>。</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/ec37.html">上一篇</a><a class="next" href="/posts/41a5.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/9b61.html';
+var disqus_title = 'Hoka-bot部署教程';
+var disqus_url = 'https://cytrogen.github.io/posts/9b61.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2023 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

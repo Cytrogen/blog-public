@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> JS逆向有道翻译&wxPython制作便宜翻译器 · 万圣节恶魔的领地</title><meta name="description" content="JS逆向有道翻译&amp;wxPython制作便宜翻译器 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">JS逆向有道翻译&wxPython制作便宜翻译器</h1><div class="post-info">2023/10/29</div><div class="post-content"><p>该文章讲述了如何逆向有道翻译，并且使用wxPython库来制作一个便宜翻译器。</p>
+<span id="more"></span>
+<div class="danger">
+<p>事先说明：</p>
+<ul>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>你要先有Python、requests库和一定的JS基础</li>
+<li>你要先知道如何使用网页开发者工具</li>
+</ul>
+</div>
+<h1 id="逆向有道翻译"><a class="markdownIt-Anchor" href="#逆向有道翻译"></a> 逆向有道翻译</h1>
+<p>我们首要知道的是有道翻译客户端是如何发送请求给服务器的，才能知道如何逆向它。</p>
+<p>随便在有道翻译上输入一个单词，再在网络选项卡里翻找，你会发现有一个请求是这样的：</p>
+<p><img src="/posts/a4b5/1.png" alt></p>
+<p>该请求发送的表单数据中赫然出现了我们输入的单词，这就是我们要找的东西了。</p>
+<p>再来看看这个请求的响应：</p>
+<p><img src="/posts/a4b5/2.png" alt></p>
+<p>嗯……是一大串加密过的东西，完全看不懂捏。解密的事情之后再说，我们先来想：要如何发出请求才能得到类似的响应呢？</p>
+<p>重新来看该请求的表单数据，参数<code>i</code>顾名思义便是我们输入的单词的明文，而参数<code>mysticTime</code>一眼就能看出是一个时间戳。我们可以此时再输入一个单词，来看看表单数据的哪些参数是不变的、哪些是变化的。</p>
+<p><img src="/posts/a4b5/3.png" alt></p>
+<p>除了时间戳外，还有个参数<code>sign</code>也是动态的。也就是说整个请求中，仅有<code>sign</code>和<code>mysticTime</code>是动态的。又因为<code>mysticTime</code>是一个时间戳，所以我们只需要关注、逆向<code>sign</code>就行了。</p>
+<p>既然客户端需要发送请求给服务器，那自然就需要一个加密算法来加密<code>sign</code>、便于服务器解密。我们可以在网页开发者工具中找到这个加密算法。有道翻译还是很厚道的，一搜索“sign”这个字眼就能找到客户端封装表单数据的函数：</p>
+<p><img src="/posts/a4b5/4.png" alt></p>
+<p>是不是很熟悉？这个函数中的每个变量都能在“webtranslate”这个请求的表单数据里找到。</p>
+<p>让我们来分析一下这个函数：</p>
+<ul>
+<li><code>o</code>是一个时间戳</li>
+<li><code>sign</code>值由<code>k(o, e)</code>得到，<code>o</code>是时间戳、<code>e</code>我们暂且不知道</li>
+</ul>
+<p>再来看看<code>k</code>函数，还真别说，就在<code>E</code>函数的上面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">k</span>(<span class="params">e, t</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">j</span>(<span class="string">`client=<span class="subst">$&#123;d&#125;</span>&amp;mysticTime=<span class="subst">$&#123;e&#125;</span>&amp;product=<span class="subst">$&#123;u&#125;</span>&amp;key=<span class="subst">$&#123;t&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要注意一点，<code>sign: k(o, e)</code>中<code>o</code>是时间戳、<code>e</code>是不知名的变量；而到<code>k</code>函数中，<code>e</code>是时间戳，<code>t</code>才是不知名的变量。<br>
+切记不要搞混了！</p>
+</blockquote>
+<p>能看出，被传入<code>k</code>函数中的不知名的变量实际上是key，并且还多了两个不知名的变量<code>d</code>和<code>u</code>。我们可以直接打断点，看看这些变量的值：</p>
+<p><img src="/posts/a4b5/5.png" alt></p>
+<p>再走一步我们便能看到<code>k</code>函数的两个参数。<code>e</code>属实是时间戳，千万不要混淆了！</p>
+<p><img src="/posts/a4b5/6.png" alt></p>
+<p>停在该断点，我们可以看到<code>d</code>和<code>u</code>的值：</p>
+<p><img src="/posts/a4b5/8.png" alt></p>
+<p>相当于在<code>k</code>函数中，会生成这么一个字符串：<code>client=fanyideskweb&amp;mysticTime=$&#123;t&#125;&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso</code>，仅有时间戳是动态，我们无脑塞时间戳就完事了。</p>
+<p>但是！这个字符串被生成后，还会被传入<code>j</code>函数进行加密，所以我们还需要看看<code>j</code>函数的内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">j</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> i.<span class="property">a</span>.<span class="title function_">createHash</span>(<span class="string">&quot;md5&quot;</span>).<span class="title function_">update</span>(e.<span class="title function_">toString</span>()).<span class="title function_">digest</span>(<span class="string">&quot;hex&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嗯……无比熟悉有木有，这就是MD5加密算法；<code>j</code>函数把<code>k</code>函数拼凑的字符串进行了MD5加密（注意是hex格式的），然后返回加密后的结果。</p>
+<p>继续走两步，<code>E</code>函数到了尾声，果断打开控制台查询一下<code>sign</code>的值，正是加密后的内容，而不是一串明文：</p>
+<p><img src="/posts/a4b5/7.png" alt><br>
+<img src="/posts/a4b5/9.png" alt></p>
+<div class="danger">
+<p>继续码字的时候页面被刷新了，所以<code>sign</code>值和用上面的时间戳以及key加密出来的结果不同，懒得再截图了，大家自己试试吧。</p>
+</div>
+<p>至此我们已经搞清楚了有道翻译客户端是拿着什么参数去请求服务器的，接下来我们可以用Python来模拟这个请求。</p>
+<h1 id="python模拟请求"><a class="markdownIt-Anchor" href="#python模拟请求"></a> Python模拟请求</h1>
+<p>比起直接用<code>requests.post()</code>，我们这次要使用<code>requests.session.post()</code>，否则不会成功；<code>headers</code>和<code>data</code>之后再怼：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">session = requests.session()</span><br><span class="line">session.get(<span class="string">&#x27;https://fanyi.youdao.com/&#x27;</span>)</span><br><span class="line">res = session.post(<span class="string">&#x27;https://dict.youdao.com/webtranslate&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p><code>headers</code>的内容可以直接从开发者工具那边复制，别忘了加上<code>Referer</code>。</p>
+<p><code>data</code>的内容我们需要模拟一下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳</span></span><br><span class="line"><span class="comment"># 因为JS的时间戳是毫秒级的，而Python的是秒级的，所以要乘以1000</span></span><br><span class="line">t = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加密和构建sign值</span></span><br><span class="line">s = <span class="string">f&#x27;client=fanyideskweb&amp;mysticTime=<span class="subst">&#123;t&#125;</span>&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso&#x27;</span></span><br><span class="line">sign = hashlib.md5(s.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">&#x27;i&#x27;</span>: word,  <span class="comment"># 要翻译的单词</span></span><br><span class="line">    <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;domain&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;dictResult&#x27;</span>: <span class="string">&#x27;true&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;keyid&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sign&#x27;</span>: sign,</span><br><span class="line">    <span class="string">&#x27;client&#x27;</span>: <span class="string">&#x27;fanyideskweb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;product&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;appVersion&#x27;</span>: <span class="string">&#x27;1.0.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;vendor&#x27;</span>: <span class="string">&#x27;web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;pointParam&#x27;</span>: <span class="string">&#x27;client,mysticTime,product&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mysticTime&#x27;</span>: t,</span><br><span class="line">    <span class="string">&#x27;keyfrom&#x27;</span>: <span class="string">&#x27;fanyi.web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mid&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;screen&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;model&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;network&#x27;</span>: <span class="string">&#x27;wifi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;abtest&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;yduuid&#x27;</span>: <span class="string">&#x27;abcdefg&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着来看一下响应的内容~</p>
+<p><img src="/posts/a4b5/10.png" alt></p>
+<p>居然是一大串看不懂的东西？！当然，相信大家看到这一大串中结尾的<code>=</code>时，应该就知道这是base64编码了。我们可以用Python来解码，不过还要插一句题外话：这个是base64变种，叫做URL-safe base64，它把<code>+</code>和<code>/</code>换成了<code>-</code>和<code>_</code>。这个变种的诞生是为了让base64编码后的内容能够安全地放在URL中。</p>
+<p>简单来说就是：我们还需要把<code>-</code>和<code>_</code>换回来才能解码：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res = res.replace(<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;+&#x27;</span>).replace(<span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">data = base64.b64decode(res)</span><br></pre></td></tr></table></figure>
+<p>再次运行，好家伙，得到了一串更过分的字节。</p>
+<p><img src="/posts/a4b5/11.png" alt></p>
+<h1 id="解密"><a class="markdownIt-Anchor" href="#解密"></a> 解密</h1>
+<p>既然有道翻译客户端已经准备好了表单数据，那证明这之后它就会发送请求给服务器，我们且看客户端是如何发送请求、又如何处理响应的。</p>
+<p>继续往下走一步，我们就能看到客户端发送请求的代码了：</p>
+<p><img src="/posts/a4b5/12.png" alt></p>
+<p>中间的链接是不是很熟悉？再看看右边的<code>E(t)</code>，这正是会返回<code>sign</code>值的<code>E</code>函数。再用控制台一一检查过去，会发现老面孔和新面孔：</p>
+<p><img src="/posts/a4b5/13.png" alt></p>
+<ul>
+<li><code>(e,t)</code>是key值</li>
+<li><code>a[&quot;d&quot;]</code>返回一个<code>Promise</code>对象，等下细说</li>
+<li><code>e</code>是表单数据的一部分，里面包含了我们要翻译的单词的明文</li>
+<li><code>n[&quot;a&quot;]</code>可以不深究，你只需要知道它可以把多个对象合并成一个。事实上，它的作用就是把<code>e</code>和<code>E(t)</code>返回的两个表单数据合并成一个</li>
+</ul>
+<p>这里说一下<code>a[&quot;d&quot;]</code>，它的结构是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">l</span>(<span class="params">e, t, o</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">n,c</span>)=&gt;</span>&#123;</span><br><span class="line">        a[<span class="string">&quot;a&quot;</span>].<span class="title function_">post</span>(e, t, o).<span class="title function_">then</span>(<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="title function_">n</span>(e.<span class="property">data</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        ).<span class="title function_">catch</span>(<span class="function"><span class="params">e</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="title function_">c</span>(e)</span><br><span class="line">        &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>e</code>是请求的链接</li>
+<li><code>t</code>是表单数据</li>
+<li><code>o</code>是请求头，也就是上上图中那个孤零零的<code>&quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;</code></li>
+</ul>
+<blockquote>
+<p>如果你不了解<code>Promise</code>，那么你可以把它理解成一个异步函数，它的作用是等待<code>a[&quot;a&quot;].post(e, t, o)</code>这个请求完成，然后返回响应的内容。<br>
+如果这个请求成功了，那么<code>e</code>就是响应的内容，给到<code>n()</code>；如果这个请求失败了，那么<code>e</code>就是错误信息，给到<code>c()</code>。</p>
+<blockquote>
+<p><code>n()</code>和<code>c()</code>的内容都是空函数，所以我们不需要管它们。</p>
+</blockquote>
+</blockquote>
+<p>那么<code>a[&quot;d&quot;]</code>返回的<code>Promise</code>对象去了哪里咧？回到客户端发送请求的那一步（也就是上上图的<code>I = (e,t)=&gt;略略略</code>），看开发者工具的<strong>调用堆栈</strong>。</p>
+<blockquote>
+<p>调用堆栈：在开发者工具中你可以看到每个函数被调用的顺序。</p>
+</blockquote>
+<p><img src="/posts/a4b5/14.png" alt></p>
+<p>点击<code>Po</code>便会自动引导到这个函数的定义处：</p>
+<p><img src="/posts/a4b5/15.png" alt></p>
+<p><code>Mo[&quot;a&quot;].getTextTranslateResult()</code>正是函数<code>I</code>！</p>
+<p><img src="/posts/a4b5/16.png" alt></p>
+<p>刚才提到的<code>a[&quot;d&quot;]</code>所返回的<code>Promise</code>对象去了此处的<code>Mo[&quot;a&quot;].getTextTranslateResult()</code>，服务器成功响应，走到<code>then</code>，也就是我们解密的关键：有道翻译客户端对这个响应做了什么处理？</p>
+<p>我们来看一下<code>then</code>中的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">o</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="title class_">Mo</span>[<span class="string">&quot;a&quot;</span>].<span class="title function_">cancelLastGpt</span>();</span><br><span class="line">    <span class="keyword">const</span> n = <span class="title class_">Mo</span>[<span class="string">&quot;a&quot;</span>].<span class="title function_">decodeData</span>(o, <span class="title class_">Ko</span>[<span class="string">&quot;a&quot;</span>].<span class="property">state</span>.<span class="property">text</span>.<span class="property">decodeKey</span>, <span class="title class_">Ko</span>[<span class="string">&quot;a&quot;</span>].<span class="property">state</span>.<span class="property">text</span>.<span class="property">decodeIv</span>)</span><br><span class="line">        , a = n ? <span class="title class_">JSON</span>.<span class="title function_">parse</span>(n) : &#123;&#125;;</span><br><span class="line">    <span class="number">0</span> === a.<span class="property">code</span> ? e.<span class="property">success</span> &amp;&amp; <span class="title function_">t</span>(e.<span class="property">success</span>)(a) : e.<span class="property">fail</span> &amp;&amp; <span class="title function_">t</span>(e.<span class="property">fail</span>)(a)</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Mo[&quot;a&quot;].cancelLastGpt()</code>不需要管，感兴趣的可以自己去看看</li>
+<li><code>const n = Mo[&quot;a&quot;].decodeData...略</code>才是我们要看的，<code>decodeData</code>，是不是立即就明白这行代码的作用了？</li>
+</ul>
+<p>有道翻译客户端使用了<code>Ko[&quot;a&quot;].state.text.decodeKey</code>和<code>Ko[&quot;a&quot;].state.text.decodeIv</code>来解密响应的内容。Key和Iv，好好好，这不就是AES加密算法吗？！</p>
+<p>打开控制台打印一下这两个变量的值：</p>
+<p><img src="/posts/a4b5/17.png" alt></p>
+<p>万事俱备，只欠东风，让我们最后看一眼<code>Mo[&quot;a&quot;].decodeData()</code>函数：</p>
+<p><img src="/posts/a4b5/18.png" alt></p>
+<ul>
+<li>接收<code>t</code>、<code>o</code>、<code>n</code>三个参数，分别代表了base64编码后的数据、用于解密的key和用于解密的iv</li>
+</ul>
+<ol>
+<li>分别将解密用的key和iv转化为16进制的字节</li>
+<li>用key和iv创建一个AES解密器<code>r</code></li>
+<li>用解密器<code>r</code>解密base64编码后的数据<code>t</code>，得到JSON数据，也就是原始的响应数据</li>
+<li>最终返回明文</li>
+</ol>
+<p>搞清楚逻辑后我们便可以继续用Python解密：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">digest_key</span>(<span class="params">value</span>):</span><br><span class="line">    md5_new = hashlib.md5()</span><br><span class="line">    md5_new.update(val.encode())</span><br><span class="line">    <span class="keyword">return</span> md5_new.digest()</span><br><span class="line"></span><br><span class="line">o = <span class="string">&#x27;ydsecret://query/key/B*RGygVywfNBwpmBaZg*WT7SIOUP2T0C9WHMZN39j^DAdaZhAnxvGcCY6VYFwnHl&#x27;</span></span><br><span class="line">n = <span class="string">&#x27;ydsecret://query/iv/C@lZe2YzHtZ2CYgaXKSVfsb7Y4QWHjITPPZ0nQp87fBeJ!Iv6v^6fvi2WN@bYpJ4&#x27;</span></span><br><span class="line"></span><br><span class="line">key = digest_key(o)</span><br><span class="line">iv = digest_key(n)</span><br><span class="line"></span><br><span class="line">aes = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">data = aes.decrypt(data).decode()</span><br></pre></td></tr></table></figure>
+<p>得到的结果：</p>
+<p><img src="/posts/a4b5/19.png" alt></p>
+<h1 id="制作翻译器"><a class="markdownIt-Anchor" href="#制作翻译器"></a> 制作翻译器</h1>
+<p>经过以上逆向过程，我们还可以制作一个翻译器，让它能够翻译我们输入的单词。</p>
+<p>首先我们需要一个GUI库，这里我选择了wxPython。安装方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install wxPython</span><br></pre></td></tr></table></figure>
+<p>其次我们需要定义一个窗口类，该类继承自<code>wx.Frame</code>：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyFrame</span>(wx.Frame):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, parent, title</span>):</span><br><span class="line">        <span class="comment"># 调用父类的构造函数</span></span><br><span class="line">        <span class="built_in">super</span>(MyFrame, self).__init__(parent, title=title, size=(<span class="number">400</span>, <span class="number">250</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建一个面板</span></span><br><span class="line">        panel = wx.Panel(self)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 左侧文本框</span></span><br><span class="line">        input_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 右侧文本框</span></span><br><span class="line">        output_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE | wx.TE_READONLY, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 按钮</span></span><br><span class="line">        button = wx.Button(panel, label=<span class="string">&#x27;翻译&#x27;</span>, size=(<span class="number">50</span>, <span class="number">25</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 水平布局</span></span><br><span class="line">        sizer = wx.BoxSizer(wx.HORIZONTAL)</span><br><span class="line">        <span class="comment"># 添加输入框和输出框</span></span><br><span class="line">        sizer.Add(input_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line">        sizer.Add(output_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 垂直布局</span></span><br><span class="line">        inner_sizer = wx.BoxSizer(wx.VERTICAL)</span><br><span class="line">        <span class="comment"># 添加水平布局和按钮</span></span><br><span class="line">        inner_sizer.Add(sizer, <span class="number">0</span>, wx.ALL | wx.EXPAND, <span class="number">10</span>)</span><br><span class="line">        inner_sizer.Add(button, <span class="number">0</span>, wx.ALIGN_CENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置面板的布局</span></span><br><span class="line">        panel.SetSizerAndFit(inner_sizer)</span><br></pre></td></tr></table></figure>
+<p>运行一下，布局长这样：</p>
+<p><img src="/posts/a4b5/20.png" alt></p>
+<p>用户需要在左侧输入单词、点击按钮，右侧才能够显示翻译的结果。因此我们还需要给按钮绑定一个事件：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># ...继def __init__()的内容...</span></span><br><span class="line">    <span class="comment"># 绑定按钮事件</span></span><br><span class="line">    self.Bind(wx.EVT_BUTTON, self.on_button_click, button)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当按钮被点击时，执行该函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_button_click</span>(<span class="params">self, event</span>):</span><br><span class="line">    <span class="comment"># 获取输入框和输出框</span></span><br><span class="line">    input_text = self.FindWindowById(event.GetId()-<span class="number">2</span>)</span><br><span class="line">    output_text = self.FindWindowById(event.GetId()-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取输入框的内容</span></span><br><span class="line">    word = input_text.GetValue()</span><br></pre></td></tr></table></figure>
+<p>接下来的内容我相信大家都心知肚明，正是上述的所有内容的结合体。我把那些代码封装成了函数塞在按钮事件中，大家则可以自己动动手、试试看（绝对不是因为我懒）。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继def on_button_click()的内容</span></span><br><span class="line"><span class="comment"># 发送请求</span></span><br><span class="line">res = request(word)</span><br><span class="line"><span class="comment"># 将响应用base64解码</span></span><br><span class="line">data = decode_result(res)</span><br><span class="line"><span class="comment"># 解密解码后的响应，获得JSON数据中的翻译结果</span></span><br><span class="line">word = decrypt_data(data)</span><br><span class="line"><span class="comment"># 设置输出框的内容</span></span><br><span class="line">output_text.SetValue(word)</span><br></pre></td></tr></table></figure>
+<p><img src="/posts/a4b5/21.png" alt></p>
+<p>完工！</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/f8ce.html">上一篇</a><a class="next" href="/posts/875a.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/a4b5.html';
+var disqus_title = 'JS逆向有道翻译&amp;wxPython制作便宜翻译器';
+var disqus_url = 'https://cytrogen.github.io/posts/a4b5.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2023 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
