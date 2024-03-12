@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> IBM全栈开发【6】：容器 & Kubernetes和OpenShift简介 · 万圣节恶魔的领地</title><meta name="description" content="IBM全栈开发【6】：容器 &amp; Kubernetes和OpenShift简介 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">IBM全栈开发【6】：容器 & Kubernetes和OpenShift简介</h1><div class="post-info">2024/3/11</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p>
+<span id="more"></span>
+<p>在现代软件开发中，容器技术已经成为了一种必备的技术。它们通过提供一种轻量级、可移植且独立于平台的方式来封装和运行应用程序，解决了许多传统软件开发和部署过程中的问题。</p>
+<h1 id="1-容器和容器化"><a class="markdownIt-Anchor" href="#1-容器和容器化"></a> 1. 容器和容器化</h1>
+<p>尽管容器化（Containerization）并非全新的技术概念，但直到2013年——随着Docker的出现——它才开始引起人们的广泛关注并迅速成长。如今，容器已经成为现代云原生（Cloud Native）开发的核心技术之一。</p>
+<p>容器技术解决了长期困扰软件开发的一个重要问题：软件的可移植性。它使得应用程序能在多种不同的平台上无缝运行。</p>
+<p>容器是由容器化引擎支持的标准软件单元，它封装了应用程序代码、运行时环境（Runtime）、系统工具，以及开发者构建、发布和运行应用程序所需的所有设置。由于容器的体积小巧，开发者可以在几乎无需等待的情况下，立即开始容器化他们的应用程序。</p>
+<p>在传统的软件开发环境中，开发人员往往难以有效地隔离应用程序，也无法为物理服务器上的应用程序指定或分配特定的存储和内存资源。这导致服务器的资源往往被未充分利用或过度利用，从而降低了效率并减少了投资的回报。</p>
+<p>此外，传统的部署方式需要对资源进行全面的配置，并且维护成本高昂。物理服务器的限制可能会在高峰工作负载期间影响应用程序的性能。容器技术通过虚拟化操作系统并管理容器的运行，有效地解决了这些问题。</p>
+<h2 id="11-容器引擎"><a class="markdownIt-Anchor" href="#11-容器引擎"></a> 1.1. 容器引擎</h2>
+<p>容器引擎提供了运行和管理容器的基础设施。这些引擎使得容器能够独立于平台、操作系统、编程语言和IDE运行，降低了部署时间和成本，提高了资源利用率，并实现了跨不同环境的端口。</p>
+<ul>
+<li>Docker：最流行的容器引擎，它提供了一种轻量级的、可移植的、自包含的容器化解决方案。Docker容器可以在任何地方运行，无论是开发人员的笔记本电脑、数据中心的物理服务器，还是云服务提供商的虚拟机</li>
+<li>Podman：开源的容器引擎，它提供了一个简单的命令行界面，用于管理容器和镜像。Podman可以在不需要守护进程的情况下运行容器，这使得它更适合于在生产环境中使用、对比Docker更安全</li>
+<li>LXC：Linux容器（Linux Containers，LXC），一个操作系统级的虚拟化技术，它允许多个Linux系统共享同一个内核。LXC适合进行数据密集型应用程序的测试和开发</li>
+<li>Vagrant：开源的虚拟化工具，它在正在运行的物理机上提供更高级别的隔离</li>
+</ul>
+<h2 id="12-docker"><a class="markdownIt-Anchor" href="#12-docker"></a> 1.2. Docker</h2>
+<p>Docker是目前最流行的容器平台：</p>
+<ul>
+<li>它是一个开发平台，用于以容器形式开发、发布和运行应用程序</li>
+<li>架构简单，具有巨大的可扩展性和可移植性，得到了开发者的欢迎</li>
+<li>将应用程序和基础设施隔离，包括硬件、操作系统和容器运行时</li>
+<li>使用Go语言编写，利用Linux内核特性提供其功能，并使用命名空间来提供称为容器的隔离工作区</li>
+<li>为每个容器创建一组命名空间</li>
+</ul>
+<p>Docker通过提供一致且隔离的环境实现稳定的应用程序部署，部署快速：</p>
+<ul>
+<li>镜像小且可重用</li>
+<li>自动化功能有助于消除错误，简化维护周期，并支持敏捷和CI/CD DevOps实践</li>
+<li>简单版本控制可以加快测试、回滚和重新部署的速度</li>
+<li>有助于对应用程序进行分段，以便于刷新、清理和修复</li>
+</ul>
+<p>Docker激发了更多的创新，例如：</p>
+<ul>
+<li>Docker CLI：Docker命令行界面</li>
+<li>Docker Compose：用于定义和运行多容器Docker应用程序的工具</li>
+<li>Prometheus：用于监控和警报的开源系统</li>
+<li>Docker Swarm或者Kubernetes的编排技术</li>
+<li>使用微服务和Serverless的开发方式</li>
+</ul>
+<p>然而，Docker并不适合所有的应用场景。例如，对于需要高性能或安全性、基于Monolith、需要丰富GUI功能、或者执行标准桌面或有限功能的应用程序，就可能不适合使用Docker。</p>
+<h4 id="121-docker的工作流程"><a class="markdownIt-Anchor" href="#121-docker的工作流程"></a> 1.2.1. Docker的工作流程</h4>
+<p>在Docker中，开发者首先创建一个Dockerfile，然后使用Dockerfile创建容器镜像，最后使用容器镜像创建正在运行的容器。</p>
+<p>Dockerfile中的<code>FROM</code>命令用于定义基础镜像，<code>CMD</code>命令用于定义容器启动后需要执行的命令。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx:latest</span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上Dockerfile用于创建一个基于Nginx的容器镜像，它使用了<code>nginx:latest</code>作为基础镜像，并在容器启动后执行<code>nginx -g daemon off;</code>命令、也就是启动Nginx服务</p>
+</blockquote>
+<p>Docker提供了一套命令行工具，用于管理容器和镜像：</p>
+<ul>
+<li><code>docker build -t my-app:v1 .</code>命令用于使用Dockerfile中的标签创建容器镜像
+<ul>
+<li><code>-t</code>参数用于指定镜像的标签</li>
+<li><code>.</code>参数用于指定Dockerfile所在的目录</li>
+<li><code>my-app:v1</code>用于指定镜像的名称和版本</li>
+</ul>
+</li>
+<li><code>docker run -p 8080:80 nginx</code>命令用于从镜像创建并运行容器
+<ul>
+<li><code>-p</code>参数用于指定容器端口和主机端口的映射</li>
+<li><code>nginx</code>用于指定容器镜像的名称</li>
+<li><code>8080:80</code>用于指定主机端口和容器端口的映射</li>
+</ul>
+</li>
+<li><code>docker push my-app:v1</code>命令用于将镜像存储在配置的注册表中</li>
+<li><code>docker pull nginx</code>命令用于从配置的注册表中检索镜像</li>
+</ul>
+<p>Docker主机包含了Dockerfile、镜像（Image）、容器、网络（Network）、存储卷（Storage）等对象，以及其他的插件和附加组件。其中，网络用于隔离容器通信，存储卷（Volume）和绑定挂载（Bind mount）用于在容器停止运行后保留数据。</p>
+<p>Docker的工作原理如下：</p>
+<ol>
+<li>用户通过Docker命令行接口（CLI）或Docker的REST API客户端向Docker主机服务器（Host）发送指令</li>
+<li>Docker主机内部运行着一个被称为dockerd的守护进程</li>
+<li>守护进程负责监听并处理来自Docker API的请求或命令</li>
+<li>守护进程承担了构建、运行和分发Docker容器的重要任务</li>
+<li>Docker将构建好的容器镜像存储在注册表（Registry）中，以便于后续的提取和运行</li>
+</ol>
+<h4 id="122-docker的客户端-服务器架构"><a class="markdownIt-Anchor" href="#122-docker的客户端-服务器架构"></a> 1.2.2. Docker的客户端-服务器架构</h4>
+<p>Docker客户端具有与本地或远程的Docker主机进行通信的能力。</p>
+<p>在一个系统上，Docker客户端和Docker守护进程可以同时运行，或者Docker客户端可以连接到远程的Docker守护进程进行操作。同时，Docker守护进程也能与其他守护进程进行交互，以共同管理Docker服务。</p>
+<p>Docker利用注册表来存储和分发镜像。这些注册表可以是公开的，如Docker Hub，也可以是私有的。注册表的托管位置可以由第三方供应商提供，或者在私有数据中心或云环境中自我托管。</p>
+<p>将镜像推送到注册表的过程如下：</p>
+<ol>
+<li>开发人员首先构建镜像，然后将其推送到注册表。这个过程可以手动执行，也可以通过自动化构建管道实现。在这个过程中，Docker将这些镜像存储在注册表中</li>
+<li>之后，本地计算机、云系统或其他本地系统就可以从注册表中拉取这些镜像进行使用</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/b232.html">上一篇</a><a class="next" href="/posts/f90b.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/eb2a.html';
+var disqus_title = 'IBM全栈开发【6】：容器 &amp; Kubernetes和OpenShift简介';
+var disqus_url = 'https://cytrogen.github.io/posts/eb2a.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
