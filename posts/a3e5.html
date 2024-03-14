@@ -33,7 +33,7 @@
 <li>引号内的路径使用相对路径</li>
 </ol>
 </blockquote>
-<h2 id="python文件py"><a class="markdownIt-Anchor" href="#python文件py"></a> <a target="_blank" rel="noopener" href="http://xn--Python-n18ip45m.py">Python文件.py</a></h2>
+<h2 id="python文件"><a class="markdownIt-Anchor" href="#python文件"></a> Python文件</h2>
 <p>使用这段代码来批量合并ts文件：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ff = ffmpy3.FFmpeg(</span><br><span class="line">        inputs=&#123;<span class="string">f&#x27;file.txt&#x27;</span>: <span class="string">&#x27;-f concat&#x27;</span>&#125;,</span><br><span class="line">        outputs=&#123;<span class="string">f&#x27;文件名.mp4&#x27;</span>: <span class="string">&#x27;-c copy&#x27;</span>&#125;</span><br><span class="line">)</span><br><span class="line">ff.run()</span><br></pre></td></tr></table></figure>
 <p>上述代码相当于在终端中输入：</p>

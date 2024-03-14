@@ -1,10 +1,15 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PC通过Proxmox安装MacOS · 万圣节恶魔的领地</title><meta name="robots" content="noindex"><meta name="description" content="PC通过Proxmox安装MacOS - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PC通过Proxmox安装MacOS · 万圣节恶魔的领地</title><meta name="description" content="PC通过Proxmox安装MacOS - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
 </head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">PC通过Proxmox安装MacOS</h1><div class="post-info">2023/8/16</div><div class="post-content"><p>使用 Proxmox VE 在 PC 上安装 MacOS。</p>
 <span id="more"></span>
+<div class="danger">
+<p>我在这个文章<strong>还未写完</strong>的时候就<strong>鸽</strong>掉了MacOS的安装！</p>
+<p>该教程暂且只写到了安装Proxmox VE和安装MacOS 13.0 Ventura，并未对之后的操作进行详细说明。</p>
+<p>强烈建议不要根据这个教程来安装MacOS！</p>
+</div>
 <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
 <div class="danger">
 阅读该文章之前，你需要：
@@ -27,6 +32,9 @@
 </div>
 <center>————————</center>
 <h1 id="安装-proxmox-ve"><a class="markdownIt-Anchor" href="#安装-proxmox-ve"></a> 安装 Proxmox VE</h1>
+<div class="danger">
+<p>因为一些原因，安装Proxmox VE时截下来的图片都不见了，所以这段就只能用文字描述。</p>
+</div>
 <ol>
 <li>进入 <a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso">Proxmox VE 官网</a>，下载 Proxmox VE ISO Installer。</li>
 <li>使用 UltroISO 制作启动盘。</li>
@@ -144,7 +152,7 @@
 <p>点击左侧的节点 &gt; <strong>Shell</strong>。</p>
 <p><img src="/posts/deef/2_018.webp" alt><br>
 安装 MacOS 之前我们还需要再修改一些配置文件。在 Shell 中输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></table></figure>
 <p>进入该配置文件后，需要复制粘贴参数信息。</p>
 <ul>
 <li>如果你是英特尔处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu host,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
@@ -195,7 +203,10 @@
 <li>前往 <a target="_blank" rel="noopener" href="https://mackie100projects.altervista.org/opencore-configurator/">OpenCore Configurator 的网站</a>来安装 OpenCore Configurator。<br>
 下载后可以在右下角找到它的图标，开启。（可能需要进入系统设置的 Privacy &amp; Security 中打开，因为它既不是 App Store 里的应用，也不来自于已被识别的开发者）</li>
 </ol>
-<!-- flag of hidden posts --></div></article></div></main><footer><div class="paginator"></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+<div class="danger">
+<p>这个文章没写完的时候我就鸽了MacOS的安装，所以这个部分暂且不写、如果以后再捣鼓的话再补上。</p>
+</div>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/2abc.html">上一篇</a><a class="next" href="/posts/66e.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
 var disqus_identifier = 'posts/deef.html';
 var disqus_title = 'PC通过Proxmox安装MacOS';
 var disqus_url = 'https://cytrogen.github.io/posts/deef.html';
