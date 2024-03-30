@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PC通过Proxmox安装MacOS · 万圣节恶魔的领地</title><meta name="description" content="PC通过Proxmox安装MacOS - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">PC通过Proxmox安装MacOS</h1><div class="post-info">2023/8/16</div><div class="post-content"><p>使用 Proxmox VE 在 PC 上安装 MacOS。</p>
+<span id="more"></span>
+<div class="danger">
+<p>我在这个文章<strong>还未写完</strong>的时候就<strong>鸽</strong>掉了MacOS的安装！</p>
+<p>该教程暂且只写到了安装Proxmox VE和安装MacOS 13.0 Ventura，并未对之后的操作进行详细说明。</p>
+<p>强烈建议不要根据这个教程来安装MacOS！</p>
+</div>
+<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<div class="danger">
+阅读该文章之前，你需要：
+<ul>
+<li>有一个至少 1GB 以上的 USB</li>
+<li>有 UltroISO 或者类似的启动盘制作工具</li>
+<li>知道如何进入 BIOS 界面</li>
+<li>给要装上 Proxmox VE 的电脑连接上<strong>网线</strong>！<strong>不要</strong>无线连接！</li>
+<li>另外一台可以联网的电子设备，无线连也可以，这台不挑
+<ul>
+<li>建议在开始安装 Proxmox VE 之前就拿这台电子设备下载 MacOS ISO 文件。13GB 下载起来还是蛮花时间的。<a href="#MacOS">跳转到安装 MacOS？</a></li>
+</ul>
+</li>
+<li>清楚该文章的日期是 <strong>2023 年 8 月 16 日</strong>，且我安装的并非最新版本而是 <strong>7.4</strong>！
+<ul>
+<li>不装 8.0 的原因：安装 8.0 时卡在加载驱动无法继续，换成 7.4 后秒装好，真是醉了…</li>
+</ul>
+</li>
+</ul>
+</div>
+<center>————————</center>
+<h1 id="安装-proxmox-ve"><a class="markdownIt-Anchor" href="#安装-proxmox-ve"></a> 安装 Proxmox VE</h1>
+<div class="danger">
+<p>因为一些原因，安装Proxmox VE时截下来的图片都不见了，所以这段就只能用文字描述。</p>
+</div>
+<ol>
+<li>进入 <a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso">Proxmox VE 官网</a>，下载 Proxmox VE ISO Installer。</li>
+<li>使用 UltroISO 制作启动盘。</li>
+<li>重启电脑、进入 BIOS 界面。</li>
+<li>先进入 Advanced 界面，开启 Intel Virtualization Technology。</li>
+<li>电脑再次重启后进入 BIOS，在 Boot Menu 中通过 USB 启动。</li>
+<li>看到硕大的 PROXMOX 后，选择 <strong>Install Proxmox VE</strong>。</li>
+<li>安装结束后点击右下角的 <strong>I agree</strong>。</li>
+<li>接下来的界面中，需要按照自己的配置依次选择目标硬盘、国家地区、键盘布局、密码邮箱、网络管理、主机名、IP 地址、网关、DNS。绝大多数都可以默认跳过，故仅展示部分界面，<sub>才不是重装了太多次完全忘记拍下来了呢！</sub></li>
+<li>设置结束后等配置，配置结束后等电脑重启，电脑重启后会自动启动 Proxmox VE，放着不管即可。<br>
+之后 Proxmox VE 会显示一个地址。这个地址的一部分正是之前设置的 IP 地址。</li>
+<li>启动同互联网下的另一个电子设备，打开浏览器访问该地址。<br>
+<img src="/posts/deef/2_001.webp" alt><br>
+用户名是 <em>root</em>，密码则是先前我们设置的那个。<br>
+顺带一提 Proxmox VE 是有中文的。</li>
+<li>登陆成功。至此 Proxmox VE 安装好了。</li>
+</ol>
+<center>————————</center>
+<h1>安装 MacOS</h1>
+<div class="danger" id="MacOS">
+我测试安装的版本为 13.0 Ventura Beta。因此以下的设置无法保证对其他版本的 MacOS 同样有效。
+<p>你可以在<a target="_blank" rel="noopener" href="https://archive.org/details/macos-collection"> archive.org</a> 下载它或者其他版本。</p>
+</div>
+<ol>
+<li>
+<p>依旧是在另一台电子设备上。现在我们需要将 MacOS ISO 文件上传到 Proxmox VE。<br>
+打开节点的 local 存储空间后点击 <strong>ISO Images</strong> &gt; <strong>Upload</strong> &gt; 找到 MacOS ISO 文件 &gt; <strong>Upload</strong>。</p>
+<p><img src="/posts/deef/2_002.webp" alt><br>
+看到 <strong>TASK OK</strong> 就代表上传成功。</p>
+<p><img src="/posts/deef/2_003.webp" alt></p>
+</li>
+<li>
+<p>想要启动 MacOS，还需要从 GitHub 上安装一个工具：<a target="_blank" rel="noopener" href="https://github.com/thenickdude/KVM-Opencore">KVM-Opencore</a>。<br>
+直接进到 Release 并下载 <strong>OpenCore-v20.iso.gz</strong>（最新版本）。</p>
+<p><img src="/posts/deef/2_004.webp" alt></p>
+</li>
+<li>
+<p>解压该文件，获得崭新 ISO 文件一个。<br>
+使用和 MacOS ISO 文件一样的方法将其上传到 Proxmox VE。</p>
+<p><img src="/posts/deef/2_005.webp" alt></p>
+</li>
+<li>
+<p>上传完成后，点击页面右上角的 <strong>Create VM</strong>。<br>
+给该虚拟机随便取一个名字。</p>
+<p><img src="/posts/deef/2_006.webp" alt></p>
+</li>
+<li>
+<p>点击 OS 页面：</p>
+<ul>
+<li>在 ISO image 一栏选择 <strong>OpenCore-v20.iso</strong></li>
+<li>在 Type 一栏选择 <strong>Other</strong></li>
+</ul>
+<p><img src="/posts/deef/2_007.webp" alt></p>
+</li>
+<li>
+<p>点击 System 页面：</p>
+<ul>
+<li>在 Graphic card 一栏选择 <strong>VMware compatible</strong></li>
+<li>在 Machine 一栏选择 <strong>q35</strong></li>
+<li>在 BIOS 一栏选择 <strong>OVMF (UE5FI)</strong></li>
+<li>在 EFI Storage 一栏选择 <strong>local-lvm</strong></li>
+<li>取消勾选 <strong>Pre-Enroll keys</strong></li>
+<li>在 SCSI Controller 一栏选择 <strong>VirtIO SCSI</strong></li>
+</ul>
+<p><img src="/posts/deef/2_008.webp" alt></p>
+</li>
+<li>
+<p>点击 Disks 页面：</p>
+<ul>
+<li>在 Bus/Device 一栏选择 <strong>VirtIO Block</strong></li>
+<li>在 Disk size (GiB) 一栏输入 <strong>64</strong></li>
+<li>在 Cache 一栏选择 <strong>White back (unsafe)</strong></li>
+</ul>
+<p><img src="/posts/deef/2_009.webp" alt></p>
+</li>
+<li>
+<p>点击 CPU 页面：</p>
+<ul>
+<li>在 Cores 一栏根据你自己的配置输入核的数量（我输入了 4）</li>
+<li>在 Type 一栏选择 <strong>host</strong></li>
+</ul>
+<p><img src="/posts/deef/2_010.webp" alt></p>
+</li>
+<li>
+<p>点击 Memory 页面。至少也需要 4GB 的内存，我输入了 6GB。<br>
+<img src="/posts/deef/2_011.webp" alt></p>
+</li>
+<li>
+<p>点击 Network 页面：</p>
+<ul>
+<li>在 Model 一栏选择 <strong>VMWare vmxnet3</strong></li>
+</ul>
+<p><img src="/posts/deef/2_012.webp" alt></p>
+</li>
+<li>
+<p>最终创建虚拟机。<br>
+<img src="/posts/deef/2_013.webp" alt></p>
+</li>
+<li>
+<p>这时能在左侧看到我们的 Mac 虚拟机，点击后选择 <strong>Hardware</strong> &gt; <strong>Add</strong> &gt; <strong>CD/DVD Drive</strong>。<br>
+<img src="/posts/deef/2_014.webp" alt></p>
+<ul>
+<li>在 Storage 一栏中选择 <strong>local</strong></li>
+<li>在 ISO image 一栏中选择我们的 MacOS ISO 文件，然后点击 <strong>Add</strong></li>
+</ul>
+<p><img src="/posts/deef/2_015.webp" alt></p>
+</li>
+<li>
+<p>选择 <strong>Options</strong>，选中 <strong>Boot Order</strong> 后点击上方的 <strong>Edit</strong> 来修改虚拟机的 Boot 顺序。</p>
+<p><img src="/posts/deef/2_016.webp" alt><br>
+拖拽 OpenCore 的 ISO 到第一位，接着拖拽 MacOS ISO 到第二位。拖拽完后点击 <strong>OK</strong>。</p>
+<p><img src="/posts/deef/2_017.webp" alt></p>
+</li>
+<li>
+<p>点击左侧的节点 &gt; <strong>Shell</strong>。</p>
+<p><img src="/posts/deef/2_018.webp" alt><br>
+安装 MacOS 之前我们还需要再修改一些配置文件。在 Shell 中输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></table></figure>
+<p>进入该配置文件后，需要复制粘贴参数信息。</p>
+<ul>
+<li>如果你是英特尔处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu host,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+</li>
+<li>如果你是 AMD 处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu Haswell-noTSX,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我是英特尔处理器，复制粘贴完事。<br>
+接着将文件中出现的两条 <code>media=cdrom</code> 替换为 <code>cache=unsafe</code>。</p>
+<p><img src="/posts/deef/2_019.webp" alt></p>
+<p>按 <code>Ctrl+O</code> &gt; <code>Enter</code> 保存，接着按 <code>Ctrl+X</code> 退出。</p>
+</li>
+<li>
+<p>回到 Mac 虚拟机，点击右上方的 <strong>Start</strong> 启动虚拟机，然后选中左侧的 <strong>Console</strong>。</p>
+<p><img src="/posts/deef/2_020.webp" alt></p>
+<p>回车进入 UEFI Interface Shell，输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line">System\Library\CoreServices\Boot.efi</span><br></pre></td></tr></table></figure>
+<p><img src="/posts/deef/2_021.webp" alt></p>
+<p>熟悉的苹果图标出现！</p>
+<p><img src="/posts/deef/2_022.webp" alt></p>
+</li>
+<li>
+<p>点击 <strong>Disk Utility</strong>，找到 VirtIO Block 硬盘并点击 <strong>Erase</strong>。</p>
+<p><img src="/posts/deef/2_023.webp" alt><br>
+<img src="/posts/deef/2_024.webp" alt></p>
+<p>修改硬盘的名称，点击 <strong>Erase</strong>。</p>
+<p><img src="/posts/deef/2_025.webp" alt></p>
+</li>
+<li>
+<p>结束后左上角关闭 Disk Utility，接着点击 <strong>Install macOS Ventura</strong>。</p>
+<p><img src="/posts/deef/2_026.webp" alt></p>
+<p>同意协议后，选择我们刚才格式化的硬盘来安装。</p>
+<p><img src="/posts/deef/2_027.webp" alt></p>
+</li>
+<li>
+<p>回车继续安装，差不多要等半个小时左右。<br>
+期间可能会弹出多次下图的界面，回车就行。（我弹出了很多次……还重装了一遍…）</p>
+<p><img src="/posts/deef/2_028.webp" alt></p>
+</li>
+<li>
+<p>经过多次硬盘弹出洗礼，终于看到了代表着胜利的橘色！</p>
+<p><img src="/posts/deef/2_029.webp" alt></p>
+<p>之后的自行设置。</p>
+</li>
+</ol>
+<h1 id="安装-opencore-configurator"><a class="markdownIt-Anchor" href="#安装-opencore-configurator"></a> 安装 OpenCore Configurator</h1>
+<ol>
+<li>前往 <a target="_blank" rel="noopener" href="https://mackie100projects.altervista.org/opencore-configurator/">OpenCore Configurator 的网站</a>来安装 OpenCore Configurator。<br>
+下载后可以在右下角找到它的图标，开启。（可能需要进入系统设置的 Privacy &amp; Security 中打开，因为它既不是 App Store 里的应用，也不来自于已被识别的开发者）</li>
+</ol>
+<div class="danger">
+<p>这个文章没写完的时候我就鸽了MacOS的安装，所以这个部分暂且不写、如果以后再捣鼓的话再补上。</p>
+</div>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/2abc.html">上一篇</a><a class="next" href="/posts/66e.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/deef.html';
+var disqus_title = 'PC通过Proxmox安装MacOS';
+var disqus_url = 'https://cytrogen.github.io/posts/deef.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

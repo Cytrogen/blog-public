@@ -1,0 +1,517 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Hoka-bot功能列表 · 万圣节恶魔的领地</title><meta name="description" content="Hoka-bot功能列表 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hoka-bot功能列表</h1><div class="post-info">2022/8/17</div><div class="post-content"><p>欢迎使用 Hoka-bot ！</p>
+<p>该文档将列出 Hoka-bot （以下称 Hoka）的功能以及详细介绍。</p>
+<span id="more"></span>
+<div class="danger">
+<p>阅读前，需要：</p>
+<ul>
+<li>查看该文档的日期是否已经过时</li>
+</ul>
+</div>
+<center>————————</center>
+<h1 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 目录</h1>
+<ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a>
+<ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-hoka">如何使用 Hoka</a></li>
+<li><a href="#%E5%8A%9F%E8%83%BD%E7%AE%A1%E7%90%86">功能管理</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8">功能列表</a>
+<ul>
+<li><a href="#rauthman%E6%8F%92%E4%BB%B6%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8">rauthman插件功能列表</a></li>
+</ul>
+</li>
+</ul>
+<center>————————</center>
+<h1 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h1>
+<blockquote>
+<p>Hoka ，或称 <em>霍卡</em> ，是一个 QQ 群聊机器人。</p>
+<p><a target="_blank" rel="noopener" href="https://cytrogen.icu/2022/06/30/hoka-bot%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/">Hoka的部署教程</a>，看了或许能够更了解 Hoka 。</p>
+</blockquote>
+<h2 id="如何使用-hoka"><a class="markdownIt-Anchor" href="#如何使用-hoka"></a> 如何使用 Hoka</h2>
+<ul>
+<li>在 Hoka 所在的群聊中发送命令 <code>hoka help</code> ，能够得到帮助菜单插件的帮助</li>
+<li>发送命令 <code>hoka help list</code> ，能够得到 Hoka 现有的插件列表</li>
+</ul>
+<h2 id="功能管理"><a class="markdownIt-Anchor" href="#功能管理"></a> 功能管理</h2>
+<p>Hoka 的 <code>rauthman</code> 插件提供了插件授权管理的功能，也就是说， Hoka 的部分功能在管理员没有开启前是无法使用的。</p>
+<p>不受 <code>rauthman</code> 插件影响的插件有：</p>
+<ul>
+<li><code>help | 帮助菜单</code></li>
+<li><code>admin | 简易群管</code></li>
+<li><code>contact | 联系管理员</code></li>
+<li><code>eventdone | 好友申请</code></li>
+<li><code>read_60s | 60秒读世界</code></li>
+</ul>
+<p>而 <code>admin</code> 插件自有一套独立的权限系统，其权限系统仅对该插件的功能生效。</p>
+<center>————————</center>
+<h1 id="功能列表"><a class="markdownIt-Anchor" href="#功能列表"></a> 功能列表</h1>
+<details>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">插件名</th>
+<th style="text-align:center">功能</th>
+<th>命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">abbrrebly</td>
+<td style="text-align:center">缩写猜测</td>
+<td>缩写 &lt;文本&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">admin</td>
+<td style="text-align:center">简易群管</td>
+<td>群管初始化</td>
+<td>初始化该群聊</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>禁 &lt;@&gt; &lt;秒数&gt;</td>
+<td>禁言，0秒为解禁</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>解 &lt;@&gt;</td>
+<td>解禁</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>/all</td>
+<td>全体禁言</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>改 &lt;@&gt; &lt;群名片&gt;</td>
+<td>更改群名片</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>头衔 &lt;@&gt; &lt;头衔&gt;</td>
+<td>更改群头衔</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>删头衔</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>踢 &lt;@&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>黑 &lt;@&gt;</td>
+<td>拉黑</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>撤回</td>
+<td>需要回复信息</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>管理员+ / - &lt;@&gt;</td>
+<td>添加或移除管理员</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>查看词条</td>
+<td>查看本群加群自动审批的词条</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>词条+ / - &lt;文本&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>所有词条</td>
+<td>超级用户独占</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>指定词条+ / - &lt;群号&gt; &lt;词条&gt;</td>
+<td>超级用户独占</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>查看分管</td>
+<td>分管是可以接受加群处理结果消息的用户</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>所有分管</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>群管接收</td>
+<td>如关闭则审批结果不会发送给超级用户</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>分管+ / -</td>
+<td>添加或移除分群管理员</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>记录本群</td>
+<td>记录本群的聊天记录</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>停止记录本群</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>群词云</td>
+<td>生成该群的群词云</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>简单违禁词</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>严格违禁词</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>更新违禁词库</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>开关 &lt;功能名&gt;</td>
+<td>1. 管理、踢、禁、改、基础群管 <br> 2. 加群、审批、加群审批、自动审批 <br> 3. 词云、群词云、wordcloud <br> 4. 违禁词、违禁词检测</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>开关状态</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">bilibili_analysis</td>
+<td style="text-align:center">B站视频解析</td>
+<td>&lt;B站视频链接、小程序、BV号等&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">bilibili_cover</td>
+<td style="text-align:center">B站视频封面提取</td>
+<td>提取封面 &lt;视频链接、AV号、BV号&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">bilibili_viode</td>
+<td style="text-align:center">B站视频分享卡片</td>
+<td>&lt;B站视频ID&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">cataas</td>
+<td style="text-align:center">随机猫咪</td>
+<td>来点猫咪</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">contact</td>
+<td style="text-align:center">联系管理员</td>
+<td>hoka 私聊/contact &lt;文本&gt;</td>
+<td>发送私聊给超级用户； <br> 会取QQ号</td>
+</tr>
+<tr>
+<td style="text-align:center">ELF_RSS2</td>
+<td style="text-align:center">RSS订阅</td>
+<td>add/添加订阅/sub &lt;订阅名&gt; &lt;RSS地址&gt;</td>
+<td>RSS地址看<a target="_blank" rel="noopener" href="https://docs.rsshub.app/">这里</a></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>rsshub_add &lt;RSSHub路由名&gt; &lt;订阅名&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>deldy/删除订阅/drop &lt;订阅名&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>show_all/showall/select_all/selectall/所有订阅 &lt;关键词&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>show/查看订阅 &lt;订阅名&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>change/修改订阅/moddy &lt;订阅名&gt; &lt;属性&gt;=&lt;值&gt;</td>
+<td>属性表看<a target="_blank" rel="noopener" href="https://github.com/Quan666/ELF_RSS/blob/2.0/docs/2.0%20%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B.md#%E4%BF%AE%E6%94%B9%E8%AE%A2%E9%98%85">这里</a></td>
+</tr>
+<tr>
+<td style="text-align:center">eventdone</td>
+<td style="text-align:center">好友申请</td>
+<td></td>
+<td>超级用户独占</td>
+</tr>
+<tr>
+<td style="text-align:center">game</td>
+<td style="text-align:center">群组游戏</td>
+<td>装弹/轮盘 &lt;子弹&gt; &lt;金额&gt;</td>
+<td>开始一场轮盘游戏； <br> 子弹数必须大于0小于7</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>接受/拒绝</td>
+<td>接受或拒绝他人的轮盘邀请</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>开枪</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>结算</td>
+<td>跳过该次轮盘游戏，直接进到结算画面； <br> 发送该指令的人会自动算为输家</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>我的战绩</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>金币/胜场/败场/欧洲人/慈善家 排行</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 抽卡/十连</td>
+<td>抽卡一次花费100金币</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>卡池 &lt;星数&gt;/全部/UP</td>
+<td>查看卡池</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>我的背包</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>售卖 &lt;数量&gt; 个 &lt;星数&gt;星</td>
+<td>三星卡售价25金币； <br> 四星卡售价50金币； <br> 五星卡售价250金币； <br></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 签到</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 打工</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 找工作/职业 &lt;职业名&gt;</td>
+<td>职业：<br> 1. 爱豆 <br> 2. 传教士 <br> 3. 家庭教师 <br> 4. 皮条客</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 辞职</td>
+<td>一周仅能辞职一次</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>职业信息</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>我的职业</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">help</td>
+<td style="text-align:center">帮助菜单</td>
+<td>hoka help</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka help list</td>
+<td>查看全部插件</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka help &lt;插件名&gt;</td>
+<td>查看指定插件帮助菜单</td>
+</tr>
+<tr>
+<td style="text-align:center">logo</td>
+<td style="text-align:center">Logo制作</td>
+<td>hoka ph/phlogo &lt;左&gt; &lt;右&gt;</td>
+<td>PornHub风格Logo</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka yt/ytlogo &lt;左&gt; &lt;右&gt;</td>
+<td>YouTube风格Logo</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka 5000兆 &lt;左&gt; &lt;右&gt;</td>
+<td>5000兆风格Logo</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka douyin/dylogo &lt;文字&gt;</td>
+<td>抖音风格Logo</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka google/gglogo &lt;文字&gt;</td>
+<td>谷歌风格Logo</td>
+</tr>
+<tr>
+<td style="text-align:center">memes</td>
+<td style="text-align:center">表情包制作</td>
+<td>表情包制作</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td>hoka &lt;表情包名&gt; &lt;文字&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">read_60s</td>
+<td style="text-align:center">60秒读世界</td>
+<td></td>
+<td>需要联系管理员手动开启</td>
+</tr>
+<tr>
+<td style="text-align:center">setu</td>
+<td style="text-align:center">色卡查询</td>
+<td>setu &lt;张数&gt; <r18> &lt;关键词&gt;</r18></td>
+<td>r18需要管理员手动开启</td>
+</tr>
+<tr>
+<td style="text-align:center">withdraw</td>
+<td style="text-align:center">信息撤回</td>
+<td>bot撤回/withdraw &lt;倒数第x条信息&gt; <br> &lt;回复需要撤回的信息“bot撤回”&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</details>
+<h2 id="rauthman插件功能列表"><a class="markdownIt-Anchor" href="#rauthman插件功能列表"></a> rauthman插件功能列表</h2>
+<div class="danger">
+<p><strong>功能名</strong> 不同于 <strong>插件名</strong></p>
+</div>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>功能 开启/关闭 &lt;功能名&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>功能查询</td>
+<td>获取该群组已开启的功能</td>
+</tr>
+<tr>
+<td>功能全局查询</td>
+<td>获取Bot所有的功能</td>
+</tr>
+</tbody>
+</table>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/e48.html">上一篇</a><a class="next" href="/posts/3b.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/94b.html';
+var disqus_title = 'Hoka-bot功能列表';
+var disqus_url = 'https://cytrogen.github.io/posts/94b.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

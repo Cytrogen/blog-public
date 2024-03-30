@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux Desmume安装 · 万圣节恶魔的领地</title><meta name="description" content="Linux Desmume安装 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Linux Desmume安装</h1><div class="post-info">2022/8/1</div><div class="post-content"><p>该文档讲述了如何在Linux系统下安装最新版本的Desmume。</p>
+<span id="more"></span>
+<div class="danger">
+<p>开始阅读前，需要知道：</p>
+<ul>
+<li>Desmume是一个NDS模拟器</li>
+<li>NDS是任天堂在04年发售的便携式游戏机，具有双屏幕显示、触摸屏等功能或特色</li>
+<li>该文档搬运且汉化了<a target="_blank" rel="noopener" href="https://wiki.desmume.org/index.php?title=Installing_DeSmuME_from_source_on_Linux">Wiki</a>上的安装方法：用Git安装</li>
+</ul>
+</div>
+<center>————————</center>
+<h1 id="获取源码"><a class="markdownIt-Anchor" href="#获取源码"></a> 获取源码</h1>
+<h2 id="如果没有git"><a class="markdownIt-Anchor" href="#如果没有git"></a> 如果没有Git</h2>
+<ol>
+<li>进入Desmume的<a target="_blank" rel="noopener" href="https://github.com/TASVideos/desmume">GitHub仓库</a>。</li>
+<li>点击绿色的 <strong>Code</strong> 按钮，点击 <strong>Download ZIP</strong>。</li>
+<li>解压后备用。</li>
+</ol>
+<h2 id="反之有git"><a class="markdownIt-Anchor" href="#反之有git"></a> 反之有Git</h2>
+<ol>
+<li>打开终端，输入<code>git clone https://github.com/TASVideos/desmume</code></li>
+</ol>
+<center>————————</center>
+<h1 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h1>
+<ol>
+<li>打开终端，输入以下：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd desmume/desmume/src/frontend/posix</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>如果想使用offscreen mesa作为替补3D引擎，改用<code>./configure --enable-osmesa</code>。<br>
+如果想启用HUD显示，则用<code>./configure --enable-hud</code>。</p>
+<ol start="2">
+<li>安装成功，在终端中输入<code>desmume</code>或在应用中点击其图标即可开启。</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/3b.html">上一篇</a><a class="next" href="/posts/9b61.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/ec37.html';
+var disqus_title = 'Linux Desmume安装';
+var disqus_url = 'https://cytrogen.github.io/posts/ec37.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

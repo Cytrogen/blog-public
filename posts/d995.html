@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 使用Flask-Mail和Ionos邮箱发送邮件 · 万圣节恶魔的领地</title><meta name="description" content="使用Flask-Mail和Ionos邮箱发送邮件 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">使用Flask-Mail和Ionos邮箱发送邮件</h1><div class="post-info">2022/11/6</div><div class="post-content"><p>该文档讲述了如何使用Flask-Mail库和Ionos的邮箱来发送邮件。</p>
+<span id="more"></span>
+<div class="danger">
+开始阅读前，需要知道：
+<ul>
+<li>Flask 是一个使用 Python 编写的 Web 应用框架</li>
+<li>Flask-Mail 提供了接口以让 Web 应用程序向客户端发送邮件</li>
+<li>Flask 和 Flask-Mail 都可以使用 <code>pip install</code> 来安装</li>
+<li>Ionos 是一家网络托管公司，提供域名注册、SSL证书、电子邮件等服务</li>
+<li>Ionos 的电子邮件可在域名注册后获得</li>
+</ul>
+</div>
+<h1 id="配置flask-mail"><a class="markdownIt-Anchor" href="#配置flask-mail"></a> 配置Flask-Mail</h1>
+<blockquote>
+<p>请先确保你已经从 Ionos <strong>购买</strong> 了一个域名，且创建了一个邮箱。</p>
+</blockquote>
+<ol>
+<li>在 <strong><a target="_blank" rel="noopener" href="http://app.py">app.py</a></strong> 中输入以下几行进行配置。<br>
+Ionos 邮箱可在<a target="_blank" rel="noopener" href="https://my.ionos.com/email-overview"> Ionos 的邮箱概述</a>中找到。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">app.config[&#x27;MAIL_SERVER&#x27;] =&#x27;smtp.ionos.com&#x27;</span><br><span class="line">app.config[&#x27;MAIL_PORT&#x27;] = 587</span><br><span class="line">app.config[&#x27;MAIL_USERNAME&#x27;] = &#x27;你的Ionos邮箱&#x27;</span><br><span class="line">app.config[&#x27;MAIL_PASSWORD&#x27;] = &#x27;你的Ionos邮箱密码&#x27;</span><br><span class="line">app.config[&#x27;MAIL_USE_TLS&#x27;] = True</span><br><span class="line">app.config[&#x27;MAIL_USE_SSL&#x27;] = False</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置完毕后加上这行代码。<br>
+该行代码必须写在以上配置的后面，否则会出错。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">mail = Mail(app)</span><br></pre></td></tr></table></figure>
+<h1 id="发送邮件"><a class="markdownIt-Anchor" href="#发送邮件"></a> 发送邮件</h1>
+<ol>
+<li>导入 Flask-Mail 包。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">from flask_mail import Mail, Message</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>将 URL 与函数绑定。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    return &quot;Hey!&quot;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建 Message 实例和邮件内容。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">msg = Message(&quot;这里是主题&quot;,</span><br><span class="line">            sender=&quot;你的Ionos邮箱&quot;,</span><br><span class="line">            recipients=[&#x27;收件人的邮箱&#x27;])</span><br><span class="line"></span><br><span class="line">msg.body = &quot;这里是邮件内容&quot;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>使用 Mail 实例发送邮件。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">mail.send(msg)</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>整体代码如下。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># app.py</span><br><span class="line"></span><br><span class="line">@app.route(&#x27;/&#x27;)</span><br><span class="line">def index():</span><br><span class="line">    msg = Message(&quot;这里是主题&quot;,</span><br><span class="line">            sender=&quot;你的Ionos邮箱&quot;,</span><br><span class="line">            recipients=[&#x27;收件人的邮箱&#x27;])</span><br><span class="line">    msg.body = &quot;这里是邮件内容&quot;</span><br><span class="line">    mail.send(msg)</span><br><span class="line">    </span><br><span class="line">    return &quot;Hey!&quot;</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/a3e5.html">上一篇</a><a class="next" href="/posts/ad97.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/d995.html';
+var disqus_title = '使用Flask-Mail和Ionos邮箱发送邮件';
+var disqus_url = 'https://cytrogen.github.io/posts/d995.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
