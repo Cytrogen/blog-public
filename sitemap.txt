@@ -1,3 +1,6 @@
+https://cytrogen.github.io/posts/40b4.html
+https://cytrogen.github.io/posts/a039.html
+https://cytrogen.github.io/posts/41a5.html
 https://cytrogen.github.io/posts/3b97.html
 https://cytrogen.github.io/posts/ad97.html
 https://cytrogen.github.io/posts/875a.html
@@ -27,7 +30,6 @@ https://cytrogen.github.io/posts/c0fc.html
 https://cytrogen.github.io/posts/948f.html
 https://cytrogen.github.io/posts/bb3e.html
 https://cytrogen.github.io/posts/de2c.html
-https://cytrogen.github.io/posts/41a5.html
 https://cytrogen.github.io/posts/fed2.html
 https://cytrogen.github.io/posts/eb2a.html
 https://cytrogen.github.io/posts/d011.html
@@ -61,3 +63,6 @@ https://cytrogen.github.io/tags/%E6%95%B0%E5%AD%A6/
 https://cytrogen.github.io/tags/%E7%89%A9%E7%90%86/
 https://cytrogen.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/
 https://cytrogen.github.io/tags/CS50/
+https://cytrogen.github.io/tags/Pug/
+https://cytrogen.github.io/tags/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/
+https://cytrogen.github.io/categories/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/
