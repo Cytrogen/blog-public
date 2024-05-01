@@ -3,11 +3,11 @@
   <title>万圣节恶魔的领地</title>
   
   <subtitle>HalloweenDemon</subtitle>
-  <link href="https://cytrogen.github.io/atom.xml" rel="self"/>
+  <link href="https://cytrogen.icu/atom.xml" rel="self"/>
   
-  <link href="https://cytrogen.github.io/"/>
+  <link href="https://cytrogen.icu/"/>
   <updated>2024-03-06T20:05:47.465Z</updated>
-  <id>https://cytrogen.github.io/</id>
+  <id>https://cytrogen.icu/</id>
   
   <author>
     <name>Cytrogen</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>你踏入了万圣节恶魔的领地！</title>
-    <link href="https://cytrogen.github.io/posts/b232.html"/>
-    <id>https://cytrogen.github.io/posts/b232.html</id>
+    <link href="https://cytrogen.icu/posts/b232.html"/>
+    <id>https://cytrogen.icu/posts/b232.html</id>
     <published>2050-11-12T16:45:14.000Z</published>
     <updated>2024-03-06T20:05:47.465Z</updated>
     
@@ -41,8 +41,8 @@
   
   <entry>
     <title>React + NestJS + Socket.io项目实践【2】：JWT验证</title>
-    <link href="https://cytrogen.github.io/posts/40b4.html"/>
-    <id>https://cytrogen.github.io/posts/40b4.html</id>
+    <link href="https://cytrogen.icu/posts/40b4.html"/>
+    <id>https://cytrogen.icu/posts/40b4.html</id>
     <published>2024-04-28T04:25:50.000Z</published>
     <updated>2024-05-01T19:54:30.477Z</updated>
     
@@ -58,8 +58,8 @@
   
   <entry>
     <title>Pug学习笔记</title>
-    <link href="https://cytrogen.github.io/posts/a039.html"/>
-    <id>https://cytrogen.github.io/posts/a039.html</id>
+    <link href="https://cytrogen.icu/posts/a039.html"/>
+    <id>https://cytrogen.icu/posts/a039.html</id>
     <published>2024-04-03T03:05:28.000Z</published>
     <updated>2024-05-01T19:54:30.546Z</updated>
     
@@ -70,19 +70,19 @@
     
     
     
-    <category term="编程笔记" scheme="https://cytrogen.github.io/categories/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    <category term="编程笔记" scheme="https://cytrogen.icu/categories/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="Pug" scheme="https://cytrogen.github.io/tags/Pug/"/>
+    <category term="Pug" scheme="https://cytrogen.icu/tags/Pug/"/>
     
-    <category term="编程笔记" scheme="https://cytrogen.github.io/tags/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    <category term="编程笔记" scheme="https://cytrogen.icu/tags/%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>React + NestJS + Socket.io项目实践【1】：从Express迁移</title>
-    <link href="https://cytrogen.github.io/posts/3b97.html"/>
-    <id>https://cytrogen.github.io/posts/3b97.html</id>
+    <link href="https://cytrogen.icu/posts/3b97.html"/>
+    <id>https://cytrogen.icu/posts/3b97.html</id>
     <published>2024-03-30T04:06:13.000Z</published>
     <updated>2024-05-01T19:54:30.478Z</updated>
     
@@ -99,8 +99,8 @@
   
   <entry>
     <title>MTH 2207笔记</title>
-    <link href="https://cytrogen.github.io/posts/2537.html"/>
-    <id>https://cytrogen.github.io/posts/2537.html</id>
+    <link href="https://cytrogen.icu/posts/2537.html"/>
+    <id>https://cytrogen.icu/posts/2537.html</id>
     <published>2024-03-14T03:55:28.000Z</published>
     <updated>2024-05-01T19:54:30.543Z</updated>
     
@@ -112,18 +112,18 @@
     
     
     
-    <category term="大学笔记" scheme="https://cytrogen.github.io/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="大学笔记" scheme="https://cytrogen.icu/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="微积分" scheme="https://cytrogen.github.io/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/"/>
+    <category term="微积分" scheme="https://cytrogen.icu/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/"/>
     
-    <category term="数学" scheme="https://cytrogen.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="数学" scheme="https://cytrogen.icu/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>IBM全栈开发【6】：容器 &amp; Kubernetes和OpenShift简介</title>
-    <link href="https://cytrogen.github.io/posts/eb2a.html"/>
-    <id>https://cytrogen.github.io/posts/eb2a.html</id>
+    <link href="https://cytrogen.icu/posts/eb2a.html"/>
+    <id>https://cytrogen.icu/posts/eb2a.html</id>
     <published>2024-03-12T02:48:00.000Z</published>
     <updated>2024-05-01T19:54:30.475Z</updated>
     
@@ -139,8 +139,8 @@
   
   <entry>
     <title>MTH 2207笔记</title>
-    <link href="https://cytrogen.github.io/posts/f90b.html"/>
-    <id>https://cytrogen.github.io/posts/f90b.html</id>
+    <link href="https://cytrogen.icu/posts/f90b.html"/>
+    <id>https://cytrogen.icu/posts/f90b.html</id>
     <published>2024-03-07T04:30:19.000Z</published>
     <updated>2024-03-07T22:27:17.722Z</updated>
     
@@ -152,8 +152,8 @@
   
   <entry>
     <title>PHY 2002笔记</title>
-    <link href="https://cytrogen.github.io/posts/3875.html"/>
-    <id>https://cytrogen.github.io/posts/3875.html</id>
+    <link href="https://cytrogen.icu/posts/3875.html"/>
+    <id>https://cytrogen.icu/posts/3875.html</id>
     <published>2024-03-06T04:05:28.000Z</published>
     <updated>2024-05-01T19:54:30.545Z</updated>
     
@@ -165,16 +165,16 @@
     
     
     
-    <category term="大学笔记" scheme="https://cytrogen.github.io/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="大学笔记" scheme="https://cytrogen.icu/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="物理" scheme="https://cytrogen.github.io/tags/%E7%89%A9%E7%90%86/"/>
+    <category term="物理" scheme="https://cytrogen.icu/tags/%E7%89%A9%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>Docker实践：构建React和Express项目</title>
-    <link href="https://cytrogen.github.io/posts/de2c.html"/>
-    <id>https://cytrogen.github.io/posts/de2c.html</id>
+    <link href="https://cytrogen.icu/posts/de2c.html"/>
+    <id>https://cytrogen.icu/posts/de2c.html</id>
     <published>2024-03-01T06:11:13.000Z</published>
     <updated>2024-03-06T20:05:47.227Z</updated>
     
@@ -190,8 +190,8 @@
   
   <entry>
     <title>React的Markdown渲染</title>
-    <link href="https://cytrogen.github.io/posts/c0fc.html"/>
-    <id>https://cytrogen.github.io/posts/c0fc.html</id>
+    <link href="https://cytrogen.icu/posts/c0fc.html"/>
+    <id>https://cytrogen.icu/posts/c0fc.html</id>
     <published>2024-02-21T04:11:13.000Z</published>
     <updated>2024-03-06T20:05:47.232Z</updated>
     
@@ -208,8 +208,8 @@
   
   <entry>
     <title>React的Textarea高度自适应</title>
-    <link href="https://cytrogen.github.io/posts/14d5.html"/>
-    <id>https://cytrogen.github.io/posts/14d5.html</id>
+    <link href="https://cytrogen.icu/posts/14d5.html"/>
+    <id>https://cytrogen.icu/posts/14d5.html</id>
     <published>2024-02-20T04:11:13.000Z</published>
     <updated>2024-03-06T20:05:47.237Z</updated>
     
@@ -226,8 +226,8 @@
   
   <entry>
     <title>React + Express + Socket.io之间的实时通信【2】：注册登录</title>
-    <link href="https://cytrogen.github.io/posts/bb3e.html"/>
-    <id>https://cytrogen.github.io/posts/bb3e.html</id>
+    <link href="https://cytrogen.icu/posts/bb3e.html"/>
+    <id>https://cytrogen.icu/posts/bb3e.html</id>
     <published>2024-02-19T05:06:13.000Z</published>
     <updated>2024-03-06T20:05:47.229Z</updated>
     
@@ -245,8 +245,8 @@
   
   <entry>
     <title>React + Express + Socket.io之间的实时通信【1】：简单连接</title>
-    <link href="https://cytrogen.github.io/posts/948f.html"/>
-    <id>https://cytrogen.github.io/posts/948f.html</id>
+    <link href="https://cytrogen.icu/posts/948f.html"/>
+    <id>https://cytrogen.icu/posts/948f.html</id>
     <published>2024-01-22T05:06:13.000Z</published>
     <updated>2024-03-06T20:05:47.228Z</updated>
     
@@ -263,8 +263,8 @@
   
   <entry>
     <title>IBM全栈开发【5】：Node.js &amp; Express创建后端</title>
-    <link href="https://cytrogen.github.io/posts/fed2.html"/>
-    <id>https://cytrogen.github.io/posts/fed2.html</id>
+    <link href="https://cytrogen.icu/posts/fed2.html"/>
+    <id>https://cytrogen.icu/posts/fed2.html</id>
     <published>2024-01-21T05:26:13.000Z</published>
     <updated>2024-03-06T20:05:47.205Z</updated>
     
@@ -280,8 +280,8 @@
   
   <entry>
     <title>IBM全栈开发【4】：React创建前端应用</title>
-    <link href="https://cytrogen.github.io/posts/d011.html"/>
-    <id>https://cytrogen.github.io/posts/d011.html</id>
+    <link href="https://cytrogen.icu/posts/d011.html"/>
+    <id>https://cytrogen.icu/posts/d011.html</id>
     <published>2024-01-18T05:40:13.000Z</published>
     <updated>2024-03-06T20:05:47.203Z</updated>
     
@@ -297,8 +297,8 @@
   
   <entry>
     <title>IBM全栈开发【3】：云原生+开发运维+Agile+NoSQL</title>
-    <link href="https://cytrogen.github.io/posts/d62.html"/>
-    <id>https://cytrogen.github.io/posts/d62.html</id>
+    <link href="https://cytrogen.icu/posts/d62.html"/>
+    <id>https://cytrogen.icu/posts/d62.html</id>
     <published>2024-01-10T16:22:41.000Z</published>
     <updated>2024-03-06T20:05:47.202Z</updated>
     
@@ -314,8 +314,8 @@
   
   <entry>
     <title>IBM全栈开发【2】：网页三剑客</title>
-    <link href="https://cytrogen.github.io/posts/3571.html"/>
-    <id>https://cytrogen.github.io/posts/3571.html</id>
+    <link href="https://cytrogen.icu/posts/3571.html"/>
+    <id>https://cytrogen.icu/posts/3571.html</id>
     <published>2024-01-09T21:32:04.000Z</published>
     <updated>2024-03-06T20:05:47.201Z</updated>
     
@@ -331,8 +331,8 @@
   
   <entry>
     <title>IBM全栈开发【1】：云计算</title>
-    <link href="https://cytrogen.github.io/posts/2f6a.html"/>
-    <id>https://cytrogen.github.io/posts/2f6a.html</id>
+    <link href="https://cytrogen.icu/posts/2f6a.html"/>
+    <id>https://cytrogen.icu/posts/2f6a.html</id>
     <published>2024-01-09T21:30:20.000Z</published>
     <updated>2024-03-06T20:05:47.200Z</updated>
     
@@ -348,8 +348,8 @@
   
   <entry>
     <title>JS逆向网易云音乐</title>
-    <link href="https://cytrogen.github.io/posts/f8ce.html"/>
-    <id>https://cytrogen.github.io/posts/f8ce.html</id>
+    <link href="https://cytrogen.icu/posts/f8ce.html"/>
+    <id>https://cytrogen.icu/posts/f8ce.html</id>
     <published>2023-11-27T21:00:57.000Z</published>
     <updated>2024-05-01T19:54:30.486Z</updated>
     
@@ -361,20 +361,20 @@
     
     
     
-    <category term="Python" scheme="https://cytrogen.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://cytrogen.icu/tags/Python/"/>
     
-    <category term="JavaScript" scheme="https://cytrogen.github.io/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://cytrogen.icu/tags/JavaScript/"/>
     
-    <category term="编程教程" scheme="https://cytrogen.github.io/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
+    <category term="编程教程" scheme="https://cytrogen.icu/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
     
-    <category term="逆向" scheme="https://cytrogen.github.io/tags/%E9%80%86%E5%90%91/"/>
+    <category term="逆向" scheme="https://cytrogen.icu/tags/%E9%80%86%E5%90%91/"/>
     
   </entry>
   
   <entry>
     <title>JS逆向有道翻译&amp;wxPython制作便宜翻译器</title>
-    <link href="https://cytrogen.github.io/posts/a4b5.html"/>
-    <id>https://cytrogen.github.io/posts/a4b5.html</id>
+    <link href="https://cytrogen.icu/posts/a4b5.html"/>
+    <id>https://cytrogen.icu/posts/a4b5.html</id>
     <published>2023-10-29T22:28:10.792Z</published>
     <updated>2024-05-01T19:54:30.484Z</updated>
     
@@ -386,20 +386,20 @@
     
     
     
-    <category term="Python" scheme="https://cytrogen.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://cytrogen.icu/tags/Python/"/>
     
-    <category term="JavaScript" scheme="https://cytrogen.github.io/tags/JavaScript/"/>
+    <category term="JavaScript" scheme="https://cytrogen.icu/tags/JavaScript/"/>
     
-    <category term="编程教程" scheme="https://cytrogen.github.io/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
+    <category term="编程教程" scheme="https://cytrogen.icu/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
     
-    <category term="逆向" scheme="https://cytrogen.github.io/tags/%E9%80%86%E5%90%91/"/>
+    <category term="逆向" scheme="https://cytrogen.icu/tags/%E9%80%86%E5%90%91/"/>
     
   </entry>
   
   <entry>
     <title>STA 2000笔记</title>
-    <link href="https://cytrogen.github.io/posts/875a.html"/>
-    <id>https://cytrogen.github.io/posts/875a.html</id>
+    <link href="https://cytrogen.icu/posts/875a.html"/>
+    <id>https://cytrogen.icu/posts/875a.html</id>
     <published>2023-10-17T06:24:26.000Z</published>
     <updated>2024-05-01T19:54:30.548Z</updated>
     
@@ -411,18 +411,18 @@
     
     
     
-    <category term="大学笔记" scheme="https://cytrogen.github.io/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="大学笔记" scheme="https://cytrogen.icu/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="数学" scheme="https://cytrogen.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    <category term="数学" scheme="https://cytrogen.icu/tags/%E6%95%B0%E5%AD%A6/"/>
     
-    <category term="统计学" scheme="https://cytrogen.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
+    <category term="统计学" scheme="https://cytrogen.icu/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/"/>
     
   </entry>
   
   <entry>
     <title>ECO 1001笔记</title>
-    <link href="https://cytrogen.github.io/posts/9e71.html"/>
-    <id>https://cytrogen.github.io/posts/9e71.html</id>
+    <link href="https://cytrogen.icu/posts/9e71.html"/>
+    <id>https://cytrogen.icu/posts/9e71.html</id>
     <published>2023-10-17T06:21:26.000Z</published>
     <updated>2024-05-01T19:54:30.540Z</updated>
     
@@ -434,16 +434,16 @@
     
     
     
-    <category term="微观经济学" scheme="https://cytrogen.github.io/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
+    <category term="微观经济学" scheme="https://cytrogen.icu/tags/%E5%BE%AE%E8%A7%82%E7%BB%8F%E6%B5%8E%E5%AD%A6/"/>
     
-    <category term="大学笔记" scheme="https://cytrogen.github.io/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
+    <category term="大学笔记" scheme="https://cytrogen.icu/tags/%E5%A4%A7%E5%AD%A6%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>CS50AI Python 笔记</title>
-    <link href="https://cytrogen.github.io/posts/d235.html"/>
-    <id>https://cytrogen.github.io/posts/d235.html</id>
+    <link href="https://cytrogen.icu/posts/d235.html"/>
+    <id>https://cytrogen.icu/posts/d235.html</id>
     <published>2023-09-05T14:00:00.000Z</published>
     <updated>2024-05-01T19:54:30.538Z</updated>
     
@@ -455,16 +455,16 @@
     
     
     
-    <category term="Python" scheme="https://cytrogen.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://cytrogen.icu/tags/Python/"/>
     
-    <category term="其他笔记" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
+    <category term="其他笔记" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>在云服务器上搭建Nostr中继器</title>
-    <link href="https://cytrogen.github.io/posts/2abc.html"/>
-    <id>https://cytrogen.github.io/posts/2abc.html</id>
+    <link href="https://cytrogen.icu/posts/2abc.html"/>
+    <id>https://cytrogen.icu/posts/2abc.html</id>
     <published>2023-08-23T17:49:11.000Z</published>
     <updated>2024-05-01T19:54:30.528Z</updated>
     
@@ -480,8 +480,8 @@
   
   <entry>
     <title>PC通过Proxmox安装MacOS</title>
-    <link href="https://cytrogen.github.io/posts/deef.html"/>
-    <id>https://cytrogen.github.io/posts/deef.html</id>
+    <link href="https://cytrogen.icu/posts/deef.html"/>
+    <id>https://cytrogen.icu/posts/deef.html</id>
     <published>2023-08-17T01:15:00.000Z</published>
     <updated>2024-05-01T19:54:30.525Z</updated>
     
@@ -493,14 +493,14 @@
     
     
     
-    <category term="其他教程" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
+    <category term="其他教程" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>BUFFALO LinkStation Pro Duo【1】初步设置</title>
-    <link href="https://cytrogen.github.io/posts/66e.html"/>
-    <id>https://cytrogen.github.io/posts/66e.html</id>
+    <link href="https://cytrogen.icu/posts/66e.html"/>
+    <id>https://cytrogen.icu/posts/66e.html</id>
     <published>2023-07-27T23:40:26.000Z</published>
     <updated>2024-05-01T19:54:30.480Z</updated>
     
@@ -512,16 +512,16 @@
     
     
     
-    <category term="其他教程" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
+    <category term="其他教程" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
     
-    <category term="NAS" scheme="https://cytrogen.github.io/tags/NAS/"/>
+    <category term="NAS" scheme="https://cytrogen.icu/tags/NAS/"/>
     
   </entry>
   
   <entry>
     <title>树莓派Pico通过有源蜂鸣器播放音频</title>
-    <link href="https://cytrogen.github.io/posts/ba6a.html"/>
-    <id>https://cytrogen.github.io/posts/ba6a.html</id>
+    <link href="https://cytrogen.icu/posts/ba6a.html"/>
+    <id>https://cytrogen.icu/posts/ba6a.html</id>
     <published>2023-05-15T22:49:48.000Z</published>
     <updated>2024-03-06T20:05:47.468Z</updated>
     
@@ -537,8 +537,8 @@
   
   <entry>
     <title>DiskGenius分配空闲空间至C盘</title>
-    <link href="https://cytrogen.github.io/posts/cf92.html"/>
-    <id>https://cytrogen.github.io/posts/cf92.html</id>
+    <link href="https://cytrogen.icu/posts/cf92.html"/>
+    <id>https://cytrogen.icu/posts/cf92.html</id>
     <published>2023-04-20T00:37:26.000Z</published>
     <updated>2024-05-01T19:54:30.482Z</updated>
     
@@ -550,14 +550,14 @@
     
     
     
-    <category term="其他教程" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
+    <category term="其他教程" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>GPT-3 API笔记</title>
-    <link href="https://cytrogen.github.io/posts/40b3.html"/>
-    <id>https://cytrogen.github.io/posts/40b3.html</id>
+    <link href="https://cytrogen.icu/posts/40b3.html"/>
+    <id>https://cytrogen.icu/posts/40b3.html</id>
     <published>2023-03-09T19:02:26.000Z</published>
     <updated>2024-05-01T19:54:30.541Z</updated>
     
@@ -569,14 +569,14 @@
     
     
     
-    <category term="其他笔记" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
+    <category term="其他笔记" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>Bot Framework SDK学习日志</title>
-    <link href="https://cytrogen.github.io/posts/60db.html"/>
-    <id>https://cytrogen.github.io/posts/60db.html</id>
+    <link href="https://cytrogen.icu/posts/60db.html"/>
+    <id>https://cytrogen.icu/posts/60db.html</id>
     <published>2023-03-07T18:28:26.000Z</published>
     <updated>2024-05-01T19:54:30.535Z</updated>
     
@@ -588,16 +588,16 @@
     
     
     
-    <category term="Python" scheme="https://cytrogen.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://cytrogen.icu/tags/Python/"/>
     
-    <category term="其他笔记" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
+    <category term="其他笔记" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>通过Docker在移动端使用VSCode</title>
-    <link href="https://cytrogen.github.io/posts/891a.html"/>
-    <id>https://cytrogen.github.io/posts/891a.html</id>
+    <link href="https://cytrogen.icu/posts/891a.html"/>
+    <id>https://cytrogen.icu/posts/891a.html</id>
     <published>2023-01-26T23:49:48.000Z</published>
     <updated>2024-03-06T20:05:47.822Z</updated>
     
@@ -613,8 +613,8 @@
   
   <entry>
     <title>ffmpy3批量合并ts文件</title>
-    <link href="https://cytrogen.github.io/posts/a3e5.html"/>
-    <id>https://cytrogen.github.io/posts/a3e5.html</id>
+    <link href="https://cytrogen.icu/posts/a3e5.html"/>
+    <id>https://cytrogen.icu/posts/a3e5.html</id>
     <published>2023-01-21T01:37:26.000Z</published>
     <updated>2024-05-01T19:54:30.527Z</updated>
     
@@ -626,16 +626,16 @@
     
     
     
-    <category term="Python" scheme="https://cytrogen.github.io/tags/Python/"/>
+    <category term="Python" scheme="https://cytrogen.icu/tags/Python/"/>
     
-    <category term="编程教程" scheme="https://cytrogen.github.io/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
+    <category term="编程教程" scheme="https://cytrogen.icu/tags/%E7%BC%96%E7%A8%8B%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>使用Flask-Mail和Ionos邮箱发送邮件</title>
-    <link href="https://cytrogen.github.io/posts/d995.html"/>
-    <id>https://cytrogen.github.io/posts/d995.html</id>
+    <link href="https://cytrogen.icu/posts/d995.html"/>
+    <id>https://cytrogen.icu/posts/d995.html</id>
     <published>2022-11-06T18:49:48.000Z</published>
     <updated>2024-03-06T20:05:47.465Z</updated>
     
@@ -651,8 +651,8 @@
   
   <entry>
     <title>Speller笔记</title>
-    <link href="https://cytrogen.github.io/posts/ad97.html"/>
-    <id>https://cytrogen.github.io/posts/ad97.html</id>
+    <link href="https://cytrogen.icu/posts/ad97.html"/>
+    <id>https://cytrogen.icu/posts/ad97.html</id>
     <published>2022-10-04T17:28:26.000Z</published>
     <updated>2024-05-01T19:54:30.550Z</updated>
     
@@ -664,16 +664,16 @@
     
     
     
-    <category term="CS50" scheme="https://cytrogen.github.io/tags/CS50/"/>
+    <category term="CS50" scheme="https://cytrogen.icu/tags/CS50/"/>
     
-    <category term="其他笔记" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
+    <category term="其他笔记" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   
   <entry>
     <title>AP计算机科学原理课笔记</title>
-    <link href="https://cytrogen.github.io/posts/ebfb.html"/>
-    <id>https://cytrogen.github.io/posts/ebfb.html</id>
+    <link href="https://cytrogen.icu/posts/ebfb.html"/>
+    <id>https://cytrogen.icu/posts/ebfb.html</id>
     <published>2022-10-03T18:02:26.000Z</published>
     <updated>2024-05-01T19:54:30.533Z</updated>
     
@@ -685,18 +685,18 @@
     
     
     
-    <category term="高中笔记" scheme="https://cytrogen.github.io/tags/%E9%AB%98%E4%B8%AD%E7%AC%94%E8%AE%B0/"/>
+    <category term="高中笔记" scheme="https://cytrogen.icu/tags/%E9%AB%98%E4%B8%AD%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="AP课程" scheme="https://cytrogen.github.io/tags/AP%E8%AF%BE%E7%A8%8B/"/>
+    <category term="AP课程" scheme="https://cytrogen.icu/tags/AP%E8%AF%BE%E7%A8%8B/"/>
     
-    <category term="计算机科学原理" scheme="https://cytrogen.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E5%8E%9F%E7%90%86/"/>
+    <category term="计算机科学原理" scheme="https://cytrogen.icu/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E5%8E%9F%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>AP政治课笔记</title>
-    <link href="https://cytrogen.github.io/posts/e48.html"/>
-    <id>https://cytrogen.github.io/posts/e48.html</id>
+    <link href="https://cytrogen.icu/posts/e48.html"/>
+    <id>https://cytrogen.icu/posts/e48.html</id>
     <published>2022-10-01T03:24:26.000Z</published>
     <updated>2024-05-01T19:54:30.531Z</updated>
     
@@ -708,18 +708,18 @@
     
     
     
-    <category term="高中笔记" scheme="https://cytrogen.github.io/tags/%E9%AB%98%E4%B8%AD%E7%AC%94%E8%AE%B0/"/>
+    <category term="高中笔记" scheme="https://cytrogen.icu/tags/%E9%AB%98%E4%B8%AD%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="政治" scheme="https://cytrogen.github.io/tags/%E6%94%BF%E6%B2%BB/"/>
+    <category term="政治" scheme="https://cytrogen.icu/tags/%E6%94%BF%E6%B2%BB/"/>
     
-    <category term="AP课程" scheme="https://cytrogen.github.io/tags/AP%E8%AF%BE%E7%A8%8B/"/>
+    <category term="AP课程" scheme="https://cytrogen.icu/tags/AP%E8%AF%BE%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Hoka-bot功能列表</title>
-    <link href="https://cytrogen.github.io/posts/94b.html"/>
-    <id>https://cytrogen.github.io/posts/94b.html</id>
+    <link href="https://cytrogen.icu/posts/94b.html"/>
+    <id>https://cytrogen.icu/posts/94b.html</id>
     <published>2022-08-17T18:32:04.000Z</published>
     <updated>2024-03-06T20:05:47.190Z</updated>
     
@@ -732,16 +732,16 @@
     
     
     
-    <category term="Hoka-bot" scheme="https://cytrogen.github.io/tags/Hoka-bot/"/>
+    <category term="Hoka-bot" scheme="https://cytrogen.icu/tags/Hoka-bot/"/>
     
-    <category term="Nonebot" scheme="https://cytrogen.github.io/tags/Nonebot/"/>
+    <category term="Nonebot" scheme="https://cytrogen.icu/tags/Nonebot/"/>
     
   </entry>
   
   <entry>
     <title>学术评估测验-总结</title>
-    <link href="https://cytrogen.github.io/posts/3b.html"/>
-    <id>https://cytrogen.github.io/posts/3b.html</id>
+    <link href="https://cytrogen.icu/posts/3b.html"/>
+    <id>https://cytrogen.icu/posts/3b.html</id>
     <published>2022-08-15T22:47:18.000Z</published>
     <updated>2024-03-06T20:05:47.240Z</updated>
     
@@ -754,16 +754,16 @@
     
     
     
-    <category term="笔记" scheme="https://cytrogen.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    <category term="笔记" scheme="https://cytrogen.icu/tags/%E7%AC%94%E8%AE%B0/"/>
     
-    <category term="SAT" scheme="https://cytrogen.github.io/tags/SAT/"/>
+    <category term="SAT" scheme="https://cytrogen.icu/tags/SAT/"/>
     
   </entry>
   
   <entry>
     <title>Linux Desmume安装</title>
-    <link href="https://cytrogen.github.io/posts/ec37.html"/>
-    <id>https://cytrogen.github.io/posts/ec37.html</id>
+    <link href="https://cytrogen.icu/posts/ec37.html"/>
+    <id>https://cytrogen.icu/posts/ec37.html</id>
     <published>2022-08-02T00:37:26.000Z</published>
     <updated>2024-05-01T19:54:30.488Z</updated>
     
@@ -775,16 +775,16 @@
     
     
     
-    <category term="Linux" scheme="https://cytrogen.github.io/tags/Linux/"/>
+    <category term="Linux" scheme="https://cytrogen.icu/tags/Linux/"/>
     
-    <category term="其他教程" scheme="https://cytrogen.github.io/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
+    <category term="其他教程" scheme="https://cytrogen.icu/tags/%E5%85%B6%E4%BB%96%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Hoka-bot部署教程</title>
-    <link href="https://cytrogen.github.io/posts/9b61.html"/>
-    <id>https://cytrogen.github.io/posts/9b61.html</id>
+    <link href="https://cytrogen.icu/posts/9b61.html"/>
+    <id>https://cytrogen.icu/posts/9b61.html</id>
     <published>2022-06-30T15:04:02.000Z</published>
     <updated>2024-03-06T20:05:47.191Z</updated>
     
@@ -796,35 +796,18 @@
     
     
     
-    <category term="Hoka-bot" scheme="https://cytrogen.github.io/tags/Hoka-bot/"/>
+    <category term="Hoka-bot" scheme="https://cytrogen.icu/tags/Hoka-bot/"/>
     
-    <category term="Nonebot" scheme="https://cytrogen.github.io/tags/Nonebot/"/>
+    <category term="Nonebot" scheme="https://cytrogen.icu/tags/Nonebot/"/>
     
-    <category term="教程" scheme="https://cytrogen.github.io/tags/%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nonebot beta1教程</title>
-    <link href="https://cytrogen.github.io/posts/41a5.html"/>
-    <id>https://cytrogen.github.io/posts/41a5.html</id>
-    <published>2022-02-02T01:46:02.000Z</published>
-    <updated>2024-03-06T20:05:47.206Z</updated>
-    
-    <content type="html"><![CDATA[<div class="post-content"><p>Nonebot2在更新到beta1版本后许多地方和alpha16版本有许多差异，包括但不限于适配器、依赖的更改。</p><span id="more"></span><p><img src="/posts/41a5/Nonebot.png" alt="Nonebot2"></p><center>Nonebot2是Python聊天机器人框架，目前仅支持 Python 3.7.3 以上的版本</center><div class="danger">开始本教程前，需要知道该教程：<ul><li>Python版本 ≥ 3.7</li><li>基于Windows 10版本（Win11也可以但我只能说快逃）</li><li>使用了pip用于安装</li><li>使用了脚手架nb-cli</li><li>使用了onebot.v11适配器</li></ul></div><h1 id="创建项目之前"><a href="#创建项目之前" class="headerlink" title="创建项目之前"></a>创建项目之前</h1><p>在创建机器人项目前需要安装：</p><ul><li><a href="#%E4%B8%8B%E8%BD%BDPython">Python</a></li><li><a href="#%E5%AE%89%E8%A3%85pip">pip</a></li><li><a href="#%E5%AE%89%E8%A3%85nb-cli">nb-cli</a></li><li><a href="#%E4%B8%8B%E8%BD%BDgo-cqhttp">go-cqhttp</a></li></ul><p>而这些都会讲到，已经安装过了的建议<a href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE">空降</a>。</p><center>————————</center><h2 id="下载Python"><a href="#下载Python" class="headerlink" title="下载Python"></a>下载Python</h2><ol><li><p>进入<a target="_blank" rel="noopener" href="https://www.python.org/downloads/windows/">Python官网</a>。</p></li><li><p>选择3.7.3版本以上的进行下载。</p></li></ol><p><img src="/posts/41a5/python.png" alt="python 3.9.9"></p><ol start="3"><li><p>我的Python版本是3.9.9，选择上图中的 <strong>Windows installer (64-bit)</strong> 进行下载。</p></li><li><p>下载完成后点进 <strong>python-3.9.9-amd64.exe</strong>，勾选 <strong>Add Python 3.9 to PATH</strong> 后点击 <strong>Install Now</strong>。<br>当然，你也可以自定义路径，但一定要勾选PATH。</p></li></ol><p><img src="/posts/41a5/python_version.png" alt="python --version"></p><ol start="5"><li>等待下载……<br>下载完毕后开个CMD输入 <code>python --version</code>，出现 <code>Python 3.9.9</code> 就代表能用了。</li></ol><center>————————</center><h2 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h2><p>pip是Python包管理工具，用来下载Python的包。</p><ol><li>进入<a target="_blank" rel="noopener" href="https://pypi.org/project/pip/">PyPI</a>，选择最新版本的pip。</li></ol><p><img src="/posts/41a5/pip.png" alt="pip"></p><ol start="2"><li>选择 Download Files，下载 pip-22.0.2.tar.gz 进行解压。</li></ol><p><img src="/posts/41a5/pip_com.png" alt="pip解压"></p><ol start="3"><li><p>解压后进入文件夹内，右键空白处打开CMD，输入 <code>python setup.py install</code></p></li><li><p>等待安装……<br>安装完成后开个CMD输入 <code>pip --version</code>，出现 <code>pip 22.0.2 from 路径……</code> 时就代表能用了。</p></li></ol><center>————————</center><h2 id="安装nb-cli"><a href="#安装nb-cli" class="headerlink" title="安装nb-cli"></a>安装nb-cli</h2><p>Nonebot2提供了相当便利的工具nb-cli，安装它也会直接安装nonebot 2.0.0-beta1。</p><ol><li><p>开个CMD输入 <code>pip install nb-cli</code></p></li><li><p>出现 <code>Successfully installed nb-cli……</code> 就代表pip安装nb-cli成功了。</p></li></ol><center>————————</center><h2 id="下载go-cqhttp"><a href="#下载go-cqhttp" class="headerlink" title="下载go-cqhttp"></a>下载go-cqhttp</h2><p>做机器人只有Nonebot2是不足够的，Nonebot2仅能做到处理机器人上报的事件。<br>机器人的实际工作流程为：</p><ol><li><strong>协议端</strong> 上报数据给 <strong>后端驱动</strong>；</li><li><strong>后端驱动</strong> 将原始数据转交给 <strong>协议适配</strong> 处理；</li><li><strong>协议适配</strong>，或称为bot，将数据转化为event转交给Nonebot2；</li><li>Nonebot2处理event。</li></ol><p>很显然，我们只有处理event的Nonebot2。<br>获取数据的工作便交到了go-cqhttp身上：它相当于你的另一个QQ，接收到信息后便转交到Nonebot2手上等着处理完和发送。</p><ol><li>进入<a target="_blank" rel="noopener" href="https://github.com/Mrs4s/go-cqhttp/releases">go-cqhttp仓库</a>，下载最新版本的releases。</li></ol><p><img src="gocqhttp.png" alt="cqhttp"></p><ol start="2"><li>选择 <strong>go-cqhttp_windows_amd64.exe</strong> 进行下载和备用。</li></ol><p>—</p><center>————————</center><p></p><h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><p>现在该下的都下载完了，是时候创建机器人项目了：</p><ol><li><a href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE">新建项目</a></li><li><a href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE">配置项目</a></li><li><a href="#%E7%94%A8%E4%B8%8B%E6%9C%BA%E5%99%A8%E4%BA%BA">用下机器人</a></li></ol><center>————————</center><h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><ol><li><p>新建一个文件夹，右键打开CMD，输入 <code>nb create</code>。</p></li><li><p><code>Project Name:</code>，输入你想给你机器人取的名字。</p></li><li><p><code>Where to store the plugin?</code>，这意味着机器人插件的存放路径，建议选择 <code>In a "src" folder</code>。</p></li><li><p><code>Which builtin plugin(s)……巴拉巴拉</code>，这就是在问你你的机器人要不要Nonebot2内嵌的插件，建议只选择 <code>echo</code> 插件。</p></li></ol><p><img src="/posts/41a5/echo.png" alt="echo"></p><center><font size="2.5">需要注意的是，选择内嵌插件时要按下空格再回车继续。</font></center><ol start="5"><li><p><code>Which adapter(s)……巴拉巴拉</code>，选择你想要的协议适配，这里要选择 <code>OneBot V11</code>，别忘了空格再回车。</p></li><li><p>期间会进行适配器等的安装，结束后你的文件夹内便会出现机器人名字的文件夹，差不多长这样：</p><pre><code>机器人名字├── src│   └── plugins├── .env├── .env.dev├── .env.prod├── .gitignore├── bot.py├── docker-compose.yml├── Dockerfile├── pyproject.toml└── README.md</code></pre></li></ol><ul><li><code>src/plugins</code> 为Nonebot2插件存放处，插件则是Nonebot2的核心，可以实现模块化、功能扩展等</li><li><code>.env.*</code> 等文件是项目的配置文件，内存有变量<code>ENVIRONMENT</code>，是Nonebot2启动时就会寻找的系统环境变量</li><li><code>.gitignore</code>，如果不上传到git仓库的话可以无视</li><li><code>bot.py</code> 是是启动Nonebot2时默认的入口文件</li><li><code>pyproject.toml</code> 是项目插件配置文件</li><li><code>Dockerfile</code> 和 <code>docker-compose.yml</code> 皆为Docker镜像配置文件</li></ul><center>————————</center><h2 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h2><p><code>.env</code> 文件是基础的环境配置文件，不管是什么环境都会被加载，不过还是会被 <code>.env.&#123;环境&#125;</code> 文件所覆盖。</p><p>而环境有：</p><ul><li>开发环境 development或dev</li><li>生产环境 production或prod<br>等等等等，就不一一列举了。</li></ul><ol><li><p>打开 <code>.env</code> 文件写入：<code>ENVIRONMENT=dev</code>。<br>开发环境将会报告错误日志，这也会将环境变量的加载导向 <code>.env.dev</code> 文件。</p></li><li><p>打开 <code>.env.dev</code> 文件，写入以下配置：</p><pre><code>HOST=127.0.0.1PORT=xxxxSUPERUSERS=["xxxxx"]NICKNAME=["xxx"]COMMAND_START=["/",""]COMMAND_SEP=["x"]</code></pre></li></ol><ul><li>其中，<code>HOST</code>为Nonebot2监听的IP/主机名</li><li><code>PORT</code>为监听的端口，这里可以随意选择一个四位数</li><li><code>SUPERUSERS</code>为超级用户，后面会说作用。值是一个QQ号，建议使用大号</li><li><code>NICKNAME</code>为机器人的昵称</li><li><code>COMMAND_START</code>为命令起始字符，后面会说作用，这里先用”/“</li><li><code>COMMAND_SEP</code>为命令分割字符</li></ul><ol start="3"><li><p>第2步完成后对Nonebot2的基础配置就完成了，但我们还未配置go-cqhttp。<br>再新建一个文件夹，里边存放我们之前下载的 <strong>go-cqhttp_windows_amd64.exe</strong>，同时我建议将该exe文件重命名为 <strong>go-cqhttp.exe</strong>。</p></li><li><p>新建一个 <code>config.yml</code> 文件，作为go-cqhttp的配置文件。</p></li></ol><ul><li>配置信息前往<a target="_blank" rel="noopener" href="https://docs.go-cqhttp.org/guide/config.html#%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF">go-cqhttp文档</a>内进行复制粘贴</li><li><code>servers</code> 下面选择 <code>ws-reverse</code>，如下图</li></ul><p><img src="/posts/41a5/wsreverse.png" alt="ws-reverse"></p><ol start="5"><li>修改配置信息：</li></ol><ul><li><code>account</code> 下的 <code>uin</code> 需要填写机器人所用的QQ账号</li><li><code>password</code> 需要填写QQ账号的密码</li><li><code>servers</code> 下的 <code>port</code> 需要填写配置Nonebot2时填写的四位数PORT</li></ul><ol start="6"><li>启动go-cqhttp.exe。百分百会弹出生成.bat文件的窗口，直接关闭后会发现文件夹内多出了一个 <strong>go-cqhttp.bat</strong>，以后启动go-cqhttp都需要用到这个文件。<br>启动后go-cqhttp会进行登录，出现 <code>[INFO]: アトリは、高性能ですから!</code> 时便是登陆成功，要开始连接到Nonebot2了。<br>因为我们Nonebot2还未开启，此时的go-cqhttp只会一直弹出黄色的连接失败。</li></ol><center>————————</center><h2 id="用下机器人"><a href="#用下机器人" class="headerlink" title="用下机器人"></a>用下机器人</h2><p>一切准备成功，机器人已经可以使用了！</p><p>使用机器人时，Nonebot2和go-cqhttp都需要 <strong>一直开启</strong>。对于不想长期开着电脑的小伙伴，建议使用云服务器。</p><ol><li><p>打开存放 <strong>bot.py</strong> 的文件夹，右键开启CMD，输入 <code>nb run</code>。</p></li><li><p>打开存放 <strong>go-cqhttp.bat</strong> 的文件夹，左键打开。</p></li><li><p>等待第1步的CMD出现了</p><pre><code>[INFO] nonebot | OneBot V11 | Bot QQ账号 connected[INFO] websockets | connection open</code></pre><p>便意味着机器人可以使用了。</p></li><li><p>快马加鞭通过大号给机器人账号发送 <code>/echo 喵</code><br><img src="/posts/41a5/echomeow.png" alt="echo"></p><center><font size="2.5">这边是因为我的机器人命令起始字符为"hoka"，你也可以修改成自己喜欢的</font></center></li><li><p>机器人一旦复读了，便真正的代表着，你成功的搭建了一个QQ机器人。<br><del>好了，现在新手教程结束了，来试试这些插件吧.jpg</del></p></li></ol><center>————————</center><h1 id="深入插件"><a href="#深入插件" class="headerlink" title="深入插件"></a>深入插件</h1><p>咳咳，恭喜你获得了一个刚出生的QQ机器人！但它九年义务教育还未完成……<br>对于一个功能完善的机器人而言，<strong>完善的插件系统</strong> 是不可缺少的。</p><p>我们接下来的才是Nonebot2的重头戏：<strong>插件讲解</strong>。</p><ul><li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%92%E4%BB%B6">什么是插件</a></li><li><a href="#%E5%88%9B%E5%BB%BA%E6%8F%92%E4%BB%B6">创建插件</a></li><li><a href="#%E7%94%A8%E5%88%AB%E4%BA%BA%E7%9A%84%E6%8F%92%E4%BB%B6">用别人的插件</a></li><li><a href="#%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94%E5%99%A8">事件响应器</a></li><li><a href="#%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">处理流程</a></li><li><a href="#%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B">插件实例</a></li></ul><center>————————</center><h2 id="什么是插件"><a href="#什么是插件" class="headerlink" title="什么是插件"></a>什么是插件</h2><p>仔细读的都知道，插件是Nonebot2的核心。插件既可以是一个模块，也可以是一个包。<br>插件的存放路径是 <code>src/plugins</code>，在这个路径下，任何 <strong>.py文件</strong> 或 <strong>有__init__.py文件的文件夹</strong> 都算为插件。</p><div class="danger">插件名称不可以重复。</div><p>多说不如少做，瞅一眼<a href="#%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B">插件实例</a>，说不定能够更理解插件的用处。</p><center>————————</center><h2 id="创建插件"><a href="#创建插件" class="headerlink" title="创建插件"></a>创建插件</h2><ol><li><p>在机器人文件夹里右键开启CMD，输入 <code>nb plugin create</code>。</p></li><li><p><code>Project Name:</code>，输入插件的名称</p></li><li><p><code>Where to store the plugin?</code>，自处是询问插件存放的路径，选择 <code>src/plugins</code> 即可。</p></li><li><p><code>Do you want to load……巴拉巴拉</code>。如果你想在你创建的这个插件里再套娃一个插件，就选 <code>y</code>；反之就 <code>n</code>。正常都是不用套娃。</p></li><li><p>没了，你的插件创建完成噜。<br>进入 <code>src/plugins</code> 里边，就能看到插件名称的文件夹，里边分别躺着 <strong><strong>init</strong>.py</strong> 和 <strong>config.py</strong> 文件。<br>前者用于编写插件内容，相当于插件的入口文件；后者则是插件的配置文件。</p></li></ol><p><del>其实直接在文件夹内新建也可以，就提一嘴。</del></p><center>————————</center><h2 id="用别人的插件"><a href="#用别人的插件" class="headerlink" title="用别人的插件"></a>用别人的插件</h2><p><em>要是自己代码写不明白，岂不是永远都没法整一个机器人了？</em></p><p><strong>没有的事</strong>。Nonebot2具有一个专属的<a target="_blank" rel="noopener" href="https://v2.nonebot.dev/store">商店</a>，其包含了开源的</p><ul><li>驱动器</li><li>适配器</li><li>插件</li><li>机器人</li></ul><p>使用他人的插件很简易，方法也多，就是别忘了用了后给他们一个 <strong>STAR</strong>~</p><center>......</center><p><strong>pip安装法：</strong></p><p><img src="/posts/41a5/docs.png" alt="docs"></p><ol><li><p>举例：NoneBot离线文档【nonebot_plugin_docs】<br>这个插件在加载后会输出一个可以 <strong>离线打开</strong> 的Nonebot2网址。</p></li><li><p>开个CMD，输入 <code>pip install nonebot_plugin_docs</code></p></li><li><p>等待安装完成……</p></li></ol><p><img src="/posts/41a5/bot.png" alt="bot.py"></p><ol start="4"><li><p>来到机器人文件夹下的 <strong>bot.py</strong>，找到上图这个位置。<br><code>nonebot.load_builtin_plugins("echo")</code> 意思便是Nonebot2加载了内嵌的echo插件，也就是我们之前试用机器人时用的echo功能。<br><code>nonebot.load_from_toml("pyproject.toml")</code> 加载了配置内插件存放路径下所有的插件，也就是 <code>src/plugins</code>。<br>实际上，插件的加载也有前后之分。按照上图的顺序来说，机器人启动时都会事先加载echo插件，其次才是 <code>src/plugins</code> 下的插件。</p></li><li><p>按照你想要的顺序，在 <strong>bot.py</strong> 里加入 <code>nonebot.load_plugin("nonebot_plugin_docs")</code><br>注意，一定要是 <code>_</code>，而不是<code>-</code>。</p></li><li><p>启动机器人，加载插件时应当会出现一句 <code>[INFO] nonebot_plugin_docs | Nonebot docs will be running at: http://localhost:端口/website/</code><br>有了便是加载成功，没有也没关系，必定会有一大串红红绿绿的错误日志等待着你。回头看看哪里疏漏，修复了就成。</p></li></ol><center>......</center><p><strong>脚手架安装法：</strong></p><p><img src="/posts/41a5/apscheduler.png" alt="apscheduler"></p><ol><li><p>举例：定时任务【nonebot_plugin_apscheduler】<br>该插件为定时任务插件，使用方式见<a target="_blank" rel="noopener" href="https://github.com/nonebot/plugin-apscheduler">其仓库</a>。</p></li><li><p>进入有 <strong>pyproject.toml</strong> 的机器人文件夹内，右键开启CMD，输入 <code>nb plugin install nonebot_plugin_apscheduler</code></p></li></ol><p><img src="/posts/41a5/pyproject.png" alt="pyproject"></p><ol start="3"><li>等待安装完成……<br>完成后便能在 <strong>pyproject.toml</strong> 里面发现多了一句 <code>plugins = ["nonebot_plugin_apscheduler"]</code><br>要是没有也没关系，还是那句话，一大串错误日志等待着你。看看哪里出了问题，修复了就成。</li></ol><center>......</center><p><strong>Github下载法：</strong></p><p><img src="/posts/41a5/withdraw.png" alt="withdraw"></p><ol><li>这个法子的好处是可以自行修改源代码，不过手要勤奋点了。<br>Github账号如何注册这里就不写了。<del>喂明明连Python怎么安装都写了</del><br>举例：Nonebot2 消息撤回插件【nonebot_plugin_withdraw】</li></ol><p><img src="/posts/41a5/download.png" alt="download"></p><ol start="2"><li>进入<a target="_blank" rel="noopener" href="https://github.com/MeetWq/nonebot-plugin-withdraw">其仓库</a>，找到上图这个地方，选择 Download ZIP。</li></ol><p><img src="/posts/41a5/zip.png" alt="zip"></p><ol start="3"><li><p>单单解压上图选中的这个文件夹在你的 <code>src/plugins</code> 下。<br>解压时如果出现同名文件夹套文件夹，将被套的文件夹移上一级即可。</p></li><li><p>启动机器人，出现 <code>[SUCCESS] nonebot | Succeeded to import "nonebot_plugin_withdraw"</code> 这句便代表成功力。<br>没有的话，错误日志.jpg</p></li><li><p><del>如果文件不是很多的话，可以直接复制粘贴文件内容。</del></p></li></ol><center>————————</center><h2 id="事件响应器"><a href="#事件响应器" class="headerlink" title="事件响应器"></a>事件响应器</h2><p>事件响应器，或Matcher，是响应接收到的事件的单元。</p><p>多说不如少做，我们来写一个 <strong>接收到“hi”这个词时就作出响应</strong> 的事件响应器吧。</p><ol><li><p>定义辅助函数即可在插件内创建事件响应器。<br>不过事先我们得从nonebot主模块里导出辅助函数。</p></li><li><p>按照上边的教程，随便建立一个插件，进入其 <strong><strong>init</strong>.py</strong> 文件，写入 <code>from nonebot import on_command</code><br><code>on_command</code> 就是这里我们要用的辅助函数，它会创建命令消息事件响应器。<br>因为我们要在接收到“hi”时就有响应，“hi”就是这里的命令消息。</p></li><li><p>写入 <code>from nonebot.permission import SUPERUSER</code><br>该步骤实际为可选，SUPERUSER我们在上边配置.env文件时有提到过，即超级用户。<br>在Nonebot2中，超级用户就像是QQ群聊中的管理员，享受着高贵的特权。<br>被设置了超级用户权限的事件响应器 <strong>只会</strong> 对超级用户账号作出响应。</p></li></ol><p><img src="/posts/41a5/hi.png" alt="hi"></p><ol start="3"><li>写入 <code>matcher = on_command("hi", permission=SUPERUSER, priority=10)</code><br><code>matcher</code> 在这里是事件响应器的名称，<strong>可以随便取</strong>，就是在同个文件里不能重名。<br><code>"hi"</code> 指定了“hi”为命令消息，只有在接收到命令消息时机器人才会响应。<br><code>permission=SUPERUSER</code> 设置了超级用户权限，只有在超级用户发送“hi”时机器人才会响应。<br><code>priority=10</code> 定义了该事件响应器的优先级。优先级数字越小越先响应，以1开始。<strong>可以不填</strong>，这边提一嘴。</li></ol><p>和优先级一样可选的变量还有：匹配规则、阻断等等。<br>辅助函数大全可见<a target="_blank" rel="noopener" href="https://v2.nonebot.dev/docs/tutorial/plugin/create-matcher#%E5%88%9B%E5%BB%BA%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94%E5%99%A8">官方网址</a>。</p><p>不过现在只是建立了一个 <strong>可以响应</strong> 的事件响应器，处理流程还没写呢。</p><center>————————</center><h2 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h2><p>事件的处理流程由处理依赖组成，即 <strong>Dependent</strong>。<br>而装饰器能够装饰一个函数，让其自动转换为Dependent对象并加入事件响应器的处理流程中。</p><p>装饰器分为：</p><ul><li>handle；最基本的装饰器</li><li>receive；在handle的基础上会中断当前事件处理流程，并等待一个新的事件</li><li>got；和receive相似但用于接收消息，贴近于对话形式会话</li></ul><p>由于我们的例子是 <strong>接收到“hi”这个词时就作出响应</strong>，这里用handle装饰器即可。</p><ol><li><p>在事件响应器下面写入 <code>@matcher.handle()</code><br><code>matcher</code> 依旧是事件响应器的名称。<br>这里的handle为装饰器。</p></li><li><p>写入 <code>async def func():</code><br>我们定义了一个名为func的函数，而在handle装饰器下，func函数已经变成了Dependent对象。</p></li></ol><p><img src="/posts/41a5/await.png" alt="await"></p><ol start="3"><li>在QQ里面，我们要如何才能知道发了“hi”后，机器人到底有没有作出响应？<br>我的建议是让机器人也发送什么，比如“喵”。<br>在func函数内写入 <code>await matcher.send("喵")</code>，即这个名为matcher的事件响应器响应后发送了“喵”。</li></ol><p>到这里，处理流程也写好了，不过还是缺些什么才能作为一个可运作的插件。</p><center>————————</center><h2 id="插件实例"><a href="#插件实例" class="headerlink" title="插件实例"></a>插件实例</h2><p>虽然处理流程写出模子来了，但问题也来了：这么写是 <strong>没法获取上下文信息</strong> 的。<br>获取上下文信息的重点就在func函数里，该函数需要从Onebot.11适配器里导出的 <code>Bot</code> 参数。</p><ol><li><p>分别添加 <code>from nonebot.params import State</code><br><code>from nonebot.typing import T_State</code><br><code>from nonebot.adapters.onebot.v11 import Bot, Event</code></p></li><li><p>在func函数括号内添加 <code>bot: Bot, event: Event, state: T_State = State()</code><br>对于更多的参数，见<a target="_blank" rel="noopener" href="https://v2.nonebot.dev/docs/tutorial/plugin/create-handler#%E8%8E%B7%E5%8F%96%E4%B8%8A%E4%B8%8B%E6%96%87%E4%BF%A1%E6%81%AF">官方网址</a>。</p></li><li><p><code>Bot</code> 基类用于处理上报消息、提供API调用接口。<br><code>Event</code> 基类提供了关键信息的方法，如获取事件消息内容。<br><code>T_State</code> 表明了该事件处理状态为State类型。<br><code>State</code> 则是Nonebot2 beta1版本新添的依赖，<code>T_State</code> 必须要陪着一个 <code>State</code>。<br>对于我们的例子来说，除了 <code>Bot</code> 实际都是可选项，只是提一嘴。</p></li></ol><p><img src="/posts/41a5/awaitbot.png" alt="test_plugin"></p><p>上图便是一个小型插件的完整样貌。<br>启动机器人，快马加鞭使用大号向机器人账号发送“hi”，便会收获一个你自己写出来的<del>猫咪女仆</del>聊天机器人。</p><center>————————</center><h1 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h1><p>感谢看完！</p><p>个人对Nonebot2的理解不是非常透彻，码来码去也只是码了一个创建聊天机器人的基础教程。想必通篇下来错误也不少，哪里有问题建议直接爆破我。</p><p>也许抽空会把聊天机器人的其他东西给码码？当然，我说的是也许。<del>鸽了</del></p><p><a href="tencent://message/?uin=3363863549">电脑添加</a>或<a target="_blank" rel="noopener" href="https://qm.qq.com/cgi-bin/qm/qr?k=qH4PLqLopECKw9jVGVMOlsQqB3V6vImx&amp;noverify=0#">手机添加</a>我自己的机器人Hoka-Bot<del>，臭不要脸来宣传噜</del>。</p><center>————————</center><h1 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h1><ul><li><p><a target="_blank" rel="noopener" href="https://github.com/nonebot/nonebot2">Nonebot2</a>，本文核心。</p></li><li><p><a target="_blank" rel="noopener" href="https://github.com/Mrs4s/go-cqhttp">go-cqhttp</a>，本文另一个核心。</p></li><li><p><a target="_blank" rel="noopener" href="https://github.com/nonebot/nonebot2/tree/master/packages/nonebot-plugin-docs">nonebot-plugin-docs</a></p></li><li><p><a target="_blank" rel="noopener" href="https://github.com/nonebot/nonebot2/tree/master/packages/nonebot-plugin-docs">nonebot-plugin-apscheduler</a></p></li><li><p><a target="_blank" rel="noopener" href="https://github.com/MeetWq/nonebot-plugin-withdraw">nonebot-plugin-withdraw</a></p></li></ul><center>————————</center><h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><h2 id="02-04："><a href="#02-04：" class="headerlink" title="02/04："></a>02/04：</h2><ul><li>添加了超级用户、触发权限的描述</li><li>添加了event、state的简单描述</li><li>添加了手机QQ添加Hoka-Bot的超级链接</li></ul></div>]]></content>
-    
-    
-    <summary type="html">&lt;div class=&quot;post-content&quot;&gt;&lt;p&gt;Nonebot2在更新到beta1版本后许多地方和alpha16版本有许多差异，包括但不限于适配器、依赖的更改。&lt;/p&gt;&lt;/div&gt;</summary>
-    
-    
-    
+    <category term="教程" scheme="https://cytrogen.icu/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title>Nonebot beta1教程</title>
-    <link href="https://cytrogen.github.io/posts/41a5.html"/>
-    <id>https://cytrogen.github.io/posts/41a5.html</id>
+    <link href="https://cytrogen.icu/posts/41a5.html"/>
+    <id>https://cytrogen.icu/posts/41a5.html</id>
     <published>2022-02-02T01:46:02.000Z</published>
     <updated>2024-05-01T19:54:30.490Z</updated>
     
@@ -836,9 +819,9 @@
     
     
     
-    <category term="Nonebot" scheme="https://cytrogen.github.io/tags/Nonebot/"/>
+    <category term="Nonebot" scheme="https://cytrogen.icu/tags/Nonebot/"/>
     
-    <category term="教程" scheme="https://cytrogen.github.io/tags/%E6%95%99%E7%A8%8B/"/>
+    <category term="教程" scheme="https://cytrogen.icu/tags/%E6%95%99%E7%A8%8B/"/>
     
   </entry>
   
