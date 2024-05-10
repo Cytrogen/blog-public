@@ -266,6 +266,51 @@
 <li>适合用于生产环境</li>
 <li>调试和故障排除较为困难</li>
 </ul>
+<h1 id="3-使用kubernetes管理应用"><a class="markdownIt-Anchor" href="#3-使用kubernetes管理应用"></a> 3. 使用Kubernetes管理应用</h1>
+<h2 id="31-replicaset"><a class="markdownIt-Anchor" href="#31-replicaset"></a> 3.1. ReplicaSet</h2>
+<p>ReplicaSet是Kubernetes中的一个控制器，它确保指定数量的Pod副本在任何时间都是可用的。ReplicaSet使用标签选择器来选择一组Pod，并确保这些Pod的副本数量与指定的数量一致。</p>
+<p>ReplicaSet总是尝试将指定数量的Pod副本保持在运行状态。如果有Pod失败，ReplicaSet会自动创建新的Pod副本来替换它。如果有Pod副本数量超过指定数量，ReplicaSet会自动删除多余的Pod副本。</p>
+<h2 id="32-自动扩展器"><a class="markdownIt-Anchor" href="#32-自动扩展器"></a> 3.2. 自动扩展器</h2>
+<p>Kubernetes中的自动扩展器（Autoscaler）是一个控制器，它根据CPU利用率或自定义指标自动调整Pod的副本数量。</p>
+<ol>
+<li>
+<p>水平自动扩展器（Horizontal Pod Autoscaler，HPA）根据CPU利用率自动调整Pod的副本数量。</p>
+</li>
+<li>
+<p>垂直自动扩展器（Vertical Pod Autoscaler，VPA）根据内存利用率自动调整Pod的资源请求和限制。</p>
+</li>
+<li>
+<p>集群自动扩展器（Cluster Autoscaler）根据节点资源利用率自动调整节点的数量。</p>
+</li>
+</ol>
+<h2 id="33-滚动更新"><a class="markdownIt-Anchor" href="#33-滚动更新"></a> 3.3. 滚动更新</h2>
+<p>滚动更新是指在不中断服务的情况下，逐步更新Pod的副本。滚动更新可以确保应用程序在更新过程中保持可用性。</p>
+<p>滚动更新有两种策略：滚动更新和重启更新。滚动更新是逐步替换旧的Pod副本，而重启更新是一次性重启所有的Pod副本。</p>
+<h2 id="34-configmaps"><a class="markdownIt-Anchor" href="#34-configmaps"></a> 3.4. ConfigMaps</h2>
+<p>ConfigMaps是Kubernetes中的一种对象，它用于存储配置数据。ConfigMaps可以存储任意类型的配置数据，如环境变量、配置文件、命令行参数等。</p>
+<p>ConfigMaps可以通过两种方式使用：直接注入到Pod中，或者通过卷挂载到Pod中。</p>
+<p>这些配置数据可以在Pod中使用，以便应用程序可以访问它们。</p>
+<h2 id="35-secrets"><a class="markdownIt-Anchor" href="#35-secrets"></a> 3.5. Secrets</h2>
+<p>Secrets相对于ConfigMaps，它是一种更安全的存储机制，用于存储敏感数据，如密码、密钥、证书等。</p>
+<h1 id="4-kubernetes生态系统openshift-istio等"><a class="markdownIt-Anchor" href="#4-kubernetes生态系统openshift-istio等"></a> 4. Kubernetes生态系统：OpenShift、Istio等</h1>
+<h2 id="41-red-hat-openshift"><a class="markdownIt-Anchor" href="#41-red-hat-openshift"></a> 4.1. Red Hat OpenShift</h2>
+<p>Kubernetes和OpenShift都是容器编排平台，后者是专门为开放式混合云端构建的企业级Kubernetes容器平台。</p>
+<p>OpenShift运行在Kubernetes集群上，对象数据被存储在etcd中，使用Kubernetes API进行通信。OpenShift提供了一些额外的功能，如构建、部署、监控、日志记录、安全性、网络、存储、服务发现、负载均衡等。</p>
+<p>OpenShift也和Jenkins集成，具有更多的服务和功能。</p>
+<h2 id="42-构建"><a class="markdownIt-Anchor" href="#42-构建"></a> 4.2. 构建</h2>
+<p>构建（build）是将输入转换成对象的过程，构建输入包括内联Dockerfile定义，以及从图片、Git仓库、二进制文件等提取出的内容。</p>
+<p>ImageStream是OpenShift中引用容器镜像的一个抽象。它可以引用一个或多个镜像，以及一个或多个标签。ImageStream还可以引用一个或多个构建配置，以及一个或多个构建。</p>
+<p>Webhook、图像更改或配置更改都可以触发构建。常见的构建策略包括Source-to-Image（S2I）构建、Dockerfile构建、Pipeline构建等。</p>
+<p>构建需要一个构建配置（BuildConfig）来定义构建的策略和参数。构建配置可以定义构建触发器、构建策略、构建输出、构建环境等。</p>
+<h2 id="43-crd"><a class="markdownIt-Anchor" href="#43-crd"></a> 4.3. CRD</h2>
+<p>自定义资源定义（Custom Resource Definition，CRD）是Kubernetes中的一种机制，它允许用户定义自己的资源类型。CRD可以用于定义新的资源类型，如Pod、Service、ReplicaSet等。</p>
+<p>CRD扩展了Kubernetes API。与自定义控制器配合使用的话可以在Kubernetes中创建新的声明式API。</p>
+<p>Operator使用CRD和自定义控制器来自动化集群任务。Operator Framework涵盖了编码、测试、交付和更新。</p>
+<p>Operator Maturity Model（OMM）是一个用于评估Operator的成熟度的模型。OMM包括五个阶段：初始、基本、稳定、成熟和退休。</p>
+<h2 id="44-istio"><a class="markdownIt-Anchor" href="#44-istio"></a> 4.4. Istio</h2>
+<p>Istio是一个开源的服务网格平台，它提供了一种简单的方式来连接、管理和保护微服务。Istio可以在Kubernetes中运行，也可以在其他环境中运行。</p>
+<p>服务网格（Service Mesh）是一种用于管理服务之间通信的基础设施层。服务网格可以提供流量管理来控制服务之间的流量，用于加密服务之间流量的安全性，以及用于排除故障的服务行为的可观察性并优化应用程序。</p>
+<p>Istio支持连接、安全、执行和可观察性这四个概念。常用的示例之一是微服务应用程序。Istio也为基本服务监控需求提供服务通信指标，包括延迟、流量、错误和饱和度。</p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/2537.html">上一篇</a><a class="next" href="/posts/3875.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
 var disqus_identifier = 'posts/eb2a.html';
 var disqus_title = 'IBM全栈开发【6】：容器 &amp; Kubernetes和OpenShift简介';
