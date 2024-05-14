@@ -155,9 +155,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></table></figure>
 <p>进入该配置文件后，需要复制粘贴参数信息。</p>
 <ul>
-<li>如果你是英特尔处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu host,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+<li>如果你是英特尔处理器：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,<span class="attribute">osk</span>=<span class="string">&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot;</span> -smbios <span class="attribute">type</span>=2 -device usb-kbd,<span class="attribute">bus</span>=ehci.0,port=2 -global nec-usb-xhci.<span class="attribute">msi</span>=off -global ICH9-LPC.<span class="attribute">acpi-pci-hotplug-with-bridge-support</span>=off -cpu host,<span class="attribute">vendor</span>=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
 </li>
-<li>如果你是 AMD 处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu Haswell-noTSX,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+<li>如果你是 AMD 处理器：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,<span class="attribute">osk</span>=<span class="string">&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot;</span> -smbios <span class="attribute">type</span>=2 -device usb-kbd,<span class="attribute">bus</span>=ehci.0,port=2 -global nec-usb-xhci.<span class="attribute">msi</span>=off -global ICH9-LPC.<span class="attribute">acpi-pci-hotplug-with-bridge-support</span>=off -cpu Haswell-noTSX,<span class="attribute">vendor</span>=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>我是英特尔处理器，复制粘贴完事。<br>
@@ -169,7 +169,7 @@
 <p>回到 Mac 虚拟机，点击右上方的 <strong>Start</strong> 启动虚拟机，然后选中左侧的 <strong>Console</strong>。</p>
 <p><img src="/posts/deef/2_020.webp" alt></p>
 <p>回车进入 UEFI Interface Shell，输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line">System\Library\CoreServices\Boot.efi</span><br></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line"><span class="keyword">System</span>\<span class="keyword">Library</span>\CoreServices\Boot.efi</span><br></pre></td></tr></table></figure>
 <p><img src="/posts/deef/2_021.webp" alt></p>
 <p>熟悉的苹果图标出现！</p>
 <p><img src="/posts/deef/2_022.webp" alt></p>
