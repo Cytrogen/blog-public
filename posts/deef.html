@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PC通过Proxmox安装MacOS · 万圣节恶魔的领地</title><meta name="description" content="PC通过Proxmox安装MacOS - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.github.io/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PC通过Proxmox安装MacOS · 万圣节恶魔的领地</title><meta name="description" content="PC通过Proxmox安装MacOS - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">PC通过Proxmox安装MacOS</h1><div class="post-info">2023/8/16</div><div class="post-content"><p>使用 Proxmox VE 在 PC 上安装 MacOS。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">PC通过Proxmox安装MacOS</h1><div class="post-info">2023/8/16</div><div class="post-content"><p>使用 Proxmox VE 在 PC 上安装 MacOS。</p>
 <span id="more"></span>
 <div class="danger">
 <p>我在这个文章<strong>还未写完</strong>的时候就<strong>鸽</strong>掉了MacOS的安装！</p>
@@ -155,9 +155,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></table></figure>
 <p>进入该配置文件后，需要复制粘贴参数信息。</p>
 <ul>
-<li>如果你是英特尔处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu host,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+<li>如果你是英特尔处理器：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,<span class="attribute">osk</span>=<span class="string">&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot;</span> -smbios <span class="attribute">type</span>=2 -device usb-kbd,<span class="attribute">bus</span>=ehci.0,port=2 -global nec-usb-xhci.<span class="attribute">msi</span>=off -global ICH9-LPC.<span class="attribute">acpi-pci-hotplug-with-bridge-support</span>=off -cpu host,<span class="attribute">vendor</span>=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
 </li>
-<li>如果你是 AMD 处理器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk=&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot; -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu Haswell-noTSX,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
+<li>如果你是 AMD 处理器：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,<span class="attribute">osk</span>=<span class="string">&quot;ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc&quot;</span> -smbios <span class="attribute">type</span>=2 -device usb-kbd,<span class="attribute">bus</span>=ehci.0,port=2 -global nec-usb-xhci.<span class="attribute">msi</span>=off -global ICH9-LPC.<span class="attribute">acpi-pci-hotplug-with-bridge-support</span>=off -cpu Haswell-noTSX,<span class="attribute">vendor</span>=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>我是英特尔处理器，复制粘贴完事。<br>
@@ -169,7 +169,7 @@
 <p>回到 Mac 虚拟机，点击右上方的 <strong>Start</strong> 启动虚拟机，然后选中左侧的 <strong>Console</strong>。</p>
 <p><img src="/posts/deef/2_020.webp" alt></p>
 <p>回车进入 UEFI Interface Shell，输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line">System\Library\CoreServices\Boot.efi</span><br></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line"><span class="keyword">System</span>\<span class="keyword">Library</span>\CoreServices\Boot.efi</span><br></pre></td></tr></table></figure>
 <p><img src="/posts/deef/2_021.webp" alt></p>
 <p>熟悉的苹果图标出现！</p>
 <p><img src="/posts/deef/2_022.webp" alt></p>
@@ -209,9 +209,12 @@
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/2abc.html">上一篇</a><a class="next" href="/posts/66e.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
 var disqus_identifier = 'posts/deef.html';
 var disqus_title = 'PC通过Proxmox安装MacOS';
-var disqus_url = 'https://cytrogen.github.io/posts/deef.html';
+var disqus_url = 'https://cytrogen.icu/posts/deef.html';
 (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.github.io">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script></body></html>

@@ -877,6 +877,10 @@ pre .xml .cdata {
     margin-bottom: 2em
 }
 
+.friend-links a {
+    color: blue
+}
+
 main.container {
     margin: 2em 10px
 }
