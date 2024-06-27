@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> ByteByteGo 简报翻译【1】：Netflix 如何管理 2.38 亿会员？ · 万圣节恶魔的领地</title><meta name="robots" content="noindex"><meta name="description" content="ByteByteGo 简报翻译【1】：Netflix 如何管理 2.38 亿会员？ - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">ByteByteGo 简报翻译【1】：Netflix 如何管理 2.38 亿会员？</h1><div class="post-info">2024/6/25</div><div class="post-content"><p>开了个新坑，近期从 Instagram 的广告上得知了 ByteByteGo，并且订阅了他们的简报（Newsletter）服务，基本上隔个两三天就会收到他们的简报邮件。其中有些简报让我非常感兴趣，故分享。</p>
+<p><strong>2024 年 06 月 25 日</strong>：Netflix 如何管理 2.38 亿会员？<em>（How Netflix Manages 238 Million Memberships?）</em></p>
+<span id="more"></span>
+<div class="danger">
+<p>如果侵权，请联系我删除！</p>
+</div>
+<h1 id="简报内容"><a class="markdownIt-Anchor" href="#简报内容"></a> 简报内容</h1>
+<p><em>免责声明：本文章中的细节来自 Netflix 工程团队的文章/演讲。所有架构细节均归功于 Netflix 工程团队。原文链接见文末参考文献部分。我们尝试分析了这些细节，并提供了我们的意见。如果您发现任何不准确或遗漏之处，请留下评论，我们将尽力修正。</em></p>
+<p>作为一家基于订阅的流媒体服务公司，Netflix 的主要收入来源是会员业务。目前，Netflix 在全球拥有 2.38 亿名会员，有效管理会员对公司的成功和持续增长至关重要。</p>
+<p>Netflix 的会员平台在处理用户订阅的整个生命周期中发挥着至关重要的作用。</p>
+<p>会员生命周期由不同阶段和场景组成：</p>
+<ul>
+<li>注册： 用户可直接或通过 T-Mobile 等合作伙伴渠道注册 Netflix 服务，开始 Netflix 之旅。</li>
+<li>计划变更： 现有会员可根据自己的喜好和需求修改订阅计划。</li>
+<li>续订： 作为一项订阅服务，Netflix 会自动尝试使用与用户账户相关联的付款方式为用户续订计划。</li>
+<li>付款问题： 如果支付网关出现问题或资金不足，用户的账户可能会被暂停或给予宽限期来解决问题。</li>
+<li>会员资格暂停或取消： 用户可以选择暂时中止会员资格或永久取消订阅。</li>
+</ul>
+<p>在下面的章节中，我们将探讨 Netflix 工程团队为支持其会员平台的各种功能和可扩展性而做出的架构决策。</p>
+<h2 id="netflix-会员平台的高级架构"><a class="markdownIt-Anchor" href="#netflix-会员平台的高级架构"></a> Netflix 会员平台的高级架构</h2>
+<p>在深入了解 Netflix 会员制平台的细节之前，让我们先回顾一下该公司最初的定价架构是如何设计的。</p>
+<p>早期，Netflix 的定价模型相对简单，只需管理少量计划和支持基本功能。</p>
+<p>为了满足这些最初的要求，Netflix 采用了轻量级的内存库。事实证明，这种方法相当高效，因为定价系统的范围有限，因此设计简单、精简。</p>
+<p>下图展示了这一基本架构：</p>
+<p><img src="/posts/75ba/1.webp" alt></p>
+<p>随着 Netflix 全球业务的扩展和产品的多样化，最初为定价架构提供服务的轻量级内存库变得不敷使用。</p>
+<p>定价目录的复杂性和范围不断扩大，其在多个应用程序中的重要性也与日俱增，这给运营带来了挑战。该库的规模和依赖性使其难以维护和扩展，因此有必要过渡到更强大和可扩展的架构。</p>
+<p>下图显示了 Netflix 现代会员制平台的高层架构：</p>
+<!-- flag of hidden posts --></div></article></div></main><footer><div class="paginator"></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/75ba.html';
+var disqus_title = 'ByteByteGo 简报翻译【1】：Netflix 如何管理 2.38 亿会员？';
+var disqus_url = 'https://cytrogen.icu/posts/75ba.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script></body></html>
