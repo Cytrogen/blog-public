@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> CS50AI Python 笔记 · 万圣节恶魔的领地</title><meta name="description" content="CS50AI Python 笔记 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> CS50AI Python 笔记 · 万圣节恶魔的领地</title><meta name="description" content="CS50AI Python 笔记 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">CS50AI Python 笔记</h1><div class="post-info">2023/9/5</div><div class="post-content"><p>仅作个人用途。CS50AI 课程的笔记。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item" id="search-icon"><i class="fas fa-search"></i></li><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..."><div id="local-search-results"></div></div></div></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">CS50AI Python 笔记</h1><div class="post-info">2023/9/5</div><div class="post-content"><p>仅作个人用途。CS50AI 课程的笔记。</p>
 <span id="more"></span>
 <h1 id="0-search"><a class="markdownIt-Anchor" href="#0-search"></a> 0. Search</h1>
 <p>什么能够制造AI：</p>
@@ -188,7 +188,7 @@
 <li><code>Utility(s)</code>：参数<code>s</code>是一个临终状态；返回该状态的效用值：<code>-1</code>、<code>0</code>、<code>1</code></li>
 </ul>
 </blockquote>
-<p><img src="/posts/d235/Minimax_Tictactoe.webp" alt="Minimax in Tic Tac Toe"></p>
+<p><img src="/posts/d235/Minimax_Tictactoe.png" alt="Minimax in Tic Tac Toe" class="loading"></p>
 <ol>
 <li>根据状态（本回合轮到谁），该算法可以知道当前的玩家在进行优化游戏时是否会选择导致了一个较低/较高数值的状态的行动</li>
 <li>在最小化和最大化之间交替进行</li>
@@ -617,10 +617,10 @@
 <p>如果是<code>KB</code>为真的模型，那么查询<code>R</code>也是真的</p>
 </blockquote>
 <p>推理规则允许我们在现有知识的基础上生成新的信息，而无需考虑每一个可能的模型。推理规则通常使用一个横条来表示，横条将上面的部分（前提）和下面的部分（结论）分开。前提是我们拥有的任何知识，而结论是基于前提可以产生的知识。</p>
-<p><img src="/posts/d235/Modus_Ponens_Example.webp" alt="Modus Ponens Example"></p>
+<p><img src="/posts/d235/Modus_Ponens_Example.png" alt="Modus Ponens Example" class="loading"></p>
 <h3 id="肯定前件"><a class="markdownIt-Anchor" href="#肯定前件"></a> 肯定前件</h3>
 <p>肯定前件（Modus Ponens）就是在我们知道一个暗示、其前项是真的，那么后项也是真的。</p>
-<p><img src="/posts/d235/Modus_Ponens.webp" alt="Modus Ponens"></p>
+<p><img src="/posts/d235/Modus_Ponens.png" alt="Modus Ponens" class="loading"></p>
 <h3 id="连词消除"><a class="markdownIt-Anchor" href="#连词消除"></a> 连词消除</h3>
 <p>也被称为和消除（And Elimination）。</p>
 <p>如果一个“和”的命题为真，那么其中任何一个原子命题也是真。</p>
@@ -631,7 +631,7 @@
 <li>结论：哈利是赫敏的朋友</li>
 </ul>
 </blockquote>
-<p><img src="/posts/d235/And_Elimination.webp" alt="And Elimination"></p>
+<p><img src="/posts/d235/And_Elimination.png" alt="And Elimination" class="loading"></p>
 <h3 id="双重否定"><a class="markdownIt-Anchor" href="#双重否定"></a> 双重否定</h3>
 <p>一个命题如果被否定了两次，那它就是真。</p>
 <blockquote>
@@ -643,7 +643,7 @@
 <li>双重否定抵消了彼此，让该命题“哈利通过了考试”变为真</li>
 </ol>
 </blockquote>
-<p><img src="/posts/d235/Double_Negation_Elimination.webp" alt="Double Negation Elimination"></p>
+<p><img src="/posts/d235/Double_Negation_Elimination.png" alt="Double Negation Elimination" class="loading"></p>
 <h3 id="暗示消除"><a class="markdownIt-Anchor" href="#暗示消除"></a> 暗示消除</h3>
 <p>暗示相当于被否定的前项和后项之间的“或”关系。</p>
 <blockquote>
@@ -653,7 +653,7 @@
 <li>(没有下雨)或(哈利在室内)</li>
 </ul>
 </blockquote>
-<p><img src="/posts/d235/Implication_Elimination.webp" alt="Implication Elimination"></p>
+<p><img src="/posts/d235/Implication_Elimination.png" alt="Implication Elimination" class="loading"></p>
 <p>由于<code>P→Q</code>和<code>P∨Q</code>有相同的真值分配，因此在逻辑上是等价的。</p>
 <p>另一种思考方式是如果满足两个可能的条件中的任何一个，暗示就是真的：</p>
 <ol>
@@ -678,14 +678,14 @@
 <li>(如果下雨了，那么哈利在室内)和(如果哈利在室内，那么外面在下雨)</li>
 </ul>
 </blockquote>
-<p><img src="/posts/d235/Biconditional_Elimination.webp" alt="Biconditional_Elimination"></p>
+<p><img src="/posts/d235/Biconditional_Elimination.png" alt="Biconditional_Elimination" class="loading"></p>
 <h3 id="德摩根定律"><a class="markdownIt-Anchor" href="#德摩根定律"></a> 德摩根定律</h3>
 <p>有可能把一个“和”连接词变成一个“或”连接词。例如：“哈利和罗恩都通过了测试，这不是真的”，可以得出结论：“哈利通过考试不是真的”或者“罗恩通过考试不是真的”。也就是说，要使前面的“和”命题为真，“或”命题中的至少一个命题必须为真。</p>
-<p><img src="/posts/d235/De_Morgans_1.webp" alt="De Morgan's 1"></p>
+<p><img src="/posts/d235/De_Morgans_1.png" alt="De Morgan's 1" class="loading"></p>
 <p>同样地，也可以得出相反的结论。例如命题“哈利或罗恩通过测试是不真实的”可以被改写为“哈利没有通过测试”和“罗恩没有通过测试”。</p>
 <h3 id="分配律"><a class="markdownIt-Anchor" href="#分配律"></a> 分配律</h3>
 <p>一个由两个元素组成的命题，如果使用“和”或“或”连接词来分组，那就可以被分配或分解成由“和”和“或”组成的更小的单元。</p>
-<p><img src="/posts/d235/Distributive_1.webp" alt="Distributive 1"></p>
+<p><img src="/posts/d235/Distributive_1.png" alt="Distributive 1" class="loading"></p>
 <h3 id="知识和搜索问题"><a class="markdownIt-Anchor" href="#知识和搜索问题"></a> 知识和搜索问题</h3>
 <p>推理可以被看作是一个具有以下属性的搜索问题：</p>
 <ul>
@@ -698,9 +698,9 @@
 <p>这些都表示了搜索算法的多功能性，使我们能够在现有知识的基础上利用推理规则得出新的信息。</p>
 <h2 id="归结原理"><a class="markdownIt-Anchor" href="#归结原理"></a> 归结原理</h2>
 <p>归结原理（resolution）是一个强大的推理规则。如果“或”命题中的两个原子命题中的一个为假，那么另外一个就必须为真。</p>
-<p><img src="/posts/d235/Resolution_1.webp" alt="Resolution"></p>
+<p><img src="/posts/d235/Resolution_1.png" alt="Resolution" class="loading"></p>
 <p>归结原理依赖于互补文字（complementary literals），即两个相同的原子命题，其中一个被否定，另一个没有被否定。</p>
-<p><img src="/posts/d235/Resolution_2.webp" alt="Resolution"></p>
+<p><img src="/posts/d235/Resolution_2.png" alt="Resolution" class="loading"></p>
 <p>互补文字使我们能够通过解析推理产生新的句子。因此推理算法通过定位互补文字来生成新的知识。</p>
 <p>一个从句是一个字词的二元链接（一个命题符号或者一个命题符号的否定）。分句由一个“或”逻辑连接词（<code>P∨Q∨R</code>）连接。另一方面，连词由“和”逻辑连接词相连的的命题组成（<code>P^Q^R</code>）。</p>
 <p>分句允许我们把任何逻辑语句转换成合取范式（CNF），也就是分句的连接，例如：</p>
@@ -919,7 +919,7 @@
 <h3 id="命题逻辑-2"><a class="markdownIt-Anchor" href="#命题逻辑-2"></a> 命题逻辑</h3>
 <p>你在这个项目中的目标是建立一个能玩扫雷游戏的人工智能。我们可以用一种方法来表示人工智能对扫雷游戏的了解，那就是让每个单元格成为一个命题变量，如果该单元格含有地雷，则为真，否则就是假。</p>
 <p>人工智能会知道每次点击安全的单元格时显示的数字。</p>
-<p><img src="/posts/d235/Middle_Safe.webp" alt="Middle cell with labeled neighbors"></p>
+<p><img src="/posts/d235/Middle_Safe.png" alt="Middle cell with labeled neighbors" class="loading"></p>
 <p>用上图作为例子，我们知道八个相邻的单元格中会有一个是地雷。因此我们可以写一个像下面这样的逻辑表达式来表示相邻单元格中的一个是地雷：<code>Or(A,B,C,D,E,F,G,H)</code>。</p>
 <p>但实际上我们知道的要比这个表达式所说的要多。上面这个逻辑句子表达的是这八个变量中至少有一个是真的，但我们可以做一个比这更有力的声明：我们知道这八个变量中只有一个是真的。那就是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Or(</span><br><span class="line">    And(A, Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), B, Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), C, Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), D, Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), E, Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), F, Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), G, Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), H)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -959,11 +959,11 @@
 <p>为了表示某个世界的概率，我们使用 <code>P(ω)</code>。</p>
 <h3 id="概率的公理"><a class="markdownIt-Anchor" href="#概率的公理"></a> 概率的公理</h3>
 <p>概率的公式为 <code>0 &lt; P(ω) &lt; 1</code>，每个表示概率的值必须在 0 和 1 之间。0 是不可能发生的事件，比如投掷骰子时得到了点数 7；1 是一定会发生的事件，比如投掷一个标准骰子得到一个小于 10 的点数。通常值越高，事件发生的可能性就越大。每个可能事件的概率加起来等于 1。</p>
-<p><img src="/posts/d235/Lotp.webp" alt="Summing Probabilities"></p>
+<p><img src="/posts/d235/Lotp.png" alt="Summing Probabilities" class="loading"></p>
 <p>用标准骰子掷出一个数字 <code>R</code> 的概率可以表示为 <code>P(R)</code>。在我们的例子中，<code>P(R) = 1/6</code>，因为有六个可能的世界，每个都同样可能发生。现在考虑一下投掷两个骰子的事件，一下就有了 36 种可能的事件。</p>
-<p><img src="/posts/d235/36_Events.webp" alt="36 Events"></p>
+<p><img src="/posts/d235/36_Events.png" alt="36 Events" class="loading"></p>
 <p>但是，如果我们试图预测两个骰子的和会发生什么？在这种情况下，我们只有 11 个可能的值。</p>
-<p><img src="/posts/d235/Sum_Of_Two_Dice.webp" alt="Sum of Two Dice"></p>
+<p><img src="/posts/d235/Sum_Of_Two_Dice.png" alt="Sum of Two Dice" class="loading"></p>
 <p>要得到一个事件的概率，我们要将它发生的世界数除以所有可能的世界数。例如，投掷两个骰子时会有 36 个可能的世界。只有在其中一个世界里，当两个骰子都掷出 6 时，我们才能得到 12 的总和。因此 <code>P(12) = 1/36</code>。</p>
 <ul>
 <li>例子：<code>P(7)</code> 的概率是多少？7 出现在六个世界中，因此 <code>P(7) = 6/36 = 1/6</code></li>
@@ -976,12 +976,12 @@
 <ul>
 <li>例如：如果昨天下雨了，今天下雨的概率是多少？ -&gt; <code>P(今天下雨 | 昨天下雨)</code></li>
 </ul>
-<p><img src="/posts/d235/Conditional.webp" alt="Conditional Probability Formula"></p>
+<p><img src="/posts/d235/Conditional.png" alt="Conditional Probability Formula" class="loading"></p>
 <p>换句话说，给定 b 为真的 a 的概率等同于 a 和 b 都为真的概率除以 b 的概率。</p>
 <p>一种直观的推理方法是这样的：“我们对 a 和 b 都为真的事件感兴趣（分子），但只来自我们知道 b 为真的世界（分母）”</p>
-<p><img src="/posts/d235/Conditional_Equivalent.webp" alt="Equivalent Formulas"></p>
+<p><img src="/posts/d235/Conditional_Equivalent.png" alt="Equivalent Formulas" class="loading"></p>
 <p>计算一下 <code>P(总和为12 | 在骰子上掷出6)</code>。首先我们要把我们的世界限制在第一个骰子的点数为 6 的世界。其次我们要得出在我们限制了问题的世界中，事件 a（总和为 12）发生了多少次（除以 <code>P(b)</code>，即第一个骰子掷出 6 的概率）。</p>
-<p><img src="/posts/d235/Sum_Conditional_2.webp" alt="Conditioned Probability"></p>
+<p><img src="/posts/d235/Sum_Conditional_2.png" alt="Conditioned Probability" class="loading"></p>
 <h2 id="随机变量"><a class="markdownIt-Anchor" href="#随机变量"></a> 随机变量</h2>
 <p>随机变量是概率论中具有可能取值域的变量。</p>
 <ul>
@@ -1008,7 +1008,7 @@
 <p>独立性可以用数学定义：当且仅当 a 和 b 的概率等于 a 的概率乘以 b 的概率时，事件 a 和 b 是独立的：<code>P(a ∧ b) = P(a)P(b)</code>。</p>
 <h2 id="贝叶斯定理"><a class="markdownIt-Anchor" href="#贝叶斯定理"></a> 贝叶斯定理</h2>
 <p>贝叶斯定理通常用于概率论中计算条件概率。给定 a 的 b 的概率等于给定 b 的 a 的概率乘以 b 的概率，除以 a 的概率。</p>
-<p><img src="/posts/d235/Bayes_Rule.webp" alt="Bayes' Rule"></p>
+<p><img src="/posts/d235/Bayes_Rule.png" alt="Bayes' Rule" class="loading"></p>
 <ul>
 <li>例如：计算如果早上有云，下午下雨的概率（也就是 <code>P(雨 | 云)</code>）
 <ul>
@@ -1095,7 +1095,7 @@
 <p><code>b</code> 和 <code>¬b</code> 是不相交的概率，或者说，<code>b</code> 和 <code>¬b</code> 同时发生的概率是 0。我们也知道 <code>b</code> 和 <code>¬b</code> 加起来是 1。因此当 <code>a</code> 发生时，<code>b</code> 可以发生也可以不发生。当我们取 <code>a</code> 和 <code>b</code> 时发生的概率加上 <code>a</code> 和 <code>¬b</code> 同时发生的概率时，我们最终得到了 <code>a</code> 的概率</p>
 </li>
 <li>
-<p><img src="/posts/d235/Marginalization.webp" alt="Marginalization"></p>
+<p><img src="/posts/d235/Marginalization.png" alt="Marginalization" class="loading"></p>
 <p>这个方程的左边意味着”随机变量 <code>X</code> 取值为 <code>xᵢ</code> 的概率“</p>
 <ul>
 <li>例如：对于我们前面提到的变量 <code>C</code>，两个可能的值分别是早上多云和早上没云</li>
@@ -1114,7 +1114,7 @@
 <p>与边缘化相似，事件 <code>a</code> 发生的概率等于给定 <code>b</code> 的 <code>a</code> 的概率乘以 <code>b</code> 的概率，加上给定 <code>¬b</code> 的 <code>a</code> 的概率乘以 <code>¬b</code> 的概率</p>
 </li>
 <li>
-<p><img src="/posts/d235/Conditioning.webp" alt="Conditioning"></p>
+<p><img src="/posts/d235/Conditioning.png" alt="Conditioning" class="loading"></p>
 <p>随机变量 <code>X</code> 以概率等于 <code>xᵢ</code> 给定随机变量 <code>Y</code> 的每个值的概率之和乘以变量 <code>Y</code> 取该值的概率。记住 <code>P(a | b) = P(a, b)/P(b)</code>，如果我们将这个表达式乘以 <code>P(b)</code>，我们就会得到 <code>P(a, b)</code>，之后的步骤便和边缘化一样</p>
 </li>
 </ul>
@@ -1128,7 +1128,7 @@
 <li>每个节点 X 都有概率分布 <code>P(X | Parents(X))</code></li>
 </ul>
 <p>考虑这个例子，它涉及影响了我们是否按时赴约的变量：</p>
-<p><img src="/posts/d235/Bayesian_Network.webp" alt="Bayesian Network"></p>
+<p><img src="/posts/d235/Bayesian_Network.png" alt="Bayesian Network" class="loading"></p>
 <ul>
 <li>
 <p><code>Rain</code> 是这个网络中的根节点。这意味着它的概率分布不依赖于任何先前的事件。在我们的例子中，<code>Rain</code> 是一个随机变量，可以取值 <code>&#123;none, light, heavy&#125;</code>，具有以下概率分布：</p>
@@ -1289,7 +1289,7 @@
 <p>在这里，我们将使用边缘化。<code>P(预约，有雨，无维修)</code> 的值等同于 <code>α[P(预约，有雨，无维修，延误) + P(预约，有雨，无维修，准时)]</code>。</p>
 <h3 id="枚举推理"><a class="markdownIt-Anchor" href="#枚举推理"></a> 枚举推理</h3>
 <p>枚举推理是一种根据观察到的证据 <code>e</code> 和一些隐藏变量 <code>Y</code> 来找到变量 <code>X</code> 的概率分布的过程。</p>
-<p><img src="/posts/d235/Inference_By_Enumeration.webp" alt="Inference by Enumeration"></p>
+<p><img src="/posts/d235/Inference_By_Enumeration.png" alt="Inference by Enumeration" class="loading"></p>
 <p>在这个方程中，<code>X</code> 代表查询变量，<code>e</code> 代表观察到的证据，<code>y</code> 代表所有隐藏变量的值，<code>α</code> 对结果进行归一化，使得我们得到的概率总和为1。</p>
 <p>用文字解释这个方程，它表示给定 <code>e</code> 的情况下 <code>X</code> 的概率分布等于 <code>X</code> 和 <code>e</code> 的归一化概率分布。为了得到这个分布，我们对 <code>X</code>、<code>e</code> 和 <code>y</code> 的归一化概率求和，其中 <code>y</code> 每次取隐藏变量 <code>Y</code> 的不同值。</p>
 <p>Python 中存在多个库以简化概率推理的过程。我们将使用 pomegranate 库来看看如何将上述数据表示为代码：</p>
@@ -1312,7 +1312,7 @@
 </li>
 </ol>
 <p>上述代码使用了枚举推理。然而这种计算概率的方式是低效的，特别是当模型中有许多变量时。另一种方法是放弃精确推理，转而采用近似推理。通过这样做，我们在生成的概率中失去了一些精度，但通常这种不精确性是可以忽略的。相反我们获得了一种可扩展的计算概率的方法。</p>
-</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/9e71.html">上一篇</a><a class="next" href="/posts/2abc.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/9e+71.html">上一篇</a><a class="next" href="/posts/2abc.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
 var disqus_identifier = 'posts/d235.html';
 var disqus_title = 'CS50AI Python 笔记';
 var disqus_url = 'https://cytrogen.icu/posts/d235.html';
@@ -1323,4 +1323,27 @@ var disqus_url = 'https://cytrogen.icu/posts/d235.html';
 })();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-4PVPZXE0QQ');</script></body></html>
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><script>document.getElementById('search-icon').addEventListener('click', function(event) {
+    const popup = document.getElementById('search-popup');
+    if (popup.classList.contains('hidden')) {
+        popup.classList.remove('hidden');
+    } else {
+        popup.classList.add('hidden');
+    }
+    event.stopPropagation();
+});
+document.getElementById('search-popup').addEventListener('click', function(event) {
+    event.stopPropagation();
+});
+document.addEventListener('click', function() {
+    const popup = document.getElementById('search-popup');
+    if (!popup.classList.contains('hidden')) {
+        popup.classList.add('hidden');
+    }
+});
+</script><script>let search_path = "search.xml";
+if (search_path.length === 0) {
+    search_path = "search.xml";
+}
+const path = "/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
