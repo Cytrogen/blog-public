@@ -15,24 +15,24 @@
 <h1 id="安装docker-desktop"><a class="markdownIt-Anchor" href="#安装docker-desktop"></a> 安装Docker Desktop</h1>
 <ol>
 <li>进入<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop下载网址</a>，点击 <strong>Download Docker Desktop</strong> 。<br>
-<img src="/posts/891a/Docker Desktop.jpg" alt="Docker Desktop页面" class="loading"></li>
+<img src="/posts/891a/Docker Desktop.jpg" alt="Docker Desktop页面"></li>
 <li>安装完成后点击 <strong>Close</strong> 关闭界面。<br>
-<img src="/posts/891a/Installing Docker Desktop.png" alt="Docker Desktop安装完成界面" class="loading"><br>
+<img src="/posts/891a/Installing Docker Desktop.png" alt="Docker Desktop安装完成界面"><br>
 下图为Docker Desktop的界面：<br>
-<img src="/posts/891a/Docker Desktop 1.png" alt="Docker Desktop主界面" class="loading"></li>
+<img src="/posts/891a/Docker Desktop 1.png" alt="Docker Desktop主界面"></li>
 <li>在终端内输入Docker检查版本的命令，检查是否安装成功：<br>
-<img src="/posts/891a/Docker Version.png" alt="终端内输入docker version" class="loading"></li>
+<img src="/posts/891a/Docker Version.png" alt="终端内输入docker version"></li>
 </ol>
 <h1 id="创建容器"><a class="markdownIt-Anchor" href="#创建容器"></a> 创建容器</h1>
 <ol>
 <li>打开任一终端，拉取Ubuntu镜像：<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker pull ubuntu</span></span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu" class="loading">
+<img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu">
 </li>
 <li>继续在终端内创建空容器：<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--name CodeServer ubuntu:latest /bin/bash</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> <span class="keyword">update</span></span><br><span class="line">apt install curl</span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update" class="loading">
-<img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl" class="loading">
+<img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update">
+<img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl">
 </li>
 </ol>
 <h1 id="安装code-server"><a class="markdownIt-Anchor" href="#安装code-server"></a> 安装code-server</h1>
@@ -47,7 +47,7 @@
 <li>
 <p>为了能够让其他设备也可以访问网页，需要执行以下命令：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">code</span>-server <span class="attr">--link</span></span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link" class="loading">
+<img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link">
 <blockquote>
 <p>我在这里换了个终端，实际上不需要更换。</p>
 </blockquote>
@@ -58,9 +58,9 @@
 </li>
 <li>
 <p>最终会提供给你一个IDE网址。<br>
-<img src="/posts/891a/IDE网址.png" alt="登录GitHub后在终端会提供一个IDE网址" class="loading"></p>
+<img src="/posts/891a/IDE网址.png" alt="登录GitHub后在终端会提供一个IDE网址"></p>
 <p>进入该网址，便会看到熟悉的Visual Studio Code。<br>
-<img src="/posts/891a/Visual Studio Code.png" alt="IDE网址内的VSCode" class="loading"></p>
+<img src="/posts/891a/Visual Studio Code.png" alt="IDE网址内的VSCode"></p>
 </li>
 </ol>
 <h1 id="移动端访问"><a class="markdownIt-Anchor" href="#移动端访问"></a> 移动端访问</h1>
@@ -68,7 +68,7 @@
 <li>
 <p>到这儿就已经很明显要怎么做了。</p>
 <p>进入手机的浏览器，输入上面的IDE网址，就可以在手机上使用Visual Studio Code了。<br>
-<img src="/posts/891a/移动端.jpg" alt="手机上的Visual Studio Code" class="loading"></p>
+<img src="/posts/891a/移动端.jpg" alt="手机上的Visual Studio Code"></p>
 </li>
 </ol>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="60db.html">上一篇</a><a class="next" href="a3e5.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
@@ -105,4 +105,4 @@ if (search_path.length === 0) {
     search_path = "search.xml";
 }
 const path = "/" + search_path;
-searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
+searchFunc(path, 'local-search-input', 'local-search-results');</script></body></html>

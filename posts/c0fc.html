@@ -17,7 +17,7 @@
 </div>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ReactMarkdown</span> <span class="keyword">from</span> <span class="string">&quot;react-markdown&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> markdownContent = <span class="string">`&#123;刚才说的Markdown测试文本&#125;`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">ReactMarkdown</span>&gt;</span>&#123;markdownContent&#125;<span class="tag">&lt;/<span class="name">ReactMarkdown</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>显示出来的效果（记得将<code>markdownContent</code>的值替换掉）：</p>
-<p><img src="/posts/c0fc/1.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/c0fc/1.png" alt="img.png"></p>
 <p>可以看出和Typora或者GitHub的渲染效果有一些差异，比方说代码块和普通文字的样式过于贴近，我们还是更适用于有着明显背景色以及代码高亮的代码块。</p>
 <p>并且像是表格、任务列表、删除线等特殊样式也没有被渲染出来。</p>
 <h2 id="remark-gfm"><a class="markdownIt-Anchor" href="#remark-gfm"></a> <code>remark-gfm</code></h2>
@@ -27,13 +27,13 @@
 <p><code>react-markdown</code> 引用插件的方式也很简单：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> remarkGfm <span class="keyword">from</span> <span class="string">&quot;remark-gfm&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">ReactMarkdown</span> <span class="attr">remarkPlugins</span>=<span class="string">&#123;[remarkGfm]&#125;</span>&gt;</span>&#123;markdownContent&#125;<span class="tag">&lt;/<span class="name">ReactMarkdown</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 <p>展现出来的效果：</p>
-<p><img src="/posts/c0fc/2.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/c0fc/2.png" alt="img.png"></p>
 <p>看到这里，你肯定很是疑惑：表格的边框呢？？</p>
 <p>如果我们用开发者工具查看这个表格的样式，会发现表格确确实实被渲染成 <code>table</code> 标签，但是User Agent Stylesheet中的样式对 <code>table</code> 标签做了一些处理。 所以我们需要自己写一些样式来覆盖这些默认样式：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* index.css */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">table</span> &#123;</span><br><span class="line">    <span class="attribute">border-spacing</span>: <span class="number">0</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-collapse</span>: collapse <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-color</span>: inherit <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">display</span>: block <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">width</span>: max-content <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: auto <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">tbody</span>, <span class="selector-tag">td</span>, <span class="selector-tag">tfoot</span>, <span class="selector-tag">th</span>, <span class="selector-tag">thead</span>, <span class="selector-tag">tr</span> &#123;</span><br><span class="line">    <span class="attribute">border-color</span>: inherit <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-style</span>: solid <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">2px</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>把所有的样式统统加上 <code>!important</code>，这样就可以覆盖掉User Agent Stylesheet中的样式了。</p>
 <p>再次展现出来的效果：</p>
-<p><img src="/posts/c0fc/3.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/c0fc/3.png" alt="img.png"></p>
 <div class="danger">
 <p>HTML支持因为安全性考虑，我决定不使用，所以这里就不再展示了。</p>
 </div>
@@ -68,7 +68,7 @@
 <p>直接在 <code>pre</code> 标签中判断 <code>children</code> 的类型，如果是 <code>code</code> 那就肯定是代码块了，然后再去匹配 <code>className</code> 中的语言类型。</p>
 <p>如果匹配不到就会导致错误，所以我临时加了一个 <code>try...catch</code> 语句，匹配不到的话就默认渲染成 <code>python</code> 语言的代码块吧。</p>
 <p>效果还是不错的：</p>
-<p><img src="/posts/c0fc/4.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/c0fc/4.png" alt="img.png"></p>
 <h2 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h2>
 <p>这个需求的实现还是有一些问题的，比方说行内代码块的渲染就没有解决、 <code>try...catch</code> 语句并不是一个好的解决方案，以及没有定义语言就默认渲染成 <code>python</code> 语言的代码块的技术债太鬼畜了！</p>
 <p>但是由于项目的时间紧迫，我也没有再去深究这个问题。或许以后时间充裕了我会再去解决这个问题。以后再说吧。</p>
@@ -106,4 +106,4 @@ if (search_path.length === 0) {
     search_path = "search.xml";
 }
 const path = "/" + search_path;
-searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
+searchFunc(path, 'local-search-input', 'local-search-results');</script></body></html>

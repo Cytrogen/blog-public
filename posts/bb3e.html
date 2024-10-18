@@ -11,8 +11,8 @@
 <p>页面设计的工作我交给了reactstrap包，其实用react-bootstrap包、或者干脆直接引入Bootstrap的CSS文件都是可以的。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install reactstrap</span><br></pre></td></tr></table></figure>
 <p>仿制Discord的登录&amp;注册页面还是相当容易的：</p>
-<p><img src="/posts/bb3e/login.png" alt="登录页面" class="loading"></p>
-<p><img src="/posts/bb3e/Register.png" alt="注册页面" class="loading"></p>
+<p><img src="/posts/bb3e/login.png" alt="登录页面"></p>
+<p><img src="/posts/bb3e/Register.png" alt="注册页面"></p>
 <p>这里就不说写页面的具体细节，只挑几个我花了时间去搞的地方说。</p>
 <h2 id="1-卡片居中"><a class="markdownIt-Anchor" href="#1-卡片居中"></a> 1. 卡片居中</h2>
 <p>居中，是前端界最老生常谈的话题之一。浏览器上搜索“居中”一词，会发现十年前大家在聊怎么居中，几年后在聊怎么居中，现在还有GitHub网页上出现没有好好居中的标签。</p>
@@ -21,7 +21,7 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Container</span> className=<span class="string">&#x27;d-flex vh-100&#x27;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Row</span> <span class="attr">className</span>=<span class="string">&#x27;m-auto align-self-center&#x27;</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">Row</span>&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Container</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>这里推荐一下微软近期出的强力工具：PowerToys，用快捷键 <code>Windows</code> + <code>Shift</code> + <code>C</code> 就可以在屏幕上吸色了，吸的RGB值正好用来给我们的标签添加颜色样式。</p>
 <h2 id="2-生日日期选择"><a class="markdownIt-Anchor" href="#2-生日日期选择"></a> 2. 生日日期选择</h2>
-<p><img src="/posts/bb3e/Birthday_Select.png" alt class="loading"></p>
+<p><img src="/posts/bb3e/Birthday_Select.png" alt></p>
 <p>这个其实就是：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Container</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Row</span> <span class="attr">xs</span>=<span class="string">&#x27;3&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;ps-0 pe-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;px-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;ps-1 pe-0&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Row</span>&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Container</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>不过重点不在这里，而在JSX中用<code>.map()</code>方法生成下拉选项。</p>
@@ -142,4 +142,4 @@ if (search_path.length === 0) {
     search_path = "search.xml";
 }
 const path = "/" + search_path;
-searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
+searchFunc(path, 'local-search-input', 'local-search-results');</script></body></html>

@@ -33,7 +33,7 @@
 <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
 <p>我的树莓派 Pico 早在过年时就到手了，但是一直没有时间玩，最近闲到开始生一种叫做 senioritis 的病，才开始捣鼓起来。</p>
 <p>买的时候贪方便，直接购入了已焊接的板子，如下图所示：</p>
-<img src="/posts/ba6a/1.jpeg" alt="创乐博MAKEROBO PicoBlock扩展板，已焊接树莓派Pico主板、面包板、LED灯、方向按键、有源蜂鸣器、传感器等套件" class="loading">
+<img src="/posts/ba6a/1.jpeg" alt="创乐博MAKEROBO PicoBlock扩展板，已焊接树莓派Pico主板、面包板、LED灯、方向按键、有源蜂鸣器、传感器等套件">
 <p>不过本文内容专注于 MicroPython，所以不会细讲硬件部分。如何配置树莓派 Pico 和安装 IDE 等基础内容也不会讲，可以自行搜索。</p>
 <div class="danger">
 <ul>
@@ -55,14 +55,14 @@
 <h4 id="题外话"><a class="markdownIt-Anchor" href="#题外话"></a> 题外话</h4>
 <p>如果不懂音符，但又想要照着现实中的乐谱来弹奏，那该怎么办？（当然，如果你懂的话，可以直接跳到<a href="#%E8%AE%BE%E7%BD%AE%E8%9C%82%E9%B8%A3%E5%99%A8">这个位置</a>）</p>
 <p>先来看看一个简单的乐谱长什么样子。有请我们的主角——《小星星》：</p>
-<img src="/posts/ba6a/2.jpg" alt="小星星乐谱" class="loading">
+<img src="/posts/ba6a/2.jpg" alt="小星星乐谱">
 <p>首先，乐谱每一行都有数个小节，被竖线隔开。</p>
 <p>每一行的最左边都有一个数字，代表了这一行的拍子。例如这个乐谱的拍子是 4/4 拍，也就是说每一小节有四拍，每一拍是一个四分音符。</p>
 <p>那什么又是四分音符？这又要从音符的时值说起了。</p>
 <p>音符的时值分为全音符、二分音符、四分音符、八分音符、十六分音符、三十二分音符等等。为了直接分辨，上图：</p>
-<img src="/posts/ba6a/3.png" alt="圆圈，全音符，时值为4拍，简谱符号为1---；圆圈插一个天线，二分音符，时值为2拍，简谱符号为1-；黑圆圈插一个天线，四分音符，时值为1拍，简谱符号为1；黑圆圈插一个挂了旗子的天线，八分音符，时值为1/2拍，简谱符号为1.；黑圆圈插一个挂了俩旗子的天线，十六分音符，时值为1/4拍，简谱符号为1..；黑圆圈插一个挂了仨旗子的天线，三十二分音符，时值为1/8拍，简谱符号为1...；所有的.代表下划线" class="loading">
+<img src="/posts/ba6a/3.png" alt="圆圈，全音符，时值为4拍，简谱符号为1---；圆圈插一个天线，二分音符，时值为2拍，简谱符号为1-；黑圆圈插一个天线，四分音符，时值为1拍，简谱符号为1；黑圆圈插一个挂了旗子的天线，八分音符，时值为1/2拍，简谱符号为1.；黑圆圈插一个挂了俩旗子的天线，十六分音符，时值为1/4拍，简谱符号为1..；黑圆圈插一个挂了仨旗子的天线，三十二分音符，时值为1/8拍，简谱符号为1...；所有的.代表下划线">
 <p>现在回到《小星星》的乐谱上，我们可以看到，第一小节正好有四个四分音符，而第二小节则有两个四分音符和一个二分音符：</p>
-<img src="/posts/ba6a/4.jpg" alt="小星星简谱的第1小节和第2小节" class="loading">
+<img src="/posts/ba6a/4.jpg" alt="小星星简谱的第1小节和第2小节">
 <p>那么在实际演奏中，这两个小节的区别是什么呢？</p>
 <p>四个四分音符实际演奏：啊 啊 啊 啊；<br>
 两个四分音符 &amp; 一个二分音符实际演奏：啊 啊 啊——。</p>
@@ -78,11 +78,11 @@
 <blockquote>
 <p>而在现实生活中，我们最常使用的还是唱名，由 do、re、mi、fa、so、la、si 来表示音的高低。do 代表了 C，re 代表了 D，mi 代表了 E，以此类推。</p>
 </blockquote>
-<img src="/posts/ba6a/6.jpg" alt="阿拉伯数字、唱名、汉字的对照表" class="loading">
+<img src="/posts/ba6a/6.jpg" alt="阿拉伯数字、唱名、汉字的对照表">
 <p>我们已经知道了如何用阿拉伯数字辨认音的高低，但是这仅能在简谱中使用。我们依旧还是要学会如何看五线谱。C 大调的音阶是这样的：</p>
-<img src="/posts/ba6a/7.png" alt="C大调的音阶" class="loading">
+<img src="/posts/ba6a/7.png" alt="C大调的音阶">
 <p>来看《小星星》的第一小节。不需要看阿拉伯数字，这次也可以参照上一张图判断出这是 CCGG 了：</p>
-<img src="/posts/ba6a/5.jpg" alt="小星星的第一小节，1155" class="loading">
+<img src="/posts/ba6a/5.jpg" alt="小星星的第一小节，1155">
 <p>但是在我们先前的<a href="#%E9%9F%B3%E7%AC%A6%E4%B8%8E%E9%A2%91%E7%8E%87">音符对频率字典</a>里，C、D、E、F、G、A、B 后面还跟了多个数字。比如 C4、C5、C6……这些数字代表了这个音的频率，也就是音的高低。C4 通常被认为是中央 C，C5 是高一个八度的 C，C6 是再高一个八度的 C，以此类推。</p>
 <blockquote>
 <p>八度指的是音的高低，在频率上是 2 倍的关系。比如 C4 的频率是 261.63Hz，C5 的频率是 523.25Hz，C6 的频率是 1046.50Hz，以此类推。<br>
@@ -170,4 +170,4 @@ if (search_path.length === 0) {
     search_path = "search.xml";
 }
 const path = "/" + search_path;
-searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
+searchFunc(path, 'local-search-input', 'local-search-results');</script></body></html>

@@ -10,7 +10,7 @@
 <ul>
 <li>
 <p>本文章使用到了 <code>Hexo-Generator-Search</code> 库。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search"><img src="https://gh-card.dev/repos/wzpan/hexo-generator-search.svg" alt="wzpan/hexo-generator-search - GitHub" class="loading"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search"><img src="https://gh-card.dev/repos/wzpan/hexo-generator-search.svg" alt="wzpan/hexo-generator-search - GitHub"></a></p>
 </li>
 <li>
 <p>本文章使用的是 Pug 模板语言。</p>
@@ -51,7 +51,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
 <h1 id="显示结果"><a class="markdownIt-Anchor" href="#显示结果"></a> 显示结果</h1>
 <p>首先需要清楚一件事：<code>Hexo-Generator-Search</code> <strong>仅</strong>生成搜索索引文件！你要如何使用这个文件就是你自己的事情，包括写不写搜索栏、怎么写搜索结果等。此处仅讲解我自己的方案，极大参考了 <code>Hexo-Theme-Freemind</code> 的写法。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-theme-freemind"><img src="https://gh-card.dev/repos/wzpan/hexo-theme-freemind.svg" alt="wzpan/hexo-theme-freemind - GitHub" class="loading"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-theme-freemind"><img src="https://gh-card.dev/repos/wzpan/hexo-theme-freemind.svg" alt="wzpan/hexo-theme-freemind - GitHub"></a></p>
 <blockquote>
 <p>部分主题自带了本地搜索功能，建议先看一下你使用的主题是否有内置。</p>
 </blockquote>
@@ -75,9 +75,9 @@
 <p><code>Hexo-Theme-Freemind</code> 使用的是 EJS 模板语言，感兴趣的可以<a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-theme-freemind/blob/master/layout/_widget/search.ejs#L8">看一眼</a>。</p>
 </blockquote>
 <p>由于我使用的是单列主题 <code>Hexo-Theme-Hermes</code>，整个页面就没有什么侧边栏等地方存放搜索栏。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/claymcleod/hexo-theme-hermes"><img src="https://gh-card.dev/repos/claymcleod/hexo-theme-hermes.svg" alt="claymcleod/hexo-theme-hermes - GitHub" class="loading"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/claymcleod/hexo-theme-hermes"><img src="https://gh-card.dev/repos/claymcleod/hexo-theme-hermes.svg" alt="claymcleod/hexo-theme-hermes - GitHub"></a></p>
 <p>而多列主题（例如 <code>Hexo-Theme-Freemind</code>）就可以在侧边栏内直接塞入搜索栏。</p>
-<p><img src="/posts/49c3/1.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/49c3/1.png" alt="img.png"></p>
 <p>为了不破坏单列主题的核心概念，我决定在导航栏内添加一个搜索图标。当用户点击图标后，一个搜索窗口会弹出来，内含搜索栏以及显示搜索结果的子容器。用户再次点击搜索图标或者点击搜索窗口外的区域都会导致搜索窗口消失。</p>
 <p>搜索图标我使用的是 FontAwesome 的 <code>fas fa-search</code>。从 FontAwesome 那边注册、拿到属于自己的 kit 后，在 <code>head.pug</code> 中添加：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">script(src=&quot;https://kit.fontawesome.com/########.js&quot;, crossorigin=&quot;anonymous&quot;)</span><br></pre></td></tr></table></figure>
@@ -90,7 +90,7 @@
 <blockquote>
 <p><code>cursor</code> 属性设置鼠标指针在元素上方时显示的光标类型。<code>pointer</code> 表示光标将显示为一个指向链接的手指图标，通常在链接或可点击元素上使用，以向用户表明该元素可以被点击。这有助于提高用户界面的可用性。</p>
 </blockquote>
-<p><img src="/posts/49c3/2.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/49c3/2.png" alt="img.png"></p>
 <p>接着我们来快速写一个显示搜索栏和搜索结果的容器。我要求不多，就是一个方方正正的小窗口在页面正中间。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">div#search-popup.hidden</span><br><span class="line">    div#search-panel</span><br><span class="line">        input(type=&quot;text&quot;, id=&quot;local-search-input&quot;, name=&quot;q&quot;, results=&quot;0&quot;, placeholder=__(&#x27;搜索...&#x27;))</span><br><span class="line">        div#local-search-results</span><br></pre></td></tr></table></figure>
 <p>CSS 样式：</p>
@@ -103,7 +103,7 @@
 <p>一些之后会用到的 CSS 样式：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">em</span><span class="selector-class">.search-keyword</span> &#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> dashed <span class="number">#4088b8</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span><span class="selector-class">.search-result-list</span> &#123;</span><br><span class="line">    <span class="attribute">padding-left</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.search-result-title</span> &#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.search-result</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#555</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最终结果：</p>
-<p><img src="/posts/49c3/3.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/49c3/3.png" alt="img.png"></p>
 <blockquote>
 <p>写的很随便也不好看，未来再美化吧。能用就行。</p>
 </blockquote>
@@ -151,7 +151,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if config.search</span><br><span class="line">    script(src=&quot;/js/search.js&quot;)</span><br><span class="line">    script.</span><br><span class="line">        let search_path = &quot;#&#123;config.search.path&#125;&quot;;</span><br><span class="line">        if (search_path.length === 0) &#123;</span><br><span class="line">            search_path = &quot;search.xml&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        const path = &quot;#&#123;config.root&#125;&quot; + search_path;</span><br><span class="line">        searchFunc(path, &#x27;local-search-input&#x27;, &#x27;local-search-results&#x27;);</span><br></pre></td></tr></table></figure>
 <p>首先是引入搜索脚本 <code>search.js</code>。前面说过，该脚本在 <code>public</code> 路径下时会是在 <code>js</code> 路径下。接着调用 <code>search.js</code> 中我们定义好的 <code>searchFunc</code> 函数。</p>
 <p>最终效果：</p>
-<p><img src="/posts/49c3/4.png" alt="img.png" class="loading"></p>
+<p><img src="/posts/49c3/4.png" alt="img.png"></p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="41a3.html">上一篇</a><a class="next" href="75ba.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
 var disqus_identifier = 'posts/49c3.html';
 var disqus_title = 'Hexo 本地搜索插件教程';
@@ -186,4 +186,4 @@ if (search_path.length === 0) {
     search_path = "search.xml";
 }
 const path = "/" + search_path;
-searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
+searchFunc(path, 'local-search-input', 'local-search-results');</script></body></html>
