@@ -413,6 +413,23 @@ header .nav-list-item a {
     line-height: 1.4
 }
 
+em.search-keyword {
+    border-bottom: 1px dashed #4088b8;
+    font-weight: bold;
+}
+
+ul.search-result-list {
+    padding-left: 10px;
+}
+
+a.search-result-title {
+    font-weight: bold;
+}
+
+p.search-result {
+    color: #555;
+}
+
 .home.post-list {
     margin: 2em 0
 }
@@ -877,6 +894,10 @@ pre .xml .cdata {
     margin-bottom: 2em
 }
 
+.friend-links a {
+    color: blue
+}
+
 main.container {
     margin: 2em 10px
 }
@@ -956,4 +977,50 @@ footer .copyright a {
 
 footer .copyright a:hover {
     color: #888
+}
+
+.hidden {
+    display: none;
+}
+
+#search-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 50%;
+    padding: 20px;
+    border: 3px solid #ccc;
+    background-color: #fff;
+    text-align: center;
+    z-index: 10;
+    max-width: 600px;
+}
+
+#search-popup input[type="text"] {
+    display: block;
+}
+
+#search-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#search-icon {
+    cursor: pointer;
+}
+
+#local-search-input {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#local-search-results {
+    overflow-y: auto;
+    flex-grow: 1;
 }

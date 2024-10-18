@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React + Express + Socket.io之间的实时通信【2】：注册登录 · 万圣节恶魔的领地</title><meta name="description" content="React + Express + Socket.io之间的实时通信【2】：注册登录 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React + Express + Socket.io之间的实时通信【2】：注册登录 · 万圣节恶魔的领地</title><meta name="description" content="React + Express + Socket.io之间的实时通信【2】：注册登录 - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React + Express + Socket.io之间的实时通信【2】：注册登录</h1><div class="post-info">2024/2/19</div><div class="post-content"><p><s>接连着昨日的年轻莽撞，今天</s>继续研究如何去制作一个类Slack、Discord的网页聊天室App。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item" id="search-icon"><i class="fas fa-search"></i></li><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..."><div id="local-search-results"></div></div></div></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React + Express + Socket.io之间的实时通信【2】：注册登录</h1><div class="post-info">2024/2/19</div><div class="post-content"><p><s>接连着昨日的年轻莽撞，今天</s>继续研究如何去制作一个类Slack、Discord的网页聊天室App。</p>
 <p>其实这篇文在1月23日开始起草的，然后写代码写着写着就忘了写文。</p>
 <p>再加上近期加入了一个新的项目，自己的项目不得不搁置一下。</p>
 <span id="more"></span>
@@ -11,8 +11,8 @@
 <p>页面设计的工作我交给了reactstrap包，其实用react-bootstrap包、或者干脆直接引入Bootstrap的CSS文件都是可以的。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install reactstrap</span><br></pre></td></tr></table></figure>
 <p>仿制Discord的登录&amp;注册页面还是相当容易的：</p>
-<p><img src="/posts/bb3e/login.png" alt="登录页面"></p>
-<p><img src="/posts/bb3e/Register.png" alt="注册页面"></p>
+<p><img src="/posts/bb3e/login.png" alt="登录页面" class="loading"></p>
+<p><img src="/posts/bb3e/Register.png" alt="注册页面" class="loading"></p>
 <p>这里就不说写页面的具体细节，只挑几个我花了时间去搞的地方说。</p>
 <h2 id="1-卡片居中"><a class="markdownIt-Anchor" href="#1-卡片居中"></a> 1. 卡片居中</h2>
 <p>居中，是前端界最老生常谈的话题之一。浏览器上搜索“居中”一词，会发现十年前大家在聊怎么居中，几年后在聊怎么居中，现在还有GitHub网页上出现没有好好居中的标签。</p>
@@ -21,7 +21,7 @@
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Container</span> className=<span class="string">&#x27;d-flex vh-100&#x27;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Row</span> <span class="attr">className</span>=<span class="string">&#x27;m-auto align-self-center&#x27;</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">Row</span>&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Container</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>这里推荐一下微软近期出的强力工具：PowerToys，用快捷键 <code>Windows</code> + <code>Shift</code> + <code>C</code> 就可以在屏幕上吸色了，吸的RGB值正好用来给我们的标签添加颜色样式。</p>
 <h2 id="2-生日日期选择"><a class="markdownIt-Anchor" href="#2-生日日期选择"></a> 2. 生日日期选择</h2>
-<p><img src="/posts/bb3e/Birthday_Select.png" alt></p>
+<p><img src="/posts/bb3e/Birthday_Select.png" alt class="loading"></p>
 <p>这个其实就是：</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Container</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Row</span> <span class="attr">xs</span>=<span class="string">&#x27;3&#x27;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;ps-0 pe-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;px-1&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Col</span> <span class="attr">className</span>=<span class="string">&#x27;ps-1 pe-0&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">Col</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Row</span>&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Container</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>不过重点不在这里，而在JSX中用<code>.map()</code>方法生成下拉选项。</p>
@@ -116,4 +116,30 @@ var disqus_url = 'https://cytrogen.icu/posts/bb3e.html';
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><script>document.getElementById('search-icon').addEventListener('click', function(event) {
+    const popup = document.getElementById('search-popup');
+    if (popup.classList.contains('hidden')) {
+        popup.classList.remove('hidden');
+    } else {
+        popup.classList.add('hidden');
+    }
+    event.stopPropagation();
+});
+document.getElementById('search-popup').addEventListener('click', function(event) {
+    event.stopPropagation();
+});
+document.addEventListener('click', function() {
+    const popup = document.getElementById('search-popup');
+    if (!popup.classList.contains('hidden')) {
+        popup.classList.add('hidden');
+    }
+});
+</script><script>let search_path = "search.xml";
+if (search_path.length === 0) {
+    search_path = "search.xml";
+}
+const path = "/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>

@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 通过Docker在移动端使用VSCode · 万圣节恶魔的领地</title><meta name="description" content="通过Docker在移动端使用VSCode - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 通过Docker在移动端使用VSCode · 万圣节恶魔的领地</title><meta name="description" content="通过Docker在移动端使用VSCode - Cytrogen"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/hermes.css"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://chat.cytrogen.icu/" target="_blank">聊天室</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">通过Docker在移动端使用VSCode</h1><div class="post-info">2023/1/26</div><div class="post-content"><p>利用Docker和code-server在浏览器中访问Visual Studio Code，从而在移动端使用它。</p>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/" target="_self">博客</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about/" target="_self">关于</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags/" target="_self">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB</a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_self">RSS</a></li><li class="nav-list-item" id="search-icon"><i class="fas fa-search"></i></li><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" name="q" results="0" placeholder="搜索..."><div id="local-search-results"></div></div></div></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">通过Docker在移动端使用VSCode</h1><div class="post-info">2023/1/26</div><div class="post-content"><p>利用Docker和code-server在浏览器中访问Visual Studio Code，从而在移动端使用它。</p>
 <span id="more"></span>
 <div class="danger">
 开始阅读前，需要知道：
@@ -15,24 +15,24 @@
 <h1 id="安装docker-desktop"><a class="markdownIt-Anchor" href="#安装docker-desktop"></a> 安装Docker Desktop</h1>
 <ol>
 <li>进入<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop下载网址</a>，点击 <strong>Download Docker Desktop</strong> 。<br>
-<img src="/posts/891a/Docker Desktop.jpg" alt="Docker Desktop页面"></li>
+<img src="/posts/891a/Docker Desktop.jpg" alt="Docker Desktop页面" class="loading"></li>
 <li>安装完成后点击 <strong>Close</strong> 关闭界面。<br>
-<img src="/posts/891a/Installing Docker Desktop.png" alt="Docker Desktop安装完成界面"><br>
+<img src="/posts/891a/Installing Docker Desktop.png" alt="Docker Desktop安装完成界面" class="loading"><br>
 下图为Docker Desktop的界面：<br>
-<img src="/posts/891a/Docker Desktop 1.png" alt="Docker Desktop主界面"></li>
+<img src="/posts/891a/Docker Desktop 1.png" alt="Docker Desktop主界面" class="loading"></li>
 <li>在终端内输入Docker检查版本的命令，检查是否安装成功：<br>
-<img src="/posts/891a/Docker Version.png" alt="终端内输入docker version"></li>
+<img src="/posts/891a/Docker Version.png" alt="终端内输入docker version" class="loading"></li>
 </ol>
 <h1 id="创建容器"><a class="markdownIt-Anchor" href="#创建容器"></a> 创建容器</h1>
 <ol>
-<li>打开任一终端，拉取Ubuntu镜像：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu">
+<li>打开任一终端，拉取Ubuntu镜像：<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker pull ubuntu</span></span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu" class="loading">
 </li>
-<li>继续在终端内创建空容器：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name CodeServer ubuntu:latest /bin/bash</span><br></pre></td></tr></table></figure>
+<li>继续在终端内创建空容器：<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--name CodeServer ubuntu:latest /bin/bash</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt install curl</span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update">
-<img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl">
+<li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="keyword">get</span> <span class="keyword">update</span></span><br><span class="line">apt install curl</span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update" class="loading">
+<img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl" class="loading">
 </li>
 </ol>
 <h1 id="安装code-server"><a class="markdownIt-Anchor" href="#安装code-server"></a> 安装code-server</h1>
@@ -42,12 +42,12 @@
 <ol>
 <li>
 <p>依然是在终端内，执行以下命令来安装：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://code-server.dev/install.sh | sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">curl</span> -fsSL https://code-server.dev/install.sh | sh</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>为了能够让其他设备也可以访问网页，需要执行以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-server --link</span><br></pre></td></tr></table></figure>
-<img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link">
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">code</span>-server <span class="attr">--link</span></span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link" class="loading">
 <blockquote>
 <p>我在这里换了个终端，实际上不需要更换。</p>
 </blockquote>
@@ -58,9 +58,9 @@
 </li>
 <li>
 <p>最终会提供给你一个IDE网址。<br>
-<img src="/posts/891a/IDE网址.png" alt="登录GitHub后在终端会提供一个IDE网址"></p>
+<img src="/posts/891a/IDE网址.png" alt="登录GitHub后在终端会提供一个IDE网址" class="loading"></p>
 <p>进入该网址，便会看到熟悉的Visual Studio Code。<br>
-<img src="/posts/891a/Visual Studio Code.png" alt="IDE网址内的VSCode"></p>
+<img src="/posts/891a/Visual Studio Code.png" alt="IDE网址内的VSCode" class="loading"></p>
 </li>
 </ol>
 <h1 id="移动端访问"><a class="markdownIt-Anchor" href="#移动端访问"></a> 移动端访问</h1>
@@ -68,7 +68,7 @@
 <li>
 <p>到这儿就已经很明显要怎么做了。</p>
 <p>进入手机的浏览器，输入上面的IDE网址，就可以在手机上使用Visual Studio Code了。<br>
-<img src="/posts/891a/移动端.jpg" alt="手机上的Visual Studio Code"></p>
+<img src="/posts/891a/移动端.jpg" alt="手机上的Visual Studio Code" class="loading"></p>
 </li>
 </ol>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="/posts/60db.html">上一篇</a><a class="next" href="/posts/a3e5.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
@@ -79,4 +79,30 @@ var disqus_url = 'https://cytrogen.icu/posts/891a.html';
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><script>document.getElementById('search-icon').addEventListener('click', function(event) {
+    const popup = document.getElementById('search-popup');
+    if (popup.classList.contains('hidden')) {
+        popup.classList.remove('hidden');
+    } else {
+        popup.classList.add('hidden');
+    }
+    event.stopPropagation();
+});
+document.getElementById('search-popup').addEventListener('click', function(event) {
+    event.stopPropagation();
+});
+document.addEventListener('click', function() {
+    const popup = document.getElementById('search-popup');
+    if (!popup.classList.contains('hidden')) {
+        popup.classList.add('hidden');
+    }
+});
+</script><script>let search_path = "search.xml";
+if (search_path.length === 0) {
+    search_path = "search.xml";
+}
+const path = "/" + search_path;
+searchFunc(path, 'local-search-input', 'local-search-results');</script><style>img.loading{background:url('/images/loading.svg') no-repeat center center;min-width:200px;min-height:200px}</style><script>const listener=()=>{document.querySelectorAll("img.loading").forEach((e=>{e.complete?e.classList.remove("loading"):e.onload=function(){this.classList.remove("loading")}}))};document.addEventListener("DOMContentLoaded",listener),document.addEventListener("pjax:success",listener);</script></body></html>
