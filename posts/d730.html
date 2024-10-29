@@ -103,25 +103,53 @@
 </li>
 </ol>
 <h4 id="uploading-content-to-your-bucket"><a class="markdownIt-Anchor" href="#uploading-content-to-your-bucket"></a> Uploading content to your bucket</h4>
+<ol>
+<li>
 <p>Choose (right-click) each of the following links, and download the files to your computer:<br>
 Ensure that each file keeps the same file name, including the extension.</p>
-<p>index.html<br>
-script.js<br>
-style.css<br>
-Return to the Amazon S3 console, and choose the Objects tab.<br>
-Choose Upload<br>
-Choose Add files<br>
-Choose the three files that you downloaded.<br>
-Choose Upload<br>
-Your files are uploaded to the bucket.</p>
+<ul>
+<li>index.html</li>
+<li>script.js</li>
+<li>style.css</li>
+</ul>
+</li>
+<li>
+<p>Return to the Amazon S3 console, and choose the Objects tab.</p>
+</li>
+<li>
+<p>Choose Upload</p>
+</li>
+<li>
+<p>Choose Add files</p>
+</li>
+<li>
+<p>Choose the three files that you downloaded.</p>
+</li>
+<li>
+<p>Choose Upload</p>
+</li>
+<li>
+<p>Your files are uploaded to the bucket.</p>
+</li>
+<li>
 <p>Choose Close</p>
+</li>
+</ol>
 <h4 id="turning-on-public-access-to-the-objects"><a class="markdownIt-Anchor" href="#turning-on-public-access-to-the-objects"></a> Turning on public access to the objects</h4>
 <p>Objects that are stored in Amazon S3 are private by default. This setting helps keep your organization's data secure.</p>
 <p>In this task, you make the uploaded objects publicly accessible so users can view your website.</p>
+<ol>
+<li>
 <p>First, confirm that the objects are currently private.</p>
-<p>Return to the browser tab that showed the 403 Forbidden message.<br>
-Refresh  the webpage.<br>
+</li>
+<li>
+<p>Return to the browser tab that showed the 403 Forbidden message.</p>
+</li>
+<li>
+<p>Refresh the webpage.<br>
 If you accidentally closed this tab, go to the Properties tab, and in the Static website hosting panel, choose the Bucket website endpoint link again.</p>
+</li>
+</ol>
 <p>You should still see a 403 Forbidden message. This response is expected! This message indicates that your static website is being hosted by Amazon S3 but that the content is private.</p>
 <p>You can make Amazon S3 objects public through two different ways:</p>
 <p>To make either a whole bucket public or a specific directory in a bucket public, use a bucket policy.<br>
