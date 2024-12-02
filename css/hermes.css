@@ -396,16 +396,36 @@ header .logo-link {
 
 header .nav {
     float: right;
-    left: 80px
+    left: 80px;
+    width: auto;
 }
 
 header .logo-link img {
     height: 60px
 }
 
+header .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+header .nav-list-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header .nav-list-bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+}
+
 header .nav-list-item {
     display: inline-block;
-    padding: 19px 10px
+    padding: 10px 10px
 }
 
 header .nav-list-item a {
@@ -613,6 +633,68 @@ p.search-result {
     font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif
 }
 
+.tag-list {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-item {
+    margin-bottom: 10px;
+}
+
+.tag-item a {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag-item a:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.tag-count {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.category-list {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-item {
+    margin-bottom: 10px;
+}
+
+.category-item a {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.category-item a:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.category-count {
+    color: #999;
+    font-size: 0.9em;
+}
+
 #mask {
     position: fixed;
     overflow: scroll;
@@ -772,6 +854,30 @@ pre {
     content: 'C++'
 }
 
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nav-list-top {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.nav-list-bottom {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.nav-list-item {
+    display: inline-block;
+    padding: 10px;
+}
+
 pre {
     color: #525252
 }
@@ -914,19 +1020,16 @@ main.container {
 }
 
 @media screen and (max-width: 700px) {
-    .wrap {
-        width: 100%
-    }
-
-    header {
-        padding: 20px 0
-    }
-
     header a.logo-link,
     header ul.nav.nav-list {
         float: none;
         display: block;
         text-align: center
+    }
+
+    header .nav-list-top,
+    header .nav-list-bottom {
+        justify-content: center;
     }
 
     header li.nav-list-item {
@@ -955,6 +1058,13 @@ main.container {
     .ds-thread,
     #disqus_thread {
         margin: 2em 10px
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .nav-list-top,
+    .nav-list-bottom {
+        justify-content: center;
     }
 }
 
