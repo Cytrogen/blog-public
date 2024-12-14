@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cytrogen.icu/en/about/index.html</loc>
+    
+    <lastmod>2024-12-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://cytrogen.icu/about/index.html</loc>
+    
+    <lastmod>2024-12-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://cytrogen.icu/en/friends/index.html</loc>
     
     <lastmod>2024-12-14</lastmod>
@@ -74,15 +92,6 @@
   </url>
   
   <url>
-    <loc>https://cytrogen.icu/en/about/index.html</loc>
-    
-    <lastmod>2024-12-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://cytrogen.icu/archives/index.html</loc>
     
     <lastmod>2024-12-02</lastmod>
@@ -93,15 +102,6 @@
   
   <url>
     <loc>https://cytrogen.icu/categories/index.html</loc>
-    
-    <lastmod>2024-12-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://cytrogen.icu/about/index.html</loc>
     
     <lastmod>2024-12-02</lastmod>
     
