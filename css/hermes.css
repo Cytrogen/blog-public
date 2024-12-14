@@ -485,19 +485,16 @@ p.search-result {
 }
 
 .archive .post-item {
-    padding: 2px 0 0 50px
+    padding: 2px 0 0 50px;
+    display: flex;
 }
 
 .archive .post-time,
 .archive .post-title-link {
-    font-size: 1rem
-}
-
-.archive .post-title-link {
-    /* display: block; */
-    /* margin-left: 125px; */
+    flex: 1;
+    font-size: 1rem;
     color: #5454f8;
-    word-break: break-all
+    word-break: break-all;
 }
 
 .archive .post-title-link:hover {
@@ -506,8 +503,7 @@ p.search-result {
 }
 
 .archive .post-info {
-    float: left;
-    width: 125px;
+    flex: 0 0 125px;
     color: #7f8c8d
 }
 
@@ -1004,8 +1000,73 @@ pre .xml .cdata {
     color: blue
 }
 
+.friend-links__content {
+    margin-bottom: 2em;
+    padding: 0 1rem;
+    line-height: 1.6;
+}
+
+.friend-links__title {
+    margin-bottom: 2rem;
+}
+
+.friend-links__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.friend-link-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.friend-link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.friend-link-card__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.friend-link-card__content {
+    padding: 1.5rem;
+}
+
+.friend-link-card__name {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+}
+
+.friend-link-card__description {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.friend-link-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-top: 1rem;
+    object-fit: cover;
+}
+
 main.container {
     margin: 2em 10px
+}
+
+@media (max-width: 768px) {
+    .friend-links__grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (min-width: 700px) {
@@ -1041,10 +1102,6 @@ main.container {
     .archive {
         margin-top: 0
     }
-
-    /* .archive .post-item {
-        padding-left: 20px
-    } */
 
     .post-content h2,
     .post-content h3,
@@ -1103,7 +1160,6 @@ footer .copyright a:hover {
     padding: 20px;
     border: 3px solid #ccc;
     background-color: #fff;
-    text-align: center;
     z-index: 10;
     max-width: 600px;
 }
