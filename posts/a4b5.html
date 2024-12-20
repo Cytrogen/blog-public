@@ -59,15 +59,15 @@
 <p>至此我们已经搞清楚了有道翻译客户端是拿着什么参数去请求服务器的，接下来我们可以用Python来模拟这个请求。</p>
 <h1 id="python模拟请求"><a class="markdownIt-Anchor" href="#python模拟请求"></a> Python模拟请求</h1>
 <p>比起直接用<code>requests.post()</code>，我们这次要使用<code>requests.session.post()</code>，否则不会成功；<code>headers</code>和<code>data</code>之后再怼：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">session = requests.session()</span><br><span class="line">session.get(<span class="string">&#x27;https://fanyi.youdao.com/&#x27;</span>)</span><br><span class="line">res = session.post(<span class="string">&#x27;https://dict.youdao.com/webtranslate&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">session = requests.session()</span><br><span class="line">session.get(<span class="string">&#x27;https://fanyi.youdao.com/&#x27;</span>)</span><br><span class="line">res = session.post(<span class="string">&#x27;https://dict.youdao.com/webtranslate&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <p><code>headers</code>的内容可以直接从开发者工具那边复制，别忘了加上<code>Referer</code>。</p>
 <p><code>data</code>的内容我们需要模拟一下：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳</span></span><br><span class="line"><span class="comment"># 因为JS的时间戳是毫秒级的，而Python的是秒级的，所以要乘以1000</span></span><br><span class="line">t = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加密和构建sign值</span></span><br><span class="line">s = <span class="string">f&#x27;client=fanyideskweb&amp;mysticTime=<span class="subst">&#123;t&#125;</span>&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso&#x27;</span></span><br><span class="line">sign = hashlib.md5(s.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">&#x27;i&#x27;</span>: word,  <span class="comment"># 要翻译的单词</span></span><br><span class="line">    <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;domain&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;dictResult&#x27;</span>: <span class="string">&#x27;true&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;keyid&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sign&#x27;</span>: sign,</span><br><span class="line">    <span class="string">&#x27;client&#x27;</span>: <span class="string">&#x27;fanyideskweb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;product&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;appVersion&#x27;</span>: <span class="string">&#x27;1.0.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;vendor&#x27;</span>: <span class="string">&#x27;web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;pointParam&#x27;</span>: <span class="string">&#x27;client,mysticTime,product&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mysticTime&#x27;</span>: t,</span><br><span class="line">    <span class="string">&#x27;keyfrom&#x27;</span>: <span class="string">&#x27;fanyi.web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mid&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;screen&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;model&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;network&#x27;</span>: <span class="string">&#x27;wifi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;abtest&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;yduuid&#x27;</span>: <span class="string">&#x27;abcdefg&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳</span></span><br><span class="line"><span class="comment"># 因为JS的时间戳是毫秒级的，而Python的是秒级的，所以要乘以1000</span></span><br><span class="line">t = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加密和构建sign值</span></span><br><span class="line">s = <span class="string">f&#x27;client=fanyideskweb&amp;mysticTime=<span class="subst">&#123;t&#125;</span>&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso&#x27;</span></span><br><span class="line">sign = hashlib.md5(s.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">&#x27;i&#x27;</span>: word,  <span class="comment"># 要翻译的单词</span></span><br><span class="line">    <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;auto&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;domain&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;dictResult&#x27;</span>: <span class="string">&#x27;true&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;keyid&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sign&#x27;</span>: sign,</span><br><span class="line">    <span class="string">&#x27;client&#x27;</span>: <span class="string">&#x27;fanyideskweb&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;product&#x27;</span>: <span class="string">&#x27;webfanyi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;appVersion&#x27;</span>: <span class="string">&#x27;1.0.0&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;vendor&#x27;</span>: <span class="string">&#x27;web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;pointParam&#x27;</span>: <span class="string">&#x27;client,mysticTime,product&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mysticTime&#x27;</span>: t,</span><br><span class="line">    <span class="string">&#x27;keyfrom&#x27;</span>: <span class="string">&#x27;fanyi.web&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;mid&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;screen&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;model&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">&#x27;network&#x27;</span>: <span class="string">&#x27;wifi&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;abtest&#x27;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">&#x27;yduuid&#x27;</span>: <span class="string">&#x27;abcdefg&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接着来看一下响应的内容~</p>
 <p><img src="/posts/a4b5/10.png" alt></p>
 <p>居然是一大串看不懂的东西？！当然，相信大家看到这一大串中结尾的<code>=</code>时，应该就知道这是base64编码了。我们可以用Python来解码，不过还要插一句题外话：这个是base64变种，叫做URL-safe base64，它把<code>+</code>和<code>/</code>换成了<code>-</code>和<code>_</code>。这个变种的诞生是为了让base64编码后的内容能够安全地放在URL中。</p>
 <p>简单来说就是：我们还需要把<code>-</code>和<code>_</code>换回来才能解码：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res = res.replace(<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;+&#x27;</span>).replace(<span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">data = base64.b64decode(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res = res.replace(<span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;+&#x27;</span>).replace(<span class="string">&#x27;_&#x27;</span>, <span class="string">&#x27;/&#x27;</span>)</span><br><span class="line">data = base64.b64decode(res)</span><br></pre></td></tr></table></figure>
 <p>再次运行，好家伙，得到了一串更过分的字节。</p>
 <p><img src="/posts/a4b5/11.png" alt></p>
 <h1 id="解密"><a class="markdownIt-Anchor" href="#解密"></a> 解密</h1>
@@ -127,21 +127,21 @@
 <li>最终返回明文</li>
 </ol>
 <p>搞清楚逻辑后我们便可以继续用Python解密：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">digest_key</span>(<span class="params">value</span>):</span><br><span class="line">    md5_new = hashlib.md5()</span><br><span class="line">    md5_new.update(val.encode())</span><br><span class="line">    <span class="keyword">return</span> md5_new.digest()</span><br><span class="line"></span><br><span class="line">o = <span class="string">&#x27;ydsecret://query/key/B*RGygVywfNBwpmBaZg*WT7SIOUP2T0C9WHMZN39j^DAdaZhAnxvGcCY6VYFwnHl&#x27;</span></span><br><span class="line">n = <span class="string">&#x27;ydsecret://query/iv/C@lZe2YzHtZ2CYgaXKSVfsb7Y4QWHjITPPZ0nQp87fBeJ!Iv6v^6fvi2WN@bYpJ4&#x27;</span></span><br><span class="line"></span><br><span class="line">key = digest_key(o)</span><br><span class="line">iv = digest_key(n)</span><br><span class="line"></span><br><span class="line">aes = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">data = aes.decrypt(data).decode()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">digest_key</span>(<span class="params">value</span>):</span><br><span class="line">    md5_new = hashlib.md5()</span><br><span class="line">    md5_new.update(val.encode())</span><br><span class="line">    <span class="keyword">return</span> md5_new.digest()</span><br><span class="line"></span><br><span class="line">o = <span class="string">&#x27;ydsecret://query/key/B*RGygVywfNBwpmBaZg*WT7SIOUP2T0C9WHMZN39j^DAdaZhAnxvGcCY6VYFwnHl&#x27;</span></span><br><span class="line">n = <span class="string">&#x27;ydsecret://query/iv/C@lZe2YzHtZ2CYgaXKSVfsb7Y4QWHjITPPZ0nQp87fBeJ!Iv6v^6fvi2WN@bYpJ4&#x27;</span></span><br><span class="line"></span><br><span class="line">key = digest_key(o)</span><br><span class="line">iv = digest_key(n)</span><br><span class="line"></span><br><span class="line">aes = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">data = aes.decrypt(data).decode()</span><br></pre></td></tr></table></figure>
 <p>得到的结果：</p>
 <p><img src="/posts/a4b5/19.png" alt></p>
 <h1 id="制作翻译器"><a class="markdownIt-Anchor" href="#制作翻译器"></a> 制作翻译器</h1>
 <p>经过以上逆向过程，我们还可以制作一个翻译器，让它能够翻译我们输入的单词。</p>
 <p>首先我们需要一个GUI库，这里我选择了wxPython。安装方法：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install wxPython</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install wxPython</span><br></pre></td></tr></table></figure>
 <p>其次我们需要定义一个窗口类，该类继承自<code>wx.Frame</code>：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyFrame</span>(wx.Frame):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, parent, title</span>):</span><br><span class="line">        <span class="comment"># 调用父类的构造函数</span></span><br><span class="line">        <span class="built_in">super</span>(MyFrame, <span class="variable language_">self</span>).__init__(parent, title=title, size=(<span class="number">400</span>, <span class="number">250</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建一个面板</span></span><br><span class="line">        panel = wx.Panel(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 左侧文本框</span></span><br><span class="line">        input_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 右侧文本框</span></span><br><span class="line">        output_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE | wx.TE_READONLY, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 按钮</span></span><br><span class="line">        button = wx.Button(panel, label=<span class="string">&#x27;翻译&#x27;</span>, size=(<span class="number">50</span>, <span class="number">25</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 水平布局</span></span><br><span class="line">        sizer = wx.BoxSizer(wx.HORIZONTAL)</span><br><span class="line">        <span class="comment"># 添加输入框和输出框</span></span><br><span class="line">        sizer.Add(input_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line">        sizer.Add(output_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 垂直布局</span></span><br><span class="line">        inner_sizer = wx.BoxSizer(wx.VERTICAL)</span><br><span class="line">        <span class="comment"># 添加水平布局和按钮</span></span><br><span class="line">        inner_sizer.Add(sizer, <span class="number">0</span>, wx.ALL | wx.EXPAND, <span class="number">10</span>)</span><br><span class="line">        inner_sizer.Add(button, <span class="number">0</span>, wx.ALIGN_CENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置面板的布局</span></span><br><span class="line">        panel.SetSizerAndFit(inner_sizer)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyFrame</span>(wx.Frame):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, parent, title</span>):</span><br><span class="line">        <span class="comment"># 调用父类的构造函数</span></span><br><span class="line">        <span class="built_in">super</span>(MyFrame, <span class="variable language_">self</span>).__init__(parent, title=title, size=(<span class="number">400</span>, <span class="number">250</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建一个面板</span></span><br><span class="line">        panel = wx.Panel(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 左侧文本框</span></span><br><span class="line">        input_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 右侧文本框</span></span><br><span class="line">        output_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE | wx.TE_READONLY, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 按钮</span></span><br><span class="line">        button = wx.Button(panel, label=<span class="string">&#x27;翻译&#x27;</span>, size=(<span class="number">50</span>, <span class="number">25</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 水平布局</span></span><br><span class="line">        sizer = wx.BoxSizer(wx.HORIZONTAL)</span><br><span class="line">        <span class="comment"># 添加输入框和输出框</span></span><br><span class="line">        sizer.Add(input_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line">        sizer.Add(output_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 垂直布局</span></span><br><span class="line">        inner_sizer = wx.BoxSizer(wx.VERTICAL)</span><br><span class="line">        <span class="comment"># 添加水平布局和按钮</span></span><br><span class="line">        inner_sizer.Add(sizer, <span class="number">0</span>, wx.ALL | wx.EXPAND, <span class="number">10</span>)</span><br><span class="line">        inner_sizer.Add(button, <span class="number">0</span>, wx.ALIGN_CENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置面板的布局</span></span><br><span class="line">        panel.SetSizerAndFit(inner_sizer)</span><br></pre></td></tr></table></figure>
 <p>运行一下，布局长这样：</p>
 <p><img src="/posts/a4b5/20.png" alt></p>
 <p>用户需要在左侧输入单词、点击按钮，右侧才能够显示翻译的结果。因此我们还需要给按钮绑定一个事件：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># ...继def __init__()的内容...</span></span><br><span class="line">    <span class="comment"># 绑定按钮事件</span></span><br><span class="line">    <span class="variable language_">self</span>.Bind(wx.EVT_BUTTON, <span class="variable language_">self</span>.on_button_click, button)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当按钮被点击时，执行该函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_button_click</span>(<span class="params">self, event</span>):</span><br><span class="line">    <span class="comment"># 获取输入框和输出框</span></span><br><span class="line">    input_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">2</span>)</span><br><span class="line">    output_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取输入框的内容</span></span><br><span class="line">    word = input_text.GetValue()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># ...继def __init__()的内容...</span></span><br><span class="line">    <span class="comment"># 绑定按钮事件</span></span><br><span class="line">    <span class="variable language_">self</span>.Bind(wx.EVT_BUTTON, <span class="variable language_">self</span>.on_button_click, button)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当按钮被点击时，执行该函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_button_click</span>(<span class="params">self, event</span>):</span><br><span class="line">    <span class="comment"># 获取输入框和输出框</span></span><br><span class="line">    input_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">2</span>)</span><br><span class="line">    output_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取输入框的内容</span></span><br><span class="line">    word = input_text.GetValue()</span><br></pre></td></tr></table></figure>
 <p>接下来的内容我相信大家都心知肚明，正是上述的所有内容的结合体。我把那些代码封装成了函数塞在按钮事件中，大家则可以自己动动手、试试看（绝对不是因为我懒）。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继def on_button_click()的内容</span></span><br><span class="line"><span class="comment"># 发送请求</span></span><br><span class="line">res = request(word)</span><br><span class="line"><span class="comment"># 将响应用base64解码</span></span><br><span class="line">data = decode_result(res)</span><br><span class="line"><span class="comment"># 解密解码后的响应，获得JSON数据中的翻译结果</span></span><br><span class="line">word = decrypt_data(data)</span><br><span class="line"><span class="comment"># 设置输出框的内容</span></span><br><span class="line">output_text.SetValue(word)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继def on_button_click()的内容</span></span><br><span class="line"><span class="comment"># 发送请求</span></span><br><span class="line">res = request(word)</span><br><span class="line"><span class="comment"># 将响应用base64解码</span></span><br><span class="line">data = decode_result(res)</span><br><span class="line"><span class="comment"># 解密解码后的响应，获得JSON数据中的翻译结果</span></span><br><span class="line">word = decrypt_data(data)</span><br><span class="line"><span class="comment"># 设置输出框的内容</span></span><br><span class="line">output_text.SetValue(word)</span><br></pre></td></tr></table></figure>
 <p><img src="/posts/a4b5/21.png" alt></p>
 <p>完工！</p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="f8ce.html">上一篇</a><a class="next" href="875a.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
@@ -152,7 +152,108 @@ var disqus_url = 'https://cytrogen.icu/posts/a4b5.html';
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
@@ -189,4 +290,29 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchFunc(path, 'local-search-input', 'local-search-result');
     }
 });
-</script><script src="../js/language-switch.js"></script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

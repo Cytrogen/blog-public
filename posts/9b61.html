@@ -41,89 +41,106 @@
 <p>Hoka部署最为紧要的部分是<code>.env</code>文件，也就是<strong>环境配置文件</strong>。</p>
 </blockquote>
 <ol>
-<li>进入<code>.env</code>文件进行编辑：</li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .env</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ENVIRONMENT</span>=dev</span><br><span class="line"></span><br><span class="line"><span class="attr">HOST</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">PORT</span>=<span class="number">56766</span></span><br><span class="line"><span class="attr">LOG_LEVEL</span>=INFO</span><br><span class="line"><span class="attr">FASTAPI_RELOAD</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">SUPERUSERS</span> = [<span class="string">&quot;&quot;</span>]</span><br><span class="line"><span class="attr">NICKNAME</span> = [<span class="string">&quot;hoka&quot;</span>]</span><br><span class="line"><span class="attr">COMMAND_START</span> = [<span class="string">&quot;hoka&quot;</span>, <span class="string">&quot;&quot;</span>]</span><br><span class="line"><span class="attr">COMMAND_SEP</span> = [<span class="string">&quot;*&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">GOCQ_ACCOUNR</span> = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;uin&quot;</span>: ,</span><br><span class="line">    <span class="string">&quot;password&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;protocol&quot;</span>: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"><span class="attr">GOCQ_URL</span> = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.<span class="number">0.0</span>-rc3/go-cqhttp_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="attr">APSCHEDULER_AUTOSTART</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">API_TIMEOUT</span> = <span class="number">3600</span></span><br><span class="line"></span><br><span class="line"><span class="attr">RAM_CMD</span> = 功能</span><br><span class="line"><span class="attr">RAM_ADD</span> = 开启</span><br><span class="line"><span class="attr">RAM_RM</span> = 关闭</span><br><span class="line"><span class="attr">RAM_SHOW</span> = 查询</span><br><span class="line"><span class="attr">RAM_AVAILABLE</span> = 全局查询</span><br><span class="line"></span><br><span class="line"><span class="attr">GAME_PATH</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">MAX_BET_GOLD</span> = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">READ_QQ_FRIENDS</span> = []</span><br><span class="line"><span class="attr">READ_QQ_GROUPS</span> = []</span><br><span class="line"><span class="attr">READ_INFORM_TIME</span> = [&#123;<span class="string">&quot;HOUR&quot;</span>: <span class="number">9</span>, <span class="string">&quot;MINUTE&quot;</span>: <span class="number">5</span>&#125;]</span><br></pre></td></tr></table></figure>
-<br>
-<ol start="2">
+<li>
+<p>进入<code>.env</code>文件进行编辑：</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br><span class="line"></span><br><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br><span class="line"></span><br><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br><span class="line"></span><br><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br><span class="line"></span><br><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br><span class="line"></span><br><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br><span class="line"></span><br><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+</li>
 <li>
 <ul>
-<li>环境默认为<code>dev</code>，即<code>development</code>、开发环境；</li>
-<li>可更改为<code>prod</code>，即<code>production</code>、生产环境；</li>
+<li>
+<p>环境默认为<code>dev</code>，即<code>development</code>、开发环境；</p>
+</li>
+<li>
+<p>可更改为<code>prod</code>，即<code>production</code>、生产环境；</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ol>
-<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ENVIRONMENT</span><span class="operator">=</span>dev</span><br></pre></td></tr></table></figure>
 <br>
 <ol start="3">
-<li>如下，这里分别是<code>HOST 监听IP/主机名</code>、<code>PORT 监听端口</code>、<code>LOG LEVEL 日志等级</code>和<code>FASTAPI_RELOAD</code>的配置：
+<li>
+<p>如下，这里分别是<code>HOST 监听IP/主机名</code>、<code>PORT 监听端口</code>、<code>LOG LEVEL 日志等级</code>和<code>FASTAPI_RELOAD</code>的配置：</p>
 <ul>
-<li>下面的端口如果已被使用可以修改为其他数字，其它则都不需要碰。</li>
+<li>
+<p>下面的端口如果已被使用可以修改为其他数字，其它则都不需要碰。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">HOST</span>=<span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">PORT</span>=<span class="number">56766</span></span><br><span class="line"><span class="attr">LOG_LEVEL</span>=INFO</span><br><span class="line"><span class="attr">FASTAPI_RELOAD</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<br>
-<ol start="4">
 <li>
 <ul>
-<li>配置<code>SUPERUSERS 超级用户</code>：超级用户是Hoka的管理员，有着最高权限。<br>
-这里推荐只写你自己的QQ号；</li>
-<li>配置<code>NICKNAME bot昵称</code>：不建议修改，因为我都是直接在代码里写的Hoka，改了没啥用；</li>
-<li>配置<code>COMMAND_START 命令前缀</code>：不建议修改，但也不是不能改；</li>
-<li>配置<code>COMMAND_SEP 命令隔开符</code>：不咋用到这个，随意更改。</li>
+<li>
+<p>配置<code>SUPERUSERS 超级用户</code>：超级用户是Hoka的管理员，有着最高权限。<br>
+这里推荐只写你自己的QQ号；</p>
+</li>
+<li>
+<p>配置<code>NICKNAME bot昵称</code>：不建议修改，因为我都是直接在代码里写的Hoka，改了没啥用；</p>
+</li>
+<li>
+<p>配置<code>COMMAND_START 命令前缀</code>：不建议修改，但也不是不能改；</p>
+</li>
+<li>
+<p>配置<code>COMMAND_SEP 命令隔开符</code>：不咋用到这个，随意更改。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">SUPERUSERS</span> = [<span class="string">&quot;&quot;</span>]</span><br><span class="line"><span class="attr">NICKNAME</span> = [<span class="string">&quot;hoka&quot;</span>]</span><br><span class="line"><span class="attr">COMMAND_START</span> = [<span class="string">&quot;hoka&quot;</span>, <span class="string">&quot;&quot;</span>]</span><br><span class="line"><span class="attr">COMMAND_SEP</span> = [<span class="string">&quot;*&quot;</span>]</span><br></pre></td></tr></table></figure>
-<br>
-<ol>
-<li>配置<code>Go-CQHTTP插件</code>：
+<li>
+<p>配置<code>Go-CQHTTP插件</code>：</p>
 <ul>
-<li><strong>介于该插件的前端可以登录账号，你不需要配置<code>GOCQ_ACCOUNR</code>；</strong></li>
-<li>该插件将会下载<code>GOCQ_URL</code>中填写的地址，什么都不输入将自动使用该插件默认的镜像站以及最新版本。</li>
+<li>
+<p><strong>介于该插件的前端可以登录账号，你不需要配置<code>GOCQ_ACCOUNR</code>；</strong></p>
+</li>
+<li>
+<p>该插件将会下载<code>GOCQ_URL</code>中填写的地址，什么都不输入将自动使用该插件默认的镜像站以及最新版本。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="string">&quot;uin&quot;</span>: ,</span><br><span class="line">    <span class="string">&quot;password&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">    <span class="string">&quot;protocol&quot;</span>: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https:<span class="regexp">//gi</span>thub.com<span class="regexp">/Mrs4s/g</span>o-cqhttp<span class="regexp">/releases/</span>download<span class="regexp">/v1.0.0-rc3/g</span>o-cqhttp_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-<br>
-<ol start="6">
-<li>不需要管这俩。</li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">APSCHEDULER_AUTOSTART</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">API_TIMEOUT</span> = <span class="number">3600</span></span><br></pre></td></tr></table></figure>
-<br>
-<ol start="7">
-<li><code>rauthman 权限管理插件</code>的配置项：
+<li>
+<p>不需要管这俩。</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>rauthman 权限管理插件</code>的配置项：</p>
 <ul>
-<li>其实只是指令名更改，不建议修改。</li>
+<li>
+<p>其实只是指令名更改，不建议修改。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">RAM_CMD</span> = 功能</span><br><span class="line"><span class="attr">RAM_ADD</span> = 开启</span><br><span class="line"><span class="attr">RAM_RM</span> = 关闭</span><br><span class="line"><span class="attr">RAM_SHOW</span> = 查询</span><br><span class="line"><span class="attr">RAM_AVAILABLE</span> = 全局查询</span><br></pre></td></tr></table></figure>
-<br>
-<ol start="8">
-<li><code>game 群组游戏插件</code>的配置项：
+<li>
+<p><code>game 群组游戏插件</code>的配置项：</p>
 <ul>
-<li><code>GAME_PATH</code>不要碰；</li>
-<li><code>MAX_BET_GOLD</code>为俄罗斯轮盘中赌注的上限，可以调低防止一夜暴富一夜回到解放前。</li>
+<li>
+<p><code>GAME_PATH</code>不要碰；</p>
+</li>
+<li>
+<p><code>MAX_BET_GOLD</code>为俄罗斯轮盘中赌注的上限，可以调低防止一夜暴富一夜回到解放前。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">GAME_PATH</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">MAX_BET_GOLD</span> = <span class="number">10000</span></span><br></pre></td></tr></table></figure>
-<br>
-<ol start="9">
-<li><code>read_60s 60秒读世界插件</code>的配置项：
+<li>
+<p><code>read_60s 60秒读世界插件</code>的配置项：</p>
 <ul>
-<li><code>READ_QQ_FRIENDS</code>为每日定时发送的QQ好友号；</li>
-<li><code>READ_QQ_GROUPS</code>为每日定时发送的QQ群聊号；</li>
-<li><code>READ_INFORM_TIME</code>为每日定时发送的时间，按照本地时间为标准，如下便是每日早上9点5分。</li>
+<li>
+<p><code>READ_QQ_FRIENDS</code>为每日定时发送的QQ好友号；</p>
+</li>
+<li>
+<p><code>READ_QQ_GROUPS</code>为每日定时发送的QQ群聊号；</p>
+</li>
+<li>
+<p><code>READ_INFORM_TIME</code>为每日定时发送的时间，按照本地时间为标准，如下便是每日早上9点5分。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-</ol>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">READ_QQ_FRIENDS</span> = []</span><br><span class="line"><span class="attr">READ_QQ_GROUPS</span> = []</span><br><span class="line"><span class="attr">READ_INFORM_TIME</span> = [&#123;<span class="string">&quot;HOUR&quot;</span>: <span class="number">9</span>, <span class="string">&quot;MINUTE&quot;</span>: <span class="number">5</span>&#125;]</span><br></pre></td></tr></table></figure>
-<br>
-<ol start="10">
-<li>你已经配置好了环境配置文件！</li>
+<li>
+<p>你已经配置好了环境配置文件！</p>
+</li>
 </ol>
 <center>————————</center>
 <h1 id="配置hoka的群组游戏"><a class="markdownIt-Anchor" href="#配置hoka的群组游戏"></a> 配置Hoka的群组游戏</h1>
@@ -131,10 +148,10 @@
 <p>需要配置的只有群组卡池。</p>
 </blockquote>
 <ol>
-<li>进入<code>src/plugins/game/gacha.py</code>，找到<code>class NormalData</code>：</li>
-</ol>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="symbol">NormalData:</span></span><br><span class="line"><span class="symbol">    <span class="symbol">sixList</span></span> = []</span><br><span class="line"></span><br><span class="line">    <span class="symbol">fiveList</span> = []</span><br><span class="line"></span><br><span class="line">    <span class="symbol">fourList</span> = []</span><br><span class="line"></span><br><span class="line">    <span class="symbol">threeList</span> = []</span><br><span class="line"></span><br><span class="line">    <span class="symbol">onelist</span> = [&#x27;虾虾&#x27;]</span><br><span class="line"></span><br><span class="line">    <span class="symbol">fiveListUp</span> = []</span><br><span class="line">    <span class="symbol">sixListUP</span> = []</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<li>
+<p>进入<code>src/plugins/game/gacha.py</code>，找到<code>class NormalData</code>：</p>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NormalData</span>:</span><br><span class="line">   sixList = []</span><br><span class="line"></span><br><span class="line">   fiveList = []</span><br><span class="line"></span><br><span class="line">   fourList = []</span><br><span class="line"></span><br><span class="line">   threeList = []</span><br><span class="line"></span><br><span class="line">   onelist = [<span class="string">&#x27;虾虾&#x27;</span>]</span><br><span class="line"></span><br><span class="line">   fiveListUp = []</span><br><span class="line">   sixListUP = []</span><br></pre></td></tr></table></figure>
+</li>
 <li>
 <p><code>sixList</code>为卡池的六星角色，<code>fiveList</code>为五星…以此类推。<br>
 <code>oneList</code>建议保留为虾虾，因为虾虾这个名字也在代码内，当然你也可以自己一次性全部修改。<br>
@@ -153,11 +170,11 @@
 </li>
 <li>
 <p>在终端中找到这么一行：</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] nonebot_plugin_gocqhttp | Startup complete, Web UI has served to http://127.0.0.1:56766/go-cqhttp/</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] nonebot_plugin_gocqhttp | Startup <span class="built_in">complete</span>, Web UI <span class="built_in">has</span> served <span class="keyword">to</span> http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">56766</span>/<span class="keyword">go</span>-cqhttp/</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>进入后面的这个地址，页面应如下：</li>
+<li>
+<p>进入后面的这个地址，页面应如下：</p>
+</li>
 </ol>
 <img src="gocqhttp.png" alt="Go-CQHTTP前端">
 <ol start="4">
@@ -186,7 +203,108 @@ var disqus_url = 'https://cytrogen.icu/posts/9b61.html';
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
@@ -223,4 +341,29 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchFunc(path, 'local-search-input', 'local-search-result');
     }
 });
-</script><script src="../js/language-switch.js"></script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

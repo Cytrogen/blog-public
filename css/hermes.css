@@ -294,7 +294,6 @@ body {
 
 article,
 aside,
-details,
 figcaption,
 figure,
 footer,
@@ -303,8 +302,7 @@ hgroup,
 main,
 menu,
 nav,
-section,
-summary {
+section {
   display: block;
 }
 
@@ -736,7 +734,10 @@ header .nav-list-item a {
   background-color: #f5f5f5;
   font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Arial, sans-serif;
 }
-.post-content .danger br {
+.post-content .danger > p > br {
+  display: none;
+}
+.post-content .danger br:not(figure.highlight *) {
   display: none;
 }
 .post-content .danger:before {
@@ -863,243 +864,132 @@ header .nav-list-item a {
   font-size: 0.9em;
 }
 
-.highlight {
+figure.highlight {
   position: relative;
   margin: 1em 0;
   border-radius: 4px;
-  line-height: 1.1em;
   background-color: #f5f5f5;
-  overflow-x: auto;
 }
-.highlight table, .highlight tr, .highlight td {
+figure.highlight figcaption {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+  background: rgb(237.35, 237.35, 237.35);
+  border-bottom: 1px solid rgb(219.5, 219.5, 219.5);
+  gap: 1em;
+}
+figure.highlight figcaption .info {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  flex: 1;
+}
+figure.highlight figcaption .info .filename {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8em;
+  color: #8f8f8f;
+}
+figure.highlight figcaption .info .lang-name {
+  color: rgb(168.5, 168.5, 168.5);
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+figure.highlight figcaption .info .source-link {
+  color: #8f8f8f;
+  text-decoration: none;
+}
+figure.highlight figcaption .info .source-link:hover {
+  color: #5454f8;
+  text-decoration: underline;
+}
+figure.highlight figcaption .actions {
+  display: flex;
+  gap: 0.5em;
+}
+figure.highlight figcaption .actions button {
+  padding: 0.3em 0.6em;
+  font-size: 0.8em;
+  color: rgb(168.5, 168.5, 168.5);
+  background: transparent;
+  border: 1px solid rgb(219.5, 219.5, 219.5);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+figure.highlight figcaption .actions button:hover {
+  color: #5454f8;
+  background: rgb(224.6, 224.6, 224.6);
+}
+figure.highlight figcaption .actions button.copied {
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+figure.highlight table {
   width: 100%;
   border-collapse: collapse;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  display: block;
 }
-.highlight .gutter {
+figure.highlight .gutter,
+figure.highlight .code {
+  padding: 1em 0;
+}
+figure.highlight .gutter pre,
+figure.highlight .code pre {
+  margin: 0;
+  padding: 0 1em;
+  line-height: 1.5;
+}
+figure.highlight .gutter pre .line,
+figure.highlight .code pre .line {
+  min-height: 1.5em;
+}
+figure.highlight .gutter {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 40px;
+  background: rgb(237.35, 237.35, 237.35);
+  border-right: 1px solid rgb(219.5, 219.5, 219.5);
+}
+figure.highlight .gutter pre {
+  text-align: right;
+  background: rgb(237.35, 237.35, 237.35);
+  color: rgb(168.5, 168.5, 168.5);
+}
+figure.highlight .gutter.no-line-number {
   display: none;
 }
-.highlight .code pre {
-  padding: 1.2em 1.4em;
-  line-height: 1.5em;
-  margin: 0;
+figure.highlight .code {
+  position: relative;
+  background-color: #f8f8f8;
 }
-.highlight .code pre .line {
-  width: auto;
-  height: 18px;
+figure.highlight .code pre .line.marked {
+  background-color: rgba(84, 84, 248, 0.1);
 }
-.highlight .code:after {
+figure.highlight.folded {
+  max-height: 300px;
+  overflow-y: hidden;
+}
+figure.highlight.folded::after {
+  content: "";
   position: absolute;
-  top: 0;
+  bottom: 0;
+  left: 0;
   right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: #ccc;
-  text-align: right;
-  font-size: 0.8em;
-  padding: 5px 10px 0;
-  line-height: 15px;
-  height: 15px;
-  font-weight: 600;
-}
-.highlight .code:after {
-  content: attr(data-lang);
-  text-transform: uppercase;
+  height: 30px;
+  background: linear-gradient(transparent, #f5f5f5);
+  pointer-events: none;
 }
 
 pre {
   color: #525252;
+  font-family: "JetBrains Mono", monospace;
 }
 pre .function .keyword,
 pre .constant {
@@ -1183,6 +1073,42 @@ pre .xml .cdata {
   opacity: 0.5;
 }
 
+details {
+  margin: 1em 0;
+  padding: 1em;
+  background: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid rgb(219.5, 219.5, 219.5);
+}
+details summary {
+  cursor: pointer;
+  padding: 0.5em;
+  margin: -0.5em;
+  border-radius: 4px;
+}
+details summary:hover {
+  background: rgb(232.25, 232.25, 232.25);
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+details[open] > *:not(summary) {
+  animation: details-show 0.2s ease-in-out;
+}
+
+@keyframes details-show {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .paginator {
   margin: 4em 0;
   text-align: center;

@@ -9,7 +9,108 @@
 <p>像是ChatGPT、Claude，甚至是Discord这样的聊天室App，输入框都是能够让用户换行、输入代码块的。我们的项目也不例外。 但是，<code>textarea</code> 组件就算是默认单行，换行时也会向下增加高度，导致脱离原本的父容器，甚至跑到屏幕外面去。</p></div><a class="read-more" href="../../posts/14d5.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/bb3e.html">React + Express + Socket.io之间的实时通信【2】：注册登录</a></h2><div class="post-info">2/19/2024</div><div class="post-content"><p><s>接连着昨日的年轻莽撞，今天</s>继续研究如何去制作一个类Slack、Discord的网页聊天室App。</p>
 <p>其实这篇文在1月23日开始起草的，然后写代码写着写着就忘了写文。</p>
 <p>再加上近期加入了一个新的项目，自己的项目不得不搁置一下。</p></div><a class="read-more" href="../../posts/bb3e.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/948f.html">React + Express + Socket.io之间的实时通信【1】：简单连接</a></h2><div class="post-info">1/22/2024</div><div class="post-content"><p>在跟着IBM的课程学习全栈开发的时候，期间想到了我于两年前写的一个小项目，当时学习了Python的Flask框架，就异想天开地编写了一个基于频道的聊天室。当时并不知道实时通信的原理，只是简单地用Flask和SQLite——连Socket.io都没用上——实现了一个简单的类Slack聊天室。</p>
-<p>现在见识到了更多的技术，年轻莽撞的我自然是想要重写这个项目。不过具体能不能完成，就是另外一回事了。</p></div><a class="read-more" href="../../posts/948f.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/fed2.html">IBM全栈开发【5】：Node.js & Express创建后端</a></h2><div class="post-info">1/21/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p></div><a class="read-more" href="../../posts/fed2.html">...阅读全文</a></article></li></ul></main><footer><div class="paginator"><a class="prev" href="../2/">上一页</a><a class="next" href="../4/">下一页</a></div><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+<p>现在见识到了更多的技术，年轻莽撞的我自然是想要重写这个项目。不过具体能不能完成，就是另外一回事了。</p></div><a class="read-more" href="../../posts/948f.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/fed2.html">IBM全栈开发【5】：Node.js & Express创建后端</a></h2><div class="post-info">1/21/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p></div><a class="read-more" href="../../posts/fed2.html">...阅读全文</a></article></li></ul></main><footer><div class="paginator"><a class="prev" href="../2/">上一页</a><a class="next" href="../4/">下一页</a></div><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-4PVPZXE0QQ');</script><script src="../../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
@@ -46,4 +147,29 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../../js/search.js"></scrip
         searchFunc(path, 'local-search-input', 'local-search-result');
     }
 });
-</script><script src="../../js/language-switch.js"></script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

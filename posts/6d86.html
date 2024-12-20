@@ -10,15 +10,15 @@
 <ol>
 <li>
 <p>使用以下命令创建 React 项目：</p>
- <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn <span class="built_in">create</span> react-app shopping-nest <span class="comment">--template typescript</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn create react-app shopping-nest --template typescript</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>导航至 <code>shopping-nest</code> 目录：</p>
- <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> shop<span class="built_in">ping-nest</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> shopping-nest</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>使用 Yarn 安装依赖：</p>
- <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装 ESLint 和 Prettier 相关依赖</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> <span class="comment">@typescript-eslint/eslint-plugin @typescript-eslint/parser</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> -D eslint prettier eslint-config-prettier eslint-plugin-prettier</span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> -D eslint-config-react-app</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装 react-router-dom</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> react-router-dom <span class="comment">@types/react-router-dom</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装 axios</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> axios</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装 TailwindCSS 相关依赖</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> tailwindcss postcss autoprefixer</span><br><span class="line"></span><br><span class="line"><span class="comment">// 安装 UI 组件和图标库</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> <span class="comment">@headlessui/react</span></span><br><span class="line"><span class="symbol">yarn</span> <span class="keyword">add</span> lucide-react</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 安装 ESLint 和 Prettier 相关依赖</span><br><span class="line">yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser</span><br><span class="line">yarn add -D eslint prettier eslint-config-prettier eslint-plugin-prettier</span><br><span class="line">yarn add -D eslint-config-react-app</span><br><span class="line"></span><br><span class="line">// 安装 react-router-dom</span><br><span class="line">yarn add react-router-dom @types/react-router-dom</span><br><span class="line"></span><br><span class="line">// 安装 axios</span><br><span class="line">yarn add axios</span><br><span class="line"></span><br><span class="line">// 安装 TailwindCSS 相关依赖</span><br><span class="line">yarn add tailwindcss postcss autoprefixer</span><br><span class="line"></span><br><span class="line">// 安装 UI 组件和图标库</span><br><span class="line">yarn add @headlessui/react</span><br><span class="line">yarn add lucide-react</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>运行 <code>yarn run start</code> 检查一下是否会出问题。</p>
@@ -36,7 +36,7 @@
 <ol>
 <li>
 <p>运行以下命令：</p>
- <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx eslint <span class="comment">--init</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx eslint --init</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>根据自己的习惯选择。</p>
@@ -61,14 +61,14 @@
 <h1 id="3-配置-tailwind-css"><a class="markdownIt-Anchor" href="#3-配置-tailwind-css"></a> 3. 配置 Tailwind CSS</h1>
 <h2 id="31-安装并初始化-tailwind-css-配置"><a class="markdownIt-Anchor" href="#31-安装并初始化-tailwind-css-配置"></a> 3.1. 安装并初始化 TailWind CSS 配置</h2>
 <p>在项目目录下使用以下命令来生成 <code>tailwind.config.js</code> 和 <code>postcss.config.js</code>：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx tailwindcss <span class="keyword">init</span> -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx tailwindcss init -p</span><br></pre></td></tr></table></figure>
 <p>然后修改 <code>tailwind.config.js</code> 的内容，将 <code>content</code> 配置为监控 <code>src</code> 文件夹下的所有文件，以便在这些文件中应用 TailWind 的样式：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">import(&#x27;tailwindcss&#x27;).Config</span>&#125; */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">content</span>: [],</span><br><span class="line">  <span class="attr">theme</span>: &#123;</span><br><span class="line">    <span class="attr">extend</span>: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: []</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>在 <code>src/index.css</code> 文件的顶部添加以下内容，导入 TailWind 的核心样式、组件和工具：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@tailwind</span> base;</span><br><span class="line"><span class="keyword">@tailwind</span> components;</span><br><span class="line"><span class="keyword">@tailwind</span> utilities;</span><br></pre></td></tr></table></figure>
 <h2 id="32-安装并配置-daisyui-组件库"><a class="markdownIt-Anchor" href="#32-安装并配置-daisyui-组件库"></a> 3.2. 安装并配置 daisyUI 组件库</h2>
 <p>为了方便开发，安装 <code>daisyUI</code> 组件库，它提供了丰富的组件和自定义主题功能：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn <span class="built_in">add</span> daisyui</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add daisyui</span><br></pre></td></tr></table></figure>
 <p>然后在 <code>tailwind.config.js</code> 文件中引入 <code>daisyUI</code> 插件：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> daisyui <span class="keyword">from</span> <span class="string">&quot;daisyui&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    daisyui,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">daisyui</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于 <code>daisyUI</code> 的配置，可以根据其<a target="_blank" rel="noopener" href="https://daisyui.com/docs/config/">文档</a>进行修改。</p>
@@ -90,7 +90,7 @@
 <h2 id="41-创建统一布局"><a class="markdownIt-Anchor" href="#41-创建统一布局"></a> 4.1. 创建统一布局</h2>
 <p>作为开发者，在构建 Web 应用时，创建一个统一的布局非常重要。因为它能够为用户提供一致的界面的导航体验。</p>
 <p>在大多数应用中，我们会有一些固定的部分，比方说导航栏、页脚，以及一个用于动态展示内容的区域。</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/layouts/MainLayout.tsx</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Outlet</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight tsx"><figcaption><span>src/layouts/MainLayout.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Outlet</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>首先引入 <code>Outlet</code>，它是 <code>react-router-dom</code> 提供的一个工具，允许在布局中插入不同的内容。</p>
 <p>通过 <code>Outlet</code>，我们可以渲染由路由定义的组件，也就是首页啦、关于页这些，也不需要每次都重写导航和布局。</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">MainLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">header</span> <span class="attr">className</span>=<span class="string">&quot;bg-primary shadow&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span> <span class="attr">className</span>=<span class="string">&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;/* TODO: 导航内容 */&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
@@ -101,14 +101,14 @@
 <h2 id="42-路由配置"><a class="markdownIt-Anchor" href="#42-路由配置"></a> 4.2. 路由配置</h2>
 <p>在单页面应用，也就是 SPA 中，路由是关键。它决定了用户访问某个路径时应该显示哪个组件。</p>
 <p>我们现在需要一个机制，让用户能够在不同页面之间切换，比如从首页切换到用户账户信息页。路由能够帮助我们将 URL 和组件相互关联，确保用户在访问特定路径时，看到对应的页面。</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/router.tsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; createBrowserRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MainLayout</span> <span class="keyword">from</span> <span class="string">&#x27;./layouts/MainLayout&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight tsx"><figcaption><span>src/router.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createBrowserRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MainLayout</span> <span class="keyword">from</span> <span class="string">&#x27;./layouts/MainLayout&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>首先导入 <code>createBrowserRouter</code>，用它可以创建一个支持浏览器历史记录的路由系统。接着我们将先前定义好的 <code>MainLayout</code> 引入作为根布局。</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="title function_">createBrowserRouter</span>([</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">MainLayout</span> /&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
 <p>这意味着，无论用户访问的子页面是什么，<code>MainLayout</code> 的结构都会保持一致，而页面主体部分会根据路由变化而动态加载。</p>
 <h2 id="43-设置应用入口"><a class="markdownIt-Anchor" href="#43-设置应用入口"></a> 4.3. 设置应用入口</h2>
 <p><code>App</code> 组件是整个应用的入口。它负责将路由系统注入到 React 的组件树中，这样其他组件才能知道根据不同的路径应该显示什么内容。</p>
 <p>为了加载整个路由配置，我们需要一个统一的入口，因此需要用到 <code>RouterProvider</code>。它将之前配置的路由传递给应用，让各个子组件能够根据 URL 做出相应的渲染。</p>
-<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/App.tsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">RouterProvider</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight tsx"><figcaption><span>src/App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">RouterProvider</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>引入 <code>RouterProvider</code> 和先前定义好的 <code>router</code> 配置。</p>
 <figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">RouterProvider</span> <span class="attr">router</span>=<span class="string">&#123;router&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>用 <code>RouterProvider</code> 包裹住应用的根组件，并把 <code>router</code> 传递给它。通过这种方式，整个应用的路由系统就生效了。</p>
@@ -121,7 +121,7 @@
 <p>在 <code>src</code> 目录下创建一个 <code>stores</code> 目录，用于存放状态管理相关的文件。</p>
 <p>在本例子中，代码结构分为三部分：状态定义和处理（<code>UserState</code>、<code>actions.ts</code>），Zustand 状态创建和持久化（<code>index.ts</code>），以及一些辅助函数（<code>api.ts</code>、<code>log.ts</code> 和 <code>selector.ts</code>）。</p>
 <p>使用以下命令安装 Zustand：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn <span class="built_in">add</span> zustand</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add zustand</span><br></pre></td></tr></table></figure>
 <p><code>stores</code> 目录下创建 <code>index.ts</code>，用作状态管理的入口，这样在应用的其他部分就可以方便地引入状态管理逻辑。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> useUserStore <span class="keyword">from</span> <span class="string">&#x27;./user&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>作为一个大致的参考，我选择去写一个用户状态。这里先引入一下这个还未开始写的自定义钩子，理想情况下，它应当允许我们访问和操作与用户相关的状态。</p>
@@ -332,7 +332,7 @@
 <p>假设 store 的状态对象如下：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> useStore = <span class="title function_">createSelectors</span>(</span><br><span class="line">  <span class="title function_">create</span>(<span class="function">(<span class="params">set</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">user</span>: &#123; <span class="attr">name</span>: <span class="string">&quot;Alice&quot;</span>, <span class="attr">age</span>: <span class="number">30</span> &#125;,</span><br><span class="line">    <span class="attr">loggedIn</span>: <span class="literal">true</span></span><br><span class="line">  &#125;))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>那么调用 <code>useStore.use.user()</code> 就会返回：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: <span class="string">&quot;Alice&quot;</span>, age: <span class="number">30</span> &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: &quot;Alice&quot;, age: 30 &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="525-api-请求的配置和错误处理"><a class="markdownIt-Anchor" href="#525-api-请求的配置和错误处理"></a> 5.2.5. API 请求的配置和错误处理</h4>
 <p>在前端状态管理中，一般会包含 API 请求的逻辑。</p>
 <p>我们在 <code>stores/user/actions</code> 中，定义一个 <code>createUserSlice</code> 函数，它是 Zustand 中 <code>UserState</code> 的部分实现，用于管理用户相关的状态和操作。</p>
@@ -402,7 +402,108 @@ var disqus_url = 'https://cytrogen.icu/posts/6d86.html';
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2024 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
@@ -439,4 +540,29 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchFunc(path, 'local-search-input', 'local-search-result');
     }
 });
-</script><script src="../js/language-switch.js"></script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
