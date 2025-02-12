@@ -973,10 +973,10 @@ figure.highlight .code pre .line.marked {
   background-color: rgba(84, 84, 248, 0.1);
 }
 figure.highlight.folded {
-  max-height: 300px;
+  max-height: 600px;
   overflow-y: hidden;
 }
-figure.highlight.folded::after {
+figure.highlight.folded:has(.code pre)::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -985,6 +985,10 @@ figure.highlight.folded::after {
   height: 30px;
   background: linear-gradient(transparent, #f5f5f5);
   pointer-events: none;
+}
+figure.highlight.folded:not(:has(.code pre:after)) {
+  max-height: unset;
+  overflow-y: visible;
 }
 
 pre {
