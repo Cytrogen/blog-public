@@ -46,12 +46,15 @@ $breakpoint-desktop: 700px;
 $z-index-dropdown: 100;
 $z-index-popup: 1000;
 $z-index-modal: 2000;
+$z-index-overlay: 200;
 
 $transition-duration: 0.3s;
-$transition-timing: ease;
+$transition-timing: ease-in-out;
 
 $border-radius: 4px;
 $border-width: 1px;
 
 $card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 $card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+$content-width: 1200px;

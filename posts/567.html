@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="../en/">HOME</a></li><li class="nav-list-item"><a class="nav-list-link" href="../en/archives">ARC</a></li><li class="nav-list-item"><a class="nav-list-link" href="../en/categories">CATEG</a></li><li class="nav-list-item"><a class="nav-list-link" href="../en/tags">TAG</a></li><li class="nav-list-item"><a class="nav-list-link" href="../en/about">ABOUT</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GITHUB<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>English</span></button><div class="language-dropdown hidden"><a class="language-option" href="/posts/17cc.html">中文</a></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo i18n Configuration</h1><div class="post-info">12/2/2024<a class="post-from" href="/posts/17cc.html" target="_blank" title="/posts/17cc.html">Translate · Original Link</a></div><div class="post-content"><p>When running a personal blog, you might encounter this requirement: wanting your website to support multiple languages so that readers from different regions can easily read your content.</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>English</span></button><div class="language-dropdown hidden"><a class="language-option" href="/posts/17cc.html">中文</a></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>MORE</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../en/archives">ARC</a></li><li class="dropdown-item"><a class="nav-link" href="../en/categories">CAT</a></li><li class="dropdown-item"><a class="nav-link" href="../en/tags">TAG</a></li><li class="dropdown-item"><a class="nav-link" href="../en/about">ABOUT</a></li><li class="dropdown-item"><a class="nav-link" href="../en/friends">BLOGROLL</a></li><li class="dropdown-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">P/F<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GITHUB<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="Search..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="CLOSE"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li><li class="nav-item"><a class="nav-link" href="../en/archives">ARC</a></li><li class="nav-item"><a class="nav-link" href="../en/categories">CAT</a></li><li class="nav-item"><a class="nav-link" href="../en/tags">TAG</a></li><li class="nav-item"><a class="nav-link" href="../en/about">ABOUT</a></li><li class="nav-item"><a class="nav-link" href="../en/friends">BLOGROLL</a></li><li class="nav-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">P/F<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GITHUB<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo i18n Configuration</h1><div class="post-info">12/2/2024<a class="post-from" href="/posts/17cc.html" target="_blank" title="/posts/17cc.html">Translate · Original Link</a></div><div class="post-content"><p>When running a personal blog, you might encounter this requirement: wanting your website to support multiple languages so that readers from different regions can easily read your content.</p>
 <p>This is where website internationalization (also known as i18n) comes into play.</p>
 <p>For blogs built with Hexo, implementing internationalization requires consideration not only of content translation but also template rendering and other issues.</p>
 <span id="more"></span>
@@ -46,7 +46,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
 <h2 id="directory-structure"><a class="markdownIt-Anchor" href="#directory-structure"></a> Directory Structure</h2>
 <p>Here is the required directory structure:</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     <span class="meta"># Default language blog posts</span></span><br><span class="line">│   └── *.md                    <span class="meta"># No subdirectories allowed</span></span><br><span class="line">├── en/                         <span class="meta"># English-specific content</span></span><br><span class="line">│   └── Same structure <span class="keyword">as</span> source directory</span><br><span class="line">├── archives/                   <span class="meta"># Archive page</span></span><br><span class="line">│   └── <span class="keyword">index</span>.md                <span class="meta"># layout: archive</span></span><br><span class="line">├── categories/                 <span class="meta"># Category page</span></span><br><span class="line">│   └── <span class="keyword">index</span>.md                <span class="meta"># layout: category-index</span></span><br><span class="line">└── tags/                       <span class="meta"># Tag page</span></span><br><span class="line">    └── <span class="keyword">index</span>.md                <span class="meta"># layout: tag-index</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # Default language blog posts</span><br><span class="line">│   └── *.md                    # No subdirectories allowed</span><br><span class="line">├── en/                         # English-specific content</span><br><span class="line">│   └── Same structure as source directory</span><br><span class="line">├── archives/                   # Archive page</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # Category page</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # Tag page</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>Of course, you can choose other languages, but other language directories need to match the names in <code>themes/**/languages/*.yml</code>.</p>
 </blockquote>
@@ -223,6 +223,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -234,6 +235,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -278,4 +287,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="Search..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="Search..."><div id="local-search-result"></div></div></div></body></html>

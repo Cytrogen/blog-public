@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="../index.html">首页</a></li><li class="nav-list-item"><a class="nav-list-link" href="../archives">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="../categories">分类</a></li><li class="nav-list-item"><a class="nav-list-link" href="../tags">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="../about">关于</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GitHub<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS订阅<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">IBM全栈开发【9】：使用SQL和数据库开发Django应用程序</h1><div class="post-info">5/29/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">IBM全栈开发【9】：使用SQL和数据库开发Django应用程序</h1><div class="post-info">5/29/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p>
 <span id="more"></span>
 <h1 id="1-数据库入门"><a class="markdownIt-Anchor" href="#1-数据库入门"></a> 1. 数据库入门</h1>
 <h2 id="11-sql"><a class="markdownIt-Anchor" href="#11-sql"></a> 1.1. SQL</h2>
@@ -182,15 +182,15 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> data_user</span><br><span class="line">(</span><br><span class="line">    &quot;id&quot; serial <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">PRIMARY</span> KEY,</span><br><span class="line">    &quot;first_name&quot; <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;last_name&quot; <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    &quot;dob&quot; <span class="type">date</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>接下来，我们为实体之间的关系建模。Django ORM 支持常见的关系，如一对一、多对一和多对多。</p>
 <p>我们从一对一关系开始。假设我们有一个 <code>Instructor</code> 和 <code>User</code> ER 图。<code>User</code> 类拥有一些常用字段，如姓名或出生日期，而 <code>Instructor</code> 类拥有一些特殊字段，如是否全职或讲师拥有的学员总数。一个教员只能在一个 <code>User</code> 类中存储基本信息，一个用户只能有一个角色，如 <code>Instructor</code> 或 <code>Learner</code>。</p>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Class:</span> Instructor</span><br><span class="line"><span class="symbol">is_full_time:</span> <span class="type">boolean</span></span><br><span class="line"><span class="symbol">total_learners:</span> int</span><br></pre></td></tr></table></figure>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Class:</span> User</span><br><span class="line"><span class="symbol">first_name:</span> <span class="type">string</span></span><br><span class="line"><span class="symbol">last_name:</span> float</span><br><span class="line"><span class="symbol">dob:</span> <span class="type">date</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class: Instructor</span><br><span class="line">is_full_time: boolean</span><br><span class="line">total_learners: int</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class: User</span><br><span class="line">first_name: string</span><br><span class="line">last_name: float</span><br><span class="line">dob: date</span><br></pre></td></tr></table></figure>
 <p>将以上 ER 图转换为 Django 模型：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Instructor</span>(models.Model):</span><br><span class="line">    is_full_time = models.BooleanField()</span><br><span class="line">    total_learners = models.IntegerField()</span><br><span class="line">    user = models.OneToOneField(User)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(models.Model):</span><br><span class="line">    first_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    last_name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    dob = models.CharField(max_length=<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
 <p>我们将使用 <code>Project</code> 和 <code>Course</code> ER 图来说明 “多对一” 关系。<code>Project</code> 类表示一个课程项目，包含项目名称和成绩等字段。<code>Course</code> 类代表在线课程实体。它有原子字段，如名称和描述。更重要的是，它有一个名为 <code>projects</code> 的集合字段，代表一组课程项目对象。因此，一门课程会有许多课程项目，而一个课程项目只属于一门课程。这是一种典型的多对一关系。要在 Django 中创建模型，我们需要添加一个额外的 <code>Course</code> 字段作为外键。请注意，这不是一对一字段，因为多个项目可能拥有相同的课程字段。</p>
 <p>关于“多对多”关系，让我们来看看 <code>Course</code> 和 <code>Learner</code> ER 图。</p>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Class:</span> Course</span><br><span class="line"><span class="symbol">name:</span> <span class="type">string</span></span><br><span class="line"><span class="symbol">description:</span> <span class="type">string</span></span><br><span class="line"><span class="symbol">learners:</span> <span class="keyword">set</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Class:</span> Learner</span><br><span class="line"><span class="symbol">occupation:</span> <span class="keyword">enum</span></span><br><span class="line"><span class="symbol">social_link:</span> URL</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class: Course</span><br><span class="line">name: string</span><br><span class="line">description: string</span><br><span class="line">learners: set</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class: Learner</span><br><span class="line">occupation: enum</span><br><span class="line">social_link: URL</span><br></pre></td></tr></table></figure>
 <p>为了模拟这种关系，我们在其中一个模型中添加了一个 <code>ManyToManyField</code>。通常，<code>ManyToManyField</code>应放在最常编辑的模型中。例如，<code>Course</code> 可能会随着学习者的添加或删除而每小时被编辑一次，但每个学习者可能每周或每月才注册一次新课程。有时，您可能需要有关模型之间关系的额外信息。</p>
 <p>例如，您可能需要学习者和课程之间的注册信息，如注册日期。Django 允许您指定用于管理多对多关系的模型。在我们的例子中，中间模型是 <code>Enrollment</code> 表。它使用 <code>through</code> 参数与 <code>ManyToManyField</code> 关联。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Course</span>(models.Model):</span><br><span class="line">    name = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    description = models.CharField(max_length=<span class="number">30</span>)</span><br><span class="line">    learners = models.ManyToManyField(Instructor, through=<span class="string">&#x27;Enrollment&#x27;</span>)</span><br></pre></td></tr></table></figure>
@@ -520,6 +520,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -531,6 +532,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -575,4 +584,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

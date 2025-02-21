@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="../index.html">首页</a></li><li class="nav-list-item"><a class="nav-list-link" href="../archives">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="../categories">分类</a></li><li class="nav-list-item"><a class="nav-list-link" href="../tags">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="../about">关于</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GitHub<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS订阅<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">IBM全栈开发【10】：微服务和无服务器</h1><div class="post-info">6/10/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">IBM全栈开发【10】：微服务和无服务器</h1><div class="post-info">6/10/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p>
 <span id="more"></span>
 <h1 id="1-微服务入门"><a class="markdownIt-Anchor" href="#1-微服务入门"></a> 1. 微服务入门</h1>
 <h2 id="11-十二要素应用程序方法论"><a class="markdownIt-Anchor" href="#11-十二要素应用程序方法论"></a> 1.1. 十二要素应用程序方法论</h2>
@@ -160,7 +160,7 @@ API 网关是一种 API 管理工具，位于客户端和后端服务集合之�
 <p>如果运行这个示例的curl命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X <span class="string">&#x27;GET&#x27;</span> <span class="string">&#x27;http://127.0.0.1:5000/products&#x27;</span> -H <span class="string">&#x27;accept: application/json&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>你将得到如图所示的输出结果：</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>:<span class="number">143</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Notebook&quot;</span>,<span class="string">&quot;price&quot;</span>:<span class="number">5.49</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;id&quot;</span>:<span class="number">144</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Black Marker&quot;</span>,<span class="string">&quot;price&quot;</span>:<span class="number">1.99</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;&quot;id&quot;:143,&quot;name&quot;:&quot;Notebook&quot;,&quot;price&quot;:5.49&#125;,</span><br><span class="line">    &#123;&quot;id&quot;:144,&quot;name&quot;:&quot;Black Marker&quot;,&quot;price&quot;:1.99&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>curl 接受多种选项，这使它成为一个用途极为广泛的命令。选项以一个或两个破折号开头，如果不需要附加值，单破折号选项可以写在一起。那么，让我们来分解一下命令和输出：连字符 <code>X</code> 表示明确指定 HTTP 函数，在本例中就是 <code>GET</code>。然后，我们指定要评估的 URL。连字符 <code>H</code> 允许您定义标题，在本例中就是告诉网络服务器我们要使用 JSON。我们的输出是以 JSON 表示的产品微服务返回的产品列表。</p>
 <p>Postman 是一个用于构建和使用 API 的 API 平台，它基于一系列用户友好的强大工具，使开发人员能够轻松地创建、测试、共享和记录 API。Postman 简化了 API 生命周期的每个步骤，允许协调多个请求，这些请求可以在多次重复或迭代中执行，并帮助您简化协作，从而更快地创建更好的 API。由于其简单易用，它是最流行、最方便的工具之一，可用于测试支持多种协议的各种 API（例如 <code>GET</code>、<code>POST</code>、<code>PUT</code> 和 <code>PATCH</code> 等 HTTP 请求），然后将 API 转换为 JavaScript 和 Python 等语言的代码。</p>
 <p>WhatsApp 业务平台云 API 就是一个广受欢迎的例子，它利用 Postman 创建了一种简化的、开发人员友好的体验。有了 Postman，使用自动化和预先填入的数据，入职时间缩短到几分钟，而其他需要手动设置的方法则无法做到这一点。从注册 WhatsApp 商务平台到测试电话号码和建立信息通话，开发人员只需几分钟就能完成。</p>
@@ -396,7 +396,7 @@ API 网关是一种 API 管理工具，位于客户端和后端服务集合之�
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;python&quot;</span>, <span class="string">&quot;-m&quot;</span>, <span class="string">&quot;flask&quot;</span>, <span class="string">&quot;run&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 <p>最后一个是 <code>CMD</code>。该指令的主要目的是提供执行容器的默认值。该指令通常定义了应在容器中运行的可执行文件。在示例中，你运行的是 flask 微服务。但请注意，一个 Dockerfile 中只能有一条 CMD 指令。</p>
 <p>容器镜像构建完成后，可以将其推送到容器存储库，以便更好地管理。这个容器存储库称为容器注册中心。常见的注册表有 Docker Hub 和 IBM Cloud Container Registry。注册表中的容器镜像可以通过唯一的镜像名称轻松提取和使用。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hostname:repository:<span class="keyword">tag</span></span><br><span class="line"><span class="title">e</span>.g., icr.io/codeengine/hello</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hostname:repository:tag</span><br><span class="line">e.g., icr.io/codeengine/hello</span><br></pre></td></tr></table></figure>
 <p>镜像名称由主机名、存储库和标记组成。主机名标识了该镜像应推送到的注册中心。例如，<code>icr.io</code> 表示 IBM 容器注册中心。存储库是一组相关的容器镜像。通常，这些镜像是同一应用程序或服务的不同版本，因此应用程序或服务的名称就是一个好的资源库名称。最后，标签提供了有关镜像的特定版本或变体的信息。</p>
 <h4 id="413-部署和运行应用程序"><a class="markdownIt-Anchor" href="#413-部署和运行应用程序"></a> 4.1.3. 部署和运行应用程序</h4>
 <p>您可以使用两种模式之一将基于容器映像的应用程序部署到 IBM Cloud Code：</p>
@@ -564,6 +564,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -575,6 +576,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -619,4 +628,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

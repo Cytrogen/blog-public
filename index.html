@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="index.html"><img src="favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link active" href="index.html">首页</a></li><li class="nav-list-item"><a class="nav-list-link" href="/archives">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="/categories">分类</a></li><li class="nav-list-item"><a class="nav-list-link" href="/tags">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="/about">关于</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GitHub<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS订阅<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="/en/index.html">English</a></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/270a.html">React + NestJS购物平台练习【5】用户登录功能</a></h2><div class="post-info">2/12/2025</div><div class="post-content"><p>在构建电商平台的过程中，用户登录是一个不可或缺的核心功能。</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="index.html"><img src="favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link active" href="index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="/en/index.html">English</a></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="/archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="/categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="/tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="/about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="/friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="/atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link active" href="index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="/archives">归档</a></li><li class="nav-item"><a class="nav-link" href="/categories">分类</a></li><li class="nav-item"><a class="nav-link" href="/tags">标签</a></li><li class="nav-item"><a class="nav-link" href="/about">关于</a></li><li class="nav-item"><a class="nav-link" href="/friends">友链</a></li><li class="nav-item"><a class="nav-link" href="/atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/270a.html">React + NestJS购物平台练习【5】用户登录功能</a></h2><div class="post-info">2/12/2025</div><div class="post-content"><p>在构建电商平台的过程中，用户登录是一个不可或缺的核心功能。</p>
 <p>本文将详细介绍如何在 React 前端实现登录表单组件，并结合 NestJS 后端完成完整的用户认证流程，包括 JWT 认证、记住我功能以及登录状态持久化等关键特性。</p></div><a class="read-more" href="posts/270a.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/17cc.html">Hexo 配置 i18n</a></h2><div class="post-info">12/1/2024</div><div class="post-content"><p>运营个人博客时，可能会遇到这样的需求：希望网站能够支持多语言，让来自不同地区的读者都能便捷地阅读我们的内容。</p>
 <p>这就需要用到网站的国际化（也就是 i18n）功能。</p>
 <p>对于使用 Hexo 搭建的博客而言，实现国际化不仅需要考虑内容的翻译，还要处理模板渲染等问题。</p></div><a class="read-more" href="posts/17cc.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/8853.html">React + NestJS购物平台练习【4】用户注册功能</a></h2><div class="post-info">11/28/2024</div><div class="post-content"><p>全栈实践又到了我们喜闻乐见的用户注册功能……</p></div><a class="read-more" href="posts/8853.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/5a4b.html">React + NestJS购物平台练习【3】数据设计与实现</a></h2><div class="post-info">11/7/2024</div><div class="post-content"><p>搭建完前端与后端的基础结构后，我们就可以开始着手于数据库设计了。</p></div><a class="read-more" href="posts/5a4b.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="posts/8e94.html">React + NestJS购物平台练习【2】后端项目框架搭建</a></h2><div class="post-info">11/4/2024</div><div class="post-content"><p>搭建基础的 NestJS 项目框架，包括以下内容：</p>
@@ -124,6 +124,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><sc
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -135,6 +136,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><sc
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -179,4 +188,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="/js/search.js"></script><sc
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

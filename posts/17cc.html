@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="../index.html">首页</a></li><li class="nav-list-item"><a class="nav-list-link" href="../archives">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="../categories">分类</a></li><li class="nav-list-item"><a class="nav-list-link" href="../tags">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="../about">关于</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GitHub<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS订阅<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="../posts/567.html">English</a></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo 配置 i18n</h1><div class="post-info">12/1/2024</div><div class="post-content"><p>运营个人博客时，可能会遇到这样的需求：希望网站能够支持多语言，让来自不同地区的读者都能便捷地阅读我们的内容。</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="../posts/567.html">English</a></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo 配置 i18n</h1><div class="post-info">12/1/2024</div><div class="post-content"><p>运营个人博客时，可能会遇到这样的需求：希望网站能够支持多语言，让来自不同地区的读者都能便捷地阅读我们的内容。</p>
 <p>这就需要用到网站的国际化（也就是 i18n）功能。</p>
 <p>对于使用 Hexo 搭建的博客而言，实现国际化不仅需要考虑内容的翻译，还要处理模板渲染等问题。</p>
 <span id="more"></span>
@@ -42,7 +42,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
 <h2 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构</h2>
 <p>以下是必需的目录结构：</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     <span class="meta"># 默认语言的所有博文</span></span><br><span class="line">│   └── *.md                    <span class="meta"># 不能有子目录</span></span><br><span class="line">├── en/                         <span class="meta"># 英文版特定内容</span></span><br><span class="line">│   └── 与 source 目录结构相同</span><br><span class="line">├── archives/                   <span class="meta"># 归档页面</span></span><br><span class="line">│   └── <span class="keyword">index</span>.md                <span class="meta"># layout: archive</span></span><br><span class="line">├── categories/                 <span class="meta"># 分类页面</span></span><br><span class="line">│   └── <span class="keyword">index</span>.md                <span class="meta"># layout: category-index</span></span><br><span class="line">└── tags/                       <span class="meta"># 标签页面</span></span><br><span class="line">    └── <span class="keyword">index</span>.md                <span class="meta"># layout: tag-index</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # 默认语言的所有博文</span><br><span class="line">│   └── *.md                    # 不能有子目录</span><br><span class="line">├── en/                         # 英文版特定内容</span><br><span class="line">│   └── 与 source 目录结构相同</span><br><span class="line">├── archives/                   # 归档页面</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # 分类页面</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # 标签页面</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>当然，你也可以选择其他语言，但其他语言的目录需要和对应的 <code>themes/**/languages/*.yml</code> 的名称相同。</p>
 </blockquote>
@@ -219,6 +219,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -230,6 +231,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -274,4 +283,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

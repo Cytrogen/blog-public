@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
-</head><body><div class="wrap"><header><a class="logo-link" href="../../index.html"><img src="../../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-section page-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="../../index.html">首页</a></li><li class="nav-list-item"><a class="nav-list-link" href="../../archives">归档</a></li><li class="nav-list-item"><a class="nav-list-link" href="../../categories">分类</a></li><li class="nav-list-item"><a class="nav-list-link" href="../../tags">标签</a></li><li class="nav-list-item"><a class="nav-list-link" href="../../about">关于</a></li></ul></div><div class="nav-section external-nav"><ul class="nav-list"><li class="nav-list-item"><a class="nav-list-link" href="https://github.com/cytrogen" target="_blank">GitHub<i class="fas fa-external-link-alt"></i></a></li><li class="nav-list-item"><a class="nav-list-link" href="/atom.xml" target="_blank">RSS订阅<i class="fas fa-external-link-alt"></i></a></li></ul></div><div class="nav-section utility-nav"><ul class="nav-list"><li class="nav-list-item"></li><li class="nav-list-item"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="../../en/page/3/index.html">English</a></div></div></li><li class="nav-list-item"><button class="nav-list-link" id="search-btn" type="button" aria-label="Search"><i class="fas fa-search"></i></button></li></ul></div></nav></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/a039.html">Pug学习笔记</a></h2><div class="post-info">4/2/2024</div><div class="post-content"><p>我的博客网站基于Hexo，使用了Pug模板引擎。有时候感觉现在正在使用的主题不够满足自己的需求，就得手动修改Pug文件。</p></div><a class="read-more" href="../../posts/a039.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/3b97.html">React + NestJS + Socket.io项目实践【1】：从Express迁移</a></h2><div class="post-info">3/30/2024</div><div class="post-content"><p>二月份的时候我写了一篇<a href="/posts/bb3e">React + Express + Socket.io之间的实时通信【2】：注册登录</a>，那时候我还在用Express作为后端框架。</p>
+</head><body><div class="wrap"><header><a class="logo-link" href="../../index.html"><img src="../../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"><a class="language-option" href="../../en/page/3/index.html">English</a></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/a039.html">Pug学习笔记</a></h2><div class="post-info">4/2/2024</div><div class="post-content"><p>我的博客网站基于Hexo，使用了Pug模板引擎。有时候感觉现在正在使用的主题不够满足自己的需求，就得手动修改Pug文件。</p></div><a class="read-more" href="../../posts/a039.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/3b97.html">React + NestJS + Socket.io项目实践【1】：从Express迁移</a></h2><div class="post-info">3/30/2024</div><div class="post-content"><p>二月份的时候我写了一篇<a href="/posts/bb3e">React + Express + Socket.io之间的实时通信【2】：注册登录</a>，那时候我还在用Express作为后端框架。</p>
 <p>因为中途想到使用TypeScript，所以我决定迁移到NestJS。</p></div><a class="read-more" href="../../posts/3b97.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/2537.html">MTH 2207笔记</a></h2><div class="post-info">3/13/2024</div><div class="post-content"><p>微积分笔记，仅作为个人学习记录，不保证正确性。</p></div><a class="read-more" href="../../posts/2537.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/eb2a.html">IBM全栈开发【6】：容器 & Kubernetes和OpenShift简介</a></h2><div class="post-info">3/11/2024</div><div class="post-content"><p>近期在学习IBM全栈应用开发微学士课程，故此记录学习笔记。</p></div><a class="read-more" href="../../posts/eb2a.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/3875.html">PHY 2002笔记</a></h2><div class="post-info">3/5/2024</div><div class="post-content"><p>物理学笔记，仅作为个人学习记录，不保证正确性。</p></div><a class="read-more" href="../../posts/3875.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/de2c.html">Docker实践：构建React和Express项目</a></h2><div class="post-info">3/1/2024</div><div class="post-content"><p>近期考虑了去学习如何部署自己的网站项目。根据网上的资料，决定先使用Docker+Nginx的组合来部署到本地上，之后再考虑部署到云端。</p></div><a class="read-more" href="../../posts/de2c.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/c0fc.html">React的Markdown渲染</a></h2><div class="post-info">2/20/2024</div><div class="post-content"><p>项目需求中有一个功能是支持Markdown渲染，尽量仿照ChatGPT、Claude的效果。</p>
 <p>该文章的目的是记录我在实现这个功能时遇到的问题和解决方案。</p></div><a class="read-more" href="../../posts/c0fc.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/14d5.html">React的Textarea高度自适应</a></h2><div class="post-info">2/19/2024</div><div class="post-content"><p>上次提到过我接触了一个新项目，是校友们策划的一个类ChatGPT的项目，我负责前端部分，用的是React+TailwindCSS的组合。 我这个刚接触React一个月的小白肯定是搓手等着上手、跃跃欲试。</p>
 <p>像是ChatGPT、Claude，甚至是Discord这样的聊天室App，输入框都是能够让用户换行、输入代码块的。我们的项目也不例外。 但是，<code>textarea</code> 组件就算是默认单行，换行时也会向下增加高度，导致脱离原本的父容器，甚至跑到屏幕外面去。</p></div><a class="read-more" href="../../posts/14d5.html">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="../../posts/bb3e.html">React + Express + Socket.io之间的实时通信【2】：注册登录</a></h2><div class="post-info">2/19/2024</div><div class="post-content"><p><s>接连着昨日的年轻莽撞，今天</s>继续研究如何去制作一个类Slack、Discord的网页聊天室App。</p>
@@ -117,6 +117,7 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../../js/search.js"></scrip
     const searchBtn = document.getElementById('search-btn');
     const searchPopup = document.getElementById('search-popup');
     const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
 
     if (searchBtn && searchPopup && searchInput) {
         searchBtn.addEventListener('click', function(e) {
@@ -128,6 +129,14 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../../js/search.js"></scrip
         searchPopup.addEventListener('click', function(e) {
             e.stopPropagation();
         });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
 
         document.addEventListener('click', function() {
             searchPopup.classList.add('hidden');
@@ -172,4 +181,86 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script src="../../js/search.js"></scrip
         }
     });
     }
-});</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
