@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>在云服务器上搭建Nostr中继器 · 万圣节恶魔的领地</title><meta name="description" content="在云服务器上搭建Nostr中继器 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">在云服务器上搭建Nostr中继器</h1><div class="post-info">8/23/2023</div><div class="post-content"><p>如何在云服务器上搭建 Nostr 中继器，并在 Nostr 客户端中连接使用。</p>
+<span id="more"></span>
+<div class="danger">
+<p>我在这个文章<strong>还未写完</strong>的时候就<strong>鸽</strong>掉了Nostr的搭建！</p>
+<p>强烈建议不要根据这个教程来搭建Nostr中继器！</p>
+</div>
+<div class="danger">
+<p>你需要先知道：</p>
+<ul>
+<li>我使用的云服务器的提供商为 DigitalOcean</li>
+<li>我使用的云服务器的系统为 Ubuntu 22.04 (LTS) x64</li>
+<li>我使用的云服务器的配置为 1 个 CPU、1GB 内存，以及 25GB 固态</li>
+<li>我使用的云服务器有 ipv6 地址和固定公共 IP 地址</li>
+<li>你需要有一个域名</li>
+</ul>
+</div>
+<h1 id="创建用户"><a class="markdownIt-Anchor" href="#创建用户"></a> 创建用户</h1>
+<ol>
+<li>
+<p>创建一个不是 root 的用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser 用户名</span><br></pre></td></tr></table></figure>
+<p>如果执行这个指令后系统要求你创建一个密码，那就不需要执行下面这个指令；反之，执行该命令给该用户设置密码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将该用户添加到 sudo 组中，从而授予其 sudoer 权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -aG <span class="built_in">sudo</span> 用户名</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>从 root 切换到我们创建的用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su 用户名</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="安装-docker"><a class="markdownIt-Anchor" href="#安装-docker"></a> 安装 Docker</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nodejs npm nginx certbot python3-certbot-nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Docker 的 GPG 密钥</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | <span class="built_in">sudo</span> gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Docker</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu <span class="subst">$(lsb_release -cs)</span> stable&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
+<h1 id="下载-nostream"><a class="markdownIt-Anchor" href="#下载-nostream"></a> 下载 nostream</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/用户名</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Cameri/nostream.git</span><br></pre></td></tr></table></figure>
+<h1 id="配置-nginx"><a class="markdownIt-Anchor" href="#配置-nginx"></a> 配置 nginx</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除默认的 nginx 配置文件</span></span><br><span class="line"><span class="built_in">rm</span> -rf /etc/nginx/sites-available/default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 nano 进入新的配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> nano /etc/nginx/sites-available/default</span><br></pre></td></tr></table></figure>
+<p>将以下内容复制粘贴到这个新的配置文件：</p>
+<figure class="highlight nginx"><figcaption><span>default</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">server_name</span> 子域名.域名.后缀;</span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:8008;</span><br><span class="line">        <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后重启一下 nginx：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> service nginx restart</span><br></pre></td></tr></table></figure>
+<h1 id="设置域名的-dns"><a class="markdownIt-Anchor" href="#设置域名的-dns"></a> 设置域名的 DNS</h1>
+<p>在你的域名 DNS 设置中，你需要添加两个记录：</p>
+<p><img src="/posts/2abc/1.png" alt></p>
+<h1 id="启动-nostr-中继器"><a class="markdownIt-Anchor" href="#启动-nostr-中继器"></a> 启动 Nostr 中继器</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> certbot --nginx -d 子域名.域名.后缀</span><br><span class="line"><span class="built_in">cd</span> ~/nostream</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 TMUX 会话</span></span><br><span class="line"><span class="comment"># 用于分离和维护进程运行</span></span><br><span class="line">tmux</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动中继器</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 666 /var/run/docker.sock</span><br><span class="line">npm run docker:compose:start</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a class="prev" href="d235.html">上一篇</a><a class="next" href="deef.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/2abc.html';
+var disqus_title = '在云服务器上搭建Nostr中继器';
+var disqus_url = 'https://cytrogen.icu/posts/2abc.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

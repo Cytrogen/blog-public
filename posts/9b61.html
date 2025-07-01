@@ -1,0 +1,460 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hoka-bot部署教程 · 万圣节恶魔的领地</title><meta name="description" content="Hoka-bot部署教程 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hoka-bot部署教程</h1><div class="post-info">6/30/2022</div><div class="post-content"><p>该文档将讲述如何部署Hoka-bot（以下称为Hoka）。</p>
+<span id="more"></span>
+<img src="/posts/9b61/HOKA简介.png" alt="Hokabot-bot">
+<div class="danger">
+<p>在开始本教程前，需要知道该教程：</p>
+<ul>
+<li>基于Python3.9</li>
+<li>基于Linux系统 / Ubuntu（我是20.04.1版本）</li>
+<li>是<strong>6月30日</strong>版本的Hoka-bot部署教程</li>
+</ul>
+</div>
+<h1 id="开始部署之前"><a class="markdownIt-Anchor" href="#开始部署之前"></a> 开始部署之前</h1>
+<blockquote>
+<p>理所当然的，你需要将Hoka的代码克隆至本地。</p>
+</blockquote>
+<ol>
+<li>
+<p>进入<a target="_blank" rel="noopener" href="https://github.com/Cytrogen/Hoka-Bot">Hoka的仓库</a>。</p>
+</li>
+<li>
+<p>如下图所示，克隆或下载代码的压缩文件：</p>
+</li>
+</ol>
+<img src="/posts/9b61/Clone.png" alt="克隆或下载ZIP">
+<ol start="3">
+<li>得到的文件夹应如下图：</li>
+</ol>
+<img src="/posts/9b61/主文件夹.png" alt="主文件夹">
+<blockquote>
+<p>关于bot代码结构可以看看<a target="_blank" rel="noopener" href="https://cytrogen.netlify.app/2022/02/01/nonebot-beta1%E6%95%99%E7%A8%8B/">这篇Nonebot2教程</a></p>
+</blockquote>
+<p>你已经得到了一个Hoka！但他还是个空壳，无法立马投入使用。</p>
+<center>————————</center>
+<h1 id="配置hoka的环境配置文件"><a class="markdownIt-Anchor" href="#配置hoka的环境配置文件"></a> 配置Hoka的环境配置文件</h1>
+<blockquote>
+<p>Hoka部署最为紧要的部分是<code>.env</code>文件，也就是<strong>环境配置文件</strong>。</p>
+</blockquote>
+<ol>
+<li>
+<p>进入<code>.env</code>文件进行编辑：</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br><span class="line"></span><br><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br><span class="line"></span><br><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br><span class="line"></span><br><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br><span class="line"></span><br><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br><span class="line"></span><br><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br><span class="line"></span><br><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<ul>
+<li>
+<p>环境默认为<code>dev</code>，即<code>development</code>、开发环境；</p>
+</li>
+<li>
+<p>可更改为<code>prod</code>，即<code>production</code>、生产环境；</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<br>
+<ol start="3">
+<li>
+<p>如下，这里分别是<code>HOST 监听IP/主机名</code>、<code>PORT 监听端口</code>、<code>LOG LEVEL 日志等级</code>和<code>FASTAPI_RELOAD</code>的配置：</p>
+<ul>
+<li>
+<p>下面的端口如果已被使用可以修改为其他数字，其它则都不需要碰。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>
+<p>配置<code>SUPERUSERS 超级用户</code>：超级用户是Hoka的管理员，有着最高权限。<br>
+这里推荐只写你自己的QQ号；</p>
+</li>
+<li>
+<p>配置<code>NICKNAME bot昵称</code>：不建议修改，因为我都是直接在代码里写的Hoka，改了没啥用；</p>
+</li>
+<li>
+<p>配置<code>COMMAND_START 命令前缀</code>：不建议修改，但也不是不能改；</p>
+</li>
+<li>
+<p>配置<code>COMMAND_SEP 命令隔开符</code>：不咋用到这个，随意更改。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>配置<code>Go-CQHTTP插件</code>：</p>
+<ul>
+<li>
+<p><strong>介于该插件的前端可以登录账号，你不需要配置<code>GOCQ_ACCOUNR</code>；</strong></p>
+</li>
+<li>
+<p>该插件将会下载<code>GOCQ_URL</code>中填写的地址，什么都不输入将自动使用该插件默认的镜像站以及最新版本。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>不需要管这俩。</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>rauthman 权限管理插件</code>的配置项：</p>
+<ul>
+<li>
+<p>其实只是指令名更改，不建议修改。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>game 群组游戏插件</code>的配置项：</p>
+<ul>
+<li>
+<p><code>GAME_PATH</code>不要碰；</p>
+</li>
+<li>
+<p><code>MAX_BET_GOLD</code>为俄罗斯轮盘中赌注的上限，可以调低防止一夜暴富一夜回到解放前。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>read_60s 60秒读世界插件</code>的配置项：</p>
+<ul>
+<li>
+<p><code>READ_QQ_FRIENDS</code>为每日定时发送的QQ好友号；</p>
+</li>
+<li>
+<p><code>READ_QQ_GROUPS</code>为每日定时发送的QQ群聊号；</p>
+</li>
+<li>
+<p><code>READ_INFORM_TIME</code>为每日定时发送的时间，按照本地时间为标准，如下便是每日早上9点5分。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>你已经配置好了环境配置文件！</p>
+</li>
+</ol>
+<center>————————</center>
+<h1 id="配置hoka的群组游戏"><a class="markdownIt-Anchor" href="#配置hoka的群组游戏"></a> 配置Hoka的群组游戏</h1>
+<blockquote>
+<p>需要配置的只有群组卡池。</p>
+</blockquote>
+<ol>
+<li>
+<p>进入<code>src/plugins/game/gacha.py</code>，找到<code>class NormalData</code>：</p>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NormalData</span>:</span><br><span class="line">   sixList = []</span><br><span class="line"></span><br><span class="line">   fiveList = []</span><br><span class="line"></span><br><span class="line">   fourList = []</span><br><span class="line"></span><br><span class="line">   threeList = []</span><br><span class="line"></span><br><span class="line">   onelist = [<span class="string">&#x27;虾虾&#x27;</span>]</span><br><span class="line"></span><br><span class="line">   fiveListUp = []</span><br><span class="line">   sixListUP = []</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>sixList</code>为卡池的六星角色，<code>fiveList</code>为五星…以此类推。<br>
+<code>oneList</code>建议保留为虾虾，因为虾虾这个名字也在代码内，当然你也可以自己一次性全部修改。<br>
+<code>fiveListUp</code>和<code>sixListUP</code>都是概率UP角色。</p>
+</li>
+<li>
+<p>填写格式像这样：<code>sixList = ['名字', '另一个名字']</code>。</p>
+</li>
+</ol>
+<center>————————</center>
+<h1 id="配置go-cqhttp-运行hoka"><a class="markdownIt-Anchor" href="#配置go-cqhttp-运行hoka"></a> 配置Go-CQHTTP &amp; 运行Hoka</h1>
+<ol>
+<li>
+<p>首先需要运行一次Hoka。<br>
+在有<code>bot.py</code>的主文件夹内开终端输入<code>python3.9 bot.py</code>。</p>
+</li>
+<li>
+<p>在终端中找到这么一行：</p>
+   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] nonebot_plugin_gocqhttp | Startup complete, Web UI has served to http://127.0.0.1:56766/go-cqhttp/</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>进入后面的这个地址，页面应如下：</p>
+</li>
+</ol>
+<img src="gocqhttp.png" alt="Go-CQHTTP前端">
+<ol start="4">
+<li>
+<p>点击左上角的<code>添加账号</code>。<br>
+依次输入bot的QQ号、密码，并选择登录设备类型。个人通常使用Android Phone。</p>
+</li>
+<li>
+<p>提交后关闭页面，回到终端关闭过程，再次输入<code>python3.9 bot.py</code>。<br>
+此时终端会多出来自于<code>nonebot_plugin_gocqhttp</code>的信息，并开始登录bot账号。<br>
+在网络诊断完成后，Hoka便运行成功，可以使用了。</p>
+</li>
+</ol>
+<center>————————</center>
+<h1 id="后言"><a class="markdownIt-Anchor" href="#后言"></a> 后言</h1>
+<p>你已经学会如何配置&amp;部署Hoka了！</p>
+<blockquote>
+<p>如有任何疑惑、建议、反馈，<a target="_blank" rel="noopener" href="https://cytrogen.netlify.app/2050/11/11/%E6%9C%89%E5%85%B3%E4%BD%9C%E8%80%85/#%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F%EF%BC%9A">务必联系我</a>！<br>
+Hoka本体号：3363863549，将会有最新功能<s>我又鸽了</s>。</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="ec37.html">上一篇</a><a class="next" href="41a5.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/9b61.html';
+var disqus_title = 'Hoka-bot部署教程';
+var disqus_url = 'https://cytrogen.icu/posts/9b61.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

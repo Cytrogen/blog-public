@@ -1,0 +1,412 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>踩坑与总结：我的React+NestJS+MongoDB项目在Cloudflare和AWS Staging环境的部署经验分享 · 万圣节恶魔的领地</title><meta name="robots" content="noindex"><meta name="description" content="踩坑与总结：我的React+NestJS+MongoDB项目在Cloudflare和AWS Staging环境的部署经验分享 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">踩坑与总结：我的React+NestJS+MongoDB项目在Cloudflare和AWS Staging环境的部署经验分享</h1><div class="post-info">5/17/2025</div><div class="post-content"><p>最近我加入了一个新的开发团队，项目中要求将使用了 React + NestJS + MongoDB 技术栈的应用部署到预发布环境（以下简称为 Staging 环境）。</p>
+<p>同时我们的测试团队成员（兼职甲方、产品经理、老板……开玩笑）并非技术背景出身，因此一个稳定且易于访问的测试环境至关重要。</p>
+<span id="more"></span>
+<div class="danger">
+<p>这篇文章只是记录了我当时是如何部署我的项目的，并不会给出全能的方案。实际的操作还需要根据你们自己的项目来进行修改。</p>
+<blockquote>
+<p>例如我的包管理器都是使用的 <code>yarn</code>。如果你偏向于使用 <code>npm</code>，那就要把文章中和 <code>yarn</code> 相关的命令改成用 <code>npm</code> 的。</p>
+</blockquote>
+<p>这篇文档也有可能因为时间而过时，所以请仔细查阅该文章的发布时期。</p>
+</div>
+<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<h2 id="什么是-staging-环境"><a class="markdownIt-Anchor" href="#什么是-staging-环境"></a> 什么是 Staging 环境？</h2>
+<p>在软件开发中，Staging 环境是模拟生产环境的一个重要环节。它通常是生产环境的一个精确副本，用于在将新功能或修复部署到最终用户可见的生产环境之前进行全面的测试。</p>
+<p>Staging 环境的主要目的很简单：在真实或接近真实的条件下测试应用、尽早发现潜在的 Bug、性能问题和配置错误。</p>
+<p>对于我们的项目而言，Staging 环境将是我向非技术背景的测试人员展示最新进展、收集反馈的关键桥梁。一个易于访问且稳定的 Staging 环境能够让他们更专注于应用的实际功能和用户体验，而无需关注底层的技术细节（主要他们也不懂啦）。</p>
+<h2 id="我的想法"><a class="markdownIt-Anchor" href="#我的想法"></a> 我的想法</h2>
+<p>为了更好地将我们的 React + NestJS + MongoDB 应用推送到这个测试环境，并确保开发流程的顺畅，我初步制定了一套以 Cloudflare Pages 和 AWS Elastic Beanstalk 为核心的部署方案：</p>
+<ul>
+<li>前端 React 应用将部署在 Cloudflare Pages 上，利用其快速的全球 CDN 和便捷的部署流程</li>
+<li>后端 NestJS 应用和 MongoDB 数据库，我计划使用 AWS Elastic Beanstalk 进行管理和部署，MongoDB 就用 MongoDB Atlas</li>
+<li>项目还有用到对象存储，开发环境里我使用的是 MinIO，不过在生产环境里我计划换成 AWS S3，因此 Staging 环境中也是如此</li>
+</ul>
+<p>在代码管理方面，我们团队选择了 Atlassian 的工具。我计划采用一套清晰且严格的 Git 分支策略，结合 Bitbucket Pipelines 的自动化部署能力，力求在每次功能开发完成后，能够快速、可靠地将变更推送到 Staging 环境。这不仅能提高我们的开发效率，也能让测试团队及时体验到最新的功能。</p>
+<p>接下来，我将详细记录我在搭建和使用这个 Staging 环境过程中遇到的挑战、采取的解决方案以及一些经验总结，希望能为自己和有类似需求的开发者提供一些参考。</p>
+<h1 id="客户端部署"><a class="markdownIt-Anchor" href="#客户端部署"></a> 客户端部署</h1>
+<p>Cloudflare Pages 非常适合部署静态站点和单页应用（我也常用 Netlify）。</p>
+<h2 id="创建-cloudflare-pages-应用"><a class="markdownIt-Anchor" href="#创建-cloudflare-pages-应用"></a> 创建 Cloudflare Pages 应用</h2>
+<ol>
+<li>
+<p>进入 Cloudflare 控制台，在左侧菜单栏中找到 <em>Compute (Workers)</em> 选项：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B201-Cloudflare%E7%82%B9%E5%87%BBCompute.png" alt="alt text"></p>
+</li>
+<li>
+<p>点击 <em>Create</em> 来创建 Pages 应用：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B202-Cloudflare%E7%82%B9%E5%87%BBCreate.png" alt="alt text"></p>
+</li>
+<li>
+<p>选择 <em>Pages</em> 标签后，这里可以选择 <strong>导入已存在的 Git 仓库</strong> 或者 <strong>直接上传构建后的客户端代码</strong>。</p>
+<p>因为决定使用 BitBucket Pipeline 和 Wrangler CLI，我就选择了后者：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B203-Cloudflare%E7%82%B9%E5%87%BBDirect-Upload.png" alt="alt text"></p>
+<blockquote>
+<h4 id="什么是-bitbucket-pipelines"><a class="markdownIt-Anchor" href="#什么是-bitbucket-pipelines"></a> 什么是 BitBucket Pipelines？</h4>
+<p>BitBucket Pipelines 是 Atlassian 提供的一项持续集成和持续交付（也就是 CI/CD）服务，直接集成在 BitBucket 代码托管平台中。</p>
+<p>它允许你使用 YAML 文件定义自动化工作流程，例如代码构建、测试、部署等。</p>
+<p>每当你向仓库推送代码、创建 Pull Request 或满足其他触发条件时，Pipelines 就会按照你的配置自动执行定义好的步骤。</p>
+</blockquote>
+</li>
+<li>
+<p>填写项目名称，之后会用到。</p>
+<p>创建项目后会要求上传一个项目的静态资源文件，最快的方案是下载 Cloudflare 提供的 Demo，然后直接上传这个：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B204-Cloudflare%E5%86%99%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0.png" alt="alt text"></p>
+</li>
+<li>
+<p>为了让 BitBucket Pipelines 能够安全地与 Cloudflare API 交互，我们需要在 BitBucket 客户端仓库中添加两个敏感的环境变量：</p>
+<ul>
+<li><code>CLOUDFLARE_API_TOKEN</code>：用于认证 Cloudflare API 请求的令牌</li>
+<li><code>CLOUDFLARE_ACCOUNT_ID</code>：Cloudflare 账号 ID</li>
+</ul>
+<p>首先是令牌。点击右上角的小人图标、点击 <em>Profile</em>、点击左侧菜单栏的 <em>API Tokens</em> 选项、点击页面中的 <em>Create Token</em> 按钮：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B205-Cloudflare%E5%88%9B%E5%BB%BAAPI%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+</li>
+<li>
+<p>创建令牌的页面中，点击 <em>Create Custom Token</em> 一栏的 <em>Get started</em> 按钮：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B206-Cloudflare%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+</li>
+<li>
+<p>填写令牌名称；</p>
+<p>在权限中选择 <em>Cloudflare Pages</em> 和 <em>Edit</em>；</p>
+<p>在账号资源中选择你自己的邮箱：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B207-Cloudflare%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+<p>创建完毕后记下该令牌（不要泄露给他人，务必保管好）。</p>
+</li>
+<li>
+<p>账号 ID 更好找。随便点击 Cloudflare 图标或者什么的返回到控制台，抬头看一下 URL 就能看到：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B208-Cloudflare%E6%9F%A5%E6%89%BE%E8%B4%A6%E5%8F%B7ID.png" alt="alt text"></p>
+</li>
+</ol>
+<h4 id="cloudflare-pages-的环境-url"><a class="markdownIt-Anchor" href="#cloudflare-pages-的环境-url"></a> Cloudflare Pages 的环境 URL</h4>
+<p>Cloudflare Pages 会根据你推送代码的分支自动创建不同的环境 URL：</p>
+<ul>
+<li>生产环境 URL: 当你推送代码到你的生产分支时（Cloudflare 默认将 <code>main</code> 分支视为生产分支，但你可以在 Pages 应用的设置中更改），Cloudflare 会将该分支的最新部署发布到你的 自定义域名（如果你已经设置了）以及一个 Cloudflare 提供的 <code>.pages.dev</code> 子域名。这个 URL 通常是你的最终用户访问的地址</li>
+<li>预览环境 URL: 对于所有其他的非生产分支（例如 <code>staging</code> 分支），Cloudflare Pages 会自动为每次推送创建一个唯一的预览 URL。这些 URL 的格式通常是 <code>[commit-hash]-[你的Pages应用名称].pages.dev</code></li>
+</ul>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B212-Cloudflare%E5%88%86%E8%BE%A8%E4%B8%8D%E5%90%8C%E7%8E%AF%E5%A2%83%E7%9A%84URL.png" alt="alt text"></p>
+<h4 id="env-变量的迁移"><a class="markdownIt-Anchor" href="#env-变量的迁移"></a> <code>.env</code> 变量的迁移</h4>
+<p>与传统的服务器端应用不同，前端应用通常在构建时就需要确定环境变量的值。Cloudflare Pages 提供了几种管理环境变量的方式：</p>
+<ol>
+<li>Cloudflare Pages 控制台：你可以在你的 Cloudflare Pages 应用的设置中，找到 <em>Environment variables</em> 选项，在这里你可以添加、编辑和删除环境变量。你在控制台中设置的环境变量会在你的应用构建时被注入</li>
+<li><code>_headers</code> 文件或 <code>wrangler.toml</code>：对于一些特定的配置，例如 HTTP headers，你可以通过在你的构建输出目录中添加 <code>_headers</code> 文件或在项目根目录下配置 <code>wrangler.toml</code> 文件来管理。但这通常不用于存储敏感的环境变量</li>
+</ol>
+<p>对于我的 Staging 环境，我得在 Cloudflare Pages 控制台中为我的应用配置相应的环境变量（比方说不同环境的服务端 API）。我们可以在设置里随意切换生产或者预览环境，然后添加变量或者密钥：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B213-Cloudflare%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+<h2 id="创建-bitbucket-pipelines"><a class="markdownIt-Anchor" href="#创建-bitbucket-pipelines"></a> 创建 BitBucket Pipelines</h2>
+<ol>
+<li>
+<p>来到客户端的 BitBucket 仓库，现在我们要添加这两个环境变量了。</p>
+<p>点击左侧菜单栏中的 <em>Repository settings</em>：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B209-BitBucket%E7%82%B9%E5%87%BB%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE.png" alt="alt text"></p>
+</li>
+<li>
+<p>接着点击 <em>Repository variables</em>：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B210-BitBucket%E7%82%B9%E5%87%BB%E4%BB%93%E5%BA%93%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+</li>
+<li>
+<p>在环境变量页面中，填写以下内容：</p>
+<ul>
+<li><code>CLOUDFLARE_API_TOKEN</code></li>
+<li><code>CLOUDFLARE_ACCOUNT_ID</code></li>
+</ul>
+<p>两个值在被添加时都要确保勾选上 <em>Secured</em>：</p>
+<p><img src="/posts/ccc/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B211-BitBucket%E6%B7%BB%E5%8A%A0%E4%BB%93%E5%BA%93%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+<p>将这些敏感信息存储为 BitBucket 的仓库变量而不是直接写在 Pipeline 配置文件中，可以提高安全性。</p>
+</li>
+<li>
+<p>在仓库中创建一个 <code>bitbucket-pipelines.yml</code> 文件：</p>
+ <figure class="highlight yaml"><figcaption><span>bitbucket-pipelines.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pipelines:</span></span><br><span class="line">  <span class="attr">branches:</span></span><br><span class="line">    <span class="attr">staging:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">step:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span> <span class="string">Frontend</span> <span class="string">to</span> <span class="string">Staging</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">node:20.18.3</span></span><br><span class="line">          <span class="attr">script:</span></span><br><span class="line">            <span class="comment"># - npm install -g yarn</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">install</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">build</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">global</span> <span class="string">add</span> <span class="string">wrangler</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">export</span> <span class="string">CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">export</span> <span class="string">CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">wrangler</span> <span class="string">pages</span> <span class="string">publish</span> <span class="string">dist</span> <span class="string">--project-name</span> [<span class="string">cloudflare应用名称</span>] <span class="string">--branch</span> <span class="string">staging</span></span><br><span class="line">          <span class="attr">caches:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">node</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>pipelines</code> 是定义了所有自动化流程的顶层键</li>
+<li><code>branches</code> 指定了哪些分支会触发特定的 Pipeline 流程</li>
+<li><code>staging</code> 表示只有当代码推送到 <code>staging</code> 分支时，才会执行以下定义的步骤</li>
+<li><code>- step</code> 定义了一个独立的构建和部署步骤。一个 Pipeline 可以包含多个 step，它们会按照顺序执行
+<ul>
+<li><code>name</code> 为该步骤指定了一个易于理解的名称，方便在 Bitbucket Pipelines 的界面上查看执行状态</li>
+<li><code>image</code> 指定了运行该步骤所使用的 Docker 镜像。这里我们选择了 <code>node:20.18.3</code>，因为我的本地 Node 版本就是这个，你也可以换成你自己的</li>
+<li><code>script</code> 定义了在该步骤中要执行的 Shell 命令：
+<ul>
+<li><code># - npm install -g yarn</code> 原本的意图是全局安装 <code>yarn</code> 包管理器，这是因为 <code>node:20.18.3</code> 的镜像里已经预先安装了 <code>yarn</code>、还会导致错误。如果你在后续的 Pipeline 执行中遇到了 <strong>没找到 <code>yarn</code></strong> 的错误，就取消注释这一行吧</li>
+<li><code>yarn install</code> 安装项目的所有依赖包</li>
+<li><code>yarn build</code> 执行 React 应用的构建脚本，这会生成用于部署的静态资源文件，默认情况下这些文件会输出到项目根目录下的 <code>dist</code> 或者 <code>build</code> 文件夹中</li>
+<li><code>yarn global add wrangler</code> 全局安装 Cloudflare 的命令行工具 <code>wrangler</code>。<code>wrangler</code> 用于与 Cloudflare API 进行交互，例如部署 Pages 应用</li>
+<li><code>export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN</code> 将 Bitbucket 仓库变量 <code>CLOUDFLARE_API_TOKEN</code> 导出为 Pipeline 运行环境中的环境变量。<code>$</code> 符号用于引用仓库变量</li>
+<li><code>export CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID</code> 同样地将 Bitbucket 仓库变量 <code>CLOUDFLARE_ACCOUNT_ID</code> 导出为环境变量</li>
+<li><code>wrangler pages publish dist --project-name [cloudflare应用名称] --branch staging</code> 是执行部署的关键命令。它使用 <code>wrangler pages publish</code> 命令将 <code>dist</code> 文件夹中的内容上传并部署到你的 Cloudflare Pages 应用。<code>--project-name</code> 后面需要替换成你在 Cloudflare 中创建的 Pages 应用的实际名称。<code>--branch staging</code> 告诉 Cloudflare 这是针对 <code>staging</code> 分支的部署</li>
+</ul>
+</li>
+<li><code>caches</code> 定义了需要缓存的目录，以便在后续的 Pipeline 执行中加快依赖安装速度。这里我们缓存了 <code>node_modules</code> 目录</li>
+</ul>
+</li>
+</ul>
+<p>现在每当我们向 <code>staging</code> 分支推送新的 commit 时，Bitbucket Pipelines 会自动构建我的前端应用，并使用 <code>wrangler</code> 将构建产物部署到 Cloudflare Pages。Cloudflare 会为这次特定的提交创建一个新的预览部署，并生成一个新的、唯一的预览 URL。这意味着我的测试人员可以同时访问到不同 commit 对应的不同预览版本，这在进行特定功能的测试或对比不同版本时非常有用。</p>
+</li>
+</ol>
+<h1 id="服务端部署"><a class="markdownIt-Anchor" href="#服务端部署"></a> 服务端部署</h1>
+<p>AWS Elastic Beanstalk (EB) 正是为此而生的 PaaS 服务，它可以帮助我们轻松部署、管理和扩展 Web 应用程序和服务。</p>
+<!-- flag of hidden posts --></div></article></div></main><footer><div class="paginator"></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/ccc.html';
+var disqus_title = '踩坑与总结：我的React+NestJS+MongoDB项目在Cloudflare和AWS Staging环境的部署经验分享';
+var disqus_url = 'https://cytrogen.icu/posts/ccc.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

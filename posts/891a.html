@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>通过Docker在移动端使用VSCode · 万圣节恶魔的领地</title><meta name="description" content="通过Docker在移动端使用VSCode - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">通过Docker在移动端使用VSCode</h1><div class="post-info">1/26/2023</div><div class="post-content"><p>利用Docker和code-server在浏览器中访问Visual Studio Code，从而在移动端使用它。</p>
+<span id="more"></span>
+<div class="danger">
+开始阅读前，需要知道：
+<ul>
+<li>鉴于我的电脑为Windows 10，安装Docker时使用的自然也会是Windows版本</li>
+<li>Docker镜像将会拉取的是最新版的Ubuntu</li>
+</ul>
+</div>
+<h1 id="安装docker-desktop"><a class="markdownIt-Anchor" href="#安装docker-desktop"></a> 安装Docker Desktop</h1>
+<ol>
+<li>进入<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop下载网址</a>，点击 <strong>Download Docker Desktop</strong> 。<br>
+<img src="/posts/891a/Docker Desktop.jpg" alt="Docker Desktop页面"></li>
+<li>安装完成后点击 <strong>Close</strong> 关闭界面。<br>
+<img src="/posts/891a/Installing Docker Desktop.png" alt="Docker Desktop安装完成界面"><br>
+下图为Docker Desktop的界面：<br>
+<img src="/posts/891a/Docker Desktop 1.png" alt="Docker Desktop主界面"></li>
+<li>在终端内输入Docker检查版本的命令，检查是否安装成功：<br>
+<img src="/posts/891a/Docker Version.png" alt="终端内输入docker version"></li>
+</ol>
+<h1 id="创建容器"><a class="markdownIt-Anchor" href="#创建容器"></a> 创建容器</h1>
+<ol>
+<li>打开任一终端，拉取Ubuntu镜像：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu">
+</li>
+<li>继续在终端内创建空容器：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name CodeServer ubuntu:latest /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt install curl</span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update">
+<img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl">
+</li>
+</ol>
+<h1 id="安装code-server"><a class="markdownIt-Anchor" href="#安装code-server"></a> 安装code-server</h1>
+<blockquote>
+<p>详情请查看<a target="_blank" rel="noopener" href="https://github.com/coder/code-server">code-server</a>仓库。</p>
+</blockquote>
+<ol>
+<li>
+<p>依然是在终端内，执行以下命令来安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://code-server.dev/install.sh | sh</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>为了能够让其他设备也可以访问网页，需要执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-server --<span class="built_in">link</span></span><br></pre></td></tr></table></figure>
+<img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link">
+<blockquote>
+<p>我在这里换了个终端，实际上不需要更换。</p>
+</blockquote>
+</li>
+<li>
+<p>进入最后一行提供的网址，进入GitHub页面登录。<br>
+我因为先前登陆过，直接导向了IDE网址。</p>
+</li>
+<li>
+<p>最终会提供给你一个IDE网址。<br>
+<img src="/posts/891a/IDE网址.png" alt="登录GitHub后在终端会提供一个IDE网址"></p>
+<p>进入该网址，便会看到熟悉的Visual Studio Code。<br>
+<img src="/posts/891a/Visual Studio Code.png" alt="IDE网址内的VSCode"></p>
+</li>
+</ol>
+<h1 id="移动端访问"><a class="markdownIt-Anchor" href="#移动端访问"></a> 移动端访问</h1>
+<ol>
+<li>
+<p>到这儿就已经很明显要怎么做了。</p>
+<p>进入手机的浏览器，输入上面的IDE网址，就可以在手机上使用Visual Studio Code了。<br>
+<img src="/posts/891a/移动端.jpg" alt="手机上的Visual Studio Code"></p>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="60db.html">上一篇</a><a class="next" href="a3e5.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/891a.html';
+var disqus_title = '通过Docker在移动端使用VSCode';
+var disqus_url = 'https://cytrogen.icu/posts/891a.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

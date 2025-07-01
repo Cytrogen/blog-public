@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pug学习笔记 · 万圣节恶魔的领地</title><meta name="description" content="Pug学习笔记 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Pug学习笔记</h1><div class="post-info">4/2/2024</div><div class="post-content"><p>我的博客网站基于Hexo，使用了Pug模板引擎。有时候感觉现在正在使用的主题不够满足自己的需求，就得手动修改Pug文件。</p>
+<span id="more"></span>
+<h1 id="1-pug基础"><a class="markdownIt-Anchor" href="#1-pug基础"></a> 1. Pug基础</h1>
+<p>Pug过去被称为Jade，是一种高性能的模板引擎，广泛用于Node.JS。它使用简洁的缩进语法，使得HTML更易于编写和阅读。</p>
+<h2 id="11-pug语法"><a class="markdownIt-Anchor" href="#11-pug语法"></a> 1.1. Pug语法</h2>
+<p>Pug使用缩进来表示标签的嵌套关系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">    head</span><br><span class="line">        title My Pug Template</span><br><span class="line">    body</span><br><span class="line">        h1 Hello, Pug!</span><br></pre></td></tr></table></figure>
+<p>这将生成以下HTML：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>My Pug Template<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, Pug!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>树状结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ul</span><br><span class="line">    li Item 1</span><br><span class="line">    li Item 2</span><br><span class="line">    li Item 3</span><br></pre></td></tr></table></figure>
+<p>标签后面使用括号来添加属性，并使用空格来添加内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a(href=&quot;https://www.example.com&quot;) Visit Example.com</span><br></pre></td></tr></table></figure>
+<p>约等于：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://www.example.com&quot;</span>&gt;</span>Visit Example.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>你可以声明一个标签是自闭合的，加上一个斜杠的话：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img/</span><br></pre></td></tr></table></figure>
+<p>纯文本使用管道符 <code>|</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p</span><br><span class="line">    | This is a paragraph of text.</span><br><span class="line">    | This is another line of text.</span><br></pre></td></tr></table></figure>
+<p>标签内文本是最常见的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p This is a paragraph of &lt;strong&gt;text&lt;/strong&gt; .</span><br></pre></td></tr></table></figure>
+<p>Pug模板中也可以使用JavaScript变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- var name = &#x27;World&#x27;</span><br><span class="line">h1 Hello, #&#123;name&#125;!</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>以及标准的JavaScript控制结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- var user = &#123; name: &#x27;John&#x27;, admin: true &#125;</span><br><span class="line">if user.admin</span><br><span class="line">    p Hello, #&#123;user.name&#125;! You are an admin.</span><br><span class="line">else</span><br><span class="line">    p Hello, #&#123;user.name&#125;!</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, John! You are an admin.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-hexo中的pug"><a class="markdownIt-Anchor" href="#2-hexo中的pug"></a> 2. Hexo中的Pug</h1>
+<p>Hexo可以使用Pug模板引擎，但是需要安装<code>hexo-renderer-pug</code>插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug --save</span><br></pre></td></tr></table></figure>
+<h2 id="21-配置项"><a class="markdownIt-Anchor" href="#21-配置项"></a> 2.1. 配置项</h2>
+<p>在Pug模板中可以使用 <code>theme</code> 对象来访问主题配置项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">year = year == theme.startyear ? year : theme.startyear + &#x27; - &#x27; + year;</span><br></pre></td></tr></table></figure>
+<p>而在 <code>_config.yml</code> 中内容如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">startyear:</span> <span class="number">2022</span></span><br></pre></td></tr></table></figure>
+<p>对于Hexo项目根目录下的 <code>_config.yml</code> 文件，可以使用 <code>config</code> 对象来访问配置项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title = config.title</span><br></pre></td></tr></table></figure>
+<h2 id="22-页面布局"><a class="markdownIt-Anchor" href="#22-页面布局"></a> 2.2. 页面布局</h2>
+<p>模板文件模板文件，重点便是“模板”这个词。我们可以将一些重复的内容放在模板文件中，然后在其他页面中引用。</p>
+<p>比方说 HTML 的 <code>&lt;head&gt;</code> 标签：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// head.pug</span><br><span class="line"></span><br><span class="line">meta(charset=&quot;utf-8&quot;)</span><br><span class="line">meta(name=&quot;X-UA-Compatible&quot;, content=&quot;IE=edge&quot;)</span><br><span class="line"></span><br><span class="line">title </span><br><span class="line">    block site_title</span><br><span class="line">        = config.title</span><br><span class="line">block description</span><br><span class="line">    meta(name=&quot;description&quot;, content= config.description ? config.description : &#x27;A Blog Powered By Hexo&#x27;)</span><br><span class="line"></span><br><span class="line">meta(name=&quot;viewport&quot;, content=&quot;width=device-width, initial-scale=1&quot;)</span><br><span class="line">link(rel=&quot;icon&quot;, href=url_for(theme.favicon))</span><br><span class="line">link(rel=&quot;stylesheet&quot;, href=url_for(&quot;css/hermes.css&quot;))</span><br><span class="line"></span><br><span class="line">- var xml = config.url + &#x27;/atom.xml&#x27;</span><br><span class="line">    link(rel=&quot;search&quot;, type=&quot;application/opensearchdescription+xml&quot;, href=xml, title=config.title)</span><br></pre></td></tr></table></figure>
+<p>又或者说导航栏、页脚等等。</p>
+<p><code>layout.pug</code> 文件是一个特殊的模板文件，它是所有页面的父模板。这里是一个简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">doctype</span><br><span class="line">html(lang=config.language)</span><br><span class="line">    head</span><br><span class="line">        include head</span><br><span class="line">    body</span><br><span class="line">        header</span><br><span class="line">            include header.pug</span><br><span class="line">        main</span><br><span class="line">            block content</span><br><span class="line">        footer</span><br><span class="line">            include footer.pug</span><br></pre></td></tr></table></figure>
+<p><code>block</code> 是一个特殊的标签，它允许子模板文件覆盖父模板文件中的内容。比如说，我们可以在 <code>layout.pug</code> 中定义一个 <code>block content</code>，然后在其他页面中覆盖它。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">extends layout</span><br><span class="line"></span><br><span class="line">block content</span><br><span class="line">    h1 Hello, Pug!</span><br><span class="line">    p This is a paragraph.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>extends</code> 则是用来引用父模板文件的。</p>
+</blockquote>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="40b4.html">上一篇</a><a class="next" href="3b97.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/a039.html';
+var disqus_title = 'Pug学习笔记';
+var disqus_url = 'https://cytrogen.icu/posts/a039.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hexo i18n Configuration · 万圣节恶魔的领地</title><meta name="description" content="Hexo i18n Configuration - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>English</span></button><div class="language-dropdown hidden"><a class="language-option" href="/posts/17cc.html">中文</a></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>MORE</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../en/archives">ARCHIVE</a></li><li class="dropdown-item"><a class="nav-link" href="../en/categories">CATEGORIES</a></li><li class="dropdown-item"><a class="nav-link" href="../en/tags">TAGS</a></li><li class="dropdown-item"><a class="nav-link" href="../en/about">ABOUT</a></li><li class="dropdown-item"><a class="nav-link" href="../en/friends">BLOGROLL</a></li><li class="dropdown-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GITHUB<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="Search..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="CLOSE"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li><li class="nav-item"><a class="nav-link" href="../en/archives">ARCHIVE</a></li><li class="nav-item"><a class="nav-link" href="../en/categories">CATEGORIES</a></li><li class="nav-item"><a class="nav-link" href="../en/tags">TAGS</a></li><li class="nav-item"><a class="nav-link" href="../en/about">ABOUT</a></li><li class="nav-item"><a class="nav-link" href="../en/friends">BLOGROLL</a></li><li class="nav-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GITHUB<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Hexo i18n Configuration</h1><div class="post-info">12/2/2024<a class="post-from" href="/posts/17cc.html" target="_blank" title="/posts/17cc.html">Translate · Original Link</a></div><div class="post-content"><p>When running a personal blog, you might encounter this requirement: wanting your website to support multiple languages so that readers from different regions can easily read your content.</p>
+<p>This is where website internationalization (also known as i18n) comes into play.</p>
+<p>For blogs built with Hexo, implementing internationalization requires consideration not only of content translation but also template rendering and other issues.</p>
+<span id="more"></span>
+<div class="danger">
+<ul>
+<li>
+<p>This article primarily uses the <code>hexo-generator-plus</code> plugin.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kiwirafe/hexo-generator-plus"><img src="https://gh-card.dev/repos/kiwirafe/hexo-generator-plus.svg?fullname=" alt="kiwirafe/hexo-generator-plus - GitHub"></a></p>
+<p>Before starting the configuration, please ensure you have uninstalled the following plugins to avoid conflicts:</p>
+<ul>
+<li><code>hexo-generator-archive</code></li>
+<li><code>hexo-generator-category</code></li>
+<li><code>hexo-generator-index</code></li>
+<li><code>hexo-generator-tag</code></li>
+</ul>
+</li>
+<li>
+<p>This article uses the <strong>Pug</strong> templating language.</p>
+</li>
+<li>
+<p>For the language switching solution in the navigation bar, I have only implemented bilingual logic.</p>
+</li>
+</ul>
+</div>
+<h2 id="basic-configuration"><a class="markdownIt-Anchor" href="#basic-configuration"></a> Basic Configuration</h2>
+<blockquote>
+<p>To avoid confusion:</p>
+<ol>
+<li>
+<p>The <code>_config.yml</code> in the Hexo root directory will be referred to as <strong>Hexo Configuration</strong></p>
+</li>
+<li>
+<p><code>themes/**/_config.yml</code> will be referred to as <strong>Theme Configuration</strong></p>
+</li>
+</ol>
+</blockquote>
+<p>First, we need to make some basic settings in Hexo's configuration file. These settings will determine the website's language options and URL structure.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># Supported language list, first one is default</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span>  <span class="comment"># New article naming convention</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If you have hexo-abbrlink installed</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink.html</span>  <span class="comment"># Article permalink format</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>  <span class="comment"># Use hexadecimal as unique identifier</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hexo-generator-plus configuration</span></span><br><span class="line"><span class="attr">generator_plus:</span></span><br><span class="line">  <span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># Generator supported languages</span></span><br><span class="line">  <span class="attr">pagination_dir:</span> <span class="string">&#x27;page&#x27;</span>  <span class="comment"># Pagination directory</span></span><br><span class="line">  <span class="attr">generator:</span> [<span class="string">&quot;index&quot;</span>, <span class="string">&quot;archive&quot;</span>, <span class="string">&quot;category&quot;</span>, <span class="string">&quot;tag&quot;</span>]  <span class="comment"># Pages to generate</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Index generator configuration</span></span><br><span class="line">  <span class="attr">index_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment"># These numbers and order can be customized</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Archive page configuration</span></span><br><span class="line">  <span class="attr">archive_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Category page configuration</span></span><br><span class="line">  <span class="attr">category_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># If you want a category index page</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Tag page configuration</span></span><br><span class="line">  <span class="attr">tag_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">name</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># If you want a tag index page</span></span><br></pre></td></tr></table></figure>
+<p>Then configure the desired menu links in the theme configuration:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
+<h2 id="directory-structure"><a class="markdownIt-Anchor" href="#directory-structure"></a> Directory Structure</h2>
+<p>Here is the required directory structure:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # Default language blog posts</span><br><span class="line">│   └── *.md                    # No subdirectories allowed</span><br><span class="line">├── en/                         # English-specific content</span><br><span class="line">│   └── Same structure as source directory</span><br><span class="line">├── archives/                   # Archive page</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # Category page</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # Tag page</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Of course, you can choose other languages, but other language directories need to match the names in <code>themes/**/languages/*.yml</code>.</p>
+</blockquote>
+<p>Please ensure each <code>*.md</code> file has <code>lang: **</code> in its Front-Matter.</p>
+<h2 id="language-file-configuration"><a class="markdownIt-Anchor" href="#language-file-configuration"></a> Language File Configuration</h2>
+<p>Fixed website text (such as navigation menus, button text, etc.) needs to be internationalized through language files. These files should be placed in the <code>themes/**/languages/</code> directory.</p>
+<p>Here's my examples:</p>
+<ol>
+<li>
+<p><code>zh.yml</code>:</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">首页</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">关于</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">友情链接</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">上一页</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">下一页</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">上一篇</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">下一篇</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...阅读全文</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">翻译</span> <span class="string">·</span> <span class="string">原文地址</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>en.yml</code>:</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">HOME</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">ARC</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">TAGS</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">CATE</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">ABOUT</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">Friend</span> <span class="string">Links</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">Archive</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">PREV</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">NEXT</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">PREV</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">NEXT</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...MORE</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">Translate</span> <span class="string">·</span> <span class="string">Original</span> <span class="string">Link</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="template-file-implementation"><a class="markdownIt-Anchor" href="#template-file-implementation"></a> Template File Implementation</h2>
+<p>From here on, I'll only write about the solution used for my blog website.</p>
+<p><strong>Please modify according to your own theme.</strong></p>
+<h4 id="category-page-templates"><a class="markdownIt-Anchor" href="#category-page-templates"></a> Category Page Templates</h4>
+<p>Category pages need two templates: category index page and specific category page.</p>
+<ol>
+<li>
+<p>Category list page (<code>category-index.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    .archive</span><br><span class="line">        // Title content prioritizes page.title</span><br><span class="line">        // If it doesn&#x27;t exist, use the i18n function __() to get categories_title translation</span><br><span class="line">        h2.archive-title= page.title || __(&#x27;categories_title&#x27;)</span><br><span class="line">        .category-list</span><br><span class="line">            // Get all category data</span><br><span class="line">            each category in get_categories().data</span><br><span class="line">                // Calculate number of posts matching current language for each category</span><br><span class="line">                - var postCount = category.posts.data ? category.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .category-item</span><br><span class="line">                        // Each category shows as a link, including category name and post count</span><br><span class="line">                        // url_for_lang() generates multilingual-supported URL</span><br><span class="line">                        - var categoryPath = category.slug || category.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, &#x27;categories/&#x27; + categoryPath))</span><br><span class="line">                            = category.name</span><br><span class="line">                            span.category-count= ` ($&#123;postCount&#125;)`</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Specific category page (<code>category.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.category</span><br><span class="line">        +postList()</span><br></pre></td></tr></table></figure>
+<p>Here, post-related functionality is encapsulated in a series of mixins for reuse across different pages (<code>mixins/post.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mixin postInfo(item)</span><br><span class="line">    .post-info</span><br><span class="line">        != full_date(item.date, &#x27;l&#x27;)</span><br><span class="line">        // If post has from property and current page is home or post page</span><br><span class="line">        if item.from &amp;&amp; (is_home() || is_post())</span><br><span class="line">            // Show a link indicating post translation source</span><br><span class="line">            a.post-from(href=item.from target=&quot;_blank&quot; title=item.from)!= __(&#x27;translated&#x27;)</span><br><span class="line"></span><br><span class="line">mixin posts()</span><br><span class="line">    ul.home.post-list</span><br><span class="line">        // Iterate through all posts</span><br><span class="line">        - for (var post of page.posts.data || [])</span><br><span class="line">            // Only show posts matching current page language</span><br><span class="line">            - if (post.lang == page.lang)</span><br><span class="line">                li.post-list-item</span><br><span class="line">                    article.post-block</span><br><span class="line">                        h2.post-title</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                        +postInfo(post)</span><br><span class="line">                        // If there&#x27;s an excerpt, show it with &quot;read more&quot; link</span><br><span class="line">                        if post.excerpt</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.excerpt</span><br><span class="line">                            a.read-more(href= url_for(post.path))!= __(&#x27;more&#x27;)</span><br><span class="line">                        else</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.content</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="tag-page-templates"><a class="markdownIt-Anchor" href="#tag-page-templates"></a> Tag Page Templates</h4>
+<p>Almost identical to category page templates:</p>
+<ol>
+<li>
+<p><code>tag-index.pug</code>:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.title || __(&#x27;tags_title&#x27;)</span><br><span class="line">        .tag-list</span><br><span class="line">            each tag in get_tags().data</span><br><span class="line">                - var postCount = tag.posts.data ? tag.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .tag-item</span><br><span class="line">                        - var tagPath = tag.slug || tag.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, &#x27;tags/&#x27; + tagPath))</span><br><span class="line">                            = tag.name</span><br><span class="line">                            span.tag-count= ` ($&#123;postCount&#125;)`</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>tag.pug</code>:</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.tag</span><br><span class="line">        +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="archive-page-template"><a class="markdownIt-Anchor" href="#archive-page-template"></a> Archive Page Template</h4>
+<p>Archive page only needs one <code>archive.pug</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
+<p>Its mixin:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mixin postList()</span><br><span class="line">    .archive</span><br><span class="line">        // Check if there are posts</span><br><span class="line">        if page.posts</span><br><span class="line">            // Ensure post list exists and is not empty</span><br><span class="line">            - var posts = page.posts.data || page.posts</span><br><span class="line">            if posts &amp;&amp; posts.length</span><br><span class="line">                // Create a years object for grouping</span><br><span class="line">                // Only process posts matching current page language</span><br><span class="line">                // Get year from post date</span><br><span class="line">                // Add posts to corresponding year array</span><br><span class="line">                - var years = &#123;&#125;</span><br><span class="line">                - for (var post of posts)</span><br><span class="line">                    - if (post.lang == page.lang)</span><br><span class="line">                        - var year = new Date(post.date).getFullYear()</span><br><span class="line">                        - if (!years[year]) years[year] = []</span><br><span class="line">                        - years[year].push(post)</span><br><span class="line">                // Sort years in descending order (show largest year first)</span><br><span class="line">                - Object.keys(years).sort((a, b) =&gt; b - a).forEach(function(year) &#123;</span><br><span class="line">                    h2.archive-year!= year</span><br><span class="line">                    - years[year].forEach(function(post) &#123;</span><br><span class="line">                        .post-item</span><br><span class="line">                            +postInfo(post)</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                    - &#125;)</span><br><span class="line">                - &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="navigation-bar-implementation"><a class="markdownIt-Anchor" href="#navigation-bar-implementation"></a> Navigation Bar Implementation</h4>
+<p>The navigation bar is the key interface for language switching (<code>nav.pug</code>).</p>
+<p>Since my blog theme's navigation bar isn't wide, I wrote top and bottom sections to separate some links:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ul.nav.nav-list</span><br><span class="line">    // Top section</span><br><span class="line">    div.nav-list-top</span><br><span class="line">        // Iterate through all keys and values in theme menu config</span><br><span class="line">        each path, key in theme.menu</span><br><span class="line">            // Exclude links to be placed at bottom, in my case GitHub and RSS</span><br><span class="line">            if key !== &#x27;GitHub&#x27; &amp;&amp; key !== &#x27;RSS&#x27;</span><br><span class="line">                li.nav-list-item</span><br><span class="line">                    // Check if external link</span><br><span class="line">                    // If yes, open in new tab</span><br><span class="line">                    // Add /en prefix for English pages</span><br><span class="line">                    // Check if current page is active (for highlighting)</span><br><span class="line">                    - var re = /^(http|https):\/\/*/gi;</span><br><span class="line">                    - var tar = re.test(path) ? &quot;_blank&quot; : &quot;_self&quot;</span><br><span class="line">                    - var fullPath = page.lang === &#x27;en&#x27; ? &#x27;/en&#x27; + path : path</span><br><span class="line">                    - var act = !re.test(path) &amp;&amp; &quot;/&quot; + page.current_url === fullPath</span><br><span class="line">                    a.nav-list-link(class=&#123;active: act&#125; href=url_for(fullPath) target=tar)</span><br><span class="line">                        != __((&#x27;menu.&#x27; + key))</span><br><span class="line">    // Bottom section</span><br><span class="line">    div.nav-list-bottom</span><br><span class="line">        // Language switch button</span><br><span class="line">        li.nav-list-item.lang-switch</span><br><span class="line">            if page.lang == &#x27;en&#x27;</span><br><span class="line">                a.nav-list-link(href=url_for(&#x27;/&#x27;)) 中文</span><br><span class="line">            else</span><br><span class="line">                a.nav-list-link(href=url_for(&#x27;/en&#x27;)) ENGLISH</span><br></pre></td></tr></table></figure>
+<h2 id="usage"><a class="markdownIt-Anchor" href="#usage"></a> Usage</h2>
+<p>After completing the above configuration, specify the language in the Front-Matter when creating new articles:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Article Title</span><br><span class="line">date: 2024-01-01</span><br><span class="line"><span class="section">lang: en</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+<p>If you want to create versions of the same article in other languages, just create a new Markdown file, specify the appropriate <code>lang</code>, and link to the original article using the <code>from</code> field in the Front-Matter:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2024-01-01</span><br><span class="line">lang: zh</span><br><span class="line"><span class="section">from: /posts/original-post.html</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="270a.html">PREV POST</a><a class="next" href="17cc.html">NEXT POST</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/567.html';
+var disqus_title = 'Hexo i18n Configuration';
+var disqus_url = 'https://cytrogen.icu/posts/567.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = 'Expand';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? 'Expand' : 'Fold';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = 'Copied';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = 'Copy failed';
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="Search..."><div id="local-search-result"></div></div></div></body></html>

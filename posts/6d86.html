@@ -1,0 +1,659 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>React + NestJS购物平台练习【1】前端项目框架搭建 · 万圣节恶魔的领地</title><meta name="description" content="React + NestJS购物平台练习【1】前端项目框架搭建 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React + NestJS购物平台练习【1】前端项目框架搭建</h1><div class="post-info">10/29/2024</div><div class="post-content"><p>在现代电子商务发展迅速的今天，构建一个高效、易用的购物平台是开发者的一项关键技能。</p>
+<p>该系列是全栈实践新坑，使用 React 和 NestJS 的技术栈、从零开始开发一个完整的购物平台（其实是先前开的几个全栈实践坑都让我意识到自己基础实力不足）。</p>
+<span id="more"></span>
+<h1 id="1-初始化-react-typescript-项目"><a class="markdownIt-Anchor" href="#1-初始化-react-typescript-项目"></a> 1. 初始化 React + TypeScript 项目</h1>
+<ol>
+<li>
+<p>使用以下命令创建 React 项目：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn create react-app shopping-nest --template typescript</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>导航至 <code>shopping-nest</code> 目录：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> shopping-nest</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用 Yarn 安装依赖：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 安装 ESLint 和 Prettier 相关依赖</span><br><span class="line">yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser</span><br><span class="line">yarn add -D eslint prettier eslint-config-prettier eslint-plugin-prettier</span><br><span class="line">yarn add -D eslint-config-react-app</span><br><span class="line"></span><br><span class="line">// 安装 react-router-dom</span><br><span class="line">yarn add react-router-dom @types/react-router-dom</span><br><span class="line"></span><br><span class="line">// 安装 axios</span><br><span class="line">yarn add axios</span><br><span class="line"></span><br><span class="line">// 安装 TailwindCSS 相关依赖</span><br><span class="line">yarn add tailwindcss postcss autoprefixer</span><br><span class="line"></span><br><span class="line">// 安装 UI 组件和图标库</span><br><span class="line">yarn add @headlessui/react</span><br><span class="line">yarn add lucide-react</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>运行 <code>yarn run start</code> 检查一下是否会出问题。</p>
+</li>
+</ol>
+<h1 id="2-配置-eslint-和-prettier"><a class="markdownIt-Anchor" href="#2-配置-eslint-和-prettier"></a> 2. 配置 ESLint 和 Prettier</h1>
+<div class="danger">
+<ul>
+<li>我使用的是 Jetbrains WebStorm，记得要更新到 2024 的版本喔。</li>
+<li>ESLint 的版本为 <code>9.13.0</code>。</li>
+<li>Prettier 的版本为 <code>3.3.3</code>。</li>
+</ul>
+</div>
+<h2 id="21-配置-eslint"><a class="markdownIt-Anchor" href="#21-配置-eslint"></a> 2.1. 配置 ESLint</h2>
+<ol>
+<li>
+<p>运行以下命令：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx eslint --init</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>根据自己的习惯选择。</p>
+</li>
+<li>
+<p>生成的 <code>mjs</code> 配置文件差不多如下，我自己修改了 <code>files</code> 值为 <code>src</code> 目录下的文件。</p>
+ <figure class="highlight mjs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> globals <span class="keyword">from</span> <span class="string">&quot;globals&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> pluginJs <span class="keyword">from</span> <span class="string">&quot;@eslint/js&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> tseslint <span class="keyword">from</span> <span class="string">&quot;typescript-eslint&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> pluginReact <span class="keyword">from</span> <span class="string">&quot;eslint-plugin-react&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [</span><br><span class="line">  &#123;<span class="attr">files</span>: [<span class="string">&quot;src/**/*.&#123;js,mjs,cjs,ts,jsx,tsx&#125;&quot;</span>]&#125;,</span><br><span class="line">  &#123;<span class="attr">languageOptions</span>: &#123; <span class="attr">globals</span>: globals.<span class="property">browser</span> &#125;&#125;,</span><br><span class="line">  pluginJs.<span class="property">configs</span>.<span class="property">recommended</span>,</span><br><span class="line">  ...tseslint.<span class="property">configs</span>.<span class="property">recommended</span>,</span><br><span class="line">  pluginReact.<span class="property">configs</span>.<span class="property">flat</span>.<span class="property">recommended</span>,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>可以查看 <a target="_blank" rel="noopener" href="https://eslint.org/docs/latest/use/configure/">ESLint 官方文档</a>或者 <a target="_blank" rel="noopener" href="https://typescript-eslint.io/users/configs">TypeScript-ESLint 文档</a>自行修改。我自己就保留默认的了。</p>
+</li>
+</ol>
+<h2 id="22-配置-prettier"><a class="markdownIt-Anchor" href="#22-配置-prettier"></a> 2.2. 配置 Prettier</h2>
+<ol>
+<li>
+<p>在项目目录处创建 <code>.prettierrc</code> 文件一个（项目目录这里默认为 <code>package.json</code> 所在的目录）。</p>
+</li>
+<li>
+<p>除了查看 <a target="_blank" rel="noopener" href="https://prettier.io/docs/en/configuration.html">Prettier 官方文档</a>自己填写外，还可以使用一些工具生成 Prettier 配置内容。</p>
+<p>我这里用了 <a target="_blank" rel="noopener" href="https://michelelarson.com/prettier-config/">Prettier Config Generator</a> 生成：</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;printWidth&quot;</span><span class="punctuation">:</span> <span class="number">120</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tabWidth&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;useTabs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;singleQuote&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;trailingComma&quot;</span><span class="punctuation">:</span> <span class="string">&quot;none&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bracketSpacing&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bracketSameLine&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;arrowParens&quot;</span><span class="punctuation">:</span> <span class="string">&quot;avoid&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="3-配置-tailwind-css"><a class="markdownIt-Anchor" href="#3-配置-tailwind-css"></a> 3. 配置 Tailwind CSS</h1>
+<h2 id="31-安装并初始化-tailwind-css-配置"><a class="markdownIt-Anchor" href="#31-安装并初始化-tailwind-css-配置"></a> 3.1. 安装并初始化 TailWind CSS 配置</h2>
+<p>在项目目录下使用以下命令来生成 <code>tailwind.config.js</code> 和 <code>postcss.config.js</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx tailwindcss init -p</span><br></pre></td></tr></table></figure>
+<p>然后修改 <code>tailwind.config.js</code> 的内容，将 <code>content</code> 配置为监控 <code>src</code> 文件夹下的所有文件，以便在这些文件中应用 TailWind 的样式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** <span class="doctag">@type</span> &#123;<span class="type">import(&#x27;tailwindcss&#x27;).Config</span>&#125; */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">content</span>: [],</span><br><span class="line">  <span class="attr">theme</span>: &#123;</span><br><span class="line">    <span class="attr">extend</span>: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: []</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 <code>src/index.css</code> 文件的顶部添加以下内容，导入 TailWind 的核心样式、组件和工具：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@tailwind</span> base;</span><br><span class="line"><span class="keyword">@tailwind</span> components;</span><br><span class="line"><span class="keyword">@tailwind</span> utilities;</span><br></pre></td></tr></table></figure>
+<h2 id="32-安装并配置-daisyui-组件库"><a class="markdownIt-Anchor" href="#32-安装并配置-daisyui-组件库"></a> 3.2. 安装并配置 daisyUI 组件库</h2>
+<p>为了方便开发，安装 <code>daisyUI</code> 组件库，它提供了丰富的组件和自定义主题功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add daisyui</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>tailwind.config.js</code> 文件中引入 <code>daisyUI</code> 插件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> daisyui <span class="keyword">from</span> <span class="string">&quot;daisyui&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    daisyui,</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">daisyui</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 <code>daisyUI</code> 的配置，可以根据其<a target="_blank" rel="noopener" href="https://daisyui.com/docs/config/">文档</a>进行修改。</p>
+<p>我安装 <code>daisyUI</code> 还有一个目的，那就是其自定义主题的功能。</p>
+<p>在 <code>daisyUI</code> 的<a target="_blank" rel="noopener" href="https://daisyui.com/theme-generator/">主题生成器</a>里，你可以选择自己设计一套颜色方案，或者说随机出一套颜色方案。该页面中还有预览页面可供参考。</p>
+<p>我对颜色不敏感，设计能力也很遭殃。这是我随机出的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">daisyui</span>: &#123;</span><br><span class="line">    <span class="attr">themes</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">mytheme</span>: &#123;</span><br><span class="line">          <span class="string">&quot;primary&quot;</span>: <span class="string">&quot;#60a5fa&quot;</span>,</span><br><span class="line">          <span class="string">&quot;primary-content&quot;</span>: <span class="string">&quot;#030a15&quot;</span>,</span><br><span class="line">          <span class="string">&quot;secondary&quot;</span>: <span class="string">&quot;#00b7ac&quot;</span>,</span><br><span class="line">          <span class="string">&quot;secondary-content&quot;</span>: <span class="string">&quot;#000c0b&quot;</span>,</span><br><span class="line">          <span class="string">&quot;accent&quot;</span>: <span class="string">&quot;#d68900&quot;</span>,</span><br><span class="line">          <span class="string">&quot;accent-content&quot;</span>: <span class="string">&quot;#100700&quot;</span>,</span><br><span class="line">          <span class="string">&quot;neutral&quot;</span>: <span class="string">&quot;#182f19&quot;</span>,</span><br><span class="line">          <span class="string">&quot;neutral-content&quot;</span>: <span class="string">&quot;#ccd1cc&quot;</span>,</span><br><span class="line">          <span class="string">&quot;base-100&quot;</span>: <span class="string">&quot;#32253a&quot;</span>,</span><br><span class="line">          <span class="string">&quot;base-200&quot;</span>: <span class="string">&quot;#2a1f31&quot;</span>,</span><br><span class="line">          <span class="string">&quot;base-300&quot;</span>: <span class="string">&quot;#221928&quot;</span>,</span><br><span class="line">          <span class="string">&quot;base-content&quot;</span>: <span class="string">&quot;#d2cfd4&quot;</span>,</span><br><span class="line">          <span class="string">&quot;info&quot;</span>: <span class="string">&quot;#00a7c9&quot;</span>,</span><br><span class="line">          <span class="string">&quot;info-content&quot;</span>: <span class="string">&quot;#000a0f&quot;</span>,</span><br><span class="line">          <span class="string">&quot;success&quot;</span>: <span class="string">&quot;#67c400&quot;</span>,</span><br><span class="line">          <span class="string">&quot;success-content&quot;</span>: <span class="string">&quot;#040e00&quot;</span>,</span><br><span class="line">          <span class="string">&quot;warning&quot;</span>: <span class="string">&quot;#f97316&quot;</span>,</span><br><span class="line">          <span class="string">&quot;warning-content&quot;</span>: <span class="string">&quot;#150500&quot;</span>,</span><br><span class="line">          <span class="string">&quot;error&quot;</span>: <span class="string">&quot;#dc2626&quot;</span>,</span><br><span class="line">          <span class="string">&quot;error-content&quot;</span>: <span class="string">&quot;#ffd9d4&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="33-配置-postcss"><a class="markdownIt-Anchor" href="#33-配置-postcss"></a> 3.3. 配置 PostCSS</h2>
+<p>根据 <a target="_blank" rel="noopener" href="https://postcss.org/docs/">PostCSS 官方</a>说的：</p>
+<blockquote>
+<p>PostCSS 是一种利用 JS 插件转换样式的工具。</p>
+<p>这些插件可以检查 CSS、支持变量和混合体、转译未来的 CSS 语法、内联图片等。</p>
+</blockquote>
+<p><code>postcss.config.js</code> 的初始配置如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">plugins</span>: &#123;</span><br><span class="line">    <span class="attr">tailwindcss</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">autoprefixer</span>: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>目前这是基本的配置。如果需要更多 PostCSS 功能，可以根据需求进一步配置。</p>
+<h1 id="4-设置路由基础结构"><a class="markdownIt-Anchor" href="#4-设置路由基础结构"></a> 4. 设置路由基础结构</h1>
+<p>路由系统是管理不同 URL 对应显示不同页面内容的机制。</p>
+<h2 id="41-创建统一布局"><a class="markdownIt-Anchor" href="#41-创建统一布局"></a> 4.1. 创建统一布局</h2>
+<p>作为开发者，在构建 Web 应用时，创建一个统一的布局非常重要。因为它能够为用户提供一致的界面的导航体验。</p>
+<p>在大多数应用中，我们会有一些固定的部分，比方说导航栏、页脚，以及一个用于动态展示内容的区域。</p>
+<figure class="highlight tsx"><figcaption><span>src/layouts/MainLayout.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Outlet</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>首先引入 <code>Outlet</code>，它是 <code>react-router-dom</code> 提供的一个工具，允许在布局中插入不同的内容。</p>
+<p>通过 <code>Outlet</code>，我们可以渲染由路由定义的组件，也就是首页啦、关于页这些，也不需要每次都重写导航和布局。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">MainLayout</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">header</span> <span class="attr">className</span>=<span class="string">&quot;bg-primary shadow&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span> <span class="attr">className</span>=<span class="string">&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;/* TODO: 导航内容 */&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>用 <code>&lt;header&gt;</code> 标签来定义页面的头部，这里我之后会引入导航栏组件，先放个 <code>TODO</code> 马克一下。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">      &lt;main&gt;</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Outlet</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">      &lt;/main&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接下来是 <code>&lt;main&gt;</code> 标签，它是页面的核心内容区域。</p>
+<p><code>&lt;Outlet /&gt;</code> 会根据当前路由，动态渲染不同的组件。在开发中，这个设计的好处是我们可以轻松地切换页面，并保持一致的布局框架。</p>
+<h2 id="42-路由配置"><a class="markdownIt-Anchor" href="#42-路由配置"></a> 4.2. 路由配置</h2>
+<p>在单页面应用，也就是 SPA 中，路由是关键。它决定了用户访问某个路径时应该显示哪个组件。</p>
+<p>我们现在需要一个机制，让用户能够在不同页面之间切换，比如从首页切换到用户账户信息页。路由能够帮助我们将 URL 和组件相互关联，确保用户在访问特定路径时，看到对应的页面。</p>
+<figure class="highlight tsx"><figcaption><span>src/router.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createBrowserRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MainLayout</span> <span class="keyword">from</span> <span class="string">&#x27;./layouts/MainLayout&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>首先导入 <code>createBrowserRouter</code>，用它可以创建一个支持浏览器历史记录的路由系统。接着我们将先前定义好的 <code>MainLayout</code> 引入作为根布局。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="title function_">createBrowserRouter</span>([</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">MainLayout</span> /&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+<p>这意味着，无论用户访问的子页面是什么，<code>MainLayout</code> 的结构都会保持一致，而页面主体部分会根据路由变化而动态加载。</p>
+<h2 id="43-设置应用入口"><a class="markdownIt-Anchor" href="#43-设置应用入口"></a> 4.3. 设置应用入口</h2>
+<p><code>App</code> 组件是整个应用的入口。它负责将路由系统注入到 React 的组件树中，这样其他组件才能知道根据不同的路径应该显示什么内容。</p>
+<p>为了加载整个路由配置，我们需要一个统一的入口，因此需要用到 <code>RouterProvider</code>。它将之前配置的路由传递给应用，让各个子组件能够根据 URL 做出相应的渲染。</p>
+<figure class="highlight tsx"><figcaption><span>src/App.tsx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">RouterProvider</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>引入 <code>RouterProvider</code> 和先前定义好的 <code>router</code> 配置。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">RouterProvider</span> <span class="attr">router</span>=<span class="string">&#123;router&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>用 <code>RouterProvider</code> 包裹住应用的根组件，并把 <code>router</code> 传递给它。通过这种方式，整个应用的路由系统就生效了。</p>
+<p>虽然话是这么说，但因为内部什么组件都没写好，运行时还是什么都看不到的……</p>
+<h1 id="5-配置状态管理工具"><a class="markdownIt-Anchor" href="#5-配置状态管理工具"></a> 5. 配置状态管理工具</h1>
+<p>在开发中，状态管理是前端应用的核心部分之一，尤其是在涉及到用户登录、登出、数据持久化等功能时。</p>
+<p>Zustand 是一个轻量级的状态管理库，它相比于 Redux 等传统工具更加简洁易用。因为是个练习项目，我便选择了这个更小巧的状态管理库。</p>
+<h2 id="51-简单的例子"><a class="markdownIt-Anchor" href="#51-简单的例子"></a> 5.1. 简单的例子</h2>
+<h4 id="511-初始化-zustand-状态管理器"><a class="markdownIt-Anchor" href="#511-初始化-zustand-状态管理器"></a> 5.1.1. 初始化 Zustand 状态管理器</h4>
+<p>在 <code>src</code> 目录下创建一个 <code>stores</code> 目录，用于存放状态管理相关的文件。</p>
+<p>在本例子中，代码结构分为三部分：状态定义和处理（<code>UserState</code>、<code>actions.ts</code>），Zustand 状态创建和持久化（<code>index.ts</code>），以及一些辅助函数（<code>api.ts</code>、<code>log.ts</code> 和 <code>selector.ts</code>）。</p>
+<p>使用以下命令安装 Zustand：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add zustand</span><br></pre></td></tr></table></figure>
+<p><code>stores</code> 目录下创建 <code>index.ts</code>，用作状态管理的入口，这样在应用的其他部分就可以方便地引入状态管理逻辑。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> useUserStore <span class="keyword">from</span> <span class="string">&#x27;./user&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>作为一个大致的参考，我选择去写一个用户状态。这里先引入一下这个还未开始写的自定义钩子，理想情况下，它应当允许我们访问和操作与用户相关的状态。</p>
+<p>在整个应用中，我们将通过这个钩子获取当前用户信息或调用登录操作。</p>
+<h4 id="512-定义用户状态类型和接口"><a class="markdownIt-Anchor" href="#512-定义用户状态类型和接口"></a> 5.1.2. 定义用户状态类型和接口</h4>
+<p><code>stores</code> 目录下创建 <code>user</code> 目录，接着又在 <code>user</code> 目录下创建 <code>types.ts</code>。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">User</span> &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> <span class="title class_">UserState</span> &#123;</span><br><span class="line">  <span class="attr">user</span>: <span class="title class_">User</span> | <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">isLoading</span>: <span class="built_in">boolean</span>;</span><br><span class="line">  <span class="attr">error</span>: <span class="built_in">string</span> | <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>TypeScript 中的 <code>interface</code> 用于定义用户状态的结构。使用 <code>interface</code> 能更直观地展示用户状态中的各项属性，同时在项目扩展时易于维护</li>
+</ul>
+<p>这里定义了 <code>User</code> 和 <code>UserState</code>，这两个接口分别描述了用户对象的结构和与用户相关的状态。</p>
+<blockquote>
+<p>当然，作为一个参考，这些值后续一定会进行修改或者扩展。</p>
+</blockquote>
+<ul>
+<li>
+<p><code>User</code> 接口不用多说。<code>UserState</code> 接口包括了：</p>
+<ul>
+<li><code>user</code>：当前登录的用户信息；没有用户登录的话就是 <code>null</code></li>
+<li><code>isLoading</code>：是否正在进行异步操作，比如登录请求</li>
+<li><code>error</code>：当然是错误信息啦</li>
+</ul>
+</li>
+<li>
+<p><code>setUser</code> 是一个函数属性，接收一个 <code>User</code> 或者 <code>null</code> 类型的参数</p>
+</li>
+<li>
+<p><code>login</code> 函数属性接收 <code>LoginCredentials</code> 参数，并返回一个 <code>Promise&lt;User&gt;</code>（使用 TypeScript 的时候这样写有助于检查函数的参数和返回值类型，减少类型错误）</p>
+</li>
+</ul>
+<h4 id="513-创建-zustand-状态管理器"><a class="markdownIt-Anchor" href="#513-创建-zustand-状态管理器"></a> 5.1.3. 创建 Zustand 状态管理器</h4>
+<p><code>user</code> 目录下创建 <code>index.ts</code>。</p>
+<p>我们通过 Zustand 来创建一个用户状态管理器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; create &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; devtools, persist &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand/middleware&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserState</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./types&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> createUserSlice <span class="keyword">from</span> <span class="string">&#x27;./actions&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> useUserStore = create&lt;<span class="title class_">UserState</span>&gt;()(</span><br><span class="line">  <span class="title function_">devtools</span>(</span><br><span class="line">    <span class="title function_">persist</span>(</span><br><span class="line">      createUserSlice,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;user-storage&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> useUserStore;</span><br></pre></td></tr></table></figure>
+<p>这里我们引入了 Zustand 的两个中间件：<code>devtools</code> 和 <code>persist</code>。</p>
+<ul>
+<li><code>devtools</code> 允许我们在开发时使用 Redux DevTools 进行状态调试，方便查看状态的变化</li>
+<li><code>persist</code> 实现状态的持久化，将用户状态保存在 <code>localStorage</code> 中（先前使用 Redux 的时候，都是要手动使用 <code>localStorage</code> 进行持久性保存。Zustand 则可以直接使用 <code>persist</code> 中间件实现状态的持久化）。这样即使用户刷新页面，用户信息依然保留
+<ul>
+<li><code>name: 'user-storage'</code> 指定了持久化状态的存储键名</li>
+</ul>
+</li>
+</ul>
+<h4 id="514-定义用户状态的操作与异步行为"><a class="markdownIt-Anchor" href="#514-定义用户状态的操作与异步行为"></a> 5.1.4. 定义用户状态的操作与异步行为</h4>
+<p><code>user</code> 目录下创建 <code>actions.ts</code>，定义状态和异步操作。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">StateCreator</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">User</span>, <span class="title class_">UserState</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./types&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">createUserSlice</span>: <span class="title class_">StateCreator</span>&lt;<span class="title class_">UserState</span>&gt; = <span class="function">(<span class="params">set</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">user</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">error</span>: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">setUser</span>: <span class="function">(<span class="params"><span class="attr">user</span>: <span class="title class_">User</span> | <span class="literal">null</span></span>) =&gt;</span> <span class="title function_">set</span>(&#123; user &#125;),</span><br><span class="line"></span><br><span class="line">  <span class="attr">login</span>: <span class="title function_">async</span> (<span class="attr">credentials</span>: &#123; <span class="attr">email</span>: <span class="built_in">string</span>; <span class="attr">password</span>: <span class="built_in">string</span> &#125;) =&gt; &#123;</span><br><span class="line">    <span class="title function_">set</span>(&#123; <span class="attr">isLoading</span>: <span class="literal">true</span>, <span class="attr">error</span>: <span class="literal">null</span> &#125;);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// <span class="doctag">TODO:</span> 调用API</span></span><br><span class="line">      <span class="title function_">set</span>(&#123; <span class="attr">isLoading</span>: <span class="literal">false</span>, <span class="attr">user</span>: response.<span class="property">data</span> &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="title function_">set</span>(&#123; <span class="attr">isLoading</span>: <span class="literal">false</span>, <span class="attr">error</span>: error.<span class="property">message</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createUserSlice;</span><br></pre></td></tr></table></figure>
+<p>在这个文件中，我们定义了用户状态的操作逻辑和异步操作。</p>
+<p>对于大多数应用来说，登录是一个异步过程，我们需要在发起请求时更新 <code>isLoading</code> 状态，同时在请求失败时记录错误信息。</p>
+<ol>
+<li>
+<p>初始状态，也就是用户未登录时，<code>user</code> 设为 <code>null</code>、<code>isLoading</code> 为 <code>false</code>，<code>error</code> 也为空。</p>
+</li>
+<li>
+<p><code>setUser</code> 是一个简单的同步方法，用于手动设置用户信息。</p>
+</li>
+<li>
+<p><code>login</code> 是一个异步函数，用于处理登录逻辑。</p>
+<p>开发中，典型的流程是：</p>
+<ol>
+<li>设置 <code>isLoading</code> 为 <code>true</code>，以便显示加载状态</li>
+<li>发起登录请求（因为还没写，就用 <code>TODO</code> 标记了。注意哈，现在这个时候跑指定报错）</li>
+<li>请求成功后，将返回的用户信息存储到状态中，并重置 <code>isLoading</code> 为 <code>false</code></li>
+<li>如果请求失败，捕获错误，并更新 <code>error</code> 状态，用户可看到错误提示（现在当然不行）</li>
+</ol>
+</li>
+</ol>
+<h2 id="52-进阶配置"><a class="markdownIt-Anchor" href="#52-进阶配置"></a> 5.2. 进阶配置</h2>
+<p>我们已经配置了 Zustand 的基本用户状态管理。接下来，我们将借助 TypeScript，进一步优化和扩展状态管理的功能，包括状态持久化、自定义中间件和选择器等。</p>
+<h4 id="521-状态持久化与部分存储"><a class="markdownIt-Anchor" href="#521-状态持久化与部分存储"></a> 5.2.1. 状态持久化与部分存储</h4>
+<p>在生产环境中，为了提升用户体验，状态持久化是一个常见需求。Zustand 提供了 <code>persist</code> 中间件，帮助我们将部分状态保存在 <code>localStorage</code> 或其他存储中，以确保页面刷新后状态不会丢失。</p>
+<p>在 <code>stores/user/index.ts</code> 中，我们定义了 <code>persistOptions</code>，并在其中使用了 <code>partialize</code> 功能，将状态中关键的部分（如用户信息和更新时间）持久化：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; create &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; devtools, persist, subscribeWithSelector &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand/middleware&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; <span class="title class_">PersistOptions</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand/middleware&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">UserState</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./types&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> createUserSlice <span class="keyword">from</span> <span class="string">&#x27;./actions&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; log &#125; <span class="keyword">from</span> <span class="string">&#x27;../common/log&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createSelectors &#125; <span class="keyword">from</span> <span class="string">&#x27;../common/selector&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">UserPersist</span> = <span class="title class_">Pick</span>&lt;<span class="title class_">UserState</span>, <span class="string">&#x27;user&#x27;</span> | <span class="string">&#x27;lastUpdated&#x27;</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">persistOptions</span>: <span class="title class_">PersistOptions</span>&lt;<span class="title class_">UserState</span>, <span class="title class_">UserPersist</span>&gt; = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;user-storage&#x27;</span>,</span><br><span class="line">  <span class="attr">partialize</span>: <span class="function">(<span class="params">state</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">user</span>: state.<span class="property">user</span>,</span><br><span class="line">    <span class="attr">lastUpdated</span>: state.<span class="property">lastUpdated</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Pick&lt;UserState, 'user' | 'lastUpdated'&gt;</code>：使用 <code>Pick</code> 类型将 <code>UserState</code> 中的 <code>user</code> 和 <code>lastUpdated</code> 属性挑选出来，简化了持久化的内容</li>
+<li><code>PersistOptions</code> 类型：类型声明让我们清楚地知道哪些状态会被持久化，避免错误持久化不必要的数据
+<ul>
+<li><code>partialize</code> 是一个用于选择性地存储状态对象中部分属性的函数。在我们的 <code>persistOptions</code> 里，它的作用是从 <code>UserState</code> 状态中挑出 <code>user</code> 和 <code>lastUpdated</code> 这两个属性，并将其存储到持久化的存储中</li>
+</ul>
+</li>
+</ul>
+<h4 id="522-订阅特定的状态"><a class="markdownIt-Anchor" href="#522-订阅特定的状态"></a> 5.2.2. 订阅特定的状态</h4>
+<p><code>subscribeWithSelector</code> 允许我们订阅特定的状态属性变化。与直接订阅整个状态的变化不同，它可以细化到仅在某些具体属性更新时触发回调，从而减少不必要的订阅响应。</p>
+<p>继续写 <code>stores/user/index.ts</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> useUserStoreBase = create&lt;<span class="title class_">UserState</span>&gt;()(</span><br><span class="line">  <span class="title function_">devtools</span>(</span><br><span class="line">    <span class="title function_">persist</span>(</span><br><span class="line">      <span class="title function_">subscribeWithSelector</span>(</span><br><span class="line">        <span class="title function_">log</span>(createUserSlice),</span><br><span class="line">      ),</span><br><span class="line">      persistOptions,</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>通过组合其他的 Zustand 插件，我们创建了一个订阅机制。这样做的好处是提高性能、避免不必要的渲染。</p>
+<p>接下来这段代码订阅了 <code>useUserStoreBase</code> 中的 <code>user</code> 属性：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">useUserStoreBase.<span class="title function_">subscribe</span>(</span><br><span class="line">  <span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">user</span>,</span><br><span class="line">  <span class="function">(<span class="params">user</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (user) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;User logged in: &#x27;</span>, user.<span class="property">name</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;User logged out&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> useUserStore = <span class="title function_">createSelectors</span>(useUserStoreBase);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>(state) =&gt; state.user</code> 是一个选择器函数，只返回 <code>state</code> 中的 <code>user</code> 属性，从而使订阅仅响应 <code>user</code> 的变化</li>
+<li>当 <code>user</code> 属性变化时，回调触发。回调会根据 <code>user</code> 是否存在（如 <code>user</code> 为 <code>null</code>，或者用户登陆了新的信息）来输出不同的登录状态信息</li>
+</ul>
+<h4 id="523-自定义日志中间件"><a class="markdownIt-Anchor" href="#523-自定义日志中间件"></a> 5.2.3. 自定义日志中间件</h4>
+<p>为了方便调试，我们可以创建一个日志中间件。这个中间件会在每次状态更新时，记录状态变化信息。</p>
+<p>在 <code>stores/common/log.ts</code> 中定义 <code>log</code> 函数，扩展 Zustand 的 <code>set</code> 方法，使其在应用状态变化时输出变更详情。</p>
+<p>先写一个泛型类型，用于定义 <code>set</code> 函数所接收的各种更新方式：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">StateCreator</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">SetStateAction</span>&lt;T&gt; = T | <span class="title class_">Partial</span>&lt;T&gt; | (<span class="function">(<span class="params"><span class="attr">state</span>: T</span>) =&gt;</span> T | <span class="title class_">Partial</span>&lt;T&gt;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>SetStateAction&lt;T&gt;</code> 的作用是确保状态的更新类型符合期望，允许直接提供新的状态值、部分更新或基于当前状态的更新函数
+<ul>
+<li><code>T</code>：泛型参数，表示整个状态对象的类型，例如 <code>UserState</code></li>
+<li>类型定义：
+<ul>
+<li><code>T</code>：可以直接传入整个状态对象，用于完全替换现有状态</li>
+<li><code>Partial&lt;T&gt;</code>：可以传入部分状态对象，即只更新部分属性。<code>Partial&lt;T&gt;</code> 将状态对象的所有属性变为可选</li>
+<li><code>(state: T) =&gt; T | Partial&lt;T&gt;</code>：可以传入一个函数，这个函数接收当前状态作为参数，并返回新的状态或部分状态。这种方式允许在回调中基于现有状态动态生成更新值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>这样写的目的是为了更灵活的状态更新方式，不仅可以直接替换状态，也可以部分更新或在回调函数中动态更新。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> log = &lt;T <span class="keyword">extends</span> <span class="built_in">object</span>&gt;(</span><br><span class="line">  <span class="attr">config</span>: <span class="title class_">StateCreator</span>&lt;T, [], [], T&gt;</span><br><span class="line">): <span class="title class_">StateCreator</span>&lt;T, [], [], T&gt; =&gt;</span><br><span class="line">  <span class="function">(<span class="params">set, get, api</span>) =&gt;</span> <span class="title function_">config</span>(</span><br><span class="line">    <span class="function">(<span class="params"><span class="attr">partial</span>: <span class="title class_">SetStateAction</span>&lt;T&gt;, replace?: <span class="built_in">boolean</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Applying&#x27;</span>, &#123; partial, replace &#125;);</span><br><span class="line">      <span class="keyword">if</span> (replace) &#123;</span><br><span class="line">        <span class="title function_">set</span>(partial <span class="keyword">as</span> T | (<span class="function">(<span class="params"><span class="attr">state</span>: T</span>) =&gt;</span> T), <span class="literal">true</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">set</span>(partial <span class="keyword">as</span> <span class="title class_">SetStateAction</span>&lt;T&gt;);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;New state: &#x27;</span>, <span class="title function_">get</span>());</span><br><span class="line">    &#125;,</span><br><span class="line">    get,</span><br><span class="line">    api</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+<p><code>log</code> 是一个高阶函数（也就是 HOC），接受一个 Zustand 的 <code>StateCreator</code> 配置函数，并返回一个经过增强的 <code>StateCreator</code>，用于记录状态的变化。</p>
+<p><code>log</code> 的作用是对传入的 <code>config</code> 配置函数进行包装，以便在状态更新时打印更新的内容和更新后的状态，用于调试。</p>
+<ul>
+<li>
+<p><code>log</code> 的内部逻辑：</p>
+<ol>
+<li>
+<p>参数：</p>
+<ul>
+<li><code>config</code>：一个 Zustand 的 <code>StateCreator</code> 函数，负责创建状态。此函数会调用 <code>set</code> 函数来更新状态</li>
+</ul>
+</li>
+<li>
+<p>返回值：一个增强的 <code>StateCreator</code> 函数，用于替代原始 <code>config</code> 函数</p>
+</li>
+<li>
+<p>内部逻辑：</p>
+<ul>
+<li>
+<p>包装 <code>set</code> 函数：调用 <code>config</code> 时，将自定义的 <code>set</code> 函数传入</p>
+<ul>
+<li>
+<p>自定义的 <code>set</code> 函数接收 <code>partial</code> 和 <code>replace</code> 两个参数：</p>
+<ul>
+<li><code>partial</code>：可以是新的状态值、部分状态值，也可以是一个返回状态的函数</li>
+<li><code>replace</code>：布尔值，表示是否完全替换现有状态</li>
+</ul>
+</li>
+<li>
+<p>日志输出：</p>
+<ul>
+<li><code>console.log('Applying', &#123; partial, replace &#125;)</code> 在更新前输出即将应用的部分状态或新状态</li>
+<li><code>console.log('New state: ', get())</code> 在更新后输出新的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>更新逻辑：</p>
+<ol>
+<li>若 <code>replace</code> 为 <code>true</code>，则完全替换当前状态；否则只应用部分更新</li>
+<li>调用 <code>get</code> 获取新的状态并打印日志</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="524-状态选择器"><a class="markdownIt-Anchor" href="#524-状态选择器"></a> 5.2.4. 状态选择器</h4>
+<p>在状态管理中，我们通常需要对状态进行选择，以便在不同组件中访问特定的状态字段。</p>
+<p><code>createSelectors</code> 帮助我们自动生成访问器，减少在不同组件中冗余的状态逻辑。</p>
+<p><code>stores/common/selector.ts</code> 中定义 <code>createSelectors</code>，它会为状态中的每个字段创建一个 <code>getter</code> 函数，便于状态的解耦：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">StoreApi</span>, <span class="title class_">UseBoundStore</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">WithSelectors</span>&lt;S&gt; = S <span class="keyword">extends</span> &#123; <span class="attr">getState</span>: <span class="function">() =&gt;</span> infer T &#125;</span><br><span class="line">  ? S &amp; &#123; <span class="attr">use</span>: &#123; [K <span class="keyword">in</span> keyof T]: <span class="function">() =&gt;</span> T[K] &#125; &#125;</span><br><span class="line">  : <span class="built_in">never</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>WithSelectors&lt;S&gt;</code> 定义了一个条件类型，用于增强传入的 <code>store</code> 类型 <code>S</code>
+<ul>
+<li><code>S extends &#123; getState: () =&gt; infer T &#125;</code> 检查 <code>S</code> 是否包含 <code>getState</code> 方法，并从中推断出 <code>T</code> 类型（状态对象的类型）</li>
+<li>返回：
+<ul>
+<li>若 <code>S</code> 满足条件，则返回 <code>S</code> 并附加一个 <code>use</code> 属性
+<ul>
+<li><code>use</code> 是一个对象，包含状态对象中每个键对应的 <code>getter</code> 方法，这些方法返回 <code>T[K]</code>，即每个状态属性的值</li>
+</ul>
+</li>
+<li>若 <code>S</code> 不满足条件，则返回 <code>never</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> createSelectors = &lt;</span><br><span class="line">  S <span class="keyword">extends</span> <span class="title class_">UseBoundStore</span>&lt;<span class="title class_">StoreApi</span>&lt;T&gt;&gt;,</span><br><span class="line">  T <span class="keyword">extends</span> <span class="built_in">object</span></span><br><span class="line">&gt;<span class="function">(<span class="params"><span class="attr">_store</span>: S</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> store = _store <span class="keyword">as</span> <span class="title class_">WithSelectors</span>&lt;S&gt;;</span><br><span class="line">  store.<span class="property">use</span> = &#123;&#125; <span class="keyword">as</span> &#123; [K <span class="keyword">in</span> keyof T]: <span class="function">() =&gt;</span> T[K] &#125;;</span><br><span class="line">  <span class="keyword">const</span> state = store.<span class="title function_">getState</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> k <span class="keyword">of</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(state) <span class="keyword">as</span> <span class="title class_">Array</span>&lt;keyof T&gt;) &#123;</span><br><span class="line">    store.<span class="property">use</span>[k] = <span class="function">() =&gt;</span> state[k];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> store;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>createSelectors</code> 函数：</p>
+<ul>
+<li>参数：接收一个 Zustand store 实例 <code>_store</code></li>
+<li>类型约束：
+<ul>
+<li><code>S extends UseBoundStore&lt;StoreApi&lt;T&gt;&gt;</code>：约束 <code>S</code> 必须是一个 <code>UseBoundStore</code> 类型的 store</li>
+<li><code>T extends object</code>：状态对象 <code>T</code> 必须是一个对象</li>
+</ul>
+</li>
+<li>逻辑：
+<ol>
+<li>将传入的 store <code>_store</code> 进行类型转换，以便使用 <code>WithSelectors</code> 增强后的类型</li>
+<li>为 <code>store</code> 增加 <code>use</code> 属性（一个空对象），作为存放每个状态属性 <code>getter</code> 方法的容器</li>
+<li>获取当前 store 的 <code>state</code> 对象</li>
+<li><code>for</code> 循环遍历 <code>state</code> 对象的键（即状态对象的属性）
+<ul>
+<li>对每个键 <code>k</code>，在 <code>store.use</code> 中创建一个对应的 <code>getter</code> 方法 <code>store.use[k]</code>，返回 <code>state[k]</code> 的值</li>
+</ul>
+</li>
+<li>返回增强后的 store 实例 <code>store</code>，其中包含 <code>use</code> 对象和对应的 <code>getter</code> 方法</li>
+</ol>
+</li>
+</ul>
+<p>假设 store 的状态对象如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> useStore = <span class="title function_">createSelectors</span>(</span><br><span class="line">  <span class="title function_">create</span>(<span class="function">(<span class="params">set</span>) =&gt;</span> (&#123;</span><br><span class="line">    <span class="attr">user</span>: &#123; <span class="attr">name</span>: <span class="string">&quot;Alice&quot;</span>, <span class="attr">age</span>: <span class="number">30</span> &#125;,</span><br><span class="line">    <span class="attr">loggedIn</span>: <span class="literal">true</span></span><br><span class="line">  &#125;))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>那么调用 <code>useStore.use.user()</code> 就会返回：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; name: &quot;Alice&quot;, age: 30 &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="525-api-请求的配置和错误处理"><a class="markdownIt-Anchor" href="#525-api-请求的配置和错误处理"></a> 5.2.5. API 请求的配置和错误处理</h4>
+<p>在前端状态管理中，一般会包含 API 请求的逻辑。</p>
+<p>我们在 <code>stores/user/actions</code> 中，定义一个 <code>createUserSlice</code> 函数，它是 Zustand 中 <code>UserState</code> 的部分实现，用于管理用户相关的状态和操作。</p>
+<p>首先导入依赖：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">StateCreator</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AxiosResponse</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">User</span>, <span class="title class_">UserState</span>, <span class="title class_">LoginCredentials</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./types&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> api <span class="keyword">from</span> <span class="string">&#x27;../common/api&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>定义状态和操作：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="attr">createUserSlice</span>: <span class="title class_">StateCreator</span>&lt;<span class="title class_">UserState</span>&gt; = <span class="function">(<span class="params">set</span>) =&gt;</span> (&#123;</span><br><span class="line">  <span class="attr">user</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">error</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">lastUpdated</span>: <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>user</code>：存储当前用户信息</li>
+<li><code>isLoading</code>：指示登录操作是否正在进行中</li>
+<li><code>error</code>：保存登录过程中发生的错误信息</li>
+<li><code>lastUpdated</code>：记录上次用户数据更新的时间戳</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="attr">setUser</span>: <span class="function">(<span class="params"><span class="attr">user</span>: <span class="title class_">User</span> | <span class="literal">null</span></span>) =&gt;</span> <span class="title function_">set</span>(&#123; user &#125;),</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>setUser</code>：一个同步方法，用于直接设置 <code>user</code> 状态。接收一个 <code>User</code> 对象或者 <code>null</code>，并调用 <code>set</code> 更新状态</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="attr">login</span>: <span class="title function_">async</span> (<span class="attr">credentials</span>: <span class="title class_">LoginCredentials</span>) =&gt; &#123;</span><br><span class="line">  <span class="title function_">set</span>(&#123; <span class="attr">isLoading</span>: <span class="literal">true</span>, <span class="attr">error</span>: <span class="literal">null</span> &#125;);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">response</span>: <span class="title class_">AxiosResponse</span>&lt;<span class="title class_">User</span>&gt; = <span class="keyword">await</span> api.<span class="property">post</span>&lt;<span class="title class_">User</span>&gt;(<span class="string">&#x27;/auth/login&#x27;</span>, credentials);</span><br><span class="line">    <span class="keyword">const</span> user = response.<span class="property">data</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">set</span>(&#123;</span><br><span class="line">      user,</span><br><span class="line">      <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">lastUpdated</span>: <span class="title class_">Date</span>.<span class="title function_">now</span>(),</span><br><span class="line">      <span class="attr">error</span>: <span class="literal">null</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="keyword">const</span> errorMessage = error <span class="keyword">instanceof</span> <span class="title class_">Error</span></span><br><span class="line">      ? error.<span class="property">message</span></span><br><span class="line">      : <span class="string">&#x27;An unexpected error occurred during login&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">set</span>(&#123;</span><br><span class="line">      <span class="attr">isLoading</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">error</span>: errorMessage,</span><br><span class="line">      <span class="attr">user</span>: <span class="literal">null</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">throw</span> error;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p><code>login</code> 方法：</p>
+<ul>
+<li>启动加载状态：调用 <code>set(&#123; isLoading: true, error: null &#125;)</code> 将 <code>isLoading</code> 设置为 <code>true</code>，并清除之前的错误</li>
+<li>API 请求：<code>await api.post&lt;User&gt;('/auth/login', credentials)</code> 向服务器发送登录请求。返回的 <code>response.data</code> 包含了用户信息</li>
+<li>成功处理：
+<ol>
+<li>若请求成功，<code>set</code> 更新状态，存储用户数据、停止加载、设置 <code>lastUpdated</code> 时间戳，并清除错误</li>
+<li>返回 <code>user</code>，便于在调用 <code>login</code> 的地方使用</li>
+</ol>
+</li>
+<li>错误处理：
+<ol>
+<li>如果请求失败，捕获 <code>error</code> 并生成错误消息</li>
+<li>更新 <code>set</code> 将 <code>isLoading</code> 设置为 <code>false</code>，保存 <code>error</code> 信息，并将 <code>user</code> 设置为 <code>null</code></li>
+<li>抛出错误，以便调用 <code>login</code> 的组件也能捕获并处理该错误</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="attr">logout</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">set</span>(&#123;</span><br><span class="line">      <span class="attr">user</span>: <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">error</span>: <span class="literal">null</span>,</span><br><span class="line">      <span class="attr">lastUpdated</span>: <span class="literal">null</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> createUserSlice;</span><br></pre></td></tr></table></figure>
+<p><code>logout</code> 方法是登出功能，说白了就是将所有的状态设置为 <code>null</code>，从而达到清除当前用户信息和错误的效果。</p>
+<h1 id="6-设置-api-请求封装"><a class="markdownIt-Anchor" href="#6-设置-api-请求封装"></a> 6. 设置 API 请求封装</h1>
+<p>至于 API 嘛，写在了 <code>stores/common/api.ts</code> 中：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> api = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: process.<span class="property">env</span>.<span class="property">REACT_APP_API_URL</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">10000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><code>axios</code> 配置了一个 API 实例 <code>api</code>，设置了基本的请求和响应拦截器。</p>
+<ul>
+<li><code>baseURL</code> 为环境变量 <code>REACT_APP_API_URL</code>，还设置了 10 秒的超时时间</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">api.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 添加认证信息</span></span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>
+<p>请求拦截器 <code>api.interceptors.request.use</code> 提供了请求发送前的自定义逻辑处理。可以在 <code>config</code> 中添加认证信息（也就是老生常谈的 JWT <code>Authorization</code> 头）。</p>
+</li>
+<li>
+<p>如果请求在发送前就失败了，那么拦截器将直接拒绝该错误</p>
+</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">api.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(</span><br><span class="line">  <span class="function">(<span class="params">response</span>) =&gt;</span> response,</span><br><span class="line">  <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> 统一错误信息</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> api;</span><br></pre></td></tr></table></figure>
+<p>响应拦截器 <code>api.interceptors.response.use</code> 允许在接收到响应时进行自定义处理。</p>
+<ol>
+<li>响应成功会直接返回数据</li>
+<li>请求出错，<code>error</code> 就会被统一处理，然后传递给调用方处理</li>
+</ol>
+<p>有很多功能先放 <code>TODO</code> 了，能差不多 GET 到意思就好。</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="8e94.html">上一篇</a><a class="next" href="8386.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/6d86.html';
+var disqus_title = 'React + NestJS购物平台练习【1】前端项目框架搭建';
+var disqus_url = 'https://cytrogen.icu/posts/6d86.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>

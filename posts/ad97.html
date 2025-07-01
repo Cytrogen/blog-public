@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Speller笔记 · 万圣节恶魔的领地</title><meta name="description" content="Speller笔记 - Cytrogen"><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../css/hermes.css"><link rel="search" type="application/opensearchdescription+xml" href="https://cytrogen.icu/atom.xml" title="万圣节恶魔的领地"><script src="https://kit.fontawesome.com/0011a09a95.js" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="万圣节恶魔的领地" type="application/atom+xml">
+</head><body><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><i class="fas fa-globe"></i><span>中文</span></button><div class="language-dropdown hidden"></div></div><button id="search-btn" type="button" aria-label="nav.search"><i class="fas fa-search"></i></button></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><i class="fas fa-chevron-down"></i></button><div class="more-dropdown hidden"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div><button class="hamburger-menu hidden-desktop" type="button" aria-label="nav.menu"><i class="fas fa-bars"></i></button></div></div></div><div class="search-overlay hidden" id="search-popup"><button class="search-close" id="search-close" type="button" aria-label="search.close"><i class="fas fa-times"></i></button><div class="search-container"><div class="search-input-wrapper"><input class="search-input" id="local-search-input" type="text" placeholder="搜索..."></div><div class="search-result" id="local-search-result"></div></div></div><div class="mobile-menu-container"><div class="menu-header"><button class="menu-close" type="button" aria-label="关闭"><i class="fas fa-times"></i></button></div><div class="menu-content"><ul class="nav-list"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li><li class="nav-item"><a class="nav-link" href="../archives">归档</a></li><li class="nav-item"><a class="nav-link" href="../categories">分类</a></li><li class="nav-item"><a class="nav-link" href="../tags">标签</a></li><li class="nav-item"><a class="nav-link" href="../about">关于</a></li><li class="nav-item"><a class="nav-link" href="../friends">友链</a></li><li class="nav-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="nav-item"><a class="nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<i class="fas fa-external-link-alt"></i></a></li><li class="nav-item"><a class="nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<i class="fas fa-external-link-alt"></i></a></li></ul></div></div></nav></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">Speller笔记</h1><div class="post-info">10/4/2022</div><div class="post-content"><p>CS50计算机科学入门第5周作业 <strong>Speller</strong> 笔记，仅作个人用途。</p>
+<span id="more"></span>
+<h1 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 目录</h1>
+<ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A%E4%BB%8B%E7%BB%8D">作业介绍</a>
+<ul>
+<li><a href="#dictionaryh">DICTIONARY.H</a></li>
+<li><a href="#dictionaryc">DICTIONARY.C</a></li>
+<li><a href="#spellerc">SPELLER.C</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%9C%E4%B8%9A%E7%9B%AE%E7%9A%84">作业目的</a>
+<ul>
+<li><a href="#%E8%A7%84%E5%88%99">规则</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="作业介绍"><a class="markdownIt-Anchor" href="#作业介绍"></a> 作业介绍</h1>
+<p>在 <em>speller.c</em> 文件中，学生需要编写一个程序，该程序的目的是在将磁盘上的单词字典加载到内存中后对文件进行拼写检查。</p>
+<p>同时，这个字典是在一个叫做 <em>dictionary.c</em> 的文件中实现的。其中的函数原型不在 <em>dictionary.c</em> 中定义，而是在 <em>dictionary.h</em> 中。这样 <em>speller.c</em> 和 <em>dictionary.c</em> 都可以 <code>#include</code> 这个文件。</p>
+<h2 id="dictionaryh"><a class="markdownIt-Anchor" href="#dictionaryh"></a> DICTIONARY.H</h2>
+<p><em>dictionary.h</em> <code>#include</code> 了一个叫做 <em>stdbool.h</em> 的文件，它定义了 <strong>bool</strong> 本身。</p>
+<p>学生还要注意 <code>#define</code> 的使用，这是一个 <strong>预处理器指令</strong> ，定义了一个名为 <code>LENGTH</code> 的常数（constant），其值为 <code>45</code> 。常数无法在代码中被改变， clang 会在你自己的代码中用 45 替换掉所有提到的 <code>LENGTH</code> 。换句话说，常数并非一个变量，而是一个“查找和替换”。</p>
+<p>最后，学生要注意五个函数的原型： <code>check</code> 、 <code>hash</code> 、 <code>load</code> 、 <code>size</code> 和 <code>unload</code> 。其中 <code>check</code> 、 <code>hash</code> 和 <code>load</code> 使用指针作为参数（有*符号）。</p>
+<h2 id="dictionaryc"><a class="markdownIt-Anchor" href="#dictionaryc"></a> DICTIONARY.C</h2>
+<p>在 <em>dictionary.c</em> 的顶部定义了一个叫做 <code>node</code> 的结构（struct），它代表了哈希表中的一个节点。</p>
+<p>一个全局指针数组（global pointer array） <code>table</code> 也被声明，它将代表你用来跟踪字典中的单词的哈希表。这个数组包含 26 （暂时） 个节点指针，以便于下面描述的默认哈希函数相匹配。这个数字能够被改变，取决于学生自己想如何实现哈希。</p>
+<p>注意到程序的代码里只有一个基于单词首字母的样本算法来实现哈希。学生该做的便是尽可能巧妙地重新实现这些函数。</p>
+<h2 id="spellerc"><a class="markdownIt-Anchor" href="#spellerc"></a> SPELLER.C</h2>
+<p><em>speller.c</em> 不需要被编辑。通过一个叫做 <code>getrusage</code> 的函数，程序将对学生的 <code>check</code> 、 <code>load</code> 、 <code>size</code> 和 <code>unload</code> 的实现进行“基准测试”，也就是对执行进行计时。</p>
+<p>还需要注意的是程序如何逐字逐句地传递要检查的某个文件的内容。最终，程序会报告该文件中的每个拼写错误，以及一系列的统计数据。</p>
+<h1 id="作业目的"><a class="markdownIt-Anchor" href="#作业目的"></a> 作业目的</h1>
+<p>学生的目的是尽可能有效地使用哈希表来实现 <code>load</code> 、 <code>hash</code> 、 <code>size</code> 、 <code>check</code> 和 <code>unload</code> ，并使每个函数运行所需的时间都达到最小。</p>
+<h2 id="规则"><a class="markdownIt-Anchor" href="#规则"></a> 规则</h2>
+<ol>
+<li><em>speller.c</em> 和 <em>Makefile</em> 不能被修改</li>
+<li><em>dictionary.c</em> 可以被修改，但五个函数的声明无法被修改</li>
+<li>可以在 <em>dictionary.c</em> 中添加新的函数和变量</li>
+<li><em>dictionary.c</em> 中 N 的值可以被修改</li>
+<li><em>dictionary.h</em> 可以被修改，但五个函数的声明无法被修改</li>
+<li><code>check</code> 的实现必须是不区分大小写的。如果“foo”在 <em>dictionary</em> 中，那么 <code>check</code> 应该在任何字母大写的情况下返回 <code>true</code></li>
+<li><code>check</code> 的检查实现应该只对实际在 <em>dictionary</em> 中的单词返回 <code>true</code></li>
+<li>可以假设传递给程序的任何字典的结构与作业提供的完全一样：按字母顺序从上到下排序、每行一个词、每行以 <code>\n</code> 结尾。也可以假定字典至少包含一个词、没有一个词的长度超过 <code>LENGTH</code> 、没有一个词会出现一次以上、每个词只包含小写字母、可能还有单引号，以及没有一个词以单引号开头</li>
+<li>可以假设 <code>check</code> 仅让包含字母字符和单引号的单词通过</li>
+<li>程序可能只接受文本和可选的字典作为输入。学生可能倾向于对默认字典进行预处理，以便得出一个理想的哈希函数，但学生不能为了获得该优势而将任何这种预处理的输出保存在磁盘上以及程序后续运行时重新将其载入内存</li>
+<li>必须不泄露任何内存，一定要用 <code>valgrind</code> 检查泄露</li>
+<li>学生所写的哈希函数最终应该是学生自己的，而非在网上搜索的</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="d995.html">上一篇</a><a class="next" href="ebfb.html">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'hallowdem';
+var disqus_identifier = 'posts/ad97.html';
+var disqus_title = 'Speller笔记';
+var disqus_url = 'https://cytrogen.icu/posts/ad97.html';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//#{theme.disqus}.disqus.com/count.js" async></script><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/claymcleod/hexo-theme-hermes" target="_blank">hexo-theme-hermes</a>. </p></div></footer></div><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-4PVPZXE0QQ"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-4PVPZXE0QQ');</script><script src="../js/search.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+    const searchBtn = document.getElementById('search-btn');
+    const searchPopup = document.getElementById('search-popup');
+    const searchInput = document.getElementById('local-search-input');
+    const searchClose = document.getElementById('search-close');
+
+    if (searchBtn && searchPopup && searchInput) {
+        searchBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            searchPopup.classList.remove('hidden');
+            searchInput.focus();
+        });
+
+        searchPopup.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        if (searchClose) {
+            searchClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                searchPopup.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('click', function() {
+            searchPopup.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchPopup.classList.add('hidden');
+            }
+        });
+
+        let search_path = "search.xml";
+        if (search_path.length === 0) {
+            search_path = "search.xml";
+        }
+        const path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageDropdown = document.querySelector('.language-dropdown');
+
+    if (languageToggle && languageDropdown) {
+    languageToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        languageDropdown.classList.toggle('hidden');
+    });
+
+    languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    document.addEventListener('click', function() {
+        languageDropdown.classList.add('hidden');
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+        languageDropdown.classList.add('hidden');
+        }
+    });
+    }
+});
+</script><script>document.addEventListener('DOMContentLoaded', function() {
+    const moreToggle = document.querySelector('.more-toggle');
+    const moreDropdown = document.querySelector('.more-dropdown');
+
+    if (moreToggle && moreDropdown) {
+        moreToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moreDropdown.classList.toggle('hidden');
+        });
+
+        moreDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener('click', function() {
+            moreDropdown.classList.add('hidden');
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                moreDropdown.classList.add('hidden');
+            }
+        });
+    }
+});
+</script><script>const hamburger = document.querySelector('.hamburger-menu');
+const mobileMenu = document.querySelector('.mobile-menu-container');
+const menuClose = document.querySelector('.menu-close');
+
+if (hamburger && mobileMenu) {
+    const closeDropdowns = () => {
+        const openDropdowns = mobileMenu.querySelectorAll('.dropdown-menu.show');
+        const rotatedToggles = mobileMenu.querySelectorAll('.dropdown-toggle.rotated');
+        openDropdowns.forEach(dropdown => dropdown.classList.remove('show'));
+        rotatedToggles.forEach(toggle => toggle.classList.remove('rotated'));
+    };
+
+    const closeMenu = () => {
+        mobileMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+        closeDropdowns();
+    };
+
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        mobileMenu.classList.toggle('show');
+        const isExpanded = mobileMenu.classList.contains('show');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+    });
+
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+
+    const dropdownItems = mobileMenu.querySelectorAll('.has-dropdown');
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('.nav-link');
+        const dropdownMenu = item.querySelector('.dropdown-menu');
+        const dropdownToggle = item.querySelector('.dropdown-toggle');
+
+        if (link && dropdownMenu) {
+            link.addEventListener('click', function(e) {
+                if (e.target !== link) return;
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+                dropdownToggle?.classList.toggle('rotated');
+            });
+        }
+    });
+
+    mobileMenu.addEventListener('click', e => e.stopPropagation());
+
+    document.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+            closeMenu();
+        }
+    });
+}</script><div class="hidden" id="search-popup"><div id="search-panel"><input type="text" id="local-search-input" placeholder="搜索..."><div id="local-search-result"></div></div></div></body></html>
