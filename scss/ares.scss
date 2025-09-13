@@ -6,6 +6,9 @@
 
 @use '_partial/header';
 @use '_partial/nav';
+@use '_partial/theme-switcher';
+@use '_partial/search';
+@use '_partial/icons';
 @use '_partial/post';
 @use '_partial/pages';
 @use '_partial/code';
@@ -13,6 +16,7 @@
 @use '_partial/pagination';
 @use '_partial/friend-links';
 @use '_partial/footer';
+@use '_partial/a11y';
 
 @media screen and (min-width: $breakpoint-desktop) {
   .wrap {

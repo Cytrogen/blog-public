@@ -26,7 +26,7 @@
 }
 
 @mixin card {
-  background: #fff;
+  background: var(--surface-elevated);
   border-radius: $border-radius;
   box-shadow: $card-shadow;
   transition: transform $transition-duration $transition-timing,
@@ -45,12 +45,12 @@
 }
 
 @mixin link {
-  color: $link-color;
+  color: var(--color-primary);
   text-decoration: none;
   transition: color $transition-duration $transition-timing;
 
   &:hover {
-    color: $primary-color;
+    color: var(--color-primary-hover);
   }
 }
 

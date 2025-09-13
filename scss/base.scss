@@ -25,7 +25,7 @@
   body {
     margin: 0;
     color: $text-color;
-    font-size: $base-font-size;
+    font-size: var(--font-size-body);
     line-height: 1.6;
     background-color: $background-color;
     font-family: $base-font-family;
@@ -88,8 +88,8 @@
   }
   
   mark {
-    background: #ff0;
-    color: #000;
+    background: var(--color-warning);
+    color: var(--text-inverse);
   }
   
   small {
@@ -146,20 +146,20 @@
   
   pre {
     overflow: auto;
-    color: #525252;
-    font-size: 0.8em;
-    background-color: #f8f8f8;
+    color: var(--code-text);
+    font-size: var(--font-size-code);
+    background-color: var(--code-background);
     font-family: $code-font-family;
   }
   
   code {
     margin: 0 2px;
     padding: 3px 5px;
-    color: $code-color;
+    color: var(--code-keyword);
     border-radius: 2px;
     white-space: inherit;
-    font-size: 0.8em;
-    background-color: #f8f8f8;
+    font-size: var(--font-size-code);
+    background-color: var(--code-background);
     font-family: $code-font-family;
   }
   
@@ -230,7 +230,7 @@
     border-spacing: 0;
     
     thead {
-      background-color: #ddd;
+      background-color: var(--surface-interactive);
       
       th {
         padding: 5px;
@@ -240,7 +240,7 @@
     
     tbody {
       tr:nth-child(2n) {
-        background-color: #eee;
+        background-color: var(--surface-elevated);
       }
       
       td {
@@ -251,7 +251,7 @@
   }
   
   fieldset {
-    border: 1px solid #c0c0c0;
+    border: 1px solid var(--border-primary);
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
   }
