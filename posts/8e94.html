@@ -68,18 +68,28 @@
 <h1 id="1-初始化-nestjs-项目"><a class="markdownIt-Anchor" href="#1-初始化-nestjs-项目"></a> 1. 初始化 NestJS 项目</h1>
 <h2 id="11-安装-nestjs-cli-工具"><a class="markdownIt-Anchor" href="#11-安装-nestjs-cli-工具"></a> 1.1. 安装 NestJS CLI 工具</h2>
 <p>全局安装 NestJS 的 CLI 工具：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global add @nestjs/cli</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn global add @nestjs/cli</code></pre>
 <p>确保全局安装的包路径已被添加到环境变量 <code>PATH</code> 中，否则无法在终端中使用 <code>nest</code> 命令。</p>
 <p>可以使用以下命令查看 Yarn 的全局包路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn global bin</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn global bin</code></pre>
 <p>将输出的路径添加到 <code>PATH</code> 中。</p>
 <h2 id="12-创建新的-nestjs-项目"><a class="markdownIt-Anchor" href="#12-创建新的-nestjs-项目"></a> 1.2. 创建新的 NestJS 项目</h2>
 <p>执行以下命令，创建一个名为 <code>shopping-nest-server</code> 的新项目：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nest new shopping-nest-server</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">nest new shopping-nest-server</code></pre>
 <p>运行后，NestJS CLI 会提示选择包管理工具，选择 <code>Yarn</code>，等待其自动安装所需的依赖。</p>
 <p>项目生成后，NestJS CLI 默认会在根目录下生成一个 <code>test</code> 目录和一些单元测试文件（<code>.spec.ts</code>）。我暂时不需要测试，所以删去了这些内容。</p>
 <p>NestJS CLI 创建的 NestJS 项目会自带 ESLint 和 Prettier，我们只需要将<a href="/6d86">上一章</a>配置好的 <code>.prettierrc</code> 复制过来、确保前端后端都遵循相同的代码规范即可：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;printWidth&quot;</span><span class="punctuation">:</span> <span class="number">120</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tabWidth&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;useTabs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;singleQuote&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;trailingComma&quot;</span><span class="punctuation">:</span> <span class="string">&quot;none&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bracketSpacing&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bracketSameLine&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;arrowParens&quot;</span><span class="punctuation">:</span> <span class="string">&quot;avoid&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-json">&#123;
+  &quot;printWidth&quot;: 120,
+  &quot;tabWidth&quot;: 2,
+  &quot;useTabs&quot;: false,
+  &quot;semi&quot;: true,
+  &quot;singleQuote&quot;: true,
+  &quot;trailingComma&quot;: &quot;none&quot;,
+  &quot;bracketSpacing&quot;:true,
+  &quot;bracketSameLine&quot;: true,
+  &quot;arrowParens&quot;: &quot;avoid&quot;
+&#125;</code></pre>
 <h1 id="2-配置环境变量和配置文件"><a class="markdownIt-Anchor" href="#2-配置环境变量和配置文件"></a> 2. 配置环境变量和配置文件</h1>
 <p>在实际配置前，我们先来考虑一下，什么是需要配置的：</p>
 <ol>
@@ -142,7 +152,9 @@
 </ol>
 <h2 id="21-安装必要依赖"><a class="markdownIt-Anchor" href="#21-安装必要依赖"></a> 2.1. 安装必要依赖</h2>
 <p>首先安装 <code>@nestjs/config</code>、<code>dotenv</code> 以及数据库驱动和 TypeORM，以支持加载环境变量、进行数据库连接和配置。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nestjs/config</span><br><span class="line">yarn add dotenv -D</span><br><span class="line">yarn add @nestjs/typeorm typeorm mysql2 <span class="comment"># 替换 mysql2 为 pg 以使用 PostgreSQL</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn add @nestjs/config
+yarn add dotenv -D
+yarn add @nestjs/typeorm typeorm mysql2 # 替换 mysql2 为 pg 以使用 PostgreSQL</code></pre>
 <ul>
 <li><code>@nestjs/config</code> 是 NestJS 提供的官方配置模块，专为加载、管理和验证环境变量而设计</li>
 <li><code>dotenv</code> 是配置模块的底层依赖，通过 <code>.env</code> 文件加载环境变量</li>
@@ -150,11 +162,99 @@
 </ul>
 <h2 id="22-创建环境变量文件"><a class="markdownIt-Anchor" href="#22-创建环境变量文件"></a> 2.2. 创建环境变量文件</h2>
 <p>在项目根目录下创建 <code>.env</code> 文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 应用</span><br><span class="line">APP_PORT=4000</span><br><span class="line">APP_ENV=development</span><br><span class="line"></span><br><span class="line"># 核心数据库</span><br><span class="line">DB_TYPE=mysql</span><br><span class="line">DB_HOST=localhost</span><br><span class="line">DB_PORT=3306</span><br><span class="line">DB_USER=用户名</span><br><span class="line">DB_PASSWORD=密码</span><br><span class="line">DB_NAME=数据库名称</span><br><span class="line"></span><br><span class="line"># Redis 缓存</span><br><span class="line">REDIS_HOST=localhost</span><br><span class="line">REDIS_PORT=6379</span><br><span class="line">REDIS_PASSWORD=密码</span><br><span class="line">REDIS_DB=0</span><br><span class="line"></span><br><span class="line"># Elasticsearch</span><br><span class="line">ELASTICSEARCH_HOST=localhost</span><br><span class="line">ELASTICSEARCH_PORT=9200</span><br><span class="line">ELASTICSEARCH_USERNAME=用户名</span><br><span class="line">ELASTICSEARCH_PASSWORD=密码</span><br><span class="line">ELASTICSEARCH_INDEX=products</span><br><span class="line"></span><br><span class="line"># 文件存储</span><br><span class="line">STORAGE_ENDPOINT=</span><br><span class="line">STORAGE_ACCESS_KEY=access_key_id</span><br><span class="line">STORAGE_SECRET_KEY=secret_access_key</span><br><span class="line">STORAGE_BUCKET=桶名</span><br><span class="line">STORAGE_REGION=</span><br><span class="line">STORAGE_USE_SSL=true</span><br><span class="line"></span><br><span class="line"># JWT</span><br><span class="line">JWT_SECRET=secret</span><br><span class="line">JWT_TOKEN_AUDIENCE=localhost:4000</span><br><span class="line">JWT_TOKEN_ISSUER=localhost:4000</span><br><span class="line">JWT_ACCESS_TOKEN_TTL=3600</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext"># 应用
+APP_PORT=4000
+APP_ENV=development
+
+# 核心数据库
+DB_TYPE=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=用户名
+DB_PASSWORD=密码
+DB_NAME=数据库名称
+
+# Redis 缓存
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=密码
+REDIS_DB=0
+
+# Elasticsearch
+ELASTICSEARCH_HOST=localhost
+ELASTICSEARCH_PORT=9200
+ELASTICSEARCH_USERNAME=用户名
+ELASTICSEARCH_PASSWORD=密码
+ELASTICSEARCH_INDEX=products
+
+# 文件存储
+STORAGE_ENDPOINT=
+STORAGE_ACCESS_KEY=access_key_id
+STORAGE_SECRET_KEY=secret_access_key
+STORAGE_BUCKET=桶名
+STORAGE_REGION=
+STORAGE_USE_SSL=true
+
+# JWT
+JWT_SECRET=secret
+JWT_TOKEN_AUDIENCE=localhost:4000
+JWT_TOKEN_ISSUER=localhost:4000
+JWT_ACCESS_TOKEN_TTL=3600</code></pre>
 <p>这里的环境变量覆盖了不同模块所需的配置项，确保各模块配置的灵活性。</p>
 <h2 id="23-引入配置模块和验证"><a class="markdownIt-Anchor" href="#23-引入配置模块和验证"></a> 2.3. 引入配置模块和验证</h2>
 <p>在 <code>AppModule</code> 中配置 <code>@nestjs/config</code>，使用 <code>Joi</code> 对环境变量进行验证，确保每个变量都满足格式要求：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Module</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/config&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppController</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./app.controller&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./app.service&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">DatabaseModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./database/database.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">Joi</span> <span class="keyword">from</span> <span class="string">&#x27;joi&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">ConfigModule</span>.<span class="title function_">forRoot</span>(&#123;</span><br><span class="line">      <span class="attr">isGlobal</span>: <span class="literal">true</span>, <span class="comment">// 让 ConfigModule 全局可用</span></span><br><span class="line">      <span class="attr">validationSchema</span>: <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">        <span class="attr">APP_PORT</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">4000</span>),</span><br><span class="line">        <span class="attr">APP_ENV</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">valid</span>(<span class="string">&#x27;development&#x27;</span>, <span class="string">&#x27;production&#x27;</span>, <span class="string">&#x27;test&#x27;</span>).<span class="title function_">default</span>(<span class="string">&#x27;development&#x27;</span>),</span><br><span class="line">        <span class="comment">// 核心数据库</span></span><br><span class="line">        <span class="attr">DB_TYPE</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">valid</span>(<span class="string">&#x27;mysql&#x27;</span>, <span class="string">&#x27;postgres&#x27;</span>).<span class="title function_">default</span>(<span class="string">&#x27;mysql&#x27;</span>),</span><br><span class="line">        <span class="attr">DB_HOST</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">DB_PORT</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">3306</span>),</span><br><span class="line">        <span class="attr">DB_USER</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">DB_PASSWORD</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">DB_NAME</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="comment">// Redis 缓存</span></span><br><span class="line">        <span class="attr">REDIS_HOST</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">REDIS_PORT</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">6379</span>),</span><br><span class="line">        <span class="attr">REDIS_PASSWORD</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">allow</span>(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">        <span class="attr">REDIS_DB</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">0</span>),</span><br><span class="line">        <span class="comment">// Elasticsearch</span></span><br><span class="line">        <span class="attr">ELASTICSEARCH_HOST</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">ELASTICSEARCH_PORT</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">9200</span>),</span><br><span class="line">        <span class="attr">ELASTICSEARCH_USER</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">ELASTICSEARCH_PASSWORD</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">ELASTICSEARCH_INDEX</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="comment">// 文件存储</span></span><br><span class="line">        <span class="attr">STORAGE_ENDPOINT</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">allow</span>(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">        <span class="attr">STORAGE_ACCESS_KEY</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">STORAGE_SECRET_KEY</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">STORAGE_BUCKET</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">STORAGE_REGION</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">allow</span>(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">        <span class="attr">STORAGE_USE_SSL</span>: <span class="title class_">Joi</span>.<span class="title function_">boolean</span>().<span class="title function_">default</span>(<span class="literal">true</span>),</span><br><span class="line">        <span class="comment">// JWT</span></span><br><span class="line">        <span class="attr">JWT_SECRET</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">JWT_TOKEN_AUDIENCE</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">JWT_TOKEN_ISSUER</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">JWT_ACCESS_TOKEN_TTL</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">3600</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="title class_">DatabaseModule</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">controllers</span>: [<span class="title class_">AppController</span>],</span><br><span class="line">  <span class="attr">providers</span>: [<span class="title class_">AppService</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Module &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; ConfigModule &#125; from &#x27;@nestjs/config&#x27;;
+import &#123; AppController &#125; from &#x27;./app.controller&#x27;;
+import &#123; AppService &#125; from &#x27;./app.service&#x27;;
+import &#123; DatabaseModule &#125; from &#x27;./database/database.module&#x27;;
+import * as Joi from &#x27;joi&#x27;;
+
+@Module(&#123;
+  imports: [
+    ConfigModule.forRoot(&#123;
+      isGlobal: true, // 让 ConfigModule 全局可用
+      validationSchema: Joi.object(&#123;
+        APP_PORT: Joi.number().default(4000),
+        APP_ENV: Joi.string().valid(&#x27;development&#x27;, &#x27;production&#x27;, &#x27;test&#x27;).default(&#x27;development&#x27;),
+        // 核心数据库
+        DB_TYPE: Joi.string().valid(&#x27;mysql&#x27;, &#x27;postgres&#x27;).default(&#x27;mysql&#x27;),
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(3306),
+        DB_USER: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_NAME: Joi.string().required(),
+        // Redis 缓存
+        REDIS_HOST: Joi.string().required(),
+        REDIS_PORT: Joi.number().default(6379),
+        REDIS_PASSWORD: Joi.string().allow(&#x27;&#x27;),
+        REDIS_DB: Joi.number().default(0),
+        // Elasticsearch
+        ELASTICSEARCH_HOST: Joi.string().required(),
+        ELASTICSEARCH_PORT: Joi.number().default(9200),
+        ELASTICSEARCH_USER: Joi.string().required(),
+        ELASTICSEARCH_PASSWORD: Joi.string().required(),
+        ELASTICSEARCH_INDEX: Joi.string().required(),
+        // 文件存储
+        STORAGE_ENDPOINT: Joi.string().allow(&#x27;&#x27;),
+        STORAGE_ACCESS_KEY: Joi.string().required(),
+        STORAGE_SECRET_KEY: Joi.string().required(),
+        STORAGE_BUCKET: Joi.string().required(),
+        STORAGE_REGION: Joi.string().allow(&#x27;&#x27;),
+        STORAGE_USE_SSL: Joi.boolean().default(true),
+        // JWT
+        JWT_SECRET: Joi.string().required(),
+        JWT_TOKEN_AUDIENCE: Joi.string().required(),
+        JWT_TOKEN_ISSUER: Joi.string().required(),
+        JWT_ACCESS_TOKEN_TTL: Joi.number().default(3600)
+      &#125;)
+    &#125;),
+    DatabaseModule
+  ],
+  controllers: [AppController],
+  providers: [AppService]
+&#125;)
+export class AppModule &#123;&#125;</code></pre>
 <ul>
 <li><code>isGlobal</code>：将配置模块设为全局模块，避免在其他模块中重复引入</li>
 <li><code>validationSchema</code>：通过 <code>Joi</code> 验证环境变量的值，确保值类型与业务需求匹配；例如 <code>DB_HOST</code> 需要是字符串，<code>APP_PORT</code> 应为数值，且数据库和JWT密钥都必须存在</li>
@@ -163,56 +263,144 @@
 <p><code>Joi</code> 是一个 JavaScript 数据验证库，通常用来确保应用中的数据符合特定的规则或格式。</p>
 <h4 id="231-基本用法"><a class="markdownIt-Anchor" href="#231-基本用法"></a> 2.3.1. 基本用法</h4>
 <p><code>Joi</code> 提供了一个简单的链式 API 来定义验证规则。验证的流程一般是：定义 schema（验证规则） -&gt; 验证数据 -&gt; 获取结果或错误。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Joi</span> = <span class="built_in">require</span>(<span class="string">&#x27;joi&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 schema</span></span><br><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">min</span>(<span class="number">3</span>).<span class="title function_">max</span>(<span class="number">30</span>).<span class="title function_">required</span>(),</span><br><span class="line">  <span class="attr">age</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">integer</span>().<span class="title function_">min</span>(<span class="number">0</span>).<span class="title function_">max</span>(<span class="number">120</span>),</span><br><span class="line">  <span class="attr">email</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">email</span>()</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 验证数据</span></span><br><span class="line"><span class="keyword">const</span> result = schema.<span class="title function_">validate</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="attr">age</span>: <span class="number">25</span>, <span class="attr">email</span>: <span class="string">&#x27;alice@example.com&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查结果</span></span><br><span class="line"><span class="keyword">if</span> (result.<span class="property">error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result.<span class="property">error</span>.<span class="property">details</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result.<span class="property">value</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const Joi = require(&#x27;joi&#x27;);
+
+// 定义 schema
+const schema = Joi.object(&#123;
+  name: Joi.string().min(3).max(30).required(),
+  age: Joi.number().integer().min(0).max(120),
+  email: Joi.string().email()
+&#125;);
+
+// 验证数据
+const result = schema.validate(&#123; name: &#x27;Alice&#x27;, age: 25, email: &#x27;alice@example.com&#x27; &#125;);
+
+// 检查结果
+if (result.error) &#123;
+  console.log(result.error.details);
+&#125; else &#123;
+  console.log(result.value);
+&#125;</code></pre>
 <h4 id="232-基本类型验证"><a class="markdownIt-Anchor" href="#232-基本类型验证"></a> 2.3.2. 基本类型验证</h4>
 <p><code>Joi</code> 支持的基本类型包括：<code>string</code>、<code>number</code>、<code>boolean</code>、<code>array</code>、<code>object</code> 等。每种类型可以组合其他规则，如最小/最大值、必填/选填、格式限制等。</p>
 <ol>
 <li>字符串验证</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Joi</span>.<span class="title function_">string</span>()  <span class="comment">// 定义为字符串类型</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">min</span>(<span class="number">3</span>)  <span class="comment">// 最小长度</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">max</span>(<span class="number">30</span>)  <span class="comment">// 最大长度</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">email</span>()  <span class="comment">// 必须是电子邮箱格式</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">regex</span>(<span class="regexp">/^[a-zA-Z0-9]&#123;3,30&#125;$/</span>)  <span class="comment">// 使用正则表达式验证格式</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">Joi.string()  // 定义为字符串类型
+Joi.string().min(3)  // 最小长度
+Joi.string().max(30)  // 最大长度
+Joi.string().email()  // 必须是电子邮箱格式
+Joi.string().regex(/^[a-zA-Z0-9]&#123;3,30&#125;$/)  // 使用正则表达式验证格式</code></pre>
 <ol start="2">
 <li>数字验证</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>()  <span class="comment">// 定义为数字类型</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">integer</span>()  <span class="comment">// 必须是整数</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">min</span>(<span class="number">0</span>)  <span class="comment">// 最小值</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">max</span>(<span class="number">100</span>)  <span class="comment">// 最大值</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">positive</span>()  <span class="comment">// 必须是正数</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">negative</span>()  <span class="comment">// 必须是负数</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">Joi.number()  // 定义为数字类型
+Joi.number().integer()  // 必须是整数
+Joi.number().min(0)  // 最小值
+Joi.number().max(100)  // 最大值
+Joi.number().positive()  // 必须是正数
+Joi.number().negative()  // 必须是负数</code></pre>
 <ol start="3">
 <li>布尔值验证</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Joi</span>.<span class="title function_">boolean</span>()  <span class="comment">// 定义为布尔类型</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">Joi.boolean()  // 定义为布尔类型</code></pre>
 <ol start="4">
 <li>数组验证</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Joi</span>.<span class="title function_">array</span>()  <span class="comment">// 定义为数组类型</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">array</span>().<span class="title function_">items</span>(<span class="title class_">Joi</span>.<span class="title function_">number</span>())  <span class="comment">// 数组中每项都必须是数字</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">array</span>().<span class="title function_">min</span>(<span class="number">1</span>).<span class="title function_">max</span>(<span class="number">5</span>)  <span class="comment">// 数组长度限制</span></span><br><span class="line"><span class="title class_">Joi</span>.<span class="title function_">array</span>().<span class="title function_">unique</span>()  <span class="comment">// 数组中的每个元素必须唯一</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">Joi.array()  // 定义为数组类型
+Joi.array().items(Joi.number())  // 数组中每项都必须是数字
+Joi.array().min(1).max(5)  // 数组长度限制
+Joi.array().unique()  // 数组中的每个元素必须唯一</code></pre>
 <ol start="5">
 <li>对象验证</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">  <span class="attr">username</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">  <span class="attr">password</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">min</span>(<span class="number">8</span>).<span class="title function_">required</span>(),</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">Joi.object(&#123;
+  username: Joi.string().required(),
+  password: Joi.string().min(8).required(),
+&#125;)</code></pre>
 <h4 id="233-条件验证"><a class="markdownIt-Anchor" href="#233-条件验证"></a> 2.3.3. 条件验证</h4>
 <p>条件验证允许定义复杂的规则，如基于字段值的条件或逻辑分支。</p>
 <p><code>when</code> 条件验证：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">  <span class="attr">password</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">min</span>(<span class="number">8</span>).<span class="title function_">required</span>(),</span><br><span class="line">  <span class="attr">confirmPassword</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">valid</span>(<span class="title class_">Joi</span>.<span class="title function_">ref</span>(<span class="string">&#x27;password&#x27;</span>)).<span class="title function_">when</span>(<span class="string">&#x27;password&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">is</span>: <span class="title class_">Joi</span>.<span class="title function_">exist</span>(),  <span class="comment">// 如果 password 存在……</span></span><br><span class="line">    <span class="attr">then</span>: <span class="title class_">Joi</span>.<span class="title function_">required</span>(),  <span class="comment">// ……confirmPassword 也是必填</span></span><br><span class="line">    <span class="attr">otherwise</span>: <span class="title class_">Joi</span>.<span class="title function_">forbidden</span>()  <span class="comment">// 否则不允许出现 confirmPassword</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const schema = Joi.object(&#123;
+  password: Joi.string().min(8).required(),
+  confirmPassword: Joi.string().valid(Joi.ref(&#x27;password&#x27;)).when(&#x27;password&#x27;, &#123;
+    is: Joi.exist(),  // 如果 password 存在……
+    then: Joi.required(),  // ……confirmPassword 也是必填
+    otherwise: Joi.forbidden()  // 否则不允许出现 confirmPassword
+  &#125;)
+&#125;);</code></pre>
 <h4 id="234-嵌套对象和数组验证"><a class="markdownIt-Anchor" href="#234-嵌套对象和数组验证"></a> 2.3.4. 嵌套对象和数组验证</h4>
 <p><code>Joi</code> 允许定义嵌套结构，如对象嵌套和数组嵌套。</p>
 <ol>
 <li>嵌套对象</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">  <span class="attr">user</span>: <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">    <span class="attr">age</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">min</span>(<span class="number">0</span>)</span><br><span class="line">  &#125;).<span class="title function_">required</span>()</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const schema = Joi.object(&#123;
+  user: Joi.object(&#123;
+    name: Joi.string().required(),
+    age: Joi.number().min(0)
+  &#125;).required()
+&#125;);</code></pre>
 <ol start="2">
 <li>嵌套数组</li>
 </ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">array</span>().<span class="title function_">items</span>(</span><br><span class="line">  <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">    <span class="attr">id</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">required</span>(),</span><br><span class="line">    <span class="attr">name</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>()</span><br><span class="line">  &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const schema = Joi.array().items(
+  Joi.object(&#123;
+    id: Joi.number().required(),
+    name: Joi.string().required()
+  &#125;)
+);</code></pre>
 <h4 id="235-自定义验证器"><a class="markdownIt-Anchor" href="#235-自定义验证器"></a> 2.3.5. 自定义验证器</h4>
 <p><code>Joi</code> 支持自定义验证函数，用于更复杂的场景。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">custom</span>(<span class="function">(<span class="params">value, helpers</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="regexp">/^[a-zA-Z]+$/</span>.<span class="title function_">test</span>(value)) &#123;</span><br><span class="line">    <span class="keyword">return</span> helpers.<span class="title function_">error</span>(<span class="string">&#x27;any.invalid&#x27;</span>);  <span class="comment">// 返回一个自定义错误</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> value;  <span class="comment">// 验证通过</span></span><br><span class="line">&#125;, <span class="string">&#x27;Custom alphabet validation&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const schema = Joi.string().custom((value, helpers) =&gt; &#123;
+  if (!/^[a-zA-Z]+$/.test(value)) &#123;
+    return helpers.error(&#x27;any.invalid&#x27;);  // 返回一个自定义错误
+  &#125;
+  return value;  // 验证通过
+&#125;, &#x27;Custom alphabet validation&#x27;);</code></pre>
 <h4 id="236-配合-nestjs-使用"><a class="markdownIt-Anchor" href="#236-配合-nestjs-使用"></a> 2.3.6. 配合 NestJS 使用</h4>
 <p>在 NestJS 中，可以结合 <code>@nestjs/config</code> 模块来使用 <code>Joi</code> 验证配置文件。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Module</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/config&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">Joi</span> <span class="keyword">from</span> <span class="string">&#x27;joi&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">ConfigModule</span>.<span class="title function_">forRoot</span>(&#123;</span><br><span class="line">      <span class="attr">validationSchema</span>: <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">        <span class="comment">// 假设有核心数据库的配置</span></span><br><span class="line">        <span class="attr">DB_HOST</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">required</span>(),</span><br><span class="line">        <span class="attr">DB_PORT</span>: <span class="title class_">Joi</span>.<span class="title function_">number</span>().<span class="title function_">default</span>(<span class="number">5432</span>),</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Module &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; ConfigModule &#125; from &#x27;@nestjs/config&#x27;;
+import * as Joi from &#x27;joi&#x27;;
+
+@Module(&#123;
+  imports: [
+    ConfigModule.forRoot(&#123;
+      validationSchema: Joi.object(&#123;
+        // 假设有核心数据库的配置
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().default(5432),
+      &#125;)
+    &#125;)
+  ],
+&#125;)
+export class AppModule &#123;&#125;</code></pre>
 <h4 id="237-错误处理与自定义错误消息"><a class="markdownIt-Anchor" href="#237-错误处理与自定义错误消息"></a> 2.3.7. 错误处理与自定义错误消息</h4>
 <p><code>Joi</code> 会在验证失败时返回详细的错误信息，可以自定义错误消息。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> schema = <span class="title class_">Joi</span>.<span class="title function_">object</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="title class_">Joi</span>.<span class="title function_">string</span>().<span class="title function_">min</span>(<span class="number">3</span>).<span class="title function_">required</span>().<span class="title function_">messages</span>(&#123;</span><br><span class="line">    <span class="string">&#x27;string.base&#x27;</span>: <span class="string">`&quot;name&quot; should be a type of &#x27;text&#x27;`</span>,</span><br><span class="line">    <span class="string">&#x27;string.empty&#x27;</span>: <span class="string">`&quot;name&quot; cannot be an empty field`</span>,</span><br><span class="line">    <span class="string">&#x27;string.min&#x27;</span>: <span class="string">`&quot;name&quot; should have a minimum length of &#123;#limit&#125;`</span>,</span><br><span class="line">    <span class="string">&#x27;any.required&#x27;</span>: <span class="string">`&quot;name&quot; is a required field`</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">const schema = Joi.object(&#123;
+  name: Joi.string().min(3).required().messages(&#123;
+    &#x27;string.base&#x27;: `&quot;name&quot; should be a type of &#x27;text&#x27;`,
+    &#x27;string.empty&#x27;: `&quot;name&quot; cannot be an empty field`,
+    &#x27;string.min&#x27;: `&quot;name&quot; should have a minimum length of &#123;#limit&#125;`,
+    &#x27;any.required&#x27;: `&quot;name&quot; is a required field`
+  &#125;)
+&#125;);</code></pre>
 </blockquote>
 <h2 id="24-使用配置"><a class="markdownIt-Anchor" href="#24-使用配置"></a> 2.4. 使用配置</h2>
 <p>作为一个使用 <code>ConfigService</code> 的例子，我们将从 <code>.env</code> 中读取 <code>APP_PORT</code> 的值，并将其作为应用的启动端口。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NestFactory</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/config&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AppModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./app.module&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> app = <span class="keyword">await</span> <span class="title class_">NestFactory</span>.<span class="title function_">create</span>(<span class="title class_">AppModule</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> configService = app.<span class="title function_">get</span>(<span class="title class_">ConfigService</span>);</span><br><span class="line">  <span class="keyword">const</span> port = configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;APP_PORT&#x27;</span>) || <span class="number">4000</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> app.<span class="title function_">listen</span>(port);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">bootstrap</span>();</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; NestFactory &#125; from &#x27;@nestjs/core&#x27;;
+import &#123; ConfigService &#125; from &#x27;@nestjs/config&#x27;;
+import &#123; AppModule &#125; from &#x27;./app.module&#x27;;
+
+async function bootstrap() &#123;
+  const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  const port = configService.get&lt;number&gt;(&#x27;APP_PORT&#x27;) || 4000;
+
+  await app.listen(port);
+&#125;
+bootstrap();</code></pre>
 <p>运行 <code>nest start</code> 来查看是否有任何问题。</p>
 <h1 id="3-设置数据库连接"><a class="markdownIt-Anchor" href="#3-设置数据库连接"></a> 3. 设置数据库连接</h1>
 <div class="danger">
@@ -229,30 +417,55 @@
 </li>
 <li>
 <p>创建数据库：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE 数据库名称;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-sql">CREATE DATABASE 数据库名称;</code></pre>
 <p><em>数据库名称</em>要匹配 <code>.env</code> 中的：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DB_NAME<span class="operator">=</span>数据库名称</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-sql">DB_NAME=数据库名称</code></pre>
 </li>
 <li>
 <p>创建用户：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;密码&#x27;</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-sql">CREATE USER &#x27;用户名&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;密码&#x27;;</code></pre>
 <p>这里的内容要匹配 <code>.env</code> 中的这一段内容：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DB_USER=用户名</span><br><span class="line">DB_PASSWORD=密码</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">DB_USER=用户名
+DB_PASSWORD=密码</code></pre>
 </li>
 <li>
 <p>设置权限：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> PRIVILEGES <span class="keyword">ON</span> 数据库名称.<span class="operator">*</span> <span class="keyword">TO</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>;</span><br><span class="line">FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-sql">GRANT ALL PRIVILEGES ON 数据库名称.* TO &#x27;用户名&#x27;@&#x27;localhost&#x27;;
+FLUSH PRIVILEGES;</code></pre>
 </li>
 <li>
 <p>设置完后可以测试一下：</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u 用户名 <span class="operator">-</span>p <span class="operator">-</span>h localhost <span class="operator">-</span>P <span class="number">3306</span> 数据库名称</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-sql">mysql -u 用户名 -p -h localhost -P 3306 数据库名称</code></pre>
 </li>
 </ol>
 <h2 id="32-创建-databasemodule"><a class="markdownIt-Anchor" href="#32-创建-databasemodule"></a> 3.2. 创建 <code>DatabaseModule</code></h2>
 <p>在 NestJS 项目中，集中管理数据库连接的配置非常重要，尤其是在需要支持多种环境（如开发、测试、生产）时。</p>
 <p>创建 <code>DatabaseModule</code> 能让我们将数据库的配置代码分离出来，以便在不同的环境中灵活调整配置，比如使用 <code>ConfigService</code> 来获取环境变量。</p>
 <p>通过 <code>TypeOrmModule.forRootAsync</code> 方法，我们可以使用异步的方式配置 TypeORM。这样可以确保数据库配置在应用初始化时依赖于环境变量，如 <code>DB_HOST</code>、<code>DB_USER</code>、<code>DB_PASSWORD</code> 等，从而增强配置的灵活性和安全性。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Module</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">TypeOrmModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/typeorm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigModule</span>, <span class="title class_">ConfigService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/config&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="title class_">ConfigModule</span>,</span><br><span class="line">    <span class="title class_">TypeOrmModule</span>.<span class="title function_">forRootAsync</span>(&#123;</span><br><span class="line">      <span class="attr">imports</span>: [<span class="title class_">ConfigModule</span>],</span><br><span class="line">      <span class="attr">inject</span>: [<span class="title class_">ConfigService</span>],</span><br><span class="line">      <span class="attr">useFactory</span>: <span class="function">(<span class="params"><span class="attr">configService</span>: <span class="title class_">ConfigService</span></span>) =&gt;</span> (&#123;</span><br><span class="line">        <span class="attr">type</span>: configService.<span class="property">get</span>&lt;<span class="string">&#x27;mysql&#x27;</span> | <span class="string">&#x27;postgres&#x27;</span>&gt;(<span class="string">&#x27;DB_TYPE&#x27;</span>),</span><br><span class="line">        <span class="attr">host</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_HOST&#x27;</span>),</span><br><span class="line">        <span class="attr">port</span>: configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;DB_PORT&#x27;</span>),</span><br><span class="line">        <span class="attr">username</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_USER&#x27;</span>),</span><br><span class="line">        <span class="attr">password</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_PASSWORD&#x27;</span>),</span><br><span class="line">        <span class="attr">database</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_NAME&#x27;</span>),</span><br><span class="line">        <span class="attr">autoLoadEntities</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">synchronize</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;APP_ENV&#x27;</span>) === <span class="string">&#x27;development&#x27;</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">DatabaseModule</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Module &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; TypeOrmModule &#125; from &#x27;@nestjs/typeorm&#x27;;
+import &#123; ConfigModule, ConfigService &#125; from &#x27;@nestjs/config&#x27;;
+
+@Module(&#123;
+  imports: [
+    ConfigModule,
+    TypeOrmModule.forRootAsync(&#123;
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =&gt; (&#123;
+        type: configService.get&lt;&#x27;mysql&#x27; | &#x27;postgres&#x27;&gt;(&#x27;DB_TYPE&#x27;),
+        host: configService.get&lt;string&gt;(&#x27;DB_HOST&#x27;),
+        port: configService.get&lt;number&gt;(&#x27;DB_PORT&#x27;),
+        username: configService.get&lt;string&gt;(&#x27;DB_USER&#x27;),
+        password: configService.get&lt;string&gt;(&#x27;DB_PASSWORD&#x27;),
+        database: configService.get&lt;string&gt;(&#x27;DB_NAME&#x27;),
+        autoLoadEntities: true,
+        synchronize: configService.get&lt;string&gt;(&#x27;APP_ENV&#x27;) === &#x27;development&#x27;
+      &#125;)
+    &#125;)
+  ]
+&#125;)
+export class DatabaseModule &#123;&#125;</code></pre>
 <ul>
 <li><code>ConfigService</code>：用于从环境变量获取配置，确保 <code>DB_TYPE</code> 等参数的灵活性</li>
 <li><code>forRootAsync</code>：动态配置 <code>TypeOrmModule</code>，适用于需要依赖环境变量初始化的模块</li>
@@ -274,10 +487,24 @@
 <li><code>swagger-ui-express</code> 是 Swagger UI 的依赖包，用于在浏览器中显示 API 文档</li>
 </ul>
 <p>在项目根目录下运行以下命令来安装它们：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nestjs/swagger swagger-ui-express</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn add @nestjs/swagger swagger-ui-express</code></pre>
 <h2 id="42-配置-swagger"><a class="markdownIt-Anchor" href="#42-配置-swagger"></a> 4.2. 配置 Swagger</h2>
 <p>打开 <code>main.ts</code> 并添加以下代码：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">DocumentBuilder</span>, <span class="title class_">SwaggerModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/swagger&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> swaggerConfig = <span class="keyword">new</span> <span class="title class_">DocumentBuilder</span>()</span><br><span class="line">    .<span class="title function_">setTitle</span>(<span class="string">&#x27;API 文档&#x27;</span>)</span><br><span class="line">    .<span class="title function_">setDescription</span>(<span class="string">&#x27;Shopping-Nest 的 API 文档&#x27;</span>)</span><br><span class="line">    .<span class="title function_">setVersion</span>(<span class="string">&#x27;1.0&#x27;</span>)</span><br><span class="line">    .<span class="title function_">addBearerAuth</span>()</span><br><span class="line">    .<span class="title function_">build</span>();</span><br><span class="line">  <span class="keyword">const</span> <span class="variable language_">document</span> = <span class="title class_">SwaggerModule</span>.<span class="title function_">createDocument</span>(app, swaggerConfig);</span><br><span class="line">  <span class="title class_">SwaggerModule</span>.<span class="title function_">setup</span>(<span class="string">&#x27;api-docs&#x27;</span>, app, <span class="variable language_">document</span>);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">// ...
+import &#123; DocumentBuilder, SwaggerModule &#125; from &#x27;@nestjs/swagger&#x27;;
+
+async function bootstrap() &#123;
+  // ...
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle(&#x27;API 文档&#x27;)
+    .setDescription(&#x27;Shopping-Nest 的 API 文档&#x27;)
+    .setVersion(&#x27;1.0&#x27;)
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup(&#x27;api-docs&#x27;, app, document);
+  // ...
+&#125;</code></pre>
 <p>在这里，我们使用 <code>DocumentBuilder</code> 来创建 Swagger 文档的基本信息。常见的配置项有：</p>
 <ul>
 <li><code>.setTitle()</code>: 设置 API 文档的标题</li>
@@ -290,32 +517,95 @@
 <p>在我们完成 Swagger 的基础配置后，接下来的步骤将详细介绍如何利用 Swagger 注释来生成清晰的 API 文档。这一部分将涵盖如何为控制器、DTO（数据传输对象）和请求参数添加 Swagger 装饰器，以便 Swagger 能够生成准确且全面的 API 文档。</p>
 <h4 id="431-为控制器添加注释"><a class="markdownIt-Anchor" href="#431-为控制器添加注释"></a> 4.3.1. 为控制器添加注释</h4>
 <p>在 NestJS 中，控制器负责处理客户端请求并返回响应。我们可以使用 Swagger 提供的装饰器为控制器中的每个方法添加注释，以描述其功能、请求参数和返回结果。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Controller</span>, <span class="title class_">Get</span>, <span class="title class_">Post</span>, <span class="title class_">Body</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ApiTags</span>, <span class="title class_">ApiOperation</span>, <span class="title class_">ApiResponse</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/swagger&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CreateUserDto</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./dto/create-user.dto&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ApiTags</span>(<span class="string">&#x27;Users&#x27;</span>)  <span class="comment">// 给控制器添加标签</span></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;users&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Post</span>()</span><br><span class="line">  <span class="meta">@ApiOperation</span>(&#123; <span class="attr">summary</span>: <span class="string">&#x27;Create a new user&#x27;</span> &#125;)  <span class="comment">// 描述此 API 的作用</span></span><br><span class="line">  <span class="meta">@ApiResponse</span>(&#123; <span class="attr">status</span>: <span class="number">201</span>, <span class="attr">description</span>: <span class="string">&#x27;The user has been successfully created.&#x27;</span> &#125;)  <span class="comment">// 201 状态响应</span></span><br><span class="line">  <span class="meta">@ApiResponse</span>(&#123; <span class="attr">status</span>: <span class="number">400</span>, <span class="attr">description</span>: <span class="string">&#x27;Invalid input data.&#x27;</span> &#125;)  <span class="comment">// 400 状态响应</span></span><br><span class="line">  <span class="title function_">create</span>(<span class="params"><span class="meta">@Body</span>() <span class="attr">createUserDto</span>: <span class="title class_">CreateUserDto</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;This action adds a new user&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Get</span>()</span><br><span class="line">  <span class="meta">@ApiOperation</span>(&#123; <span class="attr">summary</span>: <span class="string">&#x27;Retrieve a list of users&#x27;</span> &#125;)  <span class="comment">// 描述此 API 的作用</span></span><br><span class="line">  <span class="meta">@ApiResponse</span>(&#123; <span class="attr">status</span>: <span class="number">200</span>, <span class="attr">description</span>: <span class="string">&#x27;A list of users.&#x27;</span> &#125;)  <span class="comment">// 200 状态响应</span></span><br><span class="line">  <span class="title function_">getAllUsers</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> [&#123; <span class="attr">id</span>: <span class="number">1</span>, <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span> &#125;];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Controller, Get, Post, Body &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; ApiTags, ApiOperation, ApiResponse &#125; from &#x27;@nestjs/swagger&#x27;;
+import &#123; CreateUserDto &#125; from &#x27;./dto/create-user.dto&#x27;;
+
+@ApiTags(&#x27;Users&#x27;)  // 给控制器添加标签
+@Controller(&#x27;users&#x27;)
+export class UserController &#123;
+  
+  @Post()
+  @ApiOperation(&#123; summary: &#x27;Create a new user&#x27; &#125;)  // 描述此 API 的作用
+  @ApiResponse(&#123; status: 201, description: &#x27;The user has been successfully created.&#x27; &#125;)  // 201 状态响应
+  @ApiResponse(&#123; status: 400, description: &#x27;Invalid input data.&#x27; &#125;)  // 400 状态响应
+  create(@Body() createUserDto: CreateUserDto) &#123;
+    return &#x27;This action adds a new user&#x27;;
+  &#125;
+
+  @Get()
+  @ApiOperation(&#123; summary: &#x27;Retrieve a list of users&#x27; &#125;)  // 描述此 API 的作用
+  @ApiResponse(&#123; status: 200, description: &#x27;A list of users.&#x27; &#125;)  // 200 状态响应
+  getAllUsers() &#123;
+    return [&#123; id: 1, name: &#x27;John Doe&#x27; &#125;];
+  &#125;
+&#125;</code></pre>
 <h4 id="432-为-dto-添加注释"><a class="markdownIt-Anchor" href="#432-为-dto-添加注释"></a> 4.3.2. 为 DTO 添加注释</h4>
 <p>DTO（数据传输对象）用于定义请求和响应的结构。使用 Swagger 的 <code>@ApiProperty</code> 装饰器，可以清晰地说明每个字段的含义和要求。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ApiProperty</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/swagger&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CreateUserDto</span> &#123;</span><br><span class="line">  <span class="meta">@ApiProperty</span>(&#123; <span class="attr">description</span>: <span class="string">&#x27;The name of the user&#x27;</span> &#125;)  <span class="comment">// 描述 name 字段</span></span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ApiProperty</span>(&#123; <span class="attr">description</span>: <span class="string">&#x27;The age of the user&#x27;</span>, <span class="attr">minimum</span>: <span class="number">1</span> &#125;)  <span class="comment">// 描述 age 字段并设置最小值</span></span><br><span class="line">  <span class="attr">age</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ApiProperty</span>(&#123; <span class="attr">description</span>: <span class="string">&#x27;The email of the user&#x27;</span>, <span class="attr">required</span>: <span class="literal">true</span> &#125;)  <span class="comment">// 描述 email 字段</span></span><br><span class="line">  <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; ApiProperty &#125; from &#x27;@nestjs/swagger&#x27;;
+
+export class CreateUserDto &#123;
+  @ApiProperty(&#123; description: &#x27;The name of the user&#x27; &#125;)  // 描述 name 字段
+  name: string;
+
+  @ApiProperty(&#123; description: &#x27;The age of the user&#x27;, minimum: 1 &#125;)  // 描述 age 字段并设置最小值
+  age: number;
+
+  @ApiProperty(&#123; description: &#x27;The email of the user&#x27;, required: true &#125;)  // 描述 email 字段
+  email: string;
+&#125;</code></pre>
 <p>在上面的例子中，<code>CreateUserDto</code> 包含了三个属性：<code>name</code>、<code>age</code> 和 <code>email</code>。每个属性都使用了 <code>@ApiProperty</code> 装饰器来提供详细描述，并且可以设置字段的其他约束（如是否必填、类型等）。</p>
 <h4 id="433-为请求参数添加注释"><a class="markdownIt-Anchor" href="#433-为请求参数添加注释"></a> 4.3.3. 为请求参数添加注释</h4>
 <p>如果你的 API 需要接受路径参数、查询参数或请求体中的数据，Swagger 也提供了相关的装饰器来帮助描述这些参数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Controller</span>, <span class="title class_">Get</span>, <span class="title class_">Param</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ApiParam</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/swagger&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;users&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">  <span class="meta">@Get</span>(<span class="string">&#x27;:id&#x27;</span>)</span><br><span class="line">  <span class="meta">@ApiOperation</span>(&#123; <span class="attr">summary</span>: <span class="string">&#x27;Retrieve a user by ID&#x27;</span> &#125;)  <span class="comment">// 描述此 API 的作用</span></span><br><span class="line">  <span class="meta">@ApiParam</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;id&#x27;</span>, <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">description</span>: <span class="string">&#x27;The ID of the user to retrieve&#x27;</span>, <span class="attr">type</span>: <span class="title class_">Number</span> &#125;)  <span class="comment">// 描述路径参数</span></span><br><span class="line">  <span class="title function_">getUserById</span>(<span class="params"><span class="meta">@Param</span>(<span class="string">&#x27;id&#x27;</span>) <span class="attr">id</span>: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; id, <span class="attr">name</span>: <span class="string">&#x27;John Doe&#x27;</span> &#125;;  <span class="comment">// 示例返回</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Controller, Get, Param &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; ApiParam &#125; from &#x27;@nestjs/swagger&#x27;;
+
+@Controller(&#x27;users&#x27;)
+export class UserController &#123;
+  @Get(&#x27;:id&#x27;)
+  @ApiOperation(&#123; summary: &#x27;Retrieve a user by ID&#x27; &#125;)  // 描述此 API 的作用
+  @ApiParam(&#123; name: &#x27;id&#x27;, required: true, description: &#x27;The ID of the user to retrieve&#x27;, type: Number &#125;)  // 描述路径参数
+  getUserById(@Param(&#x27;id&#x27;) id: number) &#123;
+    return &#123; id, name: &#x27;John Doe&#x27; &#125;;  // 示例返回
+  &#125;
+&#125;</code></pre>
 <p>在这个示例中，<code>@ApiParam</code> 用于描述路径参数id。它帮助用户理解这个参数是必须的，且应该是一个数字。</p>
 <h1 id="5-设置基础中间件"><a class="markdownIt-Anchor" href="#5-设置基础中间件"></a> 5. 设置基础中间件</h1>
 <p>在现代 Web 开发中，处理安全性、请求速率限制、响应压缩以及自定义日志记录是打造可靠、高效应用的基础。</p>
 <p>NestJS 提供了简单灵活的中间件配置支持，通过整合 <code>helmet</code>、<code>@nestjs/throttler</code>、<code>compression</code> 等库，开发者可以轻松地实现这些功能。</p>
 <h2 id="51-添加-cors-支持"><a class="markdownIt-Anchor" href="#51-添加-cors-支持"></a> 5.1. 添加 CORS 支持</h2>
 <p>首先，我们需要确保应用支持跨域请求（CORS），特别是在前后端分离的情况下。以下是启用和配置 CORS 的方法：</p>
-<figure class="highlight ts"><figcaption><span>main.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="keyword">const</span> corsOrigin = configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;CORS_ORIGIN&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  app.<span class="title function_">enableCors</span>(&#123;</span><br><span class="line">    <span class="attr">origin</span>: corsOrigin,</span><br><span class="line">    <span class="attr">methods</span>: <span class="string">&#x27;GET,POST&#x27;</span>,</span><br><span class="line">    <span class="attr">credentials</span>: <span class="literal">true</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">async function bootstrap() &#123;
+  // ...
+  const corsOrigin = configService.get&lt;string&gt;(&#x27;CORS_ORIGIN&#x27;);
+
+  app.enableCors(&#123;
+    origin: corsOrigin,
+    methods: &#x27;GET,POST&#x27;,
+    credentials: true,
+  &#125;);
+
+  // ...
+&#125;</code></pre>
 <p>在 <code>.env</code> 中添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CORS_ORIGIN=http://localhost:3000</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">CORS_ORIGIN=http://localhost:3000</code></pre>
 <blockquote>
 <p>使用 <code>http://localhost:3000</code> 是因为 React 本地环境默认运行在 <code>localhost:3000</code>。</p>
 </blockquote>
 <h2 id="52-增强安全性"><a class="markdownIt-Anchor" href="#52-增强安全性"></a> 5.2. 增强安全性</h2>
 <p><code>helmet</code> 是一组帮助设置安全 HTTP 头的中间件，能够防范常见的 Web 攻击（例如，XSS 攻击和点击劫持）。</p>
 <p>安装 <code>helmet</code> 库：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add helmet</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">yarn add helmet</code></pre>
 <p>开启 <code>helmet</code> 保护：</p>
-<figure class="highlight ts"><figcaption><span>main.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> helmet <span class="keyword">from</span> <span class="string">&#x27;helmet&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  </span><br><span class="line">  app.<span class="title function_">use</span>(<span class="title function_">helmet</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import helmet from &#x27;helmet&#x27;;
+
+async function bootstrap() &#123;
+  // ...
+  
+  app.use(helmet());
+
+  // ...
+&#125;</code></pre>
 <p>通过这段简单的代码，<code>helmet</code> 会自动添加一组常用的安全头（以下信息来自于 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/helmet">NPM</a>）：</p>
 <ul>
 <li><strong>Content-Security-Policy</strong>：一个强大的允许清单，控制页面上可以发生的操作，有助于缓解多种攻击</li>
@@ -335,35 +625,125 @@
 <h2 id="53-压缩响应"><a class="markdownIt-Anchor" href="#53-压缩响应"></a> 5.3. 压缩响应</h2>
 <p>压缩响应能够有效减少传输的数据量，提升页面加载速度。</p>
 <p>安装 <code>compression</code> 库：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add compression</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn add compression</code></pre>
 <p>配置压缩的级别和触发条件：</p>
-<figure class="highlight ts"><figcaption><span>main.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> compression <span class="keyword">from</span> <span class="string">&#x27;compression&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> compressionLevel = configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;COMPRESSION_LEVEL&#x27;</span>) || <span class="number">6</span>;</span><br><span class="line">  <span class="keyword">const</span> compressionThreshold = configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;COMPRESSION_THRESHOLD&#x27;</span>) || <span class="number">1024</span>;</span><br><span class="line">  app.<span class="title function_">use</span>(</span><br><span class="line">    <span class="title function_">compression</span>(&#123;</span><br><span class="line">      <span class="attr">level</span>: compressionLevel,</span><br><span class="line">      <span class="attr">threshold</span>: compressionThreshold,</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import * as compression from &#x27;compression&#x27;;
+
+async function bootstrap() &#123;
+  // ...
+
+  const compressionLevel = configService.get&lt;number&gt;(&#x27;COMPRESSION_LEVEL&#x27;) || 6;
+  const compressionThreshold = configService.get&lt;number&gt;(&#x27;COMPRESSION_THRESHOLD&#x27;) || 1024;
+  app.use(
+    compression(&#123;
+      level: compressionLevel,
+      threshold: compressionThreshold,
+    &#125;)
+  );
+
+  // ...
+&#125;</code></pre>
 <p>在 <code>.env</code> 中添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 响应压缩</span><br><span class="line">COMPRESSION_LEVEL=6</span><br><span class="line">COMPRESSION_THRESHOLD=1024</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext"># 响应压缩
+COMPRESSION_LEVEL=6
+COMPRESSION_THRESHOLD=1024</code></pre>
 <p>在上面的代码中，<code>level</code> 设置了压缩级别（范围从0-9，数字越大压缩越强，但 CPU 负荷越高），而 <code>threshold</code> 设置了触发压缩的响应体积阈值（单位为字节）。</p>
 <h2 id="54-限制请求速率"><a class="markdownIt-Anchor" href="#54-限制请求速率"></a> 5.4. 限制请求速率</h2>
 <p>防止滥用 API 资源是每个 Web 应用的核心需求之一。我们可以使用 <code>@nestjs/throttler</code> 模块对请求速率进行限制，确保服务不会被大量请求淹没。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add @nestjs/throttler</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn add @nestjs/throttler</code></pre>
 <p>我们在 <code>AppModule</code> 中通过 <code>ThrottlerModule.forRootAsync</code> 配置速率限制。利用 <code>ConfigService</code> 从 <code>.env</code> 文件中获取 <code>ttl</code>（时间窗口）和 <code>limit</code>（最大请求数）参数：</p>
-<figure class="highlight ts"><figcaption><span>app.module.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ThrottlerModule</span>, <span class="title class_">ThrottlerModuleOptions</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/throttler&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title class_">ThrottlerModule</span>.<span class="title function_">forRootAsync</span>(&#123;</span><br><span class="line">      <span class="attr">inject</span>: [<span class="title class_">ConfigService</span>],</span><br><span class="line">      <span class="attr">useFactory</span>: (<span class="attr">configService</span>: <span class="title class_">ConfigService</span>): <span class="function"><span class="params">ThrottlerModuleOptions</span> =&gt;</span> [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">ttl</span>: configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;THROTTLE_TTL&#x27;</span>) || <span class="number">60</span>,</span><br><span class="line">          <span class="attr">limit</span>: configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;THROTTLE_LIMIT&#x27;</span>) || <span class="number">10</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; ThrottlerModule, ThrottlerModuleOptions &#125; from &#x27;@nestjs/throttler&#x27;;
+
+@Module(&#123;
+  imports: [
+    // ...
+    ThrottlerModule.forRootAsync(&#123;
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService): ThrottlerModuleOptions =&gt; [
+        &#123;
+          ttl: configService.get&lt;number&gt;(&#x27;THROTTLE_TTL&#x27;) || 60,
+          limit: configService.get&lt;number&gt;(&#x27;THROTTLE_LIMIT&#x27;) || 10
+        &#125;
+      ]
+    &#125;),
+  ],
+&#125;)</code></pre>
 <p>在 <code>.env</code> 中添加：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 速率限制</span><br><span class="line">THROTTLE_TTL=60</span><br><span class="line">THROTTLE_LIMIT=10</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext"># 速率限制
+THROTTLE_TTL=60
+THROTTLE_LIMIT=10</code></pre>
 <h4 id="541-使用例子"><a class="markdownIt-Anchor" href="#541-使用例子"></a> 5.4.1. 使用例子</h4>
 <p>配置后，系统会自动为所有API路由设置速率限制。也可以在特定控制器或路由中通过 <code>@Throttle</code> 装饰器进行覆盖：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Controller</span>, <span class="title class_">Get</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Throttle</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/throttler&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span>(<span class="string">&#x27;test&#x27;</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">TestController</span> &#123;</span><br><span class="line">  <span class="meta">@Throttle</span>(<span class="number">5</span>, <span class="number">10</span>)  <span class="comment">// 每 10 秒最多 5 个请求</span></span><br><span class="line">  <span class="meta">@Get</span>()</span><br><span class="line">  <span class="title function_">testRoute</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Testing rate limiting&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Controller, Get &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; Throttle &#125; from &#x27;@nestjs/throttler&#x27;;
+
+@Controller(&#x27;test&#x27;)
+export class TestController &#123;
+  @Throttle(5, 10)  // 每 10 秒最多 5 个请求
+  @Get()
+  testRoute() &#123;
+    return &quot;Testing rate limiting&quot;;
+  &#125;
+&#125;</code></pre>
 <h2 id="55-自定义日志记录"><a class="markdownIt-Anchor" href="#55-自定义日志记录"></a> 5.5. 自定义日志记录</h2>
 <p>为了记录请求信息，我们可以实现一个简单的 <code>LoggerMiddleware</code>，并在 <code>AppModule</code> 中配置它：</p>
-<figure class="highlight ts"><figcaption><span>logger.middleware.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span>, <span class="title class_">NestMiddleware</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Request</span>, <span class="title class_">Response</span>, <span class="title class_">NextFunction</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;express&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">LoggerMiddleware</span> <span class="keyword">implements</span> <span class="title class_">NestMiddleware</span> &#123;</span><br><span class="line">  <span class="title function_">use</span>(<span class="params"><span class="attr">req</span>: <span class="title class_">Request</span>, <span class="attr">res</span>: <span class="title class_">Response</span>, <span class="attr">next</span>: <span class="title class_">NextFunction</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Request... <span class="subst">$&#123;req.method&#125;</span> <span class="subst">$&#123;req.url&#125;</span>`</span>);</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Injectable, NestMiddleware &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; Request, Response, NextFunction &#125; from &#x27;express&#x27;;
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware &#123;
+  use(req: Request, res: Response, next: NextFunction) &#123;
+    console.log(`Request... $&#123;req.method&#125; $&#123;req.url&#125;`);
+    next();
+  &#125;
+&#125;</code></pre>
 <p>在 <code>AppModule</code> 中使用 <code>configure</code> 方法应用此中间件：</p>
-<figure class="highlight ts"><figcaption><span>app.module.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MiddlewareConsumer</span>, <span class="title class_">Module</span>, <span class="title class_">NestModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">LoggerMiddleware</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./middlewares/logger.middleware&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [<span class="comment">/* 其他模块 */</span>],</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppModule</span> <span class="keyword">implements</span> <span class="title class_">NestModule</span> &#123;</span><br><span class="line">  <span class="title function_">configure</span>(<span class="params"><span class="attr">consumer</span>: <span class="title class_">MiddlewareConsumer</span></span>) &#123;</span><br><span class="line">    consumer.<span class="title function_">apply</span>(<span class="title class_">LoggerMiddleware</span>).<span class="title function_">forRoutes</span>(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; MiddlewareConsumer, Module, NestModule &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; LoggerMiddleware &#125; from &#x27;./middlewares/logger.middleware&#x27;;
+
+@Module(&#123;
+  imports: [/* 其他模块 */],
+&#125;)
+export class AppModule implements NestModule &#123;
+  configure(consumer: MiddlewareConsumer) &#123;
+    consumer.apply(LoggerMiddleware).forRoutes(&#x27;*&#x27;);
+  &#125;
+&#125;</code></pre>
 <p>这样，每次请求都会在控制台输出请求方法和 URL 路径，帮助我们跟踪请求流向和响应情况。</p>
 <p>启动 NestJS 项目，在浏览器中访问 <code>localhost:APP_PORT</code>（或者默认的 <code>localhost:4000</code>），就能在终端中看到 <code>Request... GET /</code> 的字眼。</p>
 <h2 id="56-设置全局错误处理"><a class="markdownIt-Anchor" href="#56-设置全局错误处理"></a> 5.6. 设置全局错误处理</h2>
 <p>为了统一错误响应格式，可以创建自定义异常过滤器来捕获异常，并返回标准化的错误信息。</p>
 <p>我们在项目中定义 <code>HttpExceptionFilter</code> 类，并将其注册为全局过滤器：</p>
-<figure class="highlight ts"><figcaption><span>http-exception.filter.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ExceptionFilter</span>, <span class="title class_">Catch</span>, <span class="title class_">ArgumentsHost</span>, <span class="title class_">HttpException</span>, <span class="title class_">HttpStatus</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Catch</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HttpExceptionFilter</span> <span class="keyword">implements</span> <span class="title class_">ExceptionFilter</span> &#123;</span><br><span class="line">  <span class="keyword">catch</span>(<span class="attr">exception</span>: <span class="built_in">unknown</span>, <span class="attr">host</span>: <span class="title class_">ArgumentsHost</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = host.<span class="title function_">switchToHttp</span>();</span><br><span class="line">    <span class="keyword">const</span> response = ctx.<span class="title function_">getResponse</span>();</span><br><span class="line">    <span class="keyword">const</span> request = ctx.<span class="title function_">getRequest</span>();</span><br><span class="line">    <span class="keyword">const</span> status = exception <span class="keyword">instanceof</span> <span class="title class_">HttpException</span> ? exception.<span class="title function_">getStatus</span>() : <span class="title class_">HttpStatus</span>.<span class="property">INTERNAL_SERVER_ERROR</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> errorResponse = &#123;</span><br><span class="line">      <span class="attr">statusCode</span>: status,</span><br><span class="line">      <span class="attr">timestamp</span>: <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">toISOString</span>(),</span><br><span class="line">      <span class="attr">path</span>: request.<span class="property">url</span>,</span><br><span class="line">      <span class="attr">message</span>: exception <span class="keyword">instanceof</span> <span class="title class_">HttpException</span> ? exception.<span class="title function_">getResponse</span>() : <span class="string">&#x27;Internal server error&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    response.<span class="title function_">status</span>(status).<span class="title function_">json</span>(errorResponse);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; ExceptionFilter, Catch, ArgumentsHost, HttpException, HttpStatus &#125; from &#x27;@nestjs/common&#x27;;
+
+@Catch()
+export class HttpExceptionFilter implements ExceptionFilter &#123;
+  catch(exception: unknown, host: ArgumentsHost) &#123;
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+    const request = ctx.getRequest();
+    const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
+
+    const errorResponse = &#123;
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+      message: exception instanceof HttpException ? exception.getResponse() : &#x27;Internal server error&#x27;
+    &#125;;
+
+    response.status(status).json(errorResponse);
+  &#125;
+&#125;</code></pre>
 <p>接着在 <code>main.ts</code> 中注册过滤器：</p>
-<figure class="highlight ts"><figcaption><span>main.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">HttpExceptionFilter</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./filters/http-exception.filter&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  app.<span class="title function_">useGlobalFilters</span>(<span class="keyword">new</span> <span class="title class_">HttpExceptionFilter</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; HttpExceptionFilter &#125; from &#x27;./filters/http-exception.filter&#x27;;
+
+async function bootstrap() &#123;
+  // ...
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
+  // ...
+&#125;</code></pre>
 <p>通过此过滤器，所有未处理的异常都会以标准格式返回。</p>
 <h1 id="6-配置日志系统"><a class="markdownIt-Anchor" href="#6-配置日志系统"></a> 6. 配置日志系统</h1>
 <p>在开发和运维中，日志记录是至关重要的一部分。通过详细的日志记录，我们可以更好地了解应用的运行状态、排查错误，甚至帮助团队进行性能优化。</p>
@@ -375,7 +755,7 @@
 </ul>
 <h2 id="61-安装依赖"><a class="markdownIt-Anchor" href="#61-安装依赖"></a> 6.1. 安装依赖</h2>
 <p>我们首先需要安装 <code>chalk</code>、<code>nest-winston</code>、<code>winston</code> 和 <code>winston-daily-rotate-file</code> 这些依赖。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add chalk@^4 nest-winston winston winston-daily-rotate-file</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">yarn add chalk@^4 nest-winston winston winston-daily-rotate-file</code></pre>
 <div class="danger">
 <p>注意：由于我的 NestJS 项目使用的是 CommonJS 模块系统，和使用 ESM 的 <code>chalk@5</code> 不兼容，所以我采用的最简单直接的方法就是降级到 <code>chalk@4</code>。</p>
 </div>
@@ -384,15 +764,92 @@
 <h4 id="621-配置日志目录"><a class="markdownIt-Anchor" href="#621-配置日志目录"></a> 6.2.1. 配置日志目录</h4>
 <p>我们将设置不同的日志目录来分别存储错误日志、警告日志和常规应用日志。</p>
 <p>使用 <code>fs</code> 来检查目录是否存在，不存在时自动创建：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> logDirectories = [<span class="string">&#x27;logs/errors&#x27;</span>, <span class="string">&#x27;logs/warnings&#x27;</span>, <span class="string">&#x27;logs/app&#x27;</span>];</span><br><span class="line"></span><br><span class="line">logDirectories.<span class="title function_">forEach</span>(<span class="function"><span class="params">dir</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> fullPath = path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;..&#x27;</span>, dir);</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!fs.<span class="title function_">existsSync</span>(fullPath)) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Creating directory at: <span class="subst">$&#123;fullPath&#125;</span>`</span>);</span><br><span class="line">      fs.<span class="title function_">mkdirSync</span>(fullPath, &#123; <span class="attr">recursive</span>: <span class="literal">true</span> &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">`Error creating directory <span class="subst">$&#123;fullPath&#125;</span>:`</span>, error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import * as fs from &#x27;fs&#x27;;
+import * as path from &#x27;path&#x27;;
+
+const logDirectories = [&#x27;logs/errors&#x27;, &#x27;logs/warnings&#x27;, &#x27;logs/app&#x27;];
+
+logDirectories.forEach(dir =&gt; &#123;
+  const fullPath = path.join(__dirname, &#x27;..&#x27;, &#x27;..&#x27;, dir);
+  try &#123;
+    if (!fs.existsSync(fullPath)) &#123;
+      console.log(`Creating directory at: $&#123;fullPath&#125;`);
+      fs.mkdirSync(fullPath, &#123; recursive: true &#125;);
+    &#125;
+  &#125; catch (error) &#123;
+    console.error(`Error creating directory $&#123;fullPath&#125;:`, error);
+  &#125;
+&#125;);</code></pre>
 <p>这段代码创建了 <code>logs/errors</code>、<code>logs/warnings</code> 和 <code>logs/app</code> 三个目录，用于分别保存错误、警告和常规日志。</p>
 <h4 id="622-定义日志颜色"><a class="markdownIt-Anchor" href="#622-定义日志颜色"></a> 6.2.2. 定义日志颜色</h4>
 <p>接下来，通过 <code>chalk</code> 为不同的日志级别定义颜色。这样在控制台输出时，不同的日志级别会有明显的颜色区分：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> chalk <span class="keyword">from</span> <span class="string">&#x27;chalk&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getChalkColor = (<span class="attr">level</span>: <span class="built_in">string</span>): chalk.<span class="property">Chalk</span> =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (level) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;error&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">red</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;warn&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">yellow</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;info&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">green</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;debug&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">blue</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;verbose&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">cyan</span>;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> chalk.<span class="property">white</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import * as chalk from &#x27;chalk&#x27;;
+
+const getChalkColor = (level: string): chalk.Chalk =&gt; &#123;
+  switch (level) &#123;
+    case &#x27;error&#x27;:
+      return chalk.red;
+    case &#x27;warn&#x27;:
+      return chalk.yellow;
+    case &#x27;info&#x27;:
+      return chalk.green;
+    case &#x27;debug&#x27;:
+      return chalk.blue;
+    case &#x27;verbose&#x27;:
+      return chalk.cyan;
+    default:
+      return chalk.white;
+  &#125;
+&#125;;</code></pre>
 <p>这样做的好处是，可以根据日志等级设置不同颜色，从而在控制台中快速识别重要的日志信息。</p>
 <h4 id="623-配置-winston-日志选项"><a class="markdownIt-Anchor" href="#623-配置-winston-日志选项"></a> 6.2.3. 配置 <code>winston</code> 日志选项</h4>
 <p>接下来，我们配置 <code>winston</code> 的核心功能，包括日志格式、日志文件轮转和控制台输出：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createLogger, format, transports &#125; <span class="keyword">from</span> <span class="string">&#x27;winston&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">DailyRotateFile</span> <span class="keyword">from</span> <span class="string">&#x27;winston-daily-rotate-file&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> winstonLogger = <span class="title function_">createLogger</span>(&#123;</span><br><span class="line">  <span class="attr">format</span>: format.<span class="title function_">combine</span>(format.<span class="title function_">timestamp</span>(), format.<span class="title function_">errors</span>(&#123; <span class="attr">stack</span>: <span class="literal">true</span> &#125;), format.<span class="title function_">splat</span>(), format.<span class="title function_">json</span>()),</span><br><span class="line">  <span class="attr">defaultMeta</span>: &#123; <span class="attr">service</span>: <span class="string">&#x27;log-service&#x27;</span> &#125;,</span><br><span class="line">  <span class="attr">transports</span>: [</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">DailyRotateFile</span>(&#123;</span><br><span class="line">      <span class="attr">filename</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;logs/errors/error-%DATE%.log&#x27;</span>),</span><br><span class="line">      <span class="attr">datePattern</span>: <span class="string">&#x27;YYYY-MM-DD-HH-mm-ss&#x27;</span>,</span><br><span class="line">      <span class="attr">zippedArchive</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">maxSize</span>: <span class="string">&#x27;20m&#x27;</span>,</span><br><span class="line">      <span class="attr">maxFiles</span>: <span class="string">&#x27;14d&#x27;</span>,</span><br><span class="line">      <span class="attr">level</span>: <span class="string">&#x27;error&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">DailyRotateFile</span>(&#123;</span><br><span class="line">      <span class="attr">filename</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;logs/warnings/warning-%DATE%.log&#x27;</span>),</span><br><span class="line">      <span class="attr">datePattern</span>: <span class="string">&#x27;YYYY-MM-DD-HH-mm-ss&#x27;</span>,</span><br><span class="line">      <span class="attr">zippedArchive</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">maxSize</span>: <span class="string">&#x27;20m&#x27;</span>,</span><br><span class="line">      <span class="attr">maxFiles</span>: <span class="string">&#x27;14d&#x27;</span>,</span><br><span class="line">      <span class="attr">level</span>: <span class="string">&#x27;warn&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">DailyRotateFile</span>(&#123;</span><br><span class="line">      <span class="attr">filename</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;..&#x27;</span>, <span class="string">&#x27;logs/app/app-%DATE%.log&#x27;</span>),</span><br><span class="line">      <span class="attr">datePattern</span>: <span class="string">&#x27;YYYY-MM-DD-HH-mm-ss&#x27;</span>,</span><br><span class="line">      <span class="attr">zippedArchive</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">maxSize</span>: <span class="string">&#x27;20m&#x27;</span>,</span><br><span class="line">      <span class="attr">maxFiles</span>: <span class="string">&#x27;14d&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> transports.<span class="title class_">Console</span>(&#123;</span><br><span class="line">      <span class="attr">format</span>: format.<span class="title function_">combine</span>(</span><br><span class="line">        format.<span class="title function_">colorize</span>(),</span><br><span class="line">        format.<span class="title function_">simple</span>(),</span><br><span class="line">        format.<span class="title function_">printf</span>(<span class="function"><span class="params">info</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">const</span> level = info.<span class="property">level</span>.<span class="title function_">toLowerCase</span>();</span><br><span class="line">          <span class="keyword">const</span> chalkColor = <span class="title function_">getChalkColor</span>(level);</span><br><span class="line">          <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;chalkColor(<span class="string">`<span class="subst">$&#123;info.timestamp&#125;</span> - <span class="subst">$&#123;info.level&#125;</span>:`</span>)&#125;</span> <span class="subst">$&#123;info.message&#125;</span>`</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">      ),</span><br><span class="line">      <span class="attr">level</span>: <span class="string">&#x27;debug&#x27;</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> winstonLogger;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; createLogger, format, transports &#125; from &#x27;winston&#x27;;
+import * as DailyRotateFile from &#x27;winston-daily-rotate-file&#x27;;
+
+const winstonLogger = createLogger(&#123;
+  format: format.combine(format.timestamp(), format.errors(&#123; stack: true &#125;), format.splat(), format.json()),
+  defaultMeta: &#123; service: &#x27;log-service&#x27; &#125;,
+  transports: [
+    new DailyRotateFile(&#123;
+      filename: path.join(__dirname, &#x27;..&#x27;, &#x27;..&#x27;, &#x27;logs/errors/error-%DATE%.log&#x27;),
+      datePattern: &#x27;YYYY-MM-DD-HH-mm-ss&#x27;,
+      zippedArchive: true,
+      maxSize: &#x27;20m&#x27;,
+      maxFiles: &#x27;14d&#x27;,
+      level: &#x27;error&#x27;
+    &#125;),
+    new DailyRotateFile(&#123;
+      filename: path.join(__dirname, &#x27;..&#x27;, &#x27;..&#x27;, &#x27;logs/warnings/warning-%DATE%.log&#x27;),
+      datePattern: &#x27;YYYY-MM-DD-HH-mm-ss&#x27;,
+      zippedArchive: true,
+      maxSize: &#x27;20m&#x27;,
+      maxFiles: &#x27;14d&#x27;,
+      level: &#x27;warn&#x27;
+    &#125;),
+    new DailyRotateFile(&#123;
+      filename: path.join(__dirname, &#x27;..&#x27;, &#x27;..&#x27;, &#x27;logs/app/app-%DATE%.log&#x27;),
+      datePattern: &#x27;YYYY-MM-DD-HH-mm-ss&#x27;,
+      zippedArchive: true,
+      maxSize: &#x27;20m&#x27;,
+      maxFiles: &#x27;14d&#x27;
+    &#125;),
+    new transports.Console(&#123;
+      format: format.combine(
+        format.colorize(),
+        format.simple(),
+        format.printf(info =&gt; &#123;
+          const level = info.level.toLowerCase();
+          const chalkColor = getChalkColor(level);
+          return `$&#123;chalkColor(`$&#123;info.timestamp&#125; - $&#123;info.level&#125;:`)&#125; $&#123;info.message&#125;`;
+        &#125;)
+      ),
+      level: &#x27;debug&#x27;
+    &#125;)
+  ]
+&#125;);
+
+export default winstonLogger;</code></pre>
 <p>这段配置实现了以下几个功能：</p>
 <ul>
 <li><code>DailyRotateFile</code>：设置了日志文件的轮转，每个日志类型（错误、警告、应用）都将按日期命名并存储</li>
@@ -401,11 +858,32 @@
 </ul>
 <h2 id="63-引入日志配置"><a class="markdownIt-Anchor" href="#63-引入日志配置"></a> 6.3. 引入日志配置</h2>
 <p>在 <code>AppModule</code> 中通过 <code>WinstonModule</code> 引入 <code>winstonLogger</code>，使日志系统能够全局生效：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">WinstonModule</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;nest-winston&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> winstonLogger <span class="keyword">from</span> <span class="string">&#x27;./loggers/winston.logger&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Module</span>(&#123;</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="title class_">WinstonModule</span>.<span class="title function_">forRoot</span>(&#123;</span><br><span class="line">      <span class="attr">transports</span>: winstonLogger.<span class="property">transports</span>,</span><br><span class="line">      <span class="attr">format</span>: winstonLogger.<span class="property">format</span>,</span><br><span class="line">      <span class="attr">defaultMeta</span>: winstonLogger.<span class="property">defaultMeta</span>,</span><br><span class="line">      <span class="attr">exitOnError</span>: <span class="literal">false</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; WinstonModule &#125; from &#x27;nest-winston&#x27;;
+import winstonLogger from &#x27;./loggers/winston.logger&#x27;;
+
+@Module(&#123;
+  imports: [
+    // ...
+    WinstonModule.forRoot(&#123;
+      transports: winstonLogger.transports,
+      format: winstonLogger.format,
+      defaultMeta: winstonLogger.defaultMeta,
+      exitOnError: false
+    &#125;)
+  ]
+&#125;);</code></pre>
 <p>通过 <code>WinstonModule.forRoot()</code> 配置，我们将之前定义的 <code>winstonLogger</code> 作为全局日志管理器，使 NestJS 自动将应用日志转发到 <code>winston</code>。</p>
 <h2 id="64-应用日志系统"><a class="markdownIt-Anchor" href="#64-应用日志系统"></a> 6.4. 应用日志系统</h2>
 <p>为了启用配置的日志系统，我们需要在 <code>main.ts</code> 中将其应用到应用程序：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">WINSTON_MODULE_NEST_PROVIDER</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;nest-winston&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bootstrap</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  </span><br><span class="line">  app.<span class="title function_">useLogger</span>(app.<span class="title function_">get</span>(<span class="variable constant_">WINSTON_MODULE_NEST_PROVIDER</span>));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; WINSTON_MODULE_NEST_PROVIDER &#125; from &#x27;nest-winston&#x27;;
+
+async function bootstrap() &#123;
+  // ...
+  
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+
+  // ...
+&#125;</code></pre>
 <p>这样就将 <code>winston</code> 配置的日志记录器注入到应用中，使日志管理器可以通过 NestJS 的日志 API 来记录日志。</p>
 <h2 id="65-修改-loggermiddleware"><a class="markdownIt-Anchor" href="#65-修改-loggermiddleware"></a> 6.5. 修改 <code>LoggerMiddleware</code></h2>
 <p>最后，我们来修改一下 <code>LoggerMiddleware</code>，将其记录下每个请求的详细信息，包括：</p>
@@ -418,7 +896,35 @@
 <li>响应时间等</li>
 </ul>
 <p>这在调试和性能分析时尤为有用。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span>, <span class="title class_">Logger</span>, <span class="title class_">NestMiddleware</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/common&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Request</span>, <span class="title class_">Response</span>, <span class="title class_">NextFunction</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;express&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> dayjs <span class="keyword">from</span> <span class="string">&#x27;dayjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">LoggerMiddleware</span> <span class="keyword">implements</span> <span class="title class_">NestMiddleware</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> logger = <span class="keyword">new</span> <span class="title class_">Logger</span>();</span><br><span class="line">  <span class="title function_">use</span>(<span class="params"><span class="attr">req</span>: <span class="title class_">Request</span>, <span class="attr">res</span>: <span class="title class_">Response</span>, <span class="attr">next</span>: <span class="title class_">NextFunction</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> start = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">const</span> &#123; method, originalUrl, ip, httpVersion, headers &#125; = req;</span><br><span class="line">    <span class="keyword">const</span> &#123; statusCode &#125; = res;</span><br><span class="line"></span><br><span class="line">    res.<span class="title function_">on</span>(<span class="string">&#x27;finish&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> end = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">      <span class="keyword">const</span> duration = end - start;</span><br><span class="line">      <span class="keyword">const</span> logFormat = <span class="string">`<span class="subst">$&#123;dayjs().valueOf()&#125;</span> <span class="subst">$&#123;method&#125;</span> <span class="subst">$&#123;originalUrl&#125;</span> HTTP/<span class="subst">$&#123;httpVersion&#125;</span> <span class="subst">$&#123;ip&#125;</span> <span class="subst">$&#123;statusCode&#125;</span> <span class="subst">$&#123;duration&#125;</span>ms <span class="subst">$&#123;headers[<span class="string">&#x27;user-agent&#x27;</span>]&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (statusCode &gt;= <span class="number">500</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">logger</span>.<span class="title function_">error</span>(logFormat, originalUrl);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (statusCode &gt;= <span class="number">400</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">logger</span>.<span class="title function_">warn</span>(logFormat, originalUrl);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">logger</span>.<span class="title function_">log</span>(logFormat, originalUrl);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-ts">import &#123; Injectable, Logger, NestMiddleware &#125; from &#x27;@nestjs/common&#x27;;
+import &#123; Request, Response, NextFunction &#125; from &#x27;express&#x27;;
+import * as dayjs from &#x27;dayjs&#x27;;
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware &#123;
+  private logger = new Logger();
+  use(req: Request, res: Response, next: NextFunction) &#123;
+    const start = Date.now();
+    const &#123; method, originalUrl, ip, httpVersion, headers &#125; = req;
+    const &#123; statusCode &#125; = res;
+
+    res.on(&#x27;finish&#x27;, () =&gt; &#123;
+      const end = Date.now();
+      const duration = end - start;
+      const logFormat = `$&#123;dayjs().valueOf()&#125; $&#123;method&#125; $&#123;originalUrl&#125; HTTP/$&#123;httpVersion&#125; $&#123;ip&#125; $&#123;statusCode&#125; $&#123;duration&#125;ms $&#123;headers[&#x27;user-agent&#x27;]&#125;`;
+
+      if (statusCode &gt;= 500) &#123;
+        this.logger.error(logFormat, originalUrl);
+      &#125; else if (statusCode &gt;= 400) &#123;
+        this.logger.warn(logFormat, originalUrl);
+      &#125; else &#123;
+        this.logger.log(logFormat, originalUrl);
+      &#125;
+    &#125;);
+
+    next();
+  &#125;
+&#125;</code></pre>
 <ul>
 <li>事件监听：使用 <code>finish</code> 事件来确保所有响应数据都已发送</li>
 <li>日志格式：每个请求记录的格式包括请求时间、请求方法、URL、IP、状态码、响应耗时等信息</li>

@@ -322,7 +322,29 @@
 <ul>
 <li>处理<code>on_members_added</code>来发送欢迎信息，并处理<code>on_message</code>来当复读机</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EchoBot</span>(<span class="title class_ inherited__">ActivityHandler</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_members_added_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        members_added: [ChannelAccount],</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        每当一个成员加入聊天，就发送`Hello and Welcome`。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> member <span class="keyword">in</span> members_added:</span><br><span class="line">            <span class="keyword">if</span> member.<span class="built_in">id</span> != turn_context.activity.recipient.<span class="built_in">id</span>:</span><br><span class="line">                <span class="keyword">await</span> turn_context.send_activity(<span class="string">&#x27;Hello and Welcome!&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_message_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        每收到一个消息，就发送`Echo: &#123;消息&#125;`</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> turn_context.send_activity(</span><br><span class="line">        	MessageFactory.text(<span class="string">f&#x27;Echo: <span class="subst">&#123;turn_context.activity.text&#125;</span>&#x27;</span>)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">class EchoBot(ActivityHandler):
+    async def on_members_added_activity(
+    	self,
+        members_added: [ChannelAccount],
+        turn_context: TurnContext
+    ):
+        &quot;&quot;&quot;
+        每当一个成员加入聊天，就发送`Hello and Welcome`。
+        &quot;&quot;&quot;
+        for member in members_added:
+            if member.id != turn_context.activity.recipient.id:
+                await turn_context.send_activity(&#x27;Hello and Welcome!&#x27;)
+    
+    async def on_message_activity(
+    	self,
+        turn_context: TurnContext
+    ):
+        &quot;&quot;&quot;
+        每收到一个消息，就发送`Echo: &#123;消息&#125;`
+        &quot;&quot;&quot;
+        return await turn_context.send_activity(
+        	MessageFactory.text(f&#x27;Echo: &#123;turn_context.activity.text&#125;&#x27;)
+        )</code></pre>
 </blockquote>
 <h2 id="对话库"><a class="markdownIt-Anchor" href="#对话库"></a> 对话库</h2>
 <p>对话框提供管理与用户长期对话的方法。</p>
@@ -578,7 +600,11 @@
 <h2 id="配置机器人"><a class="markdownIt-Anchor" href="#配置机器人"></a> 配置机器人</h2>
 <p>在 Python 中，机器人的配置文件为 <code>config.py</code> 。</p>
 <p>配置格式：<code>XXX = os.environ.get(标识属性, 标识值)</code>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DefaultConfig</span>:</span><br><span class="line">    PORT = <span class="number">3978</span></span><br><span class="line">    APP_ID = os.environ.get(<span class="string">&#x27;MicrosoftAppId&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    APP_PASSWORD = os.environ.get(<span class="string">&#x27;MicrosoftAppPassword&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">import os
+class DefaultConfig:
+    PORT = 3978
+    APP_ID = os.environ.get(&#x27;MicrosoftAppId&#x27;, &#x27;&#x27;)
+    APP_PASSWORD = os.environ.get(&#x27;MicrosoftAppPassword&#x27;, &#x27;&#x27;)</code></pre>
 <table>
 <thead>
 <tr>

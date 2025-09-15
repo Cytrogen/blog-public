@@ -17,6 +17,7 @@
 @use '_partial/friend-links';
 @use '_partial/footer';
 @use '_partial/a11y';
+@use '_partial/back-to-top';
 
 @media screen and (min-width: $breakpoint-desktop) {
   .wrap {

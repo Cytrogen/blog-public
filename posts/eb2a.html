@@ -100,7 +100,8 @@
 <h4 id="121-docker的工作流程"><a class="markdownIt-Anchor" href="#121-docker的工作流程"></a> 1.2.1. Docker的工作流程</h4>
 <p>在Docker中，开发者首先创建一个Dockerfile，然后使用Dockerfile创建容器镜像，最后使用容器镜像创建正在运行的容器。</p>
 <p>Dockerfile中的<code>FROM</code>命令用于定义基础镜像，<code>CMD</code>命令用于定义容器启动后需要执行的命令。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx:latest</span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-dockerfile">FROM nginx:latest
+CMD [&quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot;]</code></pre>
 <blockquote>
 <p>以上Dockerfile用于创建一个基于Nginx的容器镜像，它使用了<code>nginx:latest</code>作为基础镜像，并在容器启动后执行<code>nginx -g daemon off;</code>命令、也就是启动Nginx服务</p>
 </blockquote>
@@ -261,11 +262,60 @@
 <p>标签（Labels）是附加到 Kubernetes 对象上的键值对，用于识别和组织对象。一个对象可以有多个标签，而且多个对象可以有相同的标签。这使得你可以轻松地组织和选择你的对象。标签选择器（Label Selectors）是 Kubernetes 中的一种核心分组机制，它允许你根据标签来选择一组对象。</p>
 <p>命名空间（Namespace）在 Kubernetes 中提供了一种资源隔离的机制。一个 Kubernetes 集群可以包含多个命名空间，每个命名空间代表了集群中的一个逻辑分区。你可以在不同的命名空间中运行不同的应用程序，这些应用程序的资源是彼此隔离的。这使得你可以在一个集群中运行多个独立的应用程序，而不需要担心它们会相互干扰。</p>
 <p>YAML文件可以定义要创建的对象。例如我们来定义一个简单的Pod：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.7.9
+    ports:
+    - containerPort: 80</code></pre>
 <p>ReplicaSet是Pod的一组副本，它确保指定数量的Pod副本在任何时间都是可用的。例如我们来定义一个简单的ReplicaSet：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ReplicaSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-replicaset</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">specs:</span></span><br><span class="line">        <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+      specs:
+        containers:
+        - name: nginx
+          image: nginx:1.7.9
+          ports:
+          - containerPort: 80</code></pre>
 <p>ReplicaSet其实并不建议直接创建，而是通过Deployment来创建。Deployment是ReplicaSet的一种控制器，它提供了一种声明式的方式来管理Pod的副本。例如我们来定义一个简单的Deployment：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-deployment</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">3</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">        <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">nginx:1.7.9</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+        containers:
+        - name: nginx
+          image: nginx:1.7.9
+          ports:
+          - containerPort: 80</code></pre>
 <p>对比ReplicaSet，Deployment提供了一个关键功能：滚动更新。滚动更新是指在不中断服务的情况下，逐步更新Pod的副本。这样可以确保应用程序在更新过程中保持可用性。</p>
 <p>Deployment适合无状态的应用程序，而StatefulSet适合有状态的应用程序。StatefulSet是Pod的一组有序的副本，它确保每个Pod副本都有唯一的标识符和稳定的网络标识符。</p>
 <p>Service是一个REST对象，它定义了一组Pod的访问策略。Service可以通过标签选择器来选择一组Pod，然后通过Service的IP地址和端口号来访问这些Pod。Service有四种类型：ClusterIP、NodePort、ExternalLoadBalancer和ExternalName。</p>
@@ -291,7 +341,7 @@
 </ul>
 <h4 id="221-命令式命令"><a class="markdownIt-Anchor" href="#221-命令式命令"></a> 2.2.1. 命令式命令</h4>
 <p>命令式命令是一种直接操作Kubernetes对象的方式。例如，你可以使用 <code>kubectl run</code> 命令来创建一个新的Pod：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run nginx --image nginx</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">kubectl run nginx --image nginx</code></pre>
 <ul>
 <li>适合用于开发和测试环境，但不适合用于生产环境</li>
 <li>并不灵活，选项相当有限</li>
@@ -300,7 +350,7 @@
 </ul>
 <h4 id="222-命令式对象配置"><a class="markdownIt-Anchor" href="#222-命令式对象配置"></a> 2.2.2. 命令式对象配置</h4>
 <p>命令式对象配置是一种指定必需的操作、参数和选项来创建Kubernetes对象的方式。例如，你可以使用 <code>kubectl create</code> 命令来创建一个新的Pod：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f nginx.yaml</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">kubectl create -f nginx.yaml</code></pre>
 <ul>
 <li>多个环境中使用相同的配置文件将产生相同的结果</li>
 <li>对比命令式命令结构更清晰，更易于维护</li>
@@ -310,7 +360,7 @@
 </ul>
 <h4 id="223-声明式对象配置"><a class="markdownIt-Anchor" href="#223-声明式对象配置"></a> 2.2.3. 声明式对象配置</h4>
 <p>声明式对象配置是一种将配置数据存储在文件中，然后使用 <code>kubectl apply</code> 命令来应用这些配置数据的方式。操作由kubectl自动完成，而不是由用户手动完成：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nginx/</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">kubectl apply -f nginx/</code></pre>
 <ul>
 <li>声明式对象配置关注状态而非操作，用户只需要描述所需的最终状态</li>
 <li>可以轻松地在多个环境中共享和重用</li>

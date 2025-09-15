@@ -68,13 +68,57 @@
 <h4 id="111-angular"><a class="markdownIt-Anchor" href="#111-angular"></a> 1.1.1. Angular</h4>
 <p>Angular是一个开源的框架，由谷歌维护。它基于HTML和JavaScript，并且易于实现。</p>
 <p>Angular使用指令来使HTML更加动态，所有指令都可用于包含库的HTML。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>&gt;</span></span><br><span class="line">        Company Name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">ng-model</span>=<span class="string">&quot;comp_name&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">ng-bind</span>=<span class="string">&quot;comp_name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body ng-app&gt;
+        Company Name: &lt;input type=&quot;text&quot; ng-model=&quot;comp_name&quot;&gt;
+        &lt;br&gt;
+        &lt;label ng-bind=&quot;comp_name&quot;&gt;&lt;/label&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <h4 id="112-vue"><a class="markdownIt-Anchor" href="#112-vue"></a> 1.1.2. Vue</h4>
 <p>Vue是一个开源的前端框架，它使用虚拟DOM来实现高性能，HTML被视为一个完整的对象。Vue非常轻量级、渲染速度快、易于学习。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>VueJS Introduction<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/.../vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;intro&quot;</span> <span class="attr">style</span>=<span class="string">&quot;text-align: center;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span>&gt;</span></span><br><span class="line">                &#123;&#123; message &#125;&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        	<span class="keyword">var</span> vue_det = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">el</span>: <span class="string">&quot;#intro&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">data</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="attr">message</span>: <span class="string">&quot;This is a Vue HTML&quot;</span></span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;VueJS Introduction&lt;/title&gt;
+        &lt;script src=&quot;https://cdn.jsdelivr.net/.../vue.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;intro&quot; style=&quot;text-align: center;&quot;&gt;
+            &lt;h5&gt;
+                &#123;&#123; message &#125;&#125;
+            &lt;/h5&gt;
+        &lt;/div&gt;
+        &lt;script type=&quot;text/javascript&quot;&gt;
+        	var vue_det = new Vue(&#123;
+                el: &quot;#intro&quot;,
+                data: &#123;
+                    message: &quot;This is a Vue HTML&quot;
+                &#125;
+            &#125;);
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <h4 id="113-react"><a class="markdownIt-Anchor" href="#113-react"></a> 1.1.3. React</h4>
 <p>React是一个用于构建客户端动态网络应用程序的框架，使用动态数据绑定和虚拟DOM来扩展HTML语法，而不需要编写额外的代码，并保持用户界面元素与应用程序状态的同步。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">            Watson Author Finder</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            Please write your details</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;
+            Watson Author Finder
+        &lt;/h1&gt;
+        &lt;p&gt;
+            Please write your details
+        &lt;/p&gt;
+        &lt;form&gt;
+            &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;
+            &lt;input type=&quot;text&quot; id=&quot;age&quot;&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>React使用JavaScript XML这种类似于HTML的特殊语言来创建用户界面，其可被Babel编译器编译为JavaScript。</p>
 <p>JavaScript XML要嵌入在特殊的脚本标签中，其中的<code>type</code>属性指定了需要Babel的内容。</p>
 <blockquote>
@@ -85,7 +129,27 @@
 <li>Babel编译器：将JavaScript XML编译为JavaScript</li>
 </ul>
 </blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Load React API --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@16/umd/react.production.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Load React DOM --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@16/umd/react-dom.production.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Load Babel Compiler --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;comp1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        	<span class="keyword">class</span> <span class="title class_">Mycomp</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        		<span class="comment">// override the render method</span></span></span><br><span class="line"><span class="language-javascript">        		<span class="title function_">render</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        			<span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is my own component named &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span></span><br><span class="line"><span class="language-javascript">        		&#125;</span></span><br><span class="line"><span class="language-javascript">        	&#125;</span></span><br><span class="line"><span class="language-javascript">        	<span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(<span class="language-xml"><span class="tag">&lt;<span class="name">Mycomp</span> <span class="attr">name</span>=<span class="string">&quot;myBrandNewComp&quot;</span>)/&gt;</span></span>, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;comp1&quot;</span>));</span></span><br><span class="line"><span class="language-javascript">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;!-- Load React API --&gt;
+    &lt;script src=&quot;https://unpkg.com/react@16/umd/react.production.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Load React DOM --&gt;
+    &lt;script src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.production.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Load Babel Compiler --&gt;
+    &lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;
+    
+    &lt;body&gt;
+        &lt;div id=&quot;comp1&quot;&gt;&lt;/div&gt;
+        &lt;script type=&quot;text/babel&quot;&gt;
+        	class Mycomp extends React.Component &#123;
+        		// override the render method
+        		render() &#123;
+        			return &lt;h1&gt;This is my own component named &#123;this.props.name&#125;&lt;/h1&gt;;
+        		&#125;
+        	&#125;
+        	ReactDOM.render(&lt;Mycomp name=&quot;myBrandNewComp&quot;)/&gt;, document.getElementById(&quot;comp1&quot;));
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <ul>
 <li>React组件要在<code>&lt;script&gt;</code>标签中定义，<code>type</code>属性的类型需要设置为<code>text/babel</code>，以便Babel编译器将其编译为JavaScript
 <ul>
@@ -97,7 +161,7 @@
 </ul>
 <p>Facebook提供了一个名为“Create React App”的工具，可以简化创建React应用程序的过程。</p>
 <p>如果已安装Node.js，就可以运行以下命令来安装Create React App：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx create-react-app my-app</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">npx create-react-app my-app</code></pre>
 <p>当运行完上述命令后，系统会自动创建一个包含所有必要文件的目录结构。该目录结构包含创建和运行React应用程序所需的所有文件。</p>
 <ul>
 <li><code>src</code>目录是我们需要修改的主要目录
@@ -121,51 +185,147 @@
 <p><code>let/const</code>和<code>var</code>不同：</p>
 <ul>
 <li><code>var</code>声明的变量的作用域是全局的。这很有挑战性，尤其是在大型项目中，代表着有许多变量需要维护</li>
-<li><code>let</code>可以将变量的作用域限制在声明变量的代码块中  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> num = <span class="number">5</span>;</span><br><span class="line">    num = <span class="number">6</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num);  <span class="comment">// will throw an error</span></span><br></pre></td></tr></table></figure>
+<li><code>let</code>可以将变量的作用域限制在声明变量的代码块中  <pre><code class="language-js">function() &#123;
+    let num = 5;
+    num = 6;
+&#125;
+console.log(num);  // will throw an error</code></pre>
 </li>
-<li><code>const</code>声明的变量的值不能被修改  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> num = <span class="number">5</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num);</span><br><span class="line">num = <span class="number">6</span>;  <span class="comment">// will throw an error</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num);</span><br></pre></td></tr></table></figure>
+<li><code>const</code>声明的变量的值不能被修改  <pre><code class="language-js">const num = 5;
+console.log(num);
+num = 6;  // will throw an error
+console.log(num);</code></pre>
 </li>
 </ul>
 <h4 id="122-箭头函数"><a class="markdownIt-Anchor" href="#122-箭头函数"></a> 1.2.2. 箭头函数</h4>
 <p>箭头函数允许函数像变量一样声明，这是一种更简洁的函数声明方式。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// how a function was written in the older ES5 JavaScript</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayHello</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ES5 function - Hello world!&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// arrow function in ES6</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">sayHello</span> = (<span class="params"></span>)=&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ES6 function - Hello world!&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">// how a function was written in the older ES5 JavaScript
+function sayHello() &#123;
+    console.log(&quot;ES5 function - Hello world!&quot;);
+&#125;
+
+// arrow function in ES6
+const sayHello = ()=&gt; console.log(&quot;ES6 function - Hello world!&quot;);</code></pre>
 <p>箭头函数可以被调用，并可以作为回调的参数传递。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">sayHello</span> = (<span class="params"></span>)=&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(sayHello, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">const sayHello = ()=&gt; console.log(&quot;Hello world!&quot;);
+setTimeout(sayHello, 1000);</code></pre>
 <p>箭头函数也可以像普通函数一样接受参数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// takes one parameter</span></span><br><span class="line"><span class="comment">// brackets are not mandatory</span></span><br><span class="line"><span class="comment">// because the code returns a value, it must be in curly brackets</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">oneParamArrowFunc</span> = name =&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;hello &quot;</span> + name&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// function brackets must be put around the parameters list</span></span><br><span class="line"><span class="comment">// does not need curly brackets because it only has one line of code and returns nothing</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">twoParamsArrowFuncWithoutReturn</span> = (<span class="params">first, last</span>) =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;hello &quot;</span> + first + <span class="string">&quot; &quot;</span> + last);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">twoParamsArrowFuncWithReturn</span> = (<span class="params">first, last</span>) =&gt; &#123;<span class="keyword">return</span> <span class="string">&quot;hello &quot;</span> + first + <span class="string">&quot; &quot;</span> + last&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">twoParamsTwoLinesArrowFunc</span> = (<span class="params">first, last</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> greeting = <span class="string">&quot;hello &quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> greeting + <span class="string">&quot; &quot;</span> + first + <span class="string">&quot; &quot;</span> + last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">// takes one parameter
+// brackets are not mandatory
+// because the code returns a value, it must be in curly brackets
+const oneParamArrowFunc = name =&gt; &#123;return &quot;hello &quot; + name&#125;;
+
+// function brackets must be put around the parameters list
+// does not need curly brackets because it only has one line of code and returns nothing
+const twoParamsArrowFuncWithoutReturn = (first, last) =&gt; console.log(&quot;hello &quot; + first + &quot; &quot; + last);
+
+const twoParamsArrowFuncWithReturn = (first, last) =&gt; &#123;return &quot;hello &quot; + first + &quot; &quot; + last&#125;;
+
+const twoParamsTwoLinesArrowFunc = (first, last) =&gt; &#123;
+    const greeting = &quot;hello &quot;;
+    return greeting + &quot; &quot; + first + &quot; &quot; + last;
+&#125;</code></pre>
 <h4 id="123-promise"><a class="markdownIt-Anchor" href="#123-promise"></a> 1.2.3. Promise</h4>
 <p>Promise对象表示了一个异步操作的最终完成或失败，以及其返回值。每当你调用异步操作时，Promise会处于pending（挂起）状态；当操作成功地执行时，Promise会处于fulfilled（履行）状态；当操作失败时，Promise会处于rejected（拒绝）状态。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">promiseArgument</span> = (<span class="params">resolve, reject</span>) =&gt; &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> currTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">        <span class="keyword">if</span> (currTime % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(<span class="string">&quot;Success!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">reject</span>(<span class="string">&quot;Failed!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myPromise = <span class="keyword">new</span> <span class="title class_">Promise</span>(promiseArgument);</span><br></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myPromise = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> currTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">        <span class="keyword">if</span> (currTime % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(<span class="string">&quot;Success!&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">reject</span>(<span class="string">&quot;Failed!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">2000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">let promiseArgument = (resolve, reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        let currTime = new Date().getTime();
+        if (currTime % 2 === 0) &#123;
+            resolve(&quot;Success!&quot;);
+        &#125; else &#123;
+            reject(&quot;Failed!&quot;);
+        &#125;
+    &#125;, 2000);
+&#125;;
+
+let myPromise = new Promise(promiseArgument);</code></pre>
+<pre><code class="language-js">let myPromise = new Promise((resolve, reject) =&gt; &#123;
+    setTimeout(() =&gt; &#123;
+        let currTime = new Date().getTime();
+        if (currTime % 2 === 0) &#123;
+            resolve(&quot;Success!&quot;);
+        &#125; else &#123;
+            reject(&quot;Failed!&quot;);
+        &#125;
+    &#125;, 2000);
+&#125;);</code></pre>
 <blockquote>
 <p>以上两种写法是等价的。</p>
 </blockquote>
 <h4 id="124-类"><a class="markdownIt-Anchor" href="#124-类"></a> 1.2.4. 类</h4>
 <p>ES6中的类使面向对象编程在JavaScript中更加容易。类创建了对象的模板，且建立在原型（即prototype，是所有JavaScript对象的属性，包括函数，而函数可用于创建对象实例）的基础上。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person1 = <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">function Person(name, age) &#123;
+    this.name = name;
+    this.age = age;
+    return this;
+&#125;
+
+let person1 = Person(&quot;John&quot;, 20);</code></pre>
 <ul>
 <li><code>this</code>指代的是当前对象</li>
 <li>类的概念是在函数原型的前提下建立的，目的是将面向对象编程扩展到JavaScript中</li>
 </ul>
 <p>构造函数（constructor）是一个特殊的函数，用于创建一个类对象：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Rectangle</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">height, width</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">height</span> = height;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">width</span> = width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myRectangle = <span class="keyword">new</span> <span class="title class_">Rectangle</span>(<span class="number">10</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">class Rectangle &#123;
+    constructor(height, width) &#123;
+        this.height = height;
+        this.width = width;
+    &#125;
+&#125;;
+
+let myRectangle = new Rectangle(10, 5);</code></pre>
 <ul>
 <li>使用<code>new</code>关键字就可以创建一个类的实例</li>
 </ul>
 <p>在JavaScript ES6中，类可以继承自其他类。继承其他类的类被称为子类（subclass），而超类（superclass）是被子类继承的类。子类会继承超类的所有属性和方法。</p>
 <p>子类具有特殊权限，能够使用<code>super()</code>方法来调用超类的构造函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Square</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Rectangle</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">height, width</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (height === width) &#123;</span><br><span class="line">            <span class="variable language_">super</span>(height, width);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// if the height is not the same as the width specified,</span></span><br><span class="line">            <span class="comment">// the width will become equal to the height</span></span><br><span class="line">            <span class="variable language_">super</span>(height, height);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> mySquare = <span class="keyword">new</span> <span class="title class_">Square</span>(<span class="number">5</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">class Square extends Rectangle &#123;
+    constructor(height, width) &#123;
+        if (height === width) &#123;
+            super(height, width);
+        &#125; else &#123;
+            // if the height is not the same as the width specified,
+            // the width will become equal to the height
+            super(height, height);
+        &#125;
+    &#125;
+&#125;
+
+let mySquare = new Square(5, 5);</code></pre>
 <h2 id="13-jsx"><a class="markdownIt-Anchor" href="#13-jsx"></a> 1.3. JSX</h2>
 <p>JSX是JavaScript XML或JavaScript Syntax Extension的缩写，是一种类似于React使用的XML或HTML类语法，用于创建React元素。 JSX允许XML或HTML类文本与JavaScript或React代码并存。</p>
 <p>JSX使用预处理器将JavaScript文件中的HTML类文本转换为标准的JavaScript对象，例如转译器或编译器（比方说Babel）。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> el1 = <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is a sample JSX code snippet<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">const el1 = &lt;h1&gt;This is a sample JSX code snippet&lt;/h1&gt;</code></pre>
 <ul>
 <li>JSX代码的语法就像是HTML使用了类似JavaScript的变量</li>
 </ul>
 <h4 id="131-react代码例子"><a class="markdownIt-Anchor" href="#131-react代码例子"></a> 1.3.1. React代码例子</h4>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">    	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        	<span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a sample list<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            	<span class="tag">&lt;<span class="name">li</span>&gt;</span>List item no. 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">li</span>&gt;</span>List item no. 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">import React from &#x27;react&#x27;
+
+function App () &#123;
+    return (
+    	&lt;div&gt;
+        	&lt;p&gt;This is a sample list&lt;/p&gt;
+            &lt;ul&gt;
+            	&lt;li&gt;List item no. 1&lt;/li&gt;
+                &lt;li&gt;List item no. 2&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    );
+&#125;</code></pre>
 <p>而这是普通的JavaScript代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">App</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line">    	<span class="string">&quot;div&quot;</span>,</span><br><span class="line">        <span class="literal">null</span>,</span><br><span class="line">        <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>, <span class="literal">null</span>, <span class="string">&quot;This is a sample list&quot;</span>),</span><br><span class="line">        <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;ul&quot;</span>, <span class="literal">null</span>,</span><br><span class="line">            <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>, <span class="literal">null</span>, <span class="string">&quot;List item no. 1&quot;</span>),</span><br><span class="line">                <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>, <span class="literal">null</span>, <span class="string">&quot;List item no. 2&quot;</span>))</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">import React from &#x27;react&#x27;
+
+function App () &#123;
+    return React.createElement(
+    	&quot;div&quot;,
+        null,
+        React.createElement(&quot;p&quot;, null, &quot;This is a sample list&quot;),
+        React.createElement(&quot;ul&quot;, null,
+            React.createElement(&quot;li&quot;, null, &quot;List item no. 1&quot;),
+                React.createElement(&quot;li&quot;, null, &quot;List item no. 2&quot;))
+    );
+&#125;</code></pre>
 <p>可以看出来，如果没有JSX，React代码将不得不使用大量嵌套来编写，这会导致代码变得难以阅读和维护。</p>
 <h4 id="132-组件"><a class="markdownIt-Anchor" href="#132-组件"></a> 1.3.2. 组件</h4>
 <p>组件（component）是React的核心构件，是一个可重用的代码块，用于创建用户界面。组件可以是函数或类，它们接受输入并返回React元素。</p>
@@ -186,36 +346,145 @@
 <li>生命周期方法（lifecycle methods）是React内置的方法，可以在DOM中的整个持续时间内对组件进行操作</li>
 </ul>
 <p>函数式组件用于显示易于阅读、调试和测试的静态数据。</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Democomponent</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>welcome Message!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">const Democomponent = () =&gt; &#123;
+    return &lt;h1&gt;welcome Message!&lt;/h1&gt;;
+&#125;</code></pre>
 <p>当组件有属性但生命周期不需要管理时最有用。</p>
 <p>函数式组件可以接受用户自定义的属性作为参数：</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params">props</span>) &#123;  <span class="comment">// props passed as a function parameter</span></span><br><span class="line">    <span class="keyword">const</span> compStyle = &#123;</span><br><span class="line">        <span class="attr">color</span>: props.<span class="property">color</span>,</span><br><span class="line">        <span class="attr">fontSize</span>: props.<span class="property">size</span> + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;compStyle&#125;</span>&gt;</span>I am a sentence.<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">App</span> <span class="attr">color</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">size</span>=<span class="string">&quot;25&quot;</span>/&gt;</span>  <span class="comment">&lt;!-- props being sent to the component --&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">function App(props) &#123;  // props passed as a function parameter
+    const compStyle = &#123;
+        color: props.color,
+        fontSize: props.size + &#x27;px&#x27;
+    &#125;;
+    
+    return (
+        &lt;div&gt;
+            &lt;span style=&#123;compStyle&#125;&gt;I am a sentence.&lt;/span&gt;
+        &lt;/div&gt;
+    );
+&#125;
+
+export default App;</code></pre>
+ <pre><code class="language-jsx">ReactDOM.render(
+    &lt;React.StrictMode&gt;
+        &lt;App color=&quot;blue&quot; size=&quot;25&quot;/&gt;  &lt;!-- props being sent to the component --&gt;
+    &lt;/React.StrictMode&gt;,
+    document.getElementById(&#x27;root&#x27;)
+);</code></pre>
 <p>事件处理程序（event handler）可以通过属性来设置，其中<code>onClick</code>处理程序在功能组件中使用的最多：</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">App</span> <span class="attr">color</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">size</span>=<span class="string">&quot;25&quot;</span> <span class="attr">clickEvent</span>=<span class="string">&#123;</span>  &lt;!<span class="attr">--</span> <span class="attr">setting</span> <span class="attr">an</span> <span class="attr">event</span> <span class="attr">handler</span> <span class="attr">method</span> <span class="attr">as</span> <span class="attr">a</span> <span class="attr">property</span> <span class="attr">--</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                () =&gt; &#123; alert(&quot;You clicked me!&quot;) &#125;</span></span><br><span class="line"><span class="language-xml">            &#125;/&gt;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span>,</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;props.clickEvent&#125;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span>  <span class="comment">&lt;!-- setting an event handler from props --&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">import React from &#x27;react&#x27;;
+import ReactDOM from &#x27;react-dom&#x27;;
+import App from &#x27;./App&#x27;;
+
+ReactDOM.render(
+    &lt;React.StrictMode&gt;
+        &lt;App color=&quot;blue&quot; size=&quot;25&quot; clickEvent=&#123;  &lt;!-- setting an event handler method as a property --&gt;
+                () =&gt; &#123; alert(&quot;You clicked me!&quot;) &#125;
+            &#125;/&gt;
+    &lt;/React.StrictMode&gt;,
+    document.getElementById(&#x27;root&#x27;)
+);</code></pre>
+ <pre><code class="language-jsx">function App(props) &#123;
+    return (
+        &lt;div&gt;
+            &lt;button onClick=&#123;props.clickEvent&#125;&gt;Click Me!&lt;/button&gt;  &lt;!-- setting an event handler from props --&gt;
+        &lt;/div&gt;
+    );
+&#125;
+
+export default App;</code></pre>
 </li>
 <li>
 <p>类组件要比函数式组件更复杂，它们可以将数据传递给其他类组件、可以被JavaScript ES6的类创建、可以使用状态、属性和生命周期方法等React功能。</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Democomponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome Message!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">class Democomponent extends React.Component &#123;
+    render() &#123;
+        return &lt;h1&gt;Welcome Message!&lt;/h1&gt;;
+    &#125;
+&#125;</code></pre>
 <p>由于其多功能性，类组件要比函数式组件更受青睐。由于它们继承了<code>React.Component</code>，因此必须要覆盖<code>render()</code>方法。</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import the React module from the react package</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// create the App class that extends React.Component</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(props)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// override the render method</span></span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.clickEvent&#125;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">// import the React module from the react package
+import React from &#x27;react&#x27;;
+
+// create the App class that extends React.Component
+class App extends React.Component &#123;
+    constructor(props) &#123;
+        super(props)
+    &#125;
+    
+    // override the render method
+    render() &#123;
+        return &lt;button onClick=&#123;this.props.clickEvent&#125;&gt;Click Me!&lt;/button&gt;;
+    &#125;
+&#125;
+
+export default App;</code></pre>
 <p><code>props</code>在类组件外部设置，而状态要在类组件内部设置：</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Reach</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(props)</span><br><span class="line">    &#125;</span><br><span class="line">    state = &#123;<span class="attr">counter</span>: <span class="string">&quot;0&quot;</span>&#125;;  <span class="comment">// define the state counter of the component App</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// a function to increment the counter every time a button is clicked</span></span><br><span class="line">    incrementCounter = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">counter</span>: <span class="built_in">parseInt</span>(<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">counter</span>) + <span class="number">1</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// override the render method</span></span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementCounter&#125;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;this.state.counter&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">import Reach from &#x27;react&#x27;;
+
+class App extends React.Component &#123;
+    constructor(props) &#123;
+        super(props)
+    &#125;
+    state = &#123;counter: &quot;0&quot;&#125;;  // define the state counter of the component App
+    
+    // a function to increment the counter every time a button is clicked
+    incrementCounter = () =&gt; &#123;
+        this.setState(&#123;counter: parseInt(this.state.counter) + 1&#125;);
+    &#125;
+    
+    // override the render method
+    render() &#123;
+        return &lt;div&gt;
+            &lt;button onClick=&#123;this.incrementCounter&#125;&gt;Click Me!&lt;/button&gt;
+            &lt;br/&gt;
+            &#123;this.state.counter&#125;
+        &lt;/div&gt;
+    &#125;
+&#125;</code></pre>
 </li>
 <li>
 <p>纯组件（pure component）优于函数式组件，主要用于提供优化。它们是编写起来最简单最快的组件，不依赖于其作用域之外的任何变量状态，可以用来替代简单的函数式组件。</p>
 </li>
 <li>
 <p>高阶组件（higher-order component）是React中重用组件逻辑的高级技术。API不提供高阶组件。它们返回组件的函数，用于与其他组件共享逻辑。</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import React and React Native&#x27;s Text Core Component</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Text</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-native&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// define a component as a function</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Helloworld</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">Text</span>&gt;</span>Hello, World!<span class="tag">&lt;/<span class="name">Text</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// export your function component</span></span><br><span class="line"><span class="comment">// the function can then be imported in any application</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Helloworld</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">// import React and React Native&#x27;s Text Core Component
+import React from &#x27;react&#x27;;
+import &#123; Text &#125; from &#x27;react-native&#x27;;
+
+// define a component as a function
+const Helloworld = () =&gt; &#123;
+    return (
+        &lt;Text&gt;Hello, World!&lt;/Text&gt;
+    );
+&#125;
+
+// export your function component
+// the function can then be imported in any application
+export default Helloworld;</code></pre>
 </li>
 </ol>
 <h1 id="2-react组件"><a class="markdownIt-Anchor" href="#2-react组件"></a> 2. React组件</h1>
 <h2 id="21-状态"><a class="markdownIt-Anchor" href="#21-状态"></a> 2.1. 状态</h2>
 <p>状态允许你在一个应用程序中修改数据。它被定义为一个对象，使用键值对来存储数据，并帮助你跟踪应用程序中不同类型的数据。</p>
 <p>React组件有一个内置的状态对象，可以在状态对象中存储属于组件的属性值。当状态对象发生变化时，组件会重新渲染。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.component</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">            <span class="attr">id</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">            <span class="attr">age</span>: <span class="number">28</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">        	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            	<span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; this.state.name &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123; this.state.age &#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">// component
+class TestComponent extends React.component &#123;
+    constructor() &#123;
+        this.state = &#123;
+            id: 1,
+            name: &quot;John&quot;,
+            age: 28
+        &#125;;
+    &#125;
+    render() &#123;
+        return (
+        	&lt;div&gt;
+            	&lt;p&gt;&#123; this.state.name &#125;&lt;/p&gt;
+                &lt;p&gt;&#123; this.state.age &#125;&lt;/p&gt;
+            &lt;/div&gt;
+        )
+    &#125;
+&#125;</code></pre>
 <ul>
 <li>本代码示例展示出了如何创建一个测试组件，该组件包含<code>id</code>、<code>name</code>和<code>age</code>三个状态属性</li>
 <li>组件的<code>render()</code>方法返回了状态属性的值</li>
@@ -232,7 +501,16 @@
 <p>React组件之间的数据流是从父组件到子组件的单向数据流。</p>
 </blockquote>
 <p>属性可以像函数参数一样被传递，但它们是只读的，不能在组件内部更改。属性允许子组件访问父组件中被定义的方法（状态则是由父组件管理，而子组件没有自己的状态），大部分组件将根据接收到的属性来显示信息，并保持无状态。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.component</span> &#123;</span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hi &#123; this.props.name &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// passing the props as examples to the text component</span></span><br><span class="line">&lt;<span class="title class_">TestComponent</span> name=<span class="string">&quot;John&quot;</span> /&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">TestComponent</span> <span class="attr">name</span>=<span class="string">&quot;Jill&quot;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">// component
+class TestComponent extends React.component &#123;
+    render() &#123;
+        return &lt;div&gt;Hi &#123; this.props.name &#125;&lt;/div&gt;
+    &#125;
+&#125;
+
+// passing the props as examples to the text component
+&lt;TestComponent name=&quot;John&quot; /&gt;
+&lt;TestComponent name=&quot;Jill&quot; /&gt;</code></pre>
 <ul>
 <li>该代码示例创建了一个类<code>TestComponent</code>，该类扩展了React组件</li>
 </ul>
@@ -247,7 +525,32 @@
 <li><code>render()</code>：用于渲染组件；必须且只能返回一个DOM元素</li>
 <li><code>componentDidMount()</code>：用于在组件被插入DOM后执行一些操作</li>
 </ol>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">  <span class="comment">// when the component App is created, the constructor is invoked</span></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Inside the constructor&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the componentDidMount method is invoked</span></span><br><span class="line">  componentDidMount = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Inside component did mount&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// the render method is invoked</span></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Inside render method&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              The component is rendered</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">import React from &#x27;react&#x27;;
+
+class App extends React.Component &#123;
+  // when the component App is created, the constructor is invoked
+  constructor(props) &#123;
+    super(props)
+    console.log(&quot;Inside the constructor&quot;)
+  &#125;
+
+  // the componentDidMount method is invoked
+  componentDidMount = () =&gt; &#123;
+    console.log(&quot;Inside component did mount&quot;)
+  &#125;
+
+  // the render method is invoked
+  render() &#123;
+    console.log(&quot;Inside render method&quot;)
+    return (
+            &lt;div&gt;
+              The component is rendered
+            &lt;/div&gt;
+    );
+  &#125;
+&#125;
+
+export default App;</code></pre>
 </li>
 <li>
 <p>更新阶段（updating phase）：组件的状态或属性发生变化时，会触发更新阶段。当组件更新时，会有五个方法被依次调用：</p>
@@ -258,14 +561,83 @@
 <li><code>getSnapshotBeforeUpdate()</code>：用于在DOM更新前获取DOM状态</li>
 <li><code>componentDidUpdate()</code>：用于在DOM更新后执行一些操作</li>
 </ol>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;<span class="attr">counter</span>: <span class="string">&quot;0&quot;</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    incrementCounter = <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">counter</span>: <span class="built_in">parseInt</span>(<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">counter</span>) + <span class="number">1</span>&#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// returns true by default</span></span><br><span class="line">    <span class="comment">// its behavior is rarely changed</span></span><br><span class="line">    <span class="title function_">shouldComponentUpdate</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside shouldComponentUpdate&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">getSnapshotBeforeUpdate</span>(<span class="params">prevProps, prevState</span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside getSnapshotBeforeUpdate&#x27;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Prev counter is &#x27;</span> + prevState.<span class="property">counter</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;New counter is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">counter</span>);</span><br><span class="line">        <span class="keyword">return</span> prevState;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">componentDidUpdate</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside componentDidUpdate&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// logs on to the console and then renders the component</span></span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside render&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!-- With the onClick of the button, incrementCounter is invoked, increasing the counter state by 1 --&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.incrementCounter&#125;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;this.state.counter&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">import React from &#x27;react&#x27;;
+
+class App extends React.Component &#123;
+    state = &#123;counter: &quot;0&quot;&#125;;
+    
+    incrementCounter = () =&gt; this.setState(&#123;counter: parseInt(this.state.counter) + 1&#125;);
+    
+    // returns true by default
+    // its behavior is rarely changed
+    shouldComponentUpdate() &#123;
+        console.log(&#x27;Inside shouldComponentUpdate&#x27;)
+        return true;
+    &#125;
+    
+    getSnapshotBeforeUpdate(prevProps, prevState) &#123;
+        console.log(&#x27;Inside getSnapshotBeforeUpdate&#x27;);
+        console.log(&#x27;Prev counter is &#x27; + prevState.counter);
+        console.log(&#x27;New counter is &#x27; + this.state.counter);
+        return prevState;
+    &#125;
+    
+    componentDidUpdate() &#123;
+        console.log(&#x27;Inside componentDidUpdate&#x27;)
+    &#125;
+    
+    // logs on to the console and then renders the component
+    render() &#123;
+        console.log(&#x27;Inside render&#x27;)
+        return (
+            &lt;div&gt;
+                &lt;!-- With the onClick of the button, incrementCounter is invoked, increasing the counter state by 1 --&gt;
+                &lt;button onClick=&#123;this.incrementCounter&#125;&gt;Click Me!&lt;/button&gt;
+                &#123;this.state.counter&#125;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;
+
+export default App;</code></pre>
 </li>
 <li>
 <p>卸载阶段（unmounting phase）：组件从DOM中移除时，会触发卸载阶段。当组件被卸载时，会有一个方法被调用：</p>
 <ol>
 <li><code>componentWillUnmount()</code>：用于在组件被卸载前执行一些操作</li>
 </ol>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppInner</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">componentWillUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;This component will unmount&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Inner component<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;<span class="attr">innerComponent</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">AppInner</span>/&gt;</span></span>&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">innerComponent</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>unmounted<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&#125;)    </span><br><span class="line">        &#125;, <span class="number">5000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside render&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                &#123;this.state.innerComponent&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">import React from &#x27;react&#x27;;
+
+class AppInner extends React.Component &#123;
+    componentWillUnmount() &#123;
+        console.log(&#x27;This component will unmount&#x27;)
+    &#125;
+    
+    render() &#123;
+        return &lt;div&gt;Inner component&lt;/div&gt;
+    &#125;
+&#125;
+
+class App extends React.Component &#123;
+    state = &#123;innerComponent:&lt;AppInner/&gt;&#125;
+    
+    componentDidMount() &#123;
+        setTimeout(() =&gt; &#123;
+            this.setState(&#123;innerComponent: &lt;div&gt;unmounted&lt;/div&gt;&#125;)    
+        &#125;, 5000)
+    &#125;
+    
+    render() &#123;
+        console.log(&#x27;Inside render&#x27;)
+        return (
+            &lt;div&gt;
+                &#123;this.state.innerComponent&#125;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;
+
+export default App;</code></pre>
 </li>
 </ol>
 <h2 id="24-组件之间的数据传递"><a class="markdownIt-Anchor" href="#24-组件之间的数据传递"></a> 2.4. 组件之间的数据传递</h2>
@@ -276,14 +648,84 @@
 <li>使用Redux的“兄弟”数据传递（此处不做讨论）</li>
 </ol>
 <p>父到子：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;<span class="attr">childColor</span>: <span class="string">&quot;green&quot;</span>, <span class="attr">name</span>: <span class="string">&quot;John&quot;</span>&#125;</span><br><span class="line">    </span><br><span class="line">    changeColor = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> newcolor = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;colorbox&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">childColor</span>: newcolor&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    changeName = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> newname = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;namebox&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">name</span>: newname&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Inside render&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">        	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            	Color <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;Text&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;this.changeColor&#125;</span> <span class="attr">id</span>=<span class="string">&quot;colorbox&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">                Name <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;Text&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;this.changeName&#125;</span> <span class="attr">id</span>=<span class="string">&quot;namebox&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                </span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!-- App sets the property color and name for AppInner --&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!-- The data is passed to the child every time a new value is entered in the input boxes in the parent --&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">AppInner</span> <span class="attr">color</span>=<span class="string">&#123;this.state.childColor&#125;</span> <span class="attr">name</span>=<span class="string">&#123;this.state.name&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AppInner</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">        <span class="variable language_">super</span>(props)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> txtStyle = &#123;<span class="attr">color</span>: <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">color</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;txtStyle&#125;</span>&gt;</span>&#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">class App extends React.Component &#123;
+    state = &#123;childColor: &quot;green&quot;, name: &quot;John&quot;&#125;
+    
+    changeColor = () =&gt; &#123;
+        const newcolor = document.getElementById(&#x27;colorbox&#x27;).value;
+        this.setState(&#123;childColor: newcolor&#125;)
+    &#125;
+    
+    changeName = () =&gt; &#123;
+        const newname = document.getElementById(&#x27;namebox&#x27;).value;
+        this.setState(&#123;name: newname&#125;)
+    &#125;
+    
+    render() &#123;
+        console.log(&#x27;Inside render&#x27;)
+        return (
+        	&lt;div&gt;
+            	Color &lt;input type=&quot;Text&quot; onChange=&#123;this.changeColor&#125; id=&quot;colorbox&quot; /&gt;
+                &lt;br/&gt;
+                Name &lt;input type=&quot;Text&quot; onChange=&#123;this.changeName&#125; id=&quot;namebox&quot; /&gt;
+                
+                &lt;!-- App sets the property color and name for AppInner --&gt;
+                &lt;!-- The data is passed to the child every time a new value is entered in the input boxes in the parent --&gt;
+                &lt;AppInner color=&#123;this.state.childColor&#125; name=&#123;this.state.name&#125; /&gt;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;</code></pre>
+<pre><code class="language-jsx">class AppInner extends React.Component &#123;
+    constructor(props) &#123;
+        super(props)
+    &#125;
+    
+    render() &#123;
+        const txtStyle = &#123;color: this.props.color&#125;
+        return &lt;span style=&#123;txtStyle&#125;&gt;&#123;this.props.name&#125;&lt;/span&gt;
+    &#125;
+&#125;</code></pre>
 <ul>
 <li>其中，<code>App</code>组件是<code>AppInner</code>组件的父组件</li>
 </ul>
 <p>子到父：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;<span class="attr">message</span>: <span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Func1 is a parent component function which takes a string argument</span></span><br><span class="line">    func1 = <span class="function">(<span class="params">childData</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">message</span>: childData&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">        	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!-- Pass the callback func1 as a property to the child --&gt;</span></span></span><br><span class="line"><span class="language-xml">            	<span class="tag">&lt;<span class="name">AppInner</span> <span class="attr">parentCallback</span> = <span class="string">&#123;this.func1&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;this.state.message&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AppInner</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    sendData = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> currTime = <span class="title class_">Date</span>();</span><br><span class="line">            <span class="comment">// the parent class method which sets the state of the parent component</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">props</span>.<span class="title function_">parentCallback</span>(currTime);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// invoke the sendData method</span></span><br><span class="line">    <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">sendData</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">class App extends React.Component &#123;
+    state = &#123;message: &quot;&quot;&#125;
+    
+    // Func1 is a parent component function which takes a string argument
+    func1 = (childData) =&gt; &#123;
+        this.setState(&#123;message: childData&#125;)
+    &#125;
+    
+    render() &#123;
+        return (
+        	&lt;div&gt;
+                &lt;!-- Pass the callback func1 as a property to the child --&gt;
+            	&lt;AppInner parentCallback = &#123;this.func1&#125; /&gt;
+                &lt;p&gt;&#123;this.state.message&#125;&lt;/p&gt;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;</code></pre>
+<pre><code class="language-jsx">class AppInner extends React.Component &#123;
+    sendData = () =&gt; &#123;
+        setInterval(() =&gt; &#123;
+            const currTime = Date();
+            // the parent class method which sets the state of the parent component
+            this.props.parentCallback(currTime);
+        &#125;, 1000);
+    &#125;
+    
+    // invoke the sendData method
+    componentDidMount() &#123;
+        this.sendData();
+    &#125;
+    
+    render() &#123;
+        return &lt;div&gt;&lt;/div&gt;
+    &#125;
+&#125;</code></pre>
 <h2 id="25-组件的生命周期"><a class="markdownIt-Anchor" href="#25-组件的生命周期"></a> 2.5. 组件的生命周期</h2>
 <p>组件的生命周期代表了组件从创建到销毁的整个过程。React组件的生命周期包含四个阶段，每个阶段都有不同的方法：</p>
 <ol>
@@ -317,15 +759,87 @@
 <ol>
 <li>
 <p><code>GET</code>：从服务器获取数据</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">        <span class="attr">user</span>: <span class="string">&quot;None Logged In&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// connect to a server through an axios request</span></span><br><span class="line">    <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> req = axios.<span class="title function_">get</span>(<span class="string">&quot;&lt;external server&gt;&quot;</span>);</span><br><span class="line">        req.<span class="title function_">then</span>(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// then the promise is fulfilled, you parse the response and extract the data from it to change user to have the same name as its value</span></span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">user</span>: resp.<span class="property">data</span>.<span class="property">name</span>&#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">        .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">user</span>: <span class="string">&quot;Invalid user&quot;</span>&#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                Current user - &#123;this.state.user&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">class App extends React.Component &#123;
+    state = &#123;
+        user: &quot;None Logged In&quot;
+    &#125;
+    
+    // connect to a server through an axios request
+    componentDidMount() &#123;
+        const req = axios.get(&quot;&lt;external server&gt;&quot;);
+        req.then(resp =&gt; &#123;
+            // then the promise is fulfilled, you parse the response and extract the data from it to change user to have the same name as its value
+            this.setState(&#123;user: resp.data.name&#125;);
+        &#125;)
+        .catch(err =&gt; &#123;
+            this.setState(&#123;user: &quot;Invalid user&quot;&#125;);
+        &#125;);
+    &#125;
+    
+    render() &#123;
+        return (
+            &lt;div&gt;
+                Current user - &#123;this.state.user&#125;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;</code></pre>
 </li>
 <li>
 <p><code>POST</code>：将数据发送到服务器</p>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// this server uses the CORS middleware to allow cross-origin requests to the server</span></span><br><span class="line"><span class="keyword">const</span> cors_app = <span class="built_in">require</span>(<span class="string">&quot;cors&quot;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors_app</span>());</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> usercollection = [];</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;/user&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> newuser = &#123;<span class="string">&quot;name&quot;</span>: req.<span class="property">query</span>.<span class="property">name</span>, <span class="string">&quot;gender&quot;</span>: req.<span class="property">query</span>.<span class="property">gender</span>&#125;</span><br><span class="line">    usercollection.<span class="title function_">push</span>(newuser);</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;User successfully added&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/user&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">send</span>(usercollection);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Listening at http://localhost:3333&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">const express = require(&quot;express&quot;);
+const app = new express();
+
+// this server uses the CORS middleware to allow cross-origin requests to the server
+const cors_app = require(&quot;cors&quot;);
+app.use(cors_app());
+
+let usercollection = [];
+
+app.post(&quot;/user&quot;, (req, res) =&gt; &#123;
+    let newuser = &#123;&quot;name&quot;: req.query.name, &quot;gender&quot;: req.query.gender&#125;
+    usercollection.push(newuser);
+    return res.send(&quot;User successfully added&quot;);
+&#125;);
+
+app.get(&quot;/user&quot;, (req, res) =&gt; &#123;
+    return res.send(usercollection);
+&#125;)
+
+app.listen(3333, () =&gt; &#123;
+    console.log(&quot;Listening at http://localhost:3333&quot;)
+&#125;)</code></pre>
 <ul>
 <li>Express服务器接收端点<code>/user</code>的<code>POST</code>请求，并将数据存储在<code>usercollection</code>数组中</li>
 </ul>
- <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">    state = &#123;<span class="attr">completionstatus</span>: <span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    </span><br><span class="line">    postDataToServer = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        axios.<span class="title function_">post</span>(<span class="string">&quot;http://localhost:3333/user?name=&quot;</span> +</span><br><span class="line">                   <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;name&quot;</span>).<span class="property">value</span> +</span><br><span class="line">                  <span class="string">&quot;&amp;gender=&quot;</span> + <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;gender&quot;</span>).<span class="property">value</span></span><br><span class="line">        )</span><br><span class="line">        .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">completionstatus</span>: response.<span class="property">data</span>&#125;)</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;<span class="attr">completionstatus</span>: <span class="string">&quot;Operation failure&quot;</span>&#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                Enter the name <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                Enter the gender <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;gender&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.postDataToServer&#125;</span>&gt;</span>Post Data<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;this.state.completionstatus&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-jsx">class App extends React.Component &#123;
+    state = &#123;completionstatus: &quot;&quot;&#125;
+    
+    postDataToServer = () =&gt; &#123;
+        axios.post(&quot;http://localhost:3333/user?name=&quot; +
+                   document.getElementById(&quot;name&quot;).value +
+                  &quot;&amp;gender=&quot; + document.getElementById(&quot;gender&quot;).value
+        )
+        .then(response =&gt; &#123;
+            this.setState(&#123;completionstatus: response.data&#125;)
+        &#125;).catch((err) =&gt; &#123;
+            this.setState(&#123;completionstatus: &quot;Operation failure&quot;&#125;)
+        &#125;)
+    &#125;
+    
+    render() &#123;
+        return (
+            &lt;div&gt;
+                Enter the name &lt;input type=&quot;text&quot; id=&quot;name&quot; /&gt;
+                &lt;br /&gt;
+                Enter the gender &lt;input type=&quot;text&quot; id=&quot;gender&quot; /&gt;
+                &lt;br /&gt;
+                &lt;button onClick=&#123;this.postDataToServer&#125;&gt;Post Data&lt;/button&gt;
+                &lt;span&gt;&#123;this.state.completionstatus&#125;&lt;/span&gt;
+            &lt;/div&gt;
+        );
+    &#125;
+&#125;</code></pre>
 </li>
 <li>
 <p><code>UPDATE</code>：修改数据</p>
@@ -378,7 +892,23 @@
 <li><code>useReducer</code>：管理Redux的状态变化</li>
 </ul>
 <p>自定义Hooks允许你为应用程序添加特殊功能。它们可以由一个或多个Hooks组成、可以被重复使用、分解为更小的Hooks。自定义Hooks需要以<code>use</code>开头。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">CntApp</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// declare a new state variable &quot;count&quot;</span></span><br><span class="line">    <span class="comment">// useState is the hook which needs to call inside a function component to add some local state to it</span></span><br><span class="line">    <span class="keyword">const</span> [count, setCount] = <span class="title function_">useState</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">    	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        	<span class="tag">&lt;<span class="name">p</span>&gt;</span>You clicked &#123;count&#125; many times<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">            	Click me</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">CntApp</span>;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">import React, &#123; useState &#125; from &quot;react&quot;;
+
+function CntApp() &#123;
+    // declare a new state variable &quot;count&quot;
+    // useState is the hook which needs to call inside a function component to add some local state to it
+    const [count, setCount] = useState(0);
+    return (
+    	&lt;div&gt;
+        	&lt;p&gt;You clicked &#123;count&#125; many times&lt;/p&gt;
+            &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;
+            	Click me
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+&#125;
+
+export default CntApp;</code></pre>
 <h2 id="32-表单"><a class="markdownIt-Anchor" href="#32-表单"></a> 3.2. 表单</h2>
 <p>大多数React表单都是单页面应用程序（SPA）或者加载单个页面的网络应用程序。表单使用组件处理数据、使用事件处理程序控制变量的变化和状态的更新。</p>
 <p>表单标签有：</p>
@@ -420,7 +950,33 @@
 </tbody>
 </table>
 <p>表单示例：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// to track the state of the email address, this example uses a hook</span></span><br><span class="line">    <span class="keyword">const</span> [email, setEmail] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    <span class="keyword">const</span> [password, setPassword] = <span class="title class_">React</span>.<span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">handleSubmit</span> = (<span class="params">event</span>) =&gt; &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Email: $&#123;email&#125;\nPassword: $&#123;password&#125;&quot;</span>);</span><br><span class="line">        event.<span class="title function_">preventDefault</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;handleSubmit&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>Registration<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!-- to ensure that the email remains updated when the use interacts with form, you must add as input, value, and onChange attributes to the email address --&gt;</span></span></span><br><span class="line"><span class="language-xml">            	Email: <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">value</span>=<span class="string">&#123;email&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;e</span> =&gt;</span> setEmail(e.target.value)&#125; required /&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            	Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&#123;password&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;e</span> =&gt;</span> setPassword(e.target.value)&#125; required /&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            </span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">button</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">import React, &#123; Component &#125; from &quot;react&quot;;
+
+export default function App() &#123;
+    // to track the state of the email address, this example uses a hook
+    const [email, setEmail] = React.useState(&quot;&quot;);
+    const [password, setPassword] = React.useState(&quot;&quot;);
+    
+    const handleSubmit = (event) =&gt; &#123;
+        console.log(&quot;Email: $&#123;email&#125;\nPassword: $&#123;password&#125;&quot;);
+        event.preventDefault();
+    &#125;
+    
+    return (
+        &lt;form onSubmit=&#123;handleSubmit&#125;&gt;
+        	&lt;h1&gt;Registration&lt;/h1&gt;
+            &lt;label&gt;
+                &lt;!-- to ensure that the email remains updated when the use interacts with form, you must add as input, value, and onChange attributes to the email address --&gt;
+            	Email: &lt;input name=&quot;email&quot; type=&quot;email&quot; value=&#123;email&#125; onChange=&#123;e =&gt; setEmail(e.target.value)&#125; required /&gt;
+            &lt;/label&gt;
+            &lt;label&gt;
+            	Password: &lt;input name=&quot;password&quot; type=&quot;password&quot; value=&#123;password&#125; onChange=&#123;e =&gt; setPassword(e.target.value)&#125; required /&gt;
+            &lt;/label&gt;
+            
+            &lt;button&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;
+    );
+&#125;</code></pre>
 <blockquote>
 <p>React Hook Form是一个创建表单的实用软件包，它可以帮助你创建可重用的表单组件。</p>
 </blockquote>

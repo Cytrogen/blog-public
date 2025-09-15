@@ -67,17 +67,31 @@
 <h1 id="using-ffmpy3"><a class="markdownIt-Anchor" href="#using-ffmpy3"></a> Using <code>ffmpy3</code></h1>
 <h2 id="installing-ffmpy3-package"><a class="markdownIt-Anchor" href="#installing-ffmpy3-package"></a> Installing <code>ffmpy3</code> Package</h2>
 <p>Install using <code>pip</code>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ffmpy3</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">pip install ffmpy3</code></pre>
 <h2 id="simple-ffmpy3-example"><a class="markdownIt-Anchor" href="#simple-ffmpy3-example"></a> Simple <code>ffmpy3</code> Example</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ffmpy3</span><br><span class="line">ff = ffmpy3.FFmpeg(</span><br><span class="line">    inputs=&#123;<span class="string">&#x27;input_file&#x27;</span>: <span class="string">&#x27;parameter1&#x27;</span>&#125;,</span><br><span class="line">    outputs=&#123;<span class="string">&#x27;output_file&#x27;</span>: <span class="string">&#x27;parameter2&#x27;</span>&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">import ffmpy3
+ff = ffmpy3.FFmpeg(
+    inputs=&#123;&#x27;input_file&#x27;: &#x27;parameter1&#x27;&#125;,
+    outputs=&#123;&#x27;output_file&#x27;: &#x27;parameter2&#x27;&#125;
+)</code></pre>
 <p>The final result is equivalent to entering in terminal:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg parameter1 -i input_file parameter2 output_file</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">FFmpeg parameter1 -i input_file parameter2 output_file</code></pre>
 <h1 id="batch-merging-ts-files"><a class="markdownIt-Anchor" href="#batch-merging-ts-files"></a> Batch Merging TS Files</h1>
 <h2 id="directory-structure"><a class="markdownIt-Anchor" href="#directory-structure"></a> Directory Structure</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├───folder</span><br><span class="line">│    python_file.py</span><br><span class="line">│    file.txt</span><br><span class="line">│    fileA.ts</span><br><span class="line">│    fileB.ts</span><br><span class="line">│    fileC.ts</span><br><span class="line">│    fileD.ts</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">├───folder
+│    python_file.py
+│    file.txt
+│    fileA.ts
+│    fileB.ts
+│    fileC.ts
+│    fileD.ts
+...</code></pre>
 <h4 id="filetxt"><a class="markdownIt-Anchor" href="#filetxt"></a> <code>file.txt</code></h4>
 <p>Write the TS filenames in <code>file.txt</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file &#x27;fileA.ts&#x27;</span><br><span class="line">file &#x27;fileB.ts&#x27;</span><br><span class="line">file &#x27;fileC.ts&#x27;</span><br><span class="line">file &#x27;fileD.ts&#x27;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">file &#x27;fileA.ts&#x27;
+file &#x27;fileB.ts&#x27;
+file &#x27;fileC.ts&#x27;
+file &#x27;fileD.ts&#x27;</code></pre>
 <blockquote>
 <p>Note:</p>
 <ol>
@@ -87,9 +101,13 @@
 </blockquote>
 <h4 id="python-file"><a class="markdownIt-Anchor" href="#python-file"></a> Python File</h4>
 <p>Use this code to batch merge TS files:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ff = ffmpy3.FFmpeg(</span><br><span class="line">        inputs=&#123;<span class="string">f&#x27;file.txt&#x27;</span>: <span class="string">&#x27;-f concat&#x27;</span>&#125;,</span><br><span class="line">        outputs=&#123;<span class="string">f&#x27;filename.mp4&#x27;</span>: <span class="string">&#x27;-c copy&#x27;</span>&#125;</span><br><span class="line">)</span><br><span class="line">ff.run()</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">ff = ffmpy3.FFmpeg(
+        inputs=&#123;f&#x27;file.txt&#x27;: &#x27;-f concat&#x27;&#125;,
+        outputs=&#123;f&#x27;filename.mp4&#x27;: &#x27;-c copy&#x27;&#125;
+)
+ff.run()</code></pre>
 <p>The above code is equivalent to entering in terminal:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg -f concat -i file.txt -c copy filename.mp4</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">FFmpeg -f concat -i file.txt -c copy filename.mp4</code></pre>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="f27d.html">PREV POST</a><a class="next" href="270a.html">NEXT POST</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   

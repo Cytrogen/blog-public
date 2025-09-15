@@ -62,23 +62,52 @@
 <p><img src="/posts/14d5/result.png" alt="result"></p>
 <h2 id="环境"><a class="markdownIt-Anchor" href="#环境"></a> 环境</h2>
 <p>先说父容器的样式，一个带了<code>flex</code>的<code>div</code>：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;flex flex-col h-full&quot;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;flex-1&quot;</span>&gt;</span>&#123;/* 信息内容 */&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    </span><br><span class="line">    &#123;<span class="comment">/* 主角 */</span>&#125;</span><br><span class="line">    &lt;<span class="title class_">Textbox</span> /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">&lt;div className=&quot;flex flex-col h-full&quot;&gt;
+    &lt;div className=&quot;flex-1&quot;&gt;&#123;/* 信息内容 */&#125;&lt;/div&gt;
+    
+    &#123;/* 主角 */&#125;
+    &lt;Textbox /&gt;
+&lt;/div&gt;</code></pre>
 <p>而 <code>Textbox</code> 组件的样式差不多是这样的：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;flex items-center w-full&quot;</span>&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">textarea</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;message&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;w-full resize-none&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;Type a message...&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">rows</span>=<span class="string">&quot;1&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    /&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>发送<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">&lt;div className=&quot;flex items-center w-full&quot;&gt;
+    &lt;textarea
+        name=&quot;message&quot;
+        className=&quot;w-full resize-none&quot;
+        placeholder=&quot;Type a message...&quot;
+        rows=&quot;1&quot;
+    /&gt;
+    &lt;button&gt;发送&lt;/button&gt;
+&lt;/div&gt;</code></pre>
 <p>正常来说，<code>textarea</code> 的大小是朝下无限增长的，但这不是我们想要的，我们希望它能够朝上增长、挤压信息内容的高度，直到达到一定高度后出现滚动条。</p>
 <h2 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h2>
 <p>为什么要特意说到父容器是一个带了 <code>flex</code> 的 <code>div</code> 呢？因为这是解决问题的关键。</p>
 <p>包含了信息内容的兄弟元素会铺满剩余没有被 <code>Textbox</code> 组件占用的空间，而 <code>Textbox</code> 组件的高度是可以动态修改的。</p>
 <p>也就是说，我们可以通过监听 <code>textarea</code> 的 <code>scrollHeight</code> 属性，来动态修改 <code>Textbox</code> 整个组件的高度，最终保持让它一直待在父容器的里面。</p>
 <p>先创建一个<code>useRef</code>来引用<code>textarea</code>：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> textareaRef = <span class="title function_">useRef</span>(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">ref</span>=<span class="string">&#123;textareaRef&#125;</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">const textareaRef = useRef(null);
+
+// ... 
+
+&lt;textarea ref=&#123;textareaRef&#125; /&gt;</code></pre>
 <p>我们还需要创建一个<code>useState</code>来保存我们想要的高度：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [height, setHeight] = <span class="title function_">useState</span>(<span class="number">40</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">const [height, setHeight] = useState(40);</code></pre>
 <blockquote>
 <p>这里的 <code>40</code> （像素）是我自己设定的一个最小高度。</p>
 </blockquote>
 <p>创建<code>useEffect</code>来监听<code>textarea</code>的<code>scrollHeight</code>属性：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">handleResize</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> textareaElement = textareaRef.<span class="property">current</span>;</span><br><span class="line">        textareaElement.<span class="property">style</span>.<span class="property">height</span> = <span class="string">&quot;auto&quot;</span>;</span><br><span class="line">        textareaElement.<span class="property">style</span>.<span class="property">height</span> = <span class="string">`<span class="subst">$&#123;textareaElement.scrollHeight&#125;</span>px`</span>;</span><br><span class="line">        <span class="title function_">setHeight</span>(<span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">40</span>, textareaElement.<span class="property">scrollHeight</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> textareaElement = textareaRef.<span class="property">current</span>;</span><br><span class="line">    textareaElement.<span class="title function_">addEventListener</span>(<span class="string">&quot;input&quot;</span>, handleResize);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> textareaElement.<span class="title function_">removeEventListener</span>(<span class="string">&quot;input&quot;</span>, handleResize);</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">useEffect(() =&gt; &#123;
+    const handleResize = () =&gt; &#123;
+        const textareaElement = textareaRef.current;
+        textareaElement.style.height = &quot;auto&quot;;
+        textareaElement.style.height = `$&#123;textareaElement.scrollHeight&#125;px`;
+        setHeight(Math.max(40, textareaElement.scrollHeight));
+    &#125;
+    
+    const textareaElement = textareaRef.current;
+    textareaElement.addEventListener(&quot;input&quot;, handleResize);
+    
+    return () =&gt; textareaElement.removeEventListener(&quot;input&quot;, handleResize);
+&#125;, []);</code></pre>
 <p>在 <code>handleResize</code> 中，我们先将 <code>textarea</code> 的高度设置为 <code>auto</code>，这样就可以让它自己决定高度，然后用 <code>setHeight</code> 来保存 <code>scrollHeight</code> 的值。</p>
 <blockquote>
 <p><code>Math.max(40, textareaElement.scrollHeight)</code> 是为了保证 <code>textarea</code> 的高度不会小于 <code>40</code> 像素，也就是我刚才说的，我自己设定的一个最小高度。</p>
@@ -86,16 +115,43 @@
 <p><code>handleResize</code> 需要在用户输入时触发，所以还要用 <code>addEventListener</code> 来监听 <code>input</code> 事件。</p>
 <p>最后别忘了卸载监听器。</p>
 <p>那么我们得到的 <code>height</code> 要用在哪里呢？<code>Textbox</code> 组件的最外层 <code>div</code> 上：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;flex items-center w-full&quot;</span> style=&#123;&#123; <span class="attr">height</span>: <span class="string">`<span class="subst">$&#123;height&#125;</span>px`</span> &#125;&#125;&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">textarea</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">name</span>=<span class="string">&quot;message&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;w-full resize-none&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;Type a message...&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">rows</span>=<span class="string">&quot;1&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">ref</span>=<span class="string">&#123;textareaRef&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    /&gt;</span></span></span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>发送<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">&lt;div className=&quot;flex items-center w-full&quot; style=&#123;&#123; height: `$&#123;height&#125;px` &#125;&#125;&gt;
+    &lt;textarea
+        name=&quot;message&quot;
+        className=&quot;w-full resize-none&quot;
+        placeholder=&quot;Type a message...&quot;
+        rows=&quot;1&quot;
+        ref=&#123;textareaRef&#125;
+    /&gt;
+    &lt;button&gt;发送&lt;/button&gt;
+&lt;/div&gt;</code></pre>
 <p>每次用户输入，<code>height</code> 都会被更新，<code>Textbox</code> 组件的高度也会被更新。拥有着固定高度的 <code>Textbox</code> 组件能够在Flexbox布局中自由伸缩，装有信息内容的兄弟元素则会根据 <code>Textbox</code> 组件的高度自动调整。</p>
 <p>不过呢还是有需求没能完成：<code>Textbox</code> 组件要在伸展到一定高度时出现滚动条。之后再说吧。</p>
 <h2 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h2>
 <p>其实之后测试时发现还是有问题的，原因很简单：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">onKeyDown=&#123;<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.<span class="property">key</span> === <span class="string">&quot;Enter&quot;</span> &amp;&amp; !e.<span class="property">shiftKey</span>) &#123;</span><br><span class="line">        e.<span class="title function_">preventDefault</span>();  <span class="comment">// 我当时忘记加这一句了</span></span><br><span class="line">        <span class="title function_">handleSendMessage</span>(e.<span class="property">target</span>.<span class="property">value</span>)</span><br><span class="line">            .<span class="title function_">then</span>(<span class="function"><span class="params">r</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Message sent&quot;</span>))</span><br><span class="line">            .<span class="title function_">catch</span>(<span class="function"><span class="params">e</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&quot;Error in sending message:&quot;</span>, e));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">onKeyDown=&#123;e =&gt; &#123;
+    if (e.key === &quot;Enter&quot; &amp;&amp; !e.shiftKey) &#123;
+        e.preventDefault();  // 我当时忘记加这一句了
+        handleSendMessage(e.target.value)
+            .then(r =&gt; console.log(&quot;Message sent&quot;))
+            .catch(e =&gt; console.error(&quot;Error in sending message:&quot;, e));
+    &#125;
+&#125;&#125;</code></pre>
 <p>因为没有添加 <code>e.preventDefault()</code> 导致每次发送消息时都会多出一行，<code>scrollHeight</code> 也会多出一行，最终导致 <code>Textbox</code> 组件的高度一直在增加、甚至超出父容器。</p>
 <p>切记不要忘了啊！血的教训！让我白白修了一天的bug！</p>
 <p><code>handleSize</code> 也可以更新为：</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">handleResize</span> = e =&gt; &#123;</span><br><span class="line">    e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">height</span> = <span class="string">`inherit`</span>;</span><br><span class="line">    e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">height</span> = <span class="string">`<span class="subst">$&#123;e.target.scrollHeight&#125;</span>px`</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (e.<span class="property">target</span>.<span class="property">scrollHeight</span> &gt; <span class="number">232</span>) &#123;</span><br><span class="line">        e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">overflowY</span> = <span class="string">&quot;scroll&quot;</span>;</span><br><span class="line">        e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">height</span> = <span class="string">&quot;232px&quot;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">overflowY</span> = <span class="string">&quot;hidden&quot;</span>;</span><br><span class="line">        e.<span class="property">target</span>.<span class="property">style</span>.<span class="property">height</span> = <span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">40</span>, e.<span class="property">target</span>.<span class="property">scrollHeight</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">const handleResize = e =&gt; &#123;
+    e.target.style.height = `inherit`;
+    e.target.style.height = `$&#123;e.target.scrollHeight&#125;px`;
+    
+    if (e.target.scrollHeight &gt; 232) &#123;
+        e.target.style.overflowY = &quot;scroll&quot;;
+        e.target.style.height = &quot;232px&quot;;
+    &#125; else &#123;
+        e.target.style.overflowY = &quot;hidden&quot;;
+        e.target.style.height = Math.max(40, e.target.scrollHeight);
+    &#125;
+&#125;</code></pre>
 <p>这样当 <code>scrollHeight</code> 超过 <code>232</code> 时（在我的案例中也就是9行），就会停止增加高度、出现滚动条。</p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="c0fc.html">上一篇</a><a class="next" href="bb3e.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');

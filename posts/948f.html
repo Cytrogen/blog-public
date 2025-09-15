@@ -69,39 +69,73 @@
 <p>首先，我们需要新建两个文件夹（废话）：一个是用于存放前端代码的<code>client</code>文件夹，另一个是用于存放后端代码的<code>server</code>文件夹。</p>
 <p>在WebStorm中，先在<code>client</code>文件夹中新建一个React项目，然后在<code>server</code>文件夹中新建一个Express项目。</p>
 <p>总体的项目结构差不多是这样的：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">总项目（其实不放在一起也OK）/</span><br><span class="line">├─ client/</span><br><span class="line">│  ├─ node_modules/</span><br><span class="line">│  ├─ public/</span><br><span class="line">│  ├─ src/</span><br><span class="line">│  │  ├─ App.js</span><br><span class="line">│  │  ├─ index.js</span><br><span class="line">│  ├─ package.json</span><br><span class="line">├─ server/</span><br><span class="line">│  ├─ bin/</span><br><span class="line">│  │  ├─ www</span><br><span class="line">│  ├─ node_modules/</span><br><span class="line">│  ├─ public/</span><br><span class="line">│  ├─ routes/</span><br><span class="line">│  ├─ views/</span><br><span class="line">│  ├─ app.js</span><br><span class="line">│  ├─ package.json</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">总项目（其实不放在一起也OK）/
+├─ client/
+│  ├─ node_modules/
+│  ├─ public/
+│  ├─ src/
+│  │  ├─ App.js
+│  │  ├─ index.js
+│  ├─ package.json
+├─ server/
+│  ├─ bin/
+│  │  ├─ www
+│  ├─ node_modules/
+│  ├─ public/
+│  ├─ routes/
+│  ├─ views/
+│  ├─ app.js
+│  ├─ package.json</code></pre>
 <ul>
 <li>在<code>client</code>文件夹中，最重要的便是<code>src</code>文件夹，其中的<code>App.js</code>和<code>index.js</code>是React项目的入口文件</li>
 <li>在<code>server</code>文件夹中，最重要的便是<code>app.js</code>文件。不过由于<code>bin/www</code>文件是服务器的启动关键，所以需要修改它而不是<code>app.js</code>文件</li>
 </ul>
 <h1 id="后端"><a class="markdownIt-Anchor" href="#后端"></a> 后端</h1>
 <p>我们率先开始装包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install socket.io cors nodemon</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">npm install socket.io cors nodemon</code></pre>
 <p>不装Express包自然是因为WebStorm已经帮我们装好了，哈哈。</p>
 <p>Socket.io包是我们这次项目的核心。它能够轻松地实现实时通信，也就是多人聊天的基础。Cors包用于解决跨域问题，比方说我们的前端项目是运行在<code>localhost:3000</code>，而后端项目是运行在<code>localhost:4000</code>，这样就会出现跨域问题。而Nodemon包是用于自动重启服务器的，这样我们就不用每次修改代码后都手动重启服务器了，懒人福音。</p>
 <p>我们直接来看<code>bin/www</code>文件。它的一行代码便告诉了我们它的作用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Create HTTP server.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> server = http.<span class="title function_">createServer</span>(app);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">/**
+ * Create HTTP server.
+ */
+
+const server = http.createServer(app);</code></pre>
 <p><code>bin/www</code>创建了一个HTTP服务器，而<code>app</code>则是我们的Express应用。</p>
 <p>在导入依赖的地方，我们先导入Socket.io和Cors包：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Server</span> &#125; = <span class="built_in">require</span>(<span class="string">&quot;socket.io&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">const cors = require(&#x27;cors&#x27;);
+const &#123; Server &#125; = require(&quot;socket.io&quot;);</code></pre>
 <p>要想使用Cors包，我们就需要激活它：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>());</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">app.use(cors());</code></pre>
 <p>在HTTP服务器被创建之后，我们就需要创建Socket.io服务器了：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> socketIO = <span class="keyword">new</span> <span class="title class_">Server</span>(server, &#123;</span><br><span class="line">    <span class="attr">cors</span>: &#123;</span><br><span class="line">        <span class="attr">origin</span>: <span class="string">&quot;http://localhost:3000&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">const socketIO = new Server(server, &#123;
+    cors: &#123;
+        origin: &quot;http://localhost:3000&quot;
+    &#125;
+&#125;);</code></pre>
 <p>此处的<code>cors</code>选项指定了React项目的默认端口，为我们之后的前后端通信提供了便利。</p>
 <p>接下来，我们需要监听Socket.io服务器的连接事件：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">socketIO.<span class="title function_">on</span>(<span class="string">&quot;connection&quot;</span>, <span class="function">(<span class="params">socket</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`A user connected: <span class="subst">$&#123;socket.id&#125;</span>`</span>);</span><br><span class="line">    </span><br><span class="line">    socket.<span class="title function_">on</span>(<span class="string">&quot;disconnect&quot;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`A user disconnected: <span class="subst">$&#123;socket.id&#125;</span>`</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">socketIO.on(&quot;connection&quot;, (socket) =&gt; &#123;
+    console.log(`A user connected: $&#123;socket.id&#125;`);
+    
+    socket.on(&quot;disconnect&quot;, () =&gt; &#123;
+        console.log(`A user disconnected: $&#123;socket.id&#125;`);
+    &#125;);
+&#125;);</code></pre>
 <p>这个连接事件会在客户端连接到服务器时触发，打印出客户端的ID。</p>
 <p>最后我们要用上最先装的Nodemon包。进入<code>package.json</code>文件，找到<code>scripts</code>选项，将<code>start</code>选项改为：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;nodemon ./bin/www&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-json">&#123;
+    &quot;start&quot;: &quot;nodemon ./bin/www&quot;
+&#125;</code></pre>
 <p>至此，我们的<code>server</code>目录就可以先不管了。</p>
 <h1 id="前端"><a class="markdownIt-Anchor" href="#前端"></a> 前端</h1>
 <p>和后端一样，先来装包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install socket.io-client</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">npm install socket.io-client</code></pre>
 <p>为啥不装React包呢？额……不皮了。</p>
 <p>Socket.io-client包是用于在前端连接到Socket.io服务器的。</p>
 <p>其实前端的代码很简单，我们只需要在<code>App.js</code>中写入以下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socketIO <span class="keyword">from</span> <span class="string">&quot;socket.io-client&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> socket = socketIO.<span class="title function_">connect</span>(<span class="string">&quot;http://localhost:4000&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">import socketIO from &quot;socket.io-client&quot;;
+const socket = socketIO.connect(&quot;http://localhost:4000&quot;);</code></pre>
 <p>好了，大功告成，就这么简单。</p>
 <h1 id="后话"><a class="markdownIt-Anchor" href="#后话"></a> 后话</h1>
 <p>最后只需要在两个项目中分别运行<code>npm start</code>，然后打开浏览器窗口，访问<code>localhost:3000</code>就可以看到服务端的终端输出了。</p>

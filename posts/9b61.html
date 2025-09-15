@@ -95,7 +95,43 @@
 <ol>
 <li>
 <p>进入<code>.env</code>文件进行编辑：</p>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br><span class="line"></span><br><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br><span class="line"></span><br><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br><span class="line"></span><br><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br><span class="line"></span><br><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br><span class="line"></span><br><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br><span class="line"></span><br><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br><span class="line"></span><br><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+   <pre><code class="language-plaintext">ENVIRONMENT=dev
+
+HOST=127.0.0.1
+PORT=56766
+LOG_LEVEL=INFO
+FASTAPI_RELOAD=true
+
+SUPERUSERS = [&quot;&quot;]
+NICKNAME = [&quot;hoka&quot;]
+COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]
+COMMAND_SEP = [&quot;*&quot;]
+
+GOCQ_ACCOUNR = [
+&#123;
+   &quot;uin&quot;: ,
+   &quot;password&quot;: &quot;&quot;,
+   &quot;protocol&quot;: 1
+&#125;
+]
+GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz
+
+APSCHEDULER_AUTOSTART = true
+
+API_TIMEOUT = 3600
+
+RAM_CMD = 功能
+RAM_ADD = 开启
+RAM_RM = 关闭
+RAM_SHOW = 查询
+RAM_AVAILABLE = 全局查询
+
+GAME_PATH = &#x27;&#x27;
+MAX_BET_GOLD = 10000
+
+READ_QQ_FRIENDS = []
+READ_QQ_GROUPS = []
+READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</code></pre>
 </li>
 <li>
 <ul>
@@ -104,7 +140,7 @@
 </li>
 <li>
 <p>可更改为<code>prod</code>，即<code>production</code>、生产环境；</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENVIRONMENT=dev</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">ENVIRONMENT=dev</code></pre>
 </li>
 </ul>
 </li>
@@ -116,7 +152,10 @@
 <ul>
 <li>
 <p>下面的端口如果已被使用可以修改为其他数字，其它则都不需要碰。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HOST=127.0.0.1</span><br><span class="line">PORT=56766</span><br><span class="line">LOG_LEVEL=INFO</span><br><span class="line">FASTAPI_RELOAD=true</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">HOST=127.0.0.1
+PORT=56766
+LOG_LEVEL=INFO
+FASTAPI_RELOAD=true</code></pre>
 </li>
 </ul>
 </li>
@@ -134,7 +173,10 @@
 </li>
 <li>
 <p>配置<code>COMMAND_SEP 命令隔开符</code>：不咋用到这个，随意更改。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SUPERUSERS = [&quot;&quot;]</span><br><span class="line">NICKNAME = [&quot;hoka&quot;]</span><br><span class="line">COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]</span><br><span class="line">COMMAND_SEP = [&quot;*&quot;]</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">SUPERUSERS = [&quot;&quot;]
+NICKNAME = [&quot;hoka&quot;]
+COMMAND_START = [&quot;hoka&quot;, &quot;&quot;]
+COMMAND_SEP = [&quot;*&quot;]</code></pre>
 </li>
 </ul>
 </li>
@@ -146,20 +188,33 @@
 </li>
 <li>
 <p>该插件将会下载<code>GOCQ_URL</code>中填写的地址，什么都不输入将自动使用该插件默认的镜像站以及最新版本。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GOCQ_ACCOUNR = [</span><br><span class="line">&#123;</span><br><span class="line">   &quot;uin&quot;: ,</span><br><span class="line">   &quot;password&quot;: &quot;&quot;,</span><br><span class="line">   &quot;protocol&quot;: 1</span><br><span class="line">&#125;</span><br><span class="line">]</span><br><span class="line">GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">GOCQ_ACCOUNR = [
+&#123;
+   &quot;uin&quot;: ,
+   &quot;password&quot;: &quot;&quot;,
+   &quot;protocol&quot;: 1
+&#125;
+]
+GOCQ_URL = https://github.com/Mrs4s/go-cqhttp/releases/download/v1.0.0-rc3/go-cqhttp_linux_amd64.tar.gz</code></pre>
 </li>
 </ul>
 </li>
 <li>
 <p>不需要管这俩。</p>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">APSCHEDULER_AUTOSTART = true</span><br><span class="line"></span><br><span class="line">API_TIMEOUT = 3600</span><br></pre></td></tr></table></figure>
+   <pre><code class="language-plaintext">APSCHEDULER_AUTOSTART = true
+
+API_TIMEOUT = 3600</code></pre>
 </li>
 <li>
 <p><code>rauthman 权限管理插件</code>的配置项：</p>
 <ul>
 <li>
 <p>其实只是指令名更改，不建议修改。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RAM_CMD = 功能</span><br><span class="line">RAM_ADD = 开启</span><br><span class="line">RAM_RM = 关闭</span><br><span class="line">RAM_SHOW = 查询</span><br><span class="line">RAM_AVAILABLE = 全局查询</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">RAM_CMD = 功能
+RAM_ADD = 开启
+RAM_RM = 关闭
+RAM_SHOW = 查询
+RAM_AVAILABLE = 全局查询</code></pre>
 </li>
 </ul>
 </li>
@@ -171,7 +226,8 @@
 </li>
 <li>
 <p><code>MAX_BET_GOLD</code>为俄罗斯轮盘中赌注的上限，可以调低防止一夜暴富一夜回到解放前。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GAME_PATH = &#x27;&#x27;</span><br><span class="line">MAX_BET_GOLD = 10000</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">GAME_PATH = &#x27;&#x27;
+MAX_BET_GOLD = 10000</code></pre>
 </li>
 </ul>
 </li>
@@ -186,7 +242,9 @@
 </li>
 <li>
 <p><code>READ_INFORM_TIME</code>为每日定时发送的时间，按照本地时间为标准，如下便是每日早上9点5分。</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">READ_QQ_FRIENDS = []</span><br><span class="line">READ_QQ_GROUPS = []</span><br><span class="line">READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">READ_QQ_FRIENDS = []
+READ_QQ_GROUPS = []
+READ_INFORM_TIME = [&#123;&quot;HOUR&quot;: 9, &quot;MINUTE&quot;: 5&#125;]</code></pre>
 </li>
 </ul>
 </li>
@@ -202,7 +260,19 @@
 <ol>
 <li>
 <p>进入<code>src/plugins/game/gacha.py</code>，找到<code>class NormalData</code>：</p>
-   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NormalData</span>:</span><br><span class="line">   sixList = []</span><br><span class="line"></span><br><span class="line">   fiveList = []</span><br><span class="line"></span><br><span class="line">   fourList = []</span><br><span class="line"></span><br><span class="line">   threeList = []</span><br><span class="line"></span><br><span class="line">   onelist = [<span class="string">&#x27;虾虾&#x27;</span>]</span><br><span class="line"></span><br><span class="line">   fiveListUp = []</span><br><span class="line">   sixListUP = []</span><br></pre></td></tr></table></figure>
+   <pre><code class="language-python">class NormalData:
+   sixList = []
+
+   fiveList = []
+
+   fourList = []
+
+   threeList = []
+
+   onelist = [&#x27;虾虾&#x27;]
+
+   fiveListUp = []
+   sixListUP = []</code></pre>
 </li>
 <li>
 <p><code>sixList</code>为卡池的六星角色，<code>fiveList</code>为五星…以此类推。<br>
@@ -222,7 +292,7 @@
 </li>
 <li>
 <p>在终端中找到这么一行：</p>
-   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[INFO] nonebot_plugin_gocqhttp | Startup complete, Web UI has served to http://127.0.0.1:56766/go-cqhttp/</span><br></pre></td></tr></table></figure>
+   <pre><code class="language-plaintext">[INFO] nonebot_plugin_gocqhttp | Startup complete, Web UI has served to http://127.0.0.1:56766/go-cqhttp/</code></pre>
 </li>
 <li>
 <p>进入后面的这个地址，页面应如下：</p>

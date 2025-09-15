@@ -67,17 +67,31 @@
 <h1 id="ffmpy3使用"><a class="markdownIt-Anchor" href="#ffmpy3使用"></a> ffmpy3使用</h1>
 <h2 id="安装ffmpy3包"><a class="markdownIt-Anchor" href="#安装ffmpy3包"></a> 安装ffmpy3包</h2>
 <p>使用pip来安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ffmpy3</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">pip install ffmpy3</code></pre>
 <h2 id="ffmpy3简单例子"><a class="markdownIt-Anchor" href="#ffmpy3简单例子"></a> ffmpy3简单例子</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ffmpy3</span><br><span class="line">ff = ffmpy3.FFmpeg (</span><br><span class="line">    inputs = &#123;<span class="string">&#x27;输入文件&#x27;</span>: <span class="string">&#x27;参数1&#x27;</span>&#125;,</span><br><span class="line">    outputs = &#123;<span class="string">&#x27;输出文件&#x27;</span>: <span class="string">&#x27;参数2&#x27;</span>&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">import ffmpy3
+ff = ffmpy3.FFmpeg (
+    inputs = &#123;&#x27;输入文件&#x27;: &#x27;参数1&#x27;&#125;,
+    outputs = &#123;&#x27;输出文件&#x27;: &#x27;参数2&#x27;&#125;
+)</code></pre>
 <p>最终得出结果相当于在终端里输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg 参数1 -i 输入文件 参数2 输出文件</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">FFmpeg 参数1 -i 输入文件 参数2 输出文件</code></pre>
 <h1 id="批量合并ts文件"><a class="markdownIt-Anchor" href="#批量合并ts文件"></a> 批量合并ts文件</h1>
 <h2 id="路径构造"><a class="markdownIt-Anchor" href="#路径构造"></a> 路径构造</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├───文件夹</span><br><span class="line">│    Python文件.py</span><br><span class="line">│    file.txt</span><br><span class="line">│    文件A.ts</span><br><span class="line">│    文件B.ts</span><br><span class="line">│    文件C.ts</span><br><span class="line">│    文件D.ts</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">├───文件夹
+│    Python文件.py
+│    file.txt
+│    文件A.ts
+│    文件B.ts
+│    文件C.ts
+│    文件D.ts
+...</code></pre>
 <h2 id="filetxt"><a class="markdownIt-Anchor" href="#filetxt"></a> file.txt</h2>
 <p>在 file.txt 内部写下ts文件名：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file &#x27;文件A.ts&#x27;</span><br><span class="line">file &#x27;文件B.ts&#x27;</span><br><span class="line">file &#x27;文件C.ts&#x27;</span><br><span class="line">file &#x27;文件D.ts&#x27;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">file &#x27;文件A.ts&#x27;
+file &#x27;文件B.ts&#x27;
+file &#x27;文件C.ts&#x27;
+file &#x27;文件D.ts&#x27;</code></pre>
 <blockquote>
 <p>注意：</p>
 <ol>
@@ -87,9 +101,13 @@
 </blockquote>
 <h2 id="python文件"><a class="markdownIt-Anchor" href="#python文件"></a> Python文件</h2>
 <p>使用这段代码来批量合并ts文件：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ff = ffmpy3.FFmpeg(</span><br><span class="line">        inputs=&#123;<span class="string">f&#x27;file.txt&#x27;</span>: <span class="string">&#x27;-f concat&#x27;</span>&#125;,</span><br><span class="line">        outputs=&#123;<span class="string">f&#x27;文件名.mp4&#x27;</span>: <span class="string">&#x27;-c copy&#x27;</span>&#125;</span><br><span class="line">)</span><br><span class="line">ff.run()</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">ff = ffmpy3.FFmpeg(
+        inputs=&#123;f&#x27;file.txt&#x27;: &#x27;-f concat&#x27;&#125;,
+        outputs=&#123;f&#x27;文件名.mp4&#x27;: &#x27;-c copy&#x27;&#125;
+)
+ff.run()</code></pre>
 <p>上述代码相当于在终端中输入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FFmpeg -f concat -i file.txt -c copy 文件名.mp4</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">FFmpeg -f concat -i file.txt -c copy 文件名.mp4</code></pre>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="891a.html">上一篇</a><a class="next" href="d995.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   

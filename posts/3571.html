@@ -214,13 +214,37 @@
 </tbody>
 </table>
 <p>例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">textChecker</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> textField1 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;textField1&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (textField1.<span class="property">value</span> === <span class="string">&#x27;&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">&#x27;Please type in the field&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">&#x27;You entered: &#x27;</span> + textField1.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;text&#x27;</span> <span class="attr">id</span>=<span class="string">&#x27;textField1&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;button&#x27;</span> <span class="attr">onClick</span>=<span class="string">&#x27;textChecker()&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;Submit&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    function textChecker() &#123;
+        const textField1 = document.getElementById(&#x27;textField1&#x27;);
+        if (textField1.value === &#x27;&#x27;) &#123;
+            alert(&#x27;Please type in the field&#x27;);
+        &#125; else &#123;
+            alert(&#x27;You entered: &#x27; + textField1.value);
+        &#125;
+    &#125;
+&lt;/script&gt;
+&lt;body&gt;
+&lt;input type=&#x27;text&#x27; id=&#x27;textField1&#x27;&gt;
+&lt;input type=&#x27;button&#x27; onClick=&#x27;textChecker()&#x27; value=&#x27;Submit&#x27;&gt;
+&lt;/body&gt;</code></pre>
 <h4 id="241-dom树访问器"><a class="markdownIt-Anchor" href="#241-dom树访问器"></a> 2.4.1. DOM树访问器</h4>
 <p>每个HTML和XML文档都由一个文档对象来表示，DOM树访问器可用于访问和操作该文档对象。</p>
 <h2 id="25-xml"><a class="markdownIt-Anchor" href="#25-xml"></a> 2.5. XML</h2>
 <p>XML（可扩展标记语言）是一种用于定义其他标记语言的元语言。它是一种可扩展的标记语言，可用于定义其他标记语言。</p>
 <p>例子：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;https://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;application/xhtml+xml; charset=ISO-8859-1&quot;</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            Example paragraph.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;html xmlns=&quot;https://www.w3.org/1999/xhtml&quot;&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;application/xhtml+xml; charset=ISO-8859-1&quot; /&gt;  
+        &lt;title&gt;Example document&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;
+            Example paragraph.
+        &lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <blockquote>
 <p>内容类型必须指定为XML媒体类型。</p>
 </blockquote>
@@ -234,14 +258,25 @@
 <p>iframe是一种HTML元素，用于在网页中嵌入另一个网页。它是一种内联框架，可用于在网页中显示其他网页。</p>
 <p>iframe可以用于显示广告、嵌入视频、显示其他网站的内容等。</p>
 <p>例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;iframe src=&quot;&quot;&gt;&lt;/iframe&gt;</code></pre>
 <p>为了防止授予隐式权限，iframe可以使用<code>sandbox</code>属性。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">sandbox</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;iframe src=&quot;&quot; sandbox&gt;&lt;/iframe&gt;</code></pre>
 <h2 id="28-浏览器"><a class="markdownIt-Anchor" href="#28-浏览器"></a> 2.8. 浏览器</h2>
 <p>并非所有浏览器都完全支持HTML5和CSS3。比方说<code>&lt;input type=&quot;date&quot;&gt;</code>，在不同浏览器中的显示效果是不一样的。</p>
 <p>可以使用JavaScript来检测浏览器是否支持某些功能。</p>
 <p>例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&#x27;thisform&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> datepicker = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;input&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> formelement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;thisform&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        datepicker.<span class="title function_">setAttribute</span>(<span class="string">&#x27;type&#x27;</span>, <span class="string">&#x27;date&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        formelement.<span class="title function_">appendChild</span>(datepicker);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (datepicker.<span class="property">type</span> === <span class="string">&#x27;text&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">&#x27;Date input not supported&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;form id=&#x27;thisform&#x27;&gt;&lt;/form&gt;
+    &lt;script&gt;
+        const datepicker = document.createElement(&#x27;input&#x27;);
+        const formelement = document.getElementById(&#x27;thisform&#x27;);
+        datepicker.setAttribute(&#x27;type&#x27;, &#x27;date&#x27;);
+        formelement.appendChild(datepicker);
+        if (datepicker.type === &#x27;text&#x27;) &#123;
+            alert(&#x27;Date input not supported&#x27;);
+        &#125;
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
 <h1 id="3-css概述html5元素"><a class="markdownIt-Anchor" href="#3-css概述html5元素"></a> 3. CSS概述&amp;HTML5元素</h1>
 <h2 id="31-html5结构元素"><a class="markdownIt-Anchor" href="#31-html5结构元素"></a> 3.1. HTML5结构元素</h2>
 <ul>
@@ -295,17 +330,23 @@
 <li>
 <p>不使用任何框架的情况下，开发者需要编写大量的CSS代码来设计网页。优点是可以完全控制网页的设计，缺点是需要花费大量的时间和精力</p>
 <p>例如：</p>
- <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">185</span>, <span class="number">28</span>, <span class="number">28</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-css">a &#123;
+    color: red;
+    text-decoration: underline;
+&#125;
+a:hover &#123;
+    color: rgb(185, 28, 28);
+&#125;</code></pre>
 </li>
 <li>
 <p>实用优先的框架：Tailwind CSS，它提供了可以使用的CSS属性。优点是给予了开发者更多的控制权</p>
 <p>例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;underline text-red-500 hover:text-red-700&quot;</span>&gt;</span>Dangerous Link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;a href=&quot;...&quot; class=&quot;underline text-red-500 hover:text-red-700&quot;&gt;Dangerous Link&lt;/a&gt;</code></pre>
 </li>
 <li>
 <p>组件框架：Bootstrap，它提供了一系列可重复使用的预定义组件。优点是可以快速设计网页，缺点是开发者无法完全控制网页的设计</p>
 <p>例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;link-danger&quot;</span>&gt;</span>Dangerous Link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;a href=&quot;...&quot; class=&quot;link-danger&quot;&gt;Dangerous Link&lt;/a&gt;</code></pre>
 </li>
 </ol>
 <h1 id="4-网络应用程序的-javascript-编程"><a class="markdownIt-Anchor" href="#4-网络应用程序的-javascript-编程"></a> 4. 网络应用程序的 JavaScript 编程</h1>
@@ -327,8 +368,22 @@
 <p>不使用<code>var</code>关键字声明的变量是全局变量，即使它们在函数内部声明。其值为<code>undefined</code>。</p>
 <h2 id="43-函数"><a class="markdownIt-Anchor" href="#43-函数"></a> 4.3. 函数</h2>
 <p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">n, m</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> n + m;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> x = <span class="title function_">add</span>(<span class="number">1</span>,<span class="number">2</span>); <span class="comment">// returns 3</span></span><br><span class="line">x = <span class="title function_">add</span>(<span class="number">1.23</span>, <span class="number">3.45</span>); <span class="comment">// returns 4.68</span></span><br><span class="line">x = <span class="title function_">add</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>); <span class="comment">// returns &quot;helloworld&quot;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Car</span>(<span class="params">make, model, year</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">make</span> = make;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">model</span> = model;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">year</span> = year;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">make</span> + <span class="string">&#x27; &#x27;</span> + <span class="variable language_">this</span>.<span class="property">model</span> + <span class="string">&#x27; &#x27;</span> + <span class="variable language_">this</span>.<span class="property">year</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="title class_">Car</span> (<span class="string">&quot;Meridian&quot;</span>, <span class="string">&quot;Saber GT&quot;</span>, <span class="number">2012</span>);</span><br><span class="line"><span class="title function_">alert</span>(c.<span class="title function_">getName</span>()); <span class="comment">// displays &quot;Meridian Saber GT 2012&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">function add(n, m) &#123;
+    return n + m;
+&#125;
+var x = add(1,2); // returns 3
+x = add(1.23, 3.45); // returns 4.68
+x = add(&quot;hello&quot;, &quot;world&quot;); // returns &quot;helloworld&quot;</code></pre>
+<pre><code class="language-javascript">function Car(make, model, year) &#123;
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.getName = function () &#123;
+        return this.make + &#x27; &#x27; + this.model + &#x27; &#x27; + this.year;
+    &#125;
+&#125;
+var c = new Car (&quot;Meridian&quot;, &quot;Saber GT&quot;, 2012);
+alert(c.getName()); // displays &quot;Meridian Saber GT 2012&quot;</code></pre>
 <h2 id="44-api"><a class="markdownIt-Anchor" href="#44-api"></a> 4.4. API</h2>
 <p>常用的API：</p>
 <table>
@@ -363,9 +418,42 @@
 </tbody>
 </table>
 <p>例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// how to retrieve all the image elements from a web page</span></span><br><span class="line"><span class="keyword">var</span> imgSet = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;img&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> output = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; imgSet.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    output += <span class="string">&quot;&lt;p&gt;Source for image &quot;</span>;</span><br><span class="line">    output += i;</span><br><span class="line">    output += <span class="string">&quot;: &quot;</span>;</span><br><span class="line">    output += imgSet[i].<span class="property">src</span>;</span><br><span class="line">    output += <span class="string">&quot;&lt;\/p&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">write</span>(output);</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- How to add a node to a document --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">addPara</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> newPara = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> newText = <span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">&quot;Hello World!&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">            newPara.<span class="title function_">appendChild</span>(newText);</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(newPara);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">&quot;addPara()&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    onload = (<span class="keyword">function</span> (<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">addPara</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;)();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">addPara</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> newPara = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;p&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">        newPara.<span class="property">innerHTML</span> = <span class="string">&quot;Hello world!&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(newPara);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-javascript">// how to retrieve all the image elements from a web page
+var imgSet = document.getElementsByTagName(&quot;img&quot;);
+var output = &quot;&quot;;
+for (var i = 0; i &lt; imgSet.length; i++) &#123;
+    output += &quot;&lt;p&gt;Source for image &quot;;
+    output += i;
+    output += &quot;: &quot;;
+    output += imgSet[i].src;
+    output += &quot;&lt;\/p&gt;&quot;;
+&#125;
+document.write(output);</code></pre>
+<pre><code class="language-html">&lt;!-- How to add a node to a document --&gt;
+&lt;head&gt;
+    &lt;script&gt;
+        function addPara() &#123;
+            const newPara = document.createElement(&quot;p&quot;);
+            const newText = document.createTextNode(&quot;Hello World!&quot;);
+            newPara.appendChild(newText);
+            document.body.appendChild(newPara);
+        &#125;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&quot;addPara()&quot;&gt;
+&lt;/body&gt;</code></pre>
+<pre><code class="language-html">
+&lt;script&gt;
+    onload = (function () &#123;
+        addPara();
+    &#125;)();
+
+    function addPara() &#123;
+        const newPara = document.createElement(&quot;p&quot;);
+        newPara.innerHTML = &quot;Hello world!&quot;;
+        document.body.appendChild(newPara);
+    &#125;
+&lt;/script&gt;</code></pre>
 <h2 id="45-html中的脚本"><a class="markdownIt-Anchor" href="#45-html中的脚本"></a> 4.5. HTML中的脚本</h2>
 <p>脚本为作者提供了一种以高度交互方式扩展HTML文档的方法，例如：</p>
 <ul>
@@ -376,7 +464,9 @@
 </ul>
 <h4 id="451-脚本不可用时"><a class="markdownIt-Anchor" href="#451-脚本不可用时"></a> 4.5.1. 脚本不可用时</h4>
 <p>如果浏览器不支持脚本或者脚本被禁用，可以使用<code>&lt;noscript&gt;</code>元素来提供替代内容。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>JavaScript is not enabled!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-html">&lt;noscript&gt;
+    &lt;p&gt;JavaScript is not enabled!&lt;/p&gt;
+&lt;/noscript&gt;</code></pre>
 <h2 id="46-dom"><a class="markdownIt-Anchor" href="#46-dom"></a> 4.6. DOM</h2>
 <p>万维网联盟（W3C）定义了DOM（文档对象模型）标准，用于访问和操作HTML文档。DOM规范有四级：</p>
 <ol start="0">

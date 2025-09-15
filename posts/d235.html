@@ -147,7 +147,16 @@
 <li>找到的解决方案有可能并不是最优的</li>
 <li>在最坏的情况下，可能在找到解决方案之前就探索了所有可能的路径，导致花费了更长的时间</li>
 </ul>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">remove</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.empty():</span><br><span class="line">        <span class="comment"># 如果前沿是空的，终止搜索</span></span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&quot;空前沿&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 保存最新添加的节点</span></span><br><span class="line">        node = <span class="variable language_">self</span>.frontier[-<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># 从前沿里移除最新添加的节点</span></span><br><span class="line">        <span class="variable language_">self</span>.frontier = <span class="variable language_">self</span>.frontier[:-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">return</span> node</span><br></pre></td></tr></table></figure>
+  <pre><code class="language-python">def remove(self):
+    if self.empty():
+        # 如果前沿是空的，终止搜索
+        raise Exception(&quot;空前沿&quot;)
+    else:
+        # 保存最新添加的节点
+        node = self.frontier[-1]
+        # 从前沿里移除最新添加的节点
+        self.frontier = self.frontier[:-1]
+        return node</code></pre>
 <ol start="2">
 <li>队列/广度优先搜索（queue/breadth-first search）</li>
 </ol>
@@ -190,7 +199,16 @@
 <li>运行的时间比最小时间长</li>
 <li>在最坏的情况下，这个算法需要尽可能长的时间来运行</li>
 </ul>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">remove</span>(<span class="params">self</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.empty():</span><br><span class="line">        <span class="comment"># 如果前沿为空，终止搜索</span></span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&#x27;空前沿&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 保存第一个被添加的节点</span></span><br><span class="line">        node = <span class="variable language_">self</span>.frontier[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 从前沿中移除第一个节点</span></span><br><span class="line">        <span class="variable language_">self</span>.frontier = <span class="variable language_">self</span>.frontier[<span class="number">1</span>:]</span><br><span class="line">        <span class="keyword">return</span> node</span><br></pre></td></tr></table></figure>
+  <pre><code class="language-python">def remove(self):
+    if self.empty():
+        # 如果前沿为空，终止搜索
+        raise Exception(&#x27;空前沿&#x27;)
+    else:
+        # 保存第一个被添加的节点
+        node = self.frontier[0]
+        # 从前沿中移除第一个节点
+        self.frontier = self.frontier[1:]
+        return node</code></pre>
 <ol start="3">
 <li>
 <p>贪婪的最佳优先搜索（greedy best-first search）</p>
@@ -246,7 +264,21 @@
 <li>在最小化和最大化之间交替进行</li>
 <li>为每个可能的行动所导致的状态创造值</li>
 </ol>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Function Max-Value(state):</span><br><span class="line">v = -∞</span><br><span class="line">if Terminal(state):</span><br><span class="line">	return Utility(state)</span><br><span class="line">for action in Actions(state):</span><br><span class="line">	v = Max(v,Min-Value(Result(state,action)))</span><br><span class="line">	return v</span><br><span class="line"></span><br><span class="line">      Function Min-Value(state):</span><br><span class="line">          v = ∞</span><br><span class="line">          if Terminal(state):</span><br><span class="line">              return Utility(state)</span><br><span class="line">          for action in Actions(state):</span><br><span class="line">              v = Min(v,Max-Value(Result(state,action)))</span><br><span class="line">              return v</span><br></pre></td></tr></table></figure>
+ <pre><code class="language-plaintext">Function Max-Value(state):
+v = -∞
+if Terminal(state):
+	return Utility(state)
+for action in Actions(state):
+	v = Max(v,Min-Value(Result(state,action)))
+	return v
+
+      Function Min-Value(state):
+          v = ∞
+          if Terminal(state):
+              return Utility(state)
+          for action in Actions(state):
+              v = Min(v,Max-Value(Result(state,action)))
+              return v</code></pre>
 </li>
 <li>
 <p>Alpha-beta剪枝（alpha-beta pruning）</p>
@@ -541,7 +573,21 @@
 </li>
 <li>
 <p>这些知识和逻辑可以被这样写：</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> logic <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建新的类，每个类都有一个名字或符号，代表命题</span></span><br><span class="line">rain = Symbol(<span class="string">&quot;rain&quot;</span>)  <span class="comment"># 在下雨</span></span><br><span class="line">hagrid = Symbol(<span class="string">&quot;hagrid&quot;</span>)  <span class="comment"># 哈利见海格</span></span><br><span class="line">dumbledore = Symbol(<span class="string">&quot;dumbledore&quot;</span>)  <span class="comment"># 哈利见邓布利多</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将句子保存进知识库</span></span><br><span class="line"><span class="comment"># 先使用“和”逻辑，因为每个命题都代表了我们已知为真的知识</span></span><br><span class="line">knowledge = And( </span><br><span class="line">	Implication(Not(rain), hagrid),  <span class="comment"># ¬(在下雨)→(哈利见海格)</span></span><br><span class="line">    Or(hagrid, dumbledore),  <span class="comment"># (哈利见海格)∨(哈利见邓布利多)</span></span><br><span class="line">    Not(And(hagrid, dumbledore)),  <span class="comment"># ¬(哈利见海格^哈利见邓布利多)，但没有见两人</span></span><br><span class="line">    dumbledore  <span class="comment"># 哈利见邓布利多（事实）</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+  <pre><code class="language-python">from logic import *
+
+# 创建新的类，每个类都有一个名字或符号，代表命题
+rain = Symbol(&quot;rain&quot;)  # 在下雨
+hagrid = Symbol(&quot;hagrid&quot;)  # 哈利见海格
+dumbledore = Symbol(&quot;dumbledore&quot;)  # 哈利见邓布利多
+
+# 将句子保存进知识库
+# 先使用“和”逻辑，因为每个命题都代表了我们已知为真的知识
+knowledge = And( 
+	Implication(Not(rain), hagrid),  # ¬(在下雨)→(哈利见海格)
+    Or(hagrid, dumbledore),  # (哈利见海格)∨(哈利见邓布利多)
+    Not(And(hagrid, dumbledore)),  # ¬(哈利见海格^哈利见邓布利多)，但没有见两人
+    dumbledore  # 哈利见邓布利多（事实）
+)</code></pre>
 </li>
 <li>
 <p>要运行模型检查算法，我们需要这些信息：</p>
@@ -551,7 +597,36 @@
 <li>一个装有所有被使用的符号（或原子命题）的列表（也就是我们案例中的<code>rain</code>、<code>hagrid</code>、<code>dumbledore</code>）</li>
 <li>模型</li>
 </ul>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check_all</span>(<span class="params">knowledge, query, symbols, model</span>):</span><br><span class="line">    <span class="comment"># 如果模型有分配给每个符号</span></span><br><span class="line">    <span class="comment"># 逻辑：从一个符号列表开始。函数递归时，每次的调用都会从列表中删除一个符号，并从中生成模型。当符号列表为空时，我们知道我们已经完成了对符号的每一个可能的真值分配的模型生成</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> symbols:</span><br><span class="line">        <span class="comment"># 如果在模型中的KB为真，查询也就是真</span></span><br><span class="line">        <span class="keyword">if</span> knowledge.evaluate(model):</span><br><span class="line">            <span class="keyword">return</span> query.evaluate(model)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 选择剩余的未使用符号的其中一个</span></span><br><span class="line">        remaining = symbols.copy()</span><br><span class="line">        p = remaining.pop()</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 创建一个符号为真的模型</span></span><br><span class="line">        model_true = model.copy()</span><br><span class="line">        model_true[p] = <span class="literal">True</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 创建一个符号为假的模型</span></span><br><span class="line">        model_false = model.copy()</span><br><span class="line">        model_false[p] = <span class="literal">False</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 确保两个模型中都有蕴含关系</span></span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">            check_all(knowledge, query, </span><br><span class="line">                      remaining, model_true) </span><br><span class="line">            <span class="keyword">and</span> </span><br><span class="line">            check_all(knowledge, query, </span><br><span class="line">                      remaining, model_false)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+  <pre><code class="language-python">def check_all(knowledge, query, symbols, model):
+    # 如果模型有分配给每个符号
+    # 逻辑：从一个符号列表开始。函数递归时，每次的调用都会从列表中删除一个符号，并从中生成模型。当符号列表为空时，我们知道我们已经完成了对符号的每一个可能的真值分配的模型生成
+    if not symbols:
+        # 如果在模型中的KB为真，查询也就是真
+        if knowledge.evaluate(model):
+            return query.evaluate(model)
+        return True
+    
+    else:
+        # 选择剩余的未使用符号的其中一个
+        remaining = symbols.copy()
+        p = remaining.pop()
+        
+        # 创建一个符号为真的模型
+        model_true = model.copy()
+        model_true[p] = True
+        
+        # 创建一个符号为假的模型
+        model_false = model.copy()
+        model_false[p] = False
+        
+        # 确保两个模型中都有蕴含关系
+        return(
+            check_all(knowledge, query, 
+                      remaining, model_true) 
+            and 
+            check_all(knowledge, query, 
+                      remaining, model_false)
+        )</code></pre>
 </li>
 <li>
 <p>我们只对<code>KB</code>为真的模型感兴趣。如果<code>KB</code>为假，那么这个模型就和我们的案例无关</p>
@@ -634,7 +709,25 @@
 </li>
 </ol>
 <p>整个流程在Python中就是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加线索至知识库</span></span><br><span class="line">knowledge = And(</span><br><span class="line">    <span class="comment"># 添加游戏起始条件</span></span><br><span class="line">    Or(mustard, plum, scarlet),</span><br><span class="line">    Or(ballroom, kitchen, library),</span><br><span class="line">    Or(knife, revolver, wrench),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 添加我们所看到的第一组卡片</span></span><br><span class="line">    Not(mustard),</span><br><span class="line">    Not(kitchen),</span><br><span class="line">    Not(revolver),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 添加他人举出的猜测</span></span><br><span class="line">    Or(Not(scarlet), Not(library), Not(wrench)),</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 添加我们之后得知的线索</span></span><br><span class="line">    Not(plum),</span><br><span class="line">    Not(ballroom)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python"># 添加线索至知识库
+knowledge = And(
+    # 添加游戏起始条件
+    Or(mustard, plum, scarlet),
+    Or(ballroom, kitchen, library),
+    Or(knife, revolver, wrench),
+    
+    # 添加我们所看到的第一组卡片
+    Not(mustard),
+    Not(kitchen),
+    Not(revolver),
+    
+    # 添加他人举出的猜测
+    Or(Not(scarlet), Not(library), Not(wrench)),
+    
+    # 添加我们之后得知的线索
+    Not(plum),
+    Not(ballroom)
+)</code></pre>
 <p>我们还可以看看另外一个逻辑谜题：</p>
 <ul>
 <li>
@@ -974,7 +1067,16 @@
 <p><img src="/posts/d235/Middle_Safe.png" alt="Middle cell with labeled neighbors"></p>
 <p>用上图作为例子，我们知道八个相邻的单元格中会有一个是地雷。因此我们可以写一个像下面这样的逻辑表达式来表示相邻单元格中的一个是地雷：<code>Or(A,B,C,D,E,F,G,H)</code>。</p>
 <p>但实际上我们知道的要比这个表达式所说的要多。上面这个逻辑句子表达的是这八个变量中至少有一个是真的，但我们可以做一个比这更有力的声明：我们知道这八个变量中只有一个是真的。那就是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Or(</span><br><span class="line">    And(A, Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), B, Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), C, Not(D), Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), D, Not(E), Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), E, Not(F), Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), F, Not(G), Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), G, Not(H)),</span><br><span class="line">    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), H)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">Or(
+    And(A, Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),
+    And(Not(A), B, Not(C), Not(D), Not(E), Not(F), Not(G), Not(H)),
+    And(Not(A), Not(B), C, Not(D), Not(E), Not(F), Not(G), Not(H)),
+    And(Not(A), Not(B), Not(C), D, Not(E), Not(F), Not(G), Not(H)),
+    And(Not(A), Not(B), Not(C), Not(D), E, Not(F), Not(G), Not(H)),
+    And(Not(A), Not(B), Not(C), Not(D), Not(E), F, Not(G), Not(H)),
+    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), G, Not(H)),
+    And(Not(A), Not(B), Not(C), Not(D), Not(E), Not(F), Not(G), H)
+)</code></pre>
 <p>嗯……是不是太复杂了？这只是为了表达一个单元格中有1。如果单元格中有2或者3或者其他的值，表达式可能会更长。</p>
 <p>试图对这种类型的问题进行模型检查，也会很快变得难以解决：在一个8x8的网格上，也就是简单模式会用的尺寸，我们会有64个变量，因此有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup></mrow><annotation encoding="application/x-tex">2^{64}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></span> 个可能的模型需要检查。对于一台计算机来说，在任何合理的时间内计算的数量都太多了。对于这个问题，我们需要一个更好的知识来表示。</p>
 <h3 id="知识表示"><a class="markdownIt-Anchor" href="#知识表示"></a> 知识表示</h3>
@@ -1348,19 +1450,86 @@
 <ol>
 <li>
 <p>创建节点并为每个节点提供概率分布</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pomegranate <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 雨节点没有父节点</span></span><br><span class="line">rain = Node(DiscreteDistribution(&#123;</span><br><span class="line">    <span class="string">&quot;none&quot;</span>: <span class="number">0.7</span>,</span><br><span class="line">    <span class="string">&quot;light&quot;</span>: <span class="number">0.2</span>,</span><br><span class="line">    <span class="string">&quot;heavy&quot;</span>: <span class="number">0.1</span></span><br><span class="line">&#125;), name=<span class="string">&quot;rain&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 轨道维修节点是基于雨的条件概率</span></span><br><span class="line">maintenance = Node(ConditionalProbabilityTable([</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="number">0.4</span>],</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="number">0.6</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="number">0.2</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="number">0.8</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="number">0.1</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="number">0.9</span>]</span><br><span class="line">], [rain.distribution]), name=<span class="string">&quot;maintenance&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 火车节点是基于雨和维修的条件概率</span></span><br><span class="line">train = Node(ConditionalProbabilityTable([</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.8</span>],</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.2</span>],</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.9</span>],</span><br><span class="line">    [<span class="string">&quot;none&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.1</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.6</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.4</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.7</span>],</span><br><span class="line">    [<span class="string">&quot;light&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.3</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.4</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;yes&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.6</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="number">0.5</span>],</span><br><span class="line">    [<span class="string">&quot;heavy&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;delayed&quot;</span>, <span class="number">0.5</span>],</span><br><span class="line">], [rain.distribution, maintenance.distribution]), name=<span class="string">&quot;train&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预约节点是基于火车的条件概率</span></span><br><span class="line">appointment = Node(ConditionalProbabilityTable([</span><br><span class="line">    [<span class="string">&quot;on time&quot;</span>, <span class="string">&quot;attend&quot;</span>, <span class="number">0.9</span>],</span><br><span class="line">    [<span class="string">&quot;on time&quot;</span>, <span class="string">&quot;miss&quot;</span>, <span class="number">0.1</span>],</span><br><span class="line">    [<span class="string">&quot;delayed&quot;</span>, <span class="string">&quot;attend&quot;</span>, <span class="number">0.6</span>],</span><br><span class="line">    [<span class="string">&quot;delayed&quot;</span>, <span class="string">&quot;miss&quot;</span>, <span class="number">0.4</span>]</span><br><span class="line">], [train.distribution]), name=<span class="string">&quot;appointment&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">from pomegranate import *
+
+# 雨节点没有父节点
+rain = Node(DiscreteDistribution(&#123;
+    &quot;none&quot;: 0.7,
+    &quot;light&quot;: 0.2,
+    &quot;heavy&quot;: 0.1
+&#125;), name=&quot;rain&quot;)
+
+# 轨道维修节点是基于雨的条件概率
+maintenance = Node(ConditionalProbabilityTable([
+    [&quot;none&quot;, &quot;yes&quot;, 0.4],
+    [&quot;none&quot;, &quot;no&quot;, 0.6],
+    [&quot;light&quot;, &quot;yes&quot;, 0.2],
+    [&quot;light&quot;, &quot;no&quot;, 0.8],
+    [&quot;heavy&quot;, &quot;yes&quot;, 0.1],
+    [&quot;heavy&quot;, &quot;no&quot;, 0.9]
+], [rain.distribution]), name=&quot;maintenance&quot;)
+
+# 火车节点是基于雨和维修的条件概率
+train = Node(ConditionalProbabilityTable([
+    [&quot;none&quot;, &quot;yes&quot;, &quot;on time&quot;, 0.8],
+    [&quot;none&quot;, &quot;yes&quot;, &quot;delayed&quot;, 0.2],
+    [&quot;none&quot;, &quot;no&quot;, &quot;on time&quot;, 0.9],
+    [&quot;none&quot;, &quot;no&quot;, &quot;delayed&quot;, 0.1],
+    [&quot;light&quot;, &quot;yes&quot;, &quot;on time&quot;, 0.6],
+    [&quot;light&quot;, &quot;yes&quot;, &quot;delayed&quot;, 0.4],
+    [&quot;light&quot;, &quot;no&quot;, &quot;on time&quot;, 0.7],
+    [&quot;light&quot;, &quot;no&quot;, &quot;delayed&quot;, 0.3],
+    [&quot;heavy&quot;, &quot;yes&quot;, &quot;on time&quot;, 0.4],
+    [&quot;heavy&quot;, &quot;yes&quot;, &quot;delayed&quot;, 0.6],
+    [&quot;heavy&quot;, &quot;no&quot;, &quot;on time&quot;, 0.5],
+    [&quot;heavy&quot;, &quot;no&quot;, &quot;delayed&quot;, 0.5],
+], [rain.distribution, maintenance.distribution]), name=&quot;train&quot;)
+
+# 预约节点是基于火车的条件概率
+appointment = Node(ConditionalProbabilityTable([
+    [&quot;on time&quot;, &quot;attend&quot;, 0.9],
+    [&quot;on time&quot;, &quot;miss&quot;, 0.1],
+    [&quot;delayed&quot;, &quot;attend&quot;, 0.6],
+    [&quot;delayed&quot;, &quot;miss&quot;, 0.4]
+], [train.distribution]), name=&quot;appointment&quot;)</code></pre>
 </li>
 <li>
 <p>通过添加所有节点来创建模型，然后通过在它们之间添加边来描述哪个节点是哪个其他节点的父节点（贝叶斯网络）</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个贝叶斯网络并添加状态</span></span><br><span class="line">model = BayesianNetwork()</span><br><span class="line">model.add_states(rain, maintenance, train, appointment)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给节点之间添加用来连接的边</span></span><br><span class="line">model.add_edge(rain, maintenance)</span><br><span class="line">model.add_edge(rain, train)</span><br><span class="line">model.add_edge(maintenance, train)</span><br><span class="line">model.add_edge(train, appointment)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终确定模型</span></span><br><span class="line">model.bake()</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python"># 创建一个贝叶斯网络并添加状态
+model = BayesianNetwork()
+model.add_states(rain, maintenance, train, appointment)
+
+# 给节点之间添加用来连接的边
+model.add_edge(rain, maintenance)
+model.add_edge(rain, train)
+model.add_edge(maintenance, train)
+model.add_edge(train, appointment)
+
+# 最终确定模型
+model.bake()</code></pre>
 </li>
 <li>
 <p>为了询问某个事件的概率有多大，我们使用我们感兴趣的值来运行模型。在这个例子中，我们想要问的是没有雨、没有轨道维修、火车准时到达并且我们准点参加会议的概率是多少</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于提供的观察，计算概率</span></span><br><span class="line">probability = model.probability([[<span class="string">&quot;none&quot;</span>, <span class="string">&quot;no&quot;</span>, <span class="string">&quot;on time&quot;</span>, <span class="string">&quot;attend&quot;</span>]])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(probability)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python"># 基于提供的观察，计算概率
+probability = model.probability([[&quot;none&quot;, &quot;no&quot;, &quot;on time&quot;, &quot;attend&quot;]])
+
+print(probability)</code></pre>
 </li>
 <li>
 <p>否则我们可以使用该程序在给定一些观察到的证据时提供所有变量的概率分布。在下面的情况中，我们知道火车延误了。根据这个信息，我们计算并打印变量 <code>Rain</code>、<code>Maintenance</code> 和 <code>Appointment</code> 的概率分布</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于火车延误的证据进行预测计算</span></span><br><span class="line">predictions = model.predict_proba(&#123;</span><br><span class="line">    <span class="string">&quot;train&quot;</span>: <span class="string">&quot;delayed&quot;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印每个节点的预测结果</span></span><br><span class="line"><span class="keyword">for</span> node, prediction <span class="keyword">in</span> <span class="built_in">zip</span>(model.states, predictions):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(prediction, <span class="built_in">str</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;node.name&#125;</span>: <span class="subst">&#123;prediction&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;node.name&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> value, probability <span class="keyword">in</span> prediction.parameters[<span class="number">0</span>].items():</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;    <span class="subst">&#123;value&#125;</span>: <span class="subst">&#123;probability:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python"># 基于火车延误的证据进行预测计算
+predictions = model.predict_proba(&#123;
+    &quot;train&quot;: &quot;delayed&quot;
+&#125;)
+
+# 打印每个节点的预测结果
+for node, prediction in zip(model.states, predictions):
+    if isinstance(prediction, str):
+        print(f&quot;&#123;node.name&#125;: &#123;prediction&#125;&quot;)
+    else:
+        print(f&quot;&#123;node.name&#125;&quot;)
+        for value, probability in prediction.parameters[0].items():
+            print(f&quot;    &#123;value&#125;: &#123;probability:.4f&#125;&quot;)</code></pre>
 </li>
 </ol>
 <p>上述代码使用了枚举推理。然而这种计算概率的方式是低效的，特别是当模型中有许多变量时。另一种方法是放弃精确推理，转而采用近似推理。通过这样做，我们在生成的概率中失去了一些精度，但通常这种不精确性是可以忽略的。相反我们获得了一种可扩展的计算概率的方法。</p>

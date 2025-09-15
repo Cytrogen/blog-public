@@ -67,7 +67,29 @@
 <p>在 React.js 上的话，那就是存一个主题状态：如果是 light 模式就怎么怎么样；如果是 dark 模式就怎么怎么样。如果用的还是 Material-UI 或者其他 UI 框架，那大概率还会有个 theme 配置文件。</p>
 <p>这些方案对我们而言应该都很熟悉：<em>对啊，怎么了，这样做不是很正常吗。</em></p>
 <p>其实可以更简单一些，用 CSS 的 <code>color-mix()</code> 方法就可以办到：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="comment">// 核心品牌色</span></span><br><span class="line">  <span class="attr">--color-primary</span>: <span class="number">#5454f8</span>;</span><br><span class="line">  <span class="attr">--color-secondary</span>: <span class="number">#267B54</span>;</span><br><span class="line">  <span class="attr">--color-accent</span>: <span class="number">#4088b8</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用 color-mix() 生成交互状态</span></span><br><span class="line">  <span class="attr">--color-primary-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--color-primary) <span class="number">85%</span>, black);</span><br><span class="line">  <span class="attr">--color-secondary-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--color-secondary) <span class="number">85%</span>, black);</span><br><span class="line">  <span class="attr">--surface-interactive-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--surface-interactive) <span class="number">80%</span>, <span class="built_in">var</span>(--color-primary));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 深色主题</span></span><br><span class="line"><span class="selector-attr">[data-theme=<span class="string">&quot;dark&quot;</span>]</span> &#123;</span><br><span class="line">  <span class="attr">--color-primary</span>: <span class="number">#818cf8</span>;</span><br><span class="line">  <span class="attr">--color-secondary</span>: <span class="number">#34d399</span>;</span><br><span class="line">  <span class="attr">--color-accent</span>: <span class="number">#60a5fa</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 深色模式下的交互状态</span></span><br><span class="line">  <span class="attr">--color-primary-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--color-primary) <span class="number">80%</span>, white);</span><br><span class="line">  <span class="attr">--color-secondary-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--color-secondary) <span class="number">80%</span>, white);</span><br><span class="line">  <span class="attr">--surface-interactive-hover</span>: <span class="built_in">color-mix</span>(in srgb, <span class="built_in">var</span>(--surface-interactive) <span class="number">70%</span>, <span class="built_in">var</span>(--color-primary));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-scss">:root &#123;
+  // 核心品牌色
+  --color-primary: #5454f8;
+  --color-secondary: #267B54;
+  --color-accent: #4088b8;
+
+  // 使用 color-mix() 生成交互状态
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
+  --color-secondary-hover: color-mix(in srgb, var(--color-secondary) 85%, black);
+  --surface-interactive-hover: color-mix(in srgb, var(--surface-interactive) 80%, var(--color-primary));
+&#125;
+
+// 深色主题
+[data-theme=&quot;dark&quot;] &#123;
+  --color-primary: #818cf8;
+  --color-secondary: #34d399;
+  --color-accent: #60a5fa;
+
+  // 深色模式下的交互状态
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 80%, white);
+  --color-secondary-hover: color-mix(in srgb, var(--color-secondary) 80%, white);
+  --surface-interactive-hover: color-mix(in srgb, var(--surface-interactive) 70%, var(--color-primary));
+&#125;</code></pre>
 <p>又或者，我们想要创建模态框。通常我们会写一个 <code>&lt;div&gt;</code>，然后写 JavaScript 来控制它的显示和隐藏、背景遮罩、锁定用户的键盘焦点、处理 <code>Esc</code> 键退出等等等等。实际上，可以直接用 <code>&lt;dialog&gt;</code> 来写、用 <code>::backdrop</code> 伪元素给背景遮罩添加样式和动画、用 <code>@starting-style</code> 来实现更流畅的入场动画。</p>
 <p>其他交互效果，例如按钮的颜色变化就更不用说了。这里还有一个很有意思的考量：JavaScript 很可能带来安全问题，而 CSS 是完全安全的。</p>
 </blockquote>
@@ -87,8 +109,31 @@
 <li>代码块用的 JetBrains Mono</li>
 </ol>
 <p>这些字体都是用 Google Fonts 的 CDN 导入的。其实这种方式并非最佳实践，很容易导致性能问题：浏览器会发起两次请求，第一次用于请求 <code>fonts.googleapis.com</code> 这个地址、获取一个 CSS 文件，第二次则是请求 CSS 文件内的真实字体文件地址。这个过程至少会有两次网络往返，第一次请求的 CSS 文件会阻塞渲染，这意味着在它下载完成之前，页面可能是一片空白或者没有应用任何样式。为了解决这些问题，我是这么做的：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 加载真正的 Open Sans 字体</span></span><br><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Open Sans&#x27;</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;...&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff2&#x27;</span>);</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-display</span>: swap;</span><br><span class="line">  unicode-range: U+<span class="number">0000</span>-<span class="number">00</span>FF, U+<span class="number">0131</span>, U+<span class="number">0152</span>-<span class="number">0153</span>, U+<span class="number">02</span>BB-<span class="number">02</span>BC, U+<span class="number">02</span>C6, U+<span class="number">02</span>DA, U+<span class="number">02</span>DC, U+<span class="number">2000</span>-<span class="number">206</span>F, U+<span class="number">2074</span>, U+<span class="number">20</span>AC, U+<span class="number">2122</span>, U+<span class="number">2191</span>, U+<span class="number">2193</span>, U+<span class="number">2212</span>, U+<span class="number">2215</span>, U+FEFF, U+FFFD;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 创建“替身”字体</span></span><br><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Open Sans Fallback&#x27;</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">local</span>(<span class="string">&#x27;Arial&#x27;</span>);	<span class="comment">// 使用人人都有的 Arial 字体</span></span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-display</span>: swap;</span><br><span class="line">  <span class="comment">// 强行让 Arial 的尺寸变得和 Open Sans 一样</span></span><br><span class="line">  size-adjust: <span class="number">107%</span>;</span><br><span class="line">  ascent-override: <span class="number">97%</span>;</span><br><span class="line">  descent-override: <span class="number">25%</span>;</span><br><span class="line">  <span class="selector-tag">line</span>-<span class="attribute">gap</span>-override: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3. 在字体栈里，让“替身”字体紧跟在真正的 Open Sans 字体之后</span></span><br><span class="line"><span class="variable">$base-font-family</span>: <span class="string">&#x27;Open Sans&#x27;</span>, <span class="string">&#x27;Open Sans Fallback&#x27;</span>, <span class="string">&#x27;Noto Sans SC&#x27;</span>, -apple-system, BlinkMacSystemFont, <span class="string">&#x27;Segoe UI&#x27;</span>, Roboto, <span class="string">&#x27;Helvetica Neue&#x27;</span>, Arial, <span class="string">&#x27;PingFang SC&#x27;</span>, <span class="string">&#x27;Hiragino Sans GB&#x27;</span>, <span class="string">&#x27;Microsoft YaHei&#x27;</span>, sans-serif;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-scss">// 1. 加载真正的 Open Sans 字体
+@font-face &#123;
+  font-family: &#x27;Open Sans&#x27;;
+  src: url(&#x27;...&#x27;) format(&#x27;woff2&#x27;);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+&#125;
+
+// 2. 创建“替身”字体
+@font-face &#123;
+  font-family: &#x27;Open Sans Fallback&#x27;;
+  src: local(&#x27;Arial&#x27;);	// 使用人人都有的 Arial 字体
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  // 强行让 Arial 的尺寸变得和 Open Sans 一样
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+&#125;</code></pre>
+<pre><code class="language-scss">// 3. 在字体栈里，让“替身”字体紧跟在真正的 Open Sans 字体之后
+$base-font-family: &#x27;Open Sans&#x27;, &#x27;Open Sans Fallback&#x27;, &#x27;Noto Sans SC&#x27;, -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, Roboto, &#x27;Helvetica Neue&#x27;, Arial, &#x27;PingFang SC&#x27;, &#x27;Hiragino Sans GB&#x27;, &#x27;Microsoft YaHei&#x27;, sans-serif;</code></pre>
 <p>这个思路很简单：先让浏览器用这个调整好尺寸的 Arial 字体把字体显示出来，因为是本地字体，所以速度会很快、文字的位置会迅速固定。当真正的 Open Sans 字体下载好之后，浏览器就会立刻用它替换掉临时的 Arial “替身”。由于位置和尺寸早就被 Arial 字体固定好，所以整个替换过程在视觉上是无缝的，页面完全不会跳动。</p>
 <p>再就是字体格式，相较于 TFF 或 OTF 等传统格式，用 WOFF2 更好。WOFF2 的压缩率极高，兼容性也特别好，尽量开发网页时都采取这个字体格式。不过有些字体不让转换成这个格式，需要特别注意一下。</p>
 <p>你也可以看出来，我用了 <code>unicode-range</code> 控制了字体的字符范围、只让页面加载它实际需要的字符。比如说 Open Sans 只加载基本拉丁字符、标点符号和货币符号，Noto Sans 则只包含中文汉字字符范围（<code>unicode-range: U+4E00-9FFF, U+3400-4DBF, U+20000-2A6DF;</code>）。</p>
@@ -98,13 +143,24 @@
 <p>此处令我想到高中时、一位我很喜欢的老师。当时她还不是正式教师，考核时给我们上的课讲的就是排版和字体。当时并没有认真听讲。</p>
 </blockquote>
 <p>CSS 提供了一些属性，恰好可以让我们解决这个问题：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;JetBrains Mono&#x27;</span>;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  size-adjust: <span class="number">94%</span>;</span><br><span class="line">  ascent-override: <span class="number">92%</span>;</span><br><span class="line">  descent-override: <span class="number">22%</span>;</span><br><span class="line">  <span class="selector-tag">line</span>-<span class="attribute">gap</span>-override: <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-scss">@font-face &#123;
+  font-family: &#x27;JetBrains Mono&#x27;;
+  // ...
+  size-adjust: 94%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+&#125;</code></pre>
 <p>我通过 <code>size-adjust: 94%</code> 将 JetBrains Mono 的整体视觉大小缩小了一点，然后用 <code>ascent-override</code> 等属性微调了它的垂直对齐基线，最终让它和我的正文字体放在一起时，看起来没那么突兀了。</p>
 <h4 id="流式排版"><a class="markdownIt-Anchor" href="#流式排版"></a> 流式排版</h4>
 <p>每个人阅读博客的设备都各不相同，有用电脑的，有用平板的，有用手机的，有用小天才手表的（<em>有吗？</em>）。不同设备的屏幕尺寸不同，我们通常需要在多个端点处使用媒体查询来手动调整 <code>font-size</code>。例如：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> (<span class="attribute">min-width</span>: <span class="number">768px</span>) &#123; <span class="selector-tag">body</span>: font-size: <span class="number">17px</span>; &#125; &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-css">@media (min-width: 768px) &#123; body: font-size: 17px; &#125; &#125;</code></pre>
 <p>这很繁琐，要知道现在世界上有多少种屏幕尺寸，一个个适配过去会累死掉。更优雅的解决方案是采用流式排版，即让字体大小像液体一样，随着屏幕宽度的变化而平滑、无缝地缩放，确保在任意设备宽度下都有最佳的视觉表现。实现这种效果，要用到 <code>clamp()</code> 方法。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attr">--font-size-body</span>: <span class="built_in">clamp</span>(<span class="number">1rem</span>, <span class="number">0.9rem</span> + <span class="number">0.5vw</span>, <span class="number">1.125rem</span>); <span class="comment">/* 从16px平滑过渡到18px */</span></span><br><span class="line">  <span class="attr">--font-size-h1</span>: <span class="built_in">clamp</span>(<span class="number">2rem</span>, <span class="number">1.5rem</span> + <span class="number">2.5vw</span>, <span class="number">3rem</span>);       <span class="comment">/* 从32px平滑过渡到48px */</span></span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-css">:root &#123;
+  --font-size-body: clamp(1rem, 0.9rem + 0.5vw, 1.125rem); /* 从16px平滑过渡到18px */
+  --font-size-h1: clamp(2rem, 1.5rem + 2.5vw, 3rem);       /* 从32px平滑过渡到48px */
+  // ...
+&#125;</code></pre>
 <p><code>clamp()</code> 的三个参数分别是：</p>
 <ul>
 <li>最小值</li>

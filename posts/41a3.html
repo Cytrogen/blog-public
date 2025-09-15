@@ -111,7 +111,8 @@
 <h4 id="将-dealerships-页面上的-states-下拉菜单转换为可搜索文本框"><a class="markdownIt-Anchor" href="#将-dealerships-页面上的-states-下拉菜单转换为可搜索文本框"></a> 将 <code>Dealerships</code> 页面上的 <code>States</code> 下拉菜单转换为可搜索文本框</h4>
 <ol>
 <li>访问 <code>frontend/src/components/Dealers/Dealers.jsx</code> 文件。</li>
-<li>您会注意到，经销商下拉菜单的代码是在 <code>&lt;select&gt;</code> 下拉菜单元素中显示的：<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;select name=<span class="string">&quot;state&quot;</span> id=<span class="string">&quot;state&quot;</span> onChange=&#123;<span class="function">(<span class="params">e</span>) =&gt;</span> <span class="title function_">filterDealers</span>(e.<span class="property">target</span>.<span class="property">value</span>)&#125;&gt;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<li>您会注意到，经销商下拉菜单的代码是在 <code>&lt;select&gt;</code> 下拉菜单元素中显示的：<pre><code class="language-jsx">&lt;select name=&quot;state&quot; id=&quot;state&quot; onChange=&#123;(e) =&gt; filterDealers(e.target.value)&#125;&gt;
+&lt;/select&gt;</code></pre>
 </li>
 <li>用包含以下属性的 <code>&lt;input&gt;</code> 字段取代现有的 <code>&lt;select&gt;</code> 元素：
 <ul>
@@ -119,12 +120,19 @@
 <li>根据输入的搜索查询过滤显示的经销商，并与州匹配。</li>
 <li>当输入框失去焦点时，将显示的经销商重置为原始列表。</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> placeholder=<span class="string">&quot;Search states...&quot;</span> onChange=&#123;handleInputChange&#125; onBlur=&#123;handleLostFocus&#125; value=&#123;searchQuery&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">&lt;input type=&quot;text&quot; placeholder=&quot;Search states...&quot; onChange=&#123;handleInputChange&#125; onBlur=&#123;handleLostFocus&#125; value=&#123;searchQuery&#125; /&gt;</code></pre>
 </li>
 </ol>
 <p>观察输入元素中的函数。现在，让我们创建它们。</p>
 <ol>
-<li>创建一个名为 <code>handleInputChange</code> 的新函数，用于管理输入更改，并根据输入的状态查询过滤经销商。<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">handleInputChange</span> = (<span class="params">event</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> query = event.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">  <span class="title function_">setSearchQuery</span>(query);</span><br><span class="line">  <span class="keyword">const</span> filtered = originalDealers.<span class="title function_">filter</span>(<span class="function"><span class="params">dealer</span> =&gt;</span></span><br><span class="line">    dealer.<span class="property">state</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">includes</span>(query.<span class="title function_">toLowerCase</span>())</span><br><span class="line">  );</span><br><span class="line">  <span class="title function_">setDealersList</span>(filtered);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<li>创建一个名为 <code>handleInputChange</code> 的新函数，用于管理输入更改，并根据输入的状态查询过滤经销商。<pre><code class="language-jsx">const handleInputChange = (event) =&gt; &#123;
+  const query = event.target.value;
+  setSearchQuery(query);
+  const filtered = originalDealers.filter(dealer =&gt;
+    dealer.state.toLowerCase().includes(query.toLowerCase())
+  );
+  setDealersList(filtered);
+&#125;;</code></pre>
 <ul>
 <li>每次输入框内的值发生变化时，都会触发该函数。</li>
 <li>它会检索用户在输入框中输入的当前值，并将其作为查询存储在 <code>setSearchQuery</code> 变量中，用于筛选经销商。</li>
@@ -134,14 +142,18 @@
 </ul>
 </li>
 <li>总之，<code>handleInputChange</code> 函数可根据用户在搜索栏中的输入动态过滤经销商列表。它实时更新显示的经销商列表，为用户提供响应式搜索功能。</li>
-<li>创建 <code>handleLostFocus</code> 函数，以确保当用户将搜索输入留空并点击或滑动标签离开时，经销商列表会重置为原始列表。<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">handleLostFocus</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (!searchQuery) &#123;</span><br><span class="line">    <span class="title function_">setDealersList</span>(originalDealers);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>创建 <code>handleLostFocus</code> 函数，以确保当用户将搜索输入留空并点击或滑动标签离开时，经销商列表会重置为原始列表。<pre><code class="language-jsx">const handleLostFocus = () =&gt; &#123;
+  if (!searchQuery) &#123;
+    setDealersList(originalDealers);
+  &#125;
+&#125;</code></pre>
 <ul>
 <li>该函数在执行时验证 <code>searchQuery</code> 状态是否为空。</li>
 <li>如果 <code>searchQuery</code> 确实为空，它就会将经销商列表恢复到开始搜索前的原始状态。</li>
 <li><code>handleLostFocus</code> 函数在用户点击输入框外或标签页离开输入框时调用，由 <code>onBlur</code> 事件触发。</li>
 </ul>
 </li>
-<li>将此代码与之前定义的其他状态变量一起添加：<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [searchQuery, setSearchQuery] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<li>将此代码与之前定义的其他状态变量一起添加：<pre><code class="language-jsx">const [searchQuery, setSearchQuery] = useState(&#x27;&#x27;);</code></pre>
 <ul>
 <li>这将利用 <code>useState</code> 钩子创建一个名为 <code>searchQuery</code> 的状态变量和一个相应的函数 <code>setSearchQuery</code> 来更新其值。</li>
 <li><code>searchQuery</code> 状态变量实时保存用户在搜索输入框中输入的值。当用户在搜索栏中输入时，该状态变量会通过调用 <code>setSearchQuery</code> 进行更新，并触发组件的重新渲染，以反映对搜索查询所做的任何更改。</li>
@@ -149,14 +161,15 @@
 </li>
 <li>初始化和设置状态变量，用于管理原始经销商列表。
 <ul>
-<li>添加以下代码，初始化 <code>dealersList</code>、<code>searchQuery</code> 和 <code>states</code> 变量及其设置函数：<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [originalDealers, setOriginalDealers] = <span class="title function_">useState</span>([]);</span><br></pre></td></tr></table></figure>
+<li>添加以下代码，初始化 <code>dealersList</code>、<code>searchQuery</code> 和 <code>states</code> 变量及其设置函数：<pre><code class="language-jsx">const [originalDealers, setOriginalDealers] = useState([]);</code></pre>
 在这段代码中，状态变量 <code>originalDealers</code> 及其设置函数 <code>setOriginalDealers</code> 用于跟踪和更新原始经销商列表。</li>
-<li>将下面的代码放在 <code>getDealers</code> 函数中更新其他状态（<code>setStates</code> 和 <code>setDealersList</code>）的地方。<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setOriginalDealers</span>(all_dealers);</span><br></pre></td></tr></table></figure>
+<li>将下面的代码放在 <code>getDealers</code> 函数中更新其他状态（<code>setStates</code> 和 <code>setDealersList</code>）的地方。<pre><code class="language-jsx">setOriginalDealers(all_dealers);</code></pre>
 这一行用从应用程序接口获取的所有经销商数组设置状态变量 <code>originalDealers</code>，用于存储过滤前的原始经销商列表。</li>
 </ul>
 </li>
 <li>确保保存所有更改。</li>
-<li>运行以下命令来构建应用程序的客户端：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/project/xrwvm-fullstack_developer_capstone/server/frontend</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<li>运行以下命令来构建应用程序的客户端：<pre><code class="language-bash">cd /home/project/xrwvm-fullstack_developer_capstone/server/frontend
+npm run build</code></pre>
 </li>
 <li>访问经销商详细信息页面，测试应用程序的输出。</li>
 <li>请观察用于经销商搜索的搜索框的外观，它取代了之前的下拉框。</li>
@@ -185,12 +198,12 @@
 <p><strong>更改导航栏的背景颜色</strong></p>
 <ol>
 <li>打开文件 <code>frontend/static/Home.html</code>。</li>
-<li>您将看到以下代码片段，它将当前的深绿色背景添加到应用程序中的导航栏：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar navbar-expand-lg navbar-light&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;backgroundColor:</span>&quot;<span class="attr">darkturquoise</span>&quot;,<span class="attr">height:</span>&quot;<span class="attr">1in</span>&quot;&#125;&#125;&gt;</span></span><br></pre></td></tr></table></figure>
+<li>您将看到以下代码片段，它将当前的深绿色背景添加到应用程序中的导航栏：<pre><code class="language-html">&lt;nav class=&quot;navbar navbar-expand-lg navbar-light&quot; style=&#123;&#123;backgroundColor:&quot;darkturquoise&quot;,height:&quot;1in&quot;&#125;&#125;&gt;</code></pre>
 </li>
-<li>用您喜欢的颜色（如 <code>mediumspringgreen</code>）代替它，以修改页眉的背景颜色。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar navbar-expand-lg navbar-light&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color:mediumspringgreen; height: 1in;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>用您喜欢的颜色（如 <code>mediumspringgreen</code>）代替它，以修改页眉的背景颜色。<pre><code class="language-html">&lt;nav class=&quot;navbar navbar-expand-lg navbar-light&quot; style=&quot;background-color:mediumspringgreen; height: 1in;&quot;&gt;</code></pre>
 </li>
 <li>保存更改。</li>
-<li>运行提供的命令构建客户端并显示上述更改：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<li>运行提供的命令构建客户端并显示上述更改：<pre><code class="language-bash">npm run build</code></pre>
 </li>
 <li>刷新应用页面。</li>
 <li>观察导航栏背景的变化。</li>
@@ -199,9 +212,9 @@
 <li>
 <p><strong>修改 <code>View Dealerships</code> 按钮的背景颜色</strong></p>
 <ol>
-<li>以下代码表示应用程序主页上 <code>View Dealerships</code> 按钮的背景颜色：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/dealers&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: aqua;margin:10px&quot;</span>&gt;</span>View Dealerships<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>以下代码表示应用程序主页上 <code>View Dealerships</code> 按钮的背景颜色：<pre><code class="language-html">&lt;a href=&quot;/dealers&quot; class=&quot;btn&quot; style=&quot;background-color: aqua;margin:10px&quot;&gt;View Dealerships&lt;/a&gt;</code></pre>
 </li>
-<li>将其调整为您喜欢的颜色（例如，<code>plum</code>，一种紫色）。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/dealers&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background-color: plum; margin:10px&quot;</span>&gt;</span>View Dealerships<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>将其调整为您喜欢的颜色（例如，<code>plum</code>，一种紫色）。<pre><code class="language-html">&lt;a href=&quot;/dealers&quot; class=&quot;btn&quot; style=&quot;background-color: plum; margin:10px&quot;&gt;View Dealerships&lt;/a&gt;</code></pre>
 </li>
 <li>请观察 <code>View Dealerships</code> 按钮的最新配色方案。</li>
 </ol>
@@ -210,9 +223,9 @@
 <p><strong>调整与 <code>Review</code> 面板相关的背景颜色</strong></p>
 <ol>
 <li><code>Dealers.css</code> 文件中的样式是为应用程序中的 <code>Dealerships</code> 和 <code>Reviews</code> 面板定制的。<code>review_panel</code> 类包含用于设计经销商审查面板样式的代码。</li>
-<li>请注意，它的边框是纯灰色的。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border</span>: solid grey;</span><br></pre></td></tr></table></figure>
+<li>请注意，它的边框是纯灰色的。<pre><code class="language-css">border: solid grey;</code></pre>
 </li>
-<li>调整代码，使其具有纯紫色边框：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border</span>: solid purple;</span><br></pre></td></tr></table></figure>
+<li>调整代码，使其具有纯紫色边框：<pre><code class="language-css">border: solid purple;</code></pre>
 </li>
 <li>你会发现 <code>Review</code> 面板的边框变成了纯紫色，外观也发生了变化。</li>
 </ol>
@@ -221,9 +234,9 @@
 <p><strong>自定义与 <code>Review</code> 图标相连的悬浮边框</strong></p>
 <ol>
 <li>当用户将鼠标悬停在 <code>Review</code> 图标上时，<code>.review_icon:hover</code> 类将为其应用样式。</li>
-<li>请注意，悬停时它的背景是纯浅灰色。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border</span>: solid lightgray;</span><br></pre></td></tr></table></figure>
+<li>请注意，悬停时它的背景是纯浅灰色。<pre><code class="language-css">border: solid lightgray;</code></pre>
 </li>
-<li>将颜色调整为黑色色调，边框变细（如 2 像素），以便在悬停时呈现出鲜明而纤细的背景外观。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#080808</span>;</span><br></pre></td></tr></table></figure>
+<li>将颜色调整为黑色色调，边框变细（如 2 像素），以便在悬停时呈现出鲜明而纤细的背景外观。<pre><code class="language-css">border: 2px solid #080808;</code></pre>
 </li>
 <li>观察修改后的图标，它带有细细的黑色边框，悬停时会显示出明显的存在感。</li>
 </ol>
@@ -242,7 +255,7 @@
 <ol>
 <li><code>.reviewer</code> 类定义了用户评论的样式。</li>
 <li>当前字体大小设置为小。</li>
-<li>将字体大小调整到特定值（例如 18 像素），以放大 <code>Review</code> 文本，提高可读性。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br></pre></td></tr></table></figure>
+<li>将字体大小调整到特定值（例如 18 像素），以放大 <code>Review</code> 文本，提高可读性。<pre><code class="language-css">font-size: 18px;</code></pre>
 </li>
 </ol>
 </li>
@@ -251,7 +264,7 @@
 <ol>
 <li>文本对齐属性并未被指定。</li>
 <li>因此，浏览器的默认文本对齐方式（通常为左对齐）会被应用，从而产生左对齐的 <code>Review</code> 文本。</li>
-<li>将文本居中，以确保 <code>User reviews</code> 显示在 <code>Review</code> 窗格的中心。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">text-align</span>: center;</span><br></pre></td></tr></table></figure>
+<li>将文本居中，以确保 <code>User reviews</code> 显示在 <code>Review</code> 窗格的中心。<pre><code class="language-css">text-align: center;</code></pre>
 </li>
 </ol>
 </li>
@@ -262,19 +275,38 @@
 <li>
 <p>打开一个新的终端窗口，导航到 <code>xrwvm-fullstack_developer_capstone/server</code> 目录。<br>
 生成一个名为 <code>carsInventory</code> 的新目录。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> carsInventory</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">mkdir carsInventory</code></pre>
 </li>
 <li>
 <p>执行以下命令，初始化一个新的 Node.js 项目，并在 <code>carsInvent</code> 目录下创建 <code>package.json</code> 文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">npm init</code></pre>
 <p>将以下应用程序依赖项添加到 <code>package.json</code> 中：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="attr">&quot;cors&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.8.5&quot;</span><span class="punctuation">,</span>    </span><br><span class="line"><span class="attr">&quot;express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.18.2&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;mongodb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.3.0&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;mongoose&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.0.1&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-json"> &quot;cors&quot;: &quot;^2.8.5&quot;,    
+&quot;express&quot;: &quot;^4.18.2&quot;,
+&quot;mongodb&quot;: &quot;^6.3.0&quot;,
+&quot;mongoose&quot;: &quot;^8.0.1&quot;</code></pre>
 <p>这些依赖项对于启用 CORS（跨源资源共享）、处理网络应用程序路由和中间件（Express）、与 MongoDB 交互（MongoDB 驱动程序）以及在使用 MongoDB 的 Node.js 应用程序中提供便捷的数据建模方式（Mongoose）至关重要。</p>
 <p>每个依赖关系中版本号前的 <code>^</code> 符号允许在运行 <code>npm install</code> 命令时安装兼容的未来更新。</p>
 <p>将 <code>name</code> 设置为 <code>carsInventory</code>，将 <code>main</code> 的值设置为 <code>app.js</code>。这样，<code>package.json</code> 文件看起来应该与下面相似：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;carsInventory&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;app.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">     <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;cors&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^2.8.5&quot;</span><span class="punctuation">,</span>    </span><br><span class="line">    <span class="attr">&quot;express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.18.2&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;mongodb&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^6.3.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;mongoose&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^8.0.1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-json"> &#123;
+  &quot;name&quot;: &quot;carsInventory&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;app.js&quot;,
+  &quot;scripts&quot;: &#123;
+     &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  &#125;,
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: &#123;
+    &quot;cors&quot;: &quot;^2.8.5&quot;,    
+    &quot;express&quot;: &quot;^4.18.2&quot;,
+    &quot;mongodb&quot;: &quot;^6.3.0&quot;,
+    &quot;mongoose&quot;: &quot;^8.0.1&quot;
+  &#125;
+&#125;</code></pre>
 <p>执行命令安装这些依赖项：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">npm install</code></pre>
 </li>
 <li>
 <p>在名为 <code>inventory.js</code> 的文件中设置 MongoDB schema。现在，您将使用 <code>mongoose</code> 库为名为 <code>cars</code> 的集合建立 MongoDB schema。<br>
@@ -290,21 +322,58 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <li><code>price</code>：<code>Number</code></li>
 </ul>
 <p>模型将被命名为 <code>cars</code>，与所连接的 MongoDB 数据库中的 <code>cars</code> 集合相对应。MongoDB 模型将以此名称导出。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Int32</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;mongodb&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&#x27;mongoose&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Schema</span> = mongoose.<span class="property">Schema</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cars = <span class="keyword">new</span> <span class="title class_">Schema</span>(&#123;</span><br><span class="line">  <span class="attr">dealer_id</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">make</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">model</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">bodyType</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">year</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">mileage</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">price</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">    <span class="attr">required</span>: <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = mongoose.<span class="title function_">model</span>(<span class="string">&#x27;cars&#x27;</span>, cars);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">const &#123; Int32 &#125; = require(&#x27;mongodb&#x27;);
+const mongoose = require(&#x27;mongoose&#x27;);
+
+const Schema = mongoose.Schema;
+
+const cars = new Schema(&#123;
+  dealer_id: &#123;
+    type: Number,
+    required: true
+  &#125;,
+  make: &#123;
+    type: String,
+    required: true
+  &#125;,
+  model: &#123;
+    type: String,
+    required: true
+  &#125;,
+  bodyType: &#123;
+    type: String,
+    required: true
+  &#125;,
+  year: &#123;
+    type: Number,
+    required: true
+  &#125;,
+  mileage: &#123;
+    type: Number,
+    required: true
+  &#125;,
+  price: &#123;
+    type: Number,
+    required: true
+  &#125;
+&#125;);
+
+module.exports = mongoose.model(&#x27;cars&#x27;, cars);</code></pre>
 </li>
 <li>
 <p>获取包含汽车库存和相关详细信息的 JSON 数据集。<br>
 首先创建一个名为 <code>data</code> 的文件夹并导航进入：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> data</span><br><span class="line"><span class="built_in">cd</span> data</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">mkdir data
+cd data</code></pre>
 <p>下载汽车库存数据集：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CD0321EN-SkillsNetwork/labs/v2/m6/car_records.json</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">wget https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-CD0321EN-SkillsNetwork/labs/v2/m6/car_records.json</code></pre>
 <p>检查文件，发现每个汽车对象都有以下字段：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make, model, bodyType, year, dealer_id, mileage, price</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">make, model, bodyType, year, dealer_id, mileage, price</code></pre>
 </li>
 <li>
 <p>返回 <code>carsInvent</code> 目录，创建更多文件。</p>
 <p>建立具有后端端点功能的 Node.JS 服务器。首先创建一个名为 <code>app.js</code> 的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> app.js</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">touch app.js</code></pre>
 <p>它应具备以下功能：</p>
 <ul>
 <li>设置与 MongoDB 集成的 Express 服务器</li>
@@ -347,11 +416,126 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 </li>
 <li>在 <code>3050</code> 端口启动服务器。</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*jshint esversion: 8 */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mongoose = <span class="built_in">require</span>(<span class="string">&#x27;mongoose&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&#x27;cors&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3050</span>;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>());</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> carsData = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(fs.<span class="title function_">readFileSync</span>(<span class="string">&#x27;car_records.json&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>));</span><br><span class="line"></span><br><span class="line">mongoose.<span class="title function_">connect</span>(<span class="string">&#x27;mongodb://mongo_db:27017/&#x27;</span>, &#123; <span class="attr">dbName</span>: <span class="string">&#x27;dealershipsDB&#x27;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Cars</span> = <span class="built_in">require</span>(<span class="string">&#x27;./inventory&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="title class_">Cars</span>.<span class="title function_">deleteMany</span>(&#123;&#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title class_">Cars</span>.<span class="title function_">insertMany</span>(carsData.<span class="property">cars</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(error);</span><br><span class="line">  <span class="comment">// Handle errors properly here</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&#x27;Welcome to the Mongoose API&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/cars/:id&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123;<span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>&#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching reviews&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/carsbymake/:id/:make&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123;<span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>, <span class="attr">make</span>: req.<span class="property">params</span>.<span class="property">make</span>&#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching reviews by car make and model&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/carsbymodel/:id/:model&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123; <span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>, <span class="attr">model</span>: req.<span class="property">params</span>.<span class="property">model</span> &#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching dealers by ID&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/carsbymaxmileage/:id/:mileage&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> mileage = <span class="built_in">parseInt</span>(req.<span class="property">params</span>.<span class="property">mileage</span>)</span><br><span class="line">    <span class="keyword">let</span> condition = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span>(mileage === <span class="number">50000</span>) &#123;</span><br><span class="line">      condition = &#123; $lte : mileage&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mileage === <span class="number">100000</span>)&#123;</span><br><span class="line">      condition = &#123; $lte : mileage, $gt : <span class="number">50000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mileage === <span class="number">150000</span>)&#123;</span><br><span class="line">      condition = &#123; $lte : mileage, $gt : <span class="number">100000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mileage === <span class="number">200000</span>)&#123;</span><br><span class="line">      condition = &#123; $lte : mileage, $gt : <span class="number">150000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      condition = &#123; $gt : <span class="number">200000</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123; <span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>, mileage : condition &#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching dealers by ID&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/carsbyprice/:id/:price&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> price = <span class="built_in">parseInt</span>(req.<span class="property">params</span>.<span class="property">price</span>)</span><br><span class="line">    <span class="keyword">let</span> condition = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span>(price === <span class="number">20000</span>) &#123;</span><br><span class="line">      condition = &#123; $lte : price&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (price=== <span class="number">40000</span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;\n \n \n &quot;</span>+ price)  </span><br><span class="line">      condition = &#123; $lte : price, $gt : <span class="number">20000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (price === <span class="number">60000</span>)&#123;</span><br><span class="line">      condition = &#123; $lte : price, $gt : <span class="number">40000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (price === <span class="number">80000</span>)&#123;</span><br><span class="line">      condition = &#123; $lte : price, $gt : <span class="number">60000</span>&#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      condition = &#123; $gt : <span class="number">80000</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123; <span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>, price : condition &#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching dealers by ID&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/carsbyyear/:id/:year&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Cars</span>.<span class="title function_">find</span>(&#123; <span class="attr">dealer_id</span>: req.<span class="property">params</span>.<span class="property">id</span>, year : &#123; $gte :req.<span class="property">params</span>.<span class="property">year</span> &#125;&#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching dealers by ID&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Server is running on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="language-js">/*jshint esversion: 8 */
+
+const express = require(&#x27;express&#x27;);
+const mongoose = require(&#x27;mongoose&#x27;);
+const fs = require(&#x27;fs&#x27;);
+const cors = require(&#x27;cors&#x27;);
+
+const app = express();
+const port = 3050;
+
+app.use(cors());
+app.use(express.urlencoded(&#123; extended: false &#125;));
+
+const carsData = JSON.parse(fs.readFileSync(&#x27;car_records.json&#x27;, &#x27;utf8&#x27;));
+
+mongoose.connect(&#x27;mongodb://mongo_db:27017/&#x27;, &#123; dbName: &#x27;dealershipsDB&#x27; &#125;);
+
+const Cars = require(&#x27;./inventory&#x27;);
+
+try &#123;
+  Cars.deleteMany(&#123;&#125;).then(() =&gt; &#123;
+    Cars.insertMany(carsData.cars);
+  &#125;);
+&#125; catch (error) &#123;
+  console.error(error);
+  // Handle errors properly here
+&#125;
+
+app.get(&#x27;/&#x27;, async (req, res) =&gt; &#123;
+  res.send(&#x27;Welcome to the Mongoose API&#x27;);
+&#125;);
+
+app.get(&#x27;/cars/:id&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    const documents = await Cars.find(&#123;dealer_id: req.params.id&#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching reviews&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.get(&#x27;/carsbymake/:id/:make&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    const documents = await Cars.find(&#123;dealer_id: req.params.id, make: req.params.make&#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching reviews by car make and model&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.get(&#x27;/carsbymodel/:id/:model&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    const documents = await Cars.find(&#123; dealer_id: req.params.id, model: req.params.model &#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching dealers by ID&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.get(&#x27;/carsbymaxmileage/:id/:mileage&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    let mileage = parseInt(req.params.mileage)
+    let condition = &#123;&#125;
+    if(mileage === 50000) &#123;
+      condition = &#123; $lte : mileage&#125;
+    &#125; else if (mileage === 100000)&#123;
+      condition = &#123; $lte : mileage, $gt : 50000&#125;
+    &#125; else if (mileage === 150000)&#123;
+      condition = &#123; $lte : mileage, $gt : 100000&#125;
+    &#125; else if (mileage === 200000)&#123;
+      condition = &#123; $lte : mileage, $gt : 150000&#125;
+    &#125; else &#123;
+      condition = &#123; $gt : 200000&#125;
+    &#125;
+    const documents = await Cars.find(&#123; dealer_id: req.params.id, mileage : condition &#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching dealers by ID&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.get(&#x27;/carsbyprice/:id/:price&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    let price = parseInt(req.params.price)
+    let condition = &#123;&#125;
+    if(price === 20000) &#123;
+      condition = &#123; $lte : price&#125;
+    &#125; else if (price=== 40000)&#123;
+      console.log(&quot;\n \n \n &quot;+ price)  
+      condition = &#123; $lte : price, $gt : 20000&#125;
+    &#125; else if (price === 60000)&#123;
+      condition = &#123; $lte : price, $gt : 40000&#125;
+    &#125; else if (price === 80000)&#123;
+      condition = &#123; $lte : price, $gt : 60000&#125;
+    &#125; else &#123;
+      condition = &#123; $gt : 80000&#125;
+    &#125;
+    const documents = await Cars.find(&#123; dealer_id: req.params.id, price : condition &#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching dealers by ID&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.get(&#x27;/carsbyyear/:id/:year&#x27;, async (req, res) =&gt; &#123;
+  try &#123;
+    const documents = await Cars.find(&#123; dealer_id: req.params.id, year : &#123; $gte :req.params.year &#125;&#125;);
+    res.json(documents);
+  &#125; catch (error) &#123;
+    res.status(500).json(&#123; error: &#x27;Error fetching dealers by ID&#x27; &#125;);
+  &#125;
+&#125;);
+
+app.listen(port, () =&gt; &#123;
+  console.log(`Server is running on http://localhost:$&#123;port&#125;`);
+&#125;);</code></pre>
 </li>
 <li>
 <p>为 Node.js 应用程序创建 Docker 镜像。首先创建 <code>Dockerfile</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> Dockerfile</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">touch Dockerfile</code></pre>
 <p>添加以下内容：</p>
 <ul>
 <li>基础 Docker 镜像：<code>node:18.12.1-bullseye-slim</code></li>
@@ -361,18 +545,52 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <li>让容器监听 3050 端口</li>
 <li>将容器启动时要运行的默认命令指定为 <code>node app.js</code></li>
 </ul>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> node:<span class="number">18.12</span>.<span class="number">1</span>-bullseye-slim</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install -g npm@9.1.3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> package.json .</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> app.js .</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> data/car_records.json .</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3050</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [ <span class="string">&quot;node&quot;</span>, <span class="string">&quot;app.js&quot;</span> ]</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-dockerfile">FROM node:18.12.1-bullseye-slim
+
+RUN npm install -g npm@9.1.3
+
+ADD package.json .
+ADD app.js .
+ADD data/car_records.json .
+COPY . .
+RUN npm install
+
+EXPOSE 3050
+
+CMD [ &quot;node&quot;, &quot;app.js&quot; ]</code></pre>
 </li>
 <li>
 <p>为运行两个服务（MongoDB 容器和 Node.js 应用程序）设置 Docker Compose 配置文件。<br>
 创建 Docker Compose 配置 YAML 文件（<code>docker-compose.yml</code>）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> docker-compose.yml</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">touch docker-compose.yml</code></pre>
 <p>添加内容：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.9&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># Mongodb service</span></span><br><span class="line">  <span class="attr">mongo_db:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">carsInventory_container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo:latest</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">27018</span><span class="string">:27017</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo_data:/data/db</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Node api service</span></span><br><span class="line">  <span class="attr">api:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nodeapp</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">3050</span><span class="string">:3050</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo_db</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">mongo_data:</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-yaml">version: &#x27;3.9&#x27;
+
+services:
+  # Mongodb service
+  mongo_db:
+    container_name: carsInventory_container
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  # Node api service
+  api:
+    image: nodeapp
+    ports:
+      - 3050:3050
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_data: &#123;&#125;</code></pre>
 <p>构建 Docker 应用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t nodeapp</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">docker build . -t nodeapp</code></pre>
 <p>执行以下命令启动服务器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">docker-compose up</code></pre>
 <p>启动服务器并验证汽车库存服务的根端点是否显示了 <code>Welcome to the Mongoose API</code> 的消息。</p>
 </li>
 </ol>
@@ -383,7 +601,7 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 </li>
 <li>
 <p>在 <code>.env</code> 文件中插入汽车库存服务端点的 URL（上一节已复制）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchcars_url=&#x27;your end&#x27;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-plaintext">searchcars_url=&#x27;your end&#x27;</code></pre>
 <blockquote>
 <p>不要添加尾端的 <code>\</code>。</p>
 </blockquote>
@@ -393,7 +611,10 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <ol>
 <li>
 <p>从 <code>.env</code> 文件中获取 URL。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">searchcars_url = os.getenv(</span><br><span class="line">    <span class="string">&#x27;searchcars_url&#x27;</span>,</span><br><span class="line">    default=<span class="string">&quot;http://localhost:3050/&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">searchcars_url = os.getenv(
+    &#x27;searchcars_url&#x27;,
+    default=&quot;http://localhost:3050/&quot;
+)</code></pre>
 </li>
 <li>
 <p>执行一个名为 <code>searchcars_request</code> 的方法，该方法具有以下功能：</p>
@@ -404,7 +625,24 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <li>处理错误（包括网络异常）并提供成功完成消息</li>
 </ul>
 <p>代码结构将与您之前在 Capstone 主项目中创建的 <code>get_request</code> 方法非常相似：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">searchcars_request</span>(<span class="params">endpoint, **kwargs</span>):</span><br><span class="line">    params = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (kwargs):</span><br><span class="line">    <span class="keyword">for</span> key, value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">        params = params+key + <span class="string">&quot;=&quot;</span> + value + <span class="string">&quot;&amp;&quot;</span></span><br><span class="line"></span><br><span class="line">        request_url = searchcars_url+endpoint+<span class="string">&quot;?&quot;</span>+params</span><br><span class="line"></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;GET from &#123;&#125; &quot;</span>.<span class="built_in">format</span>(request_url))</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># Call get method of requests library with URL and parameters</span></span><br><span class="line">            response = requests.get(request_url)</span><br><span class="line">            <span class="keyword">return</span> response.json()</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="comment"># If any error occurs</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Network exception occurred&quot;</span>)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;GET request call complete!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">def searchcars_request(endpoint, **kwargs):
+    params = &quot;&quot;
+    if (kwargs):
+    for key, value in kwargs.items():
+        params = params+key + &quot;=&quot; + value + &quot;&amp;&quot;
+
+        request_url = searchcars_url+endpoint+&quot;?&quot;+params
+
+        print(&quot;GET from &#123;&#125; &quot;.format(request_url))
+        try:
+            # Call get method of requests library with URL and parameters
+            response = requests.get(request_url)
+            return response.json()
+        except:
+            # If any error occurs
+            print(&quot;Network exception occurred&quot;)
+        finally:
+            print(&quot;GET request call complete!&quot;)</code></pre>
 </li>
 </ol>
 </li>
@@ -416,11 +654,35 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <li>它应返回状态为 <code>200</code> 的 JSON 响应，如果提供了经销商 ID，则返回获取的汽车。</li>
 <li>如果没有经销商 ID，则应返回状态为 <code>400</code> 的 JSON 响应和 <code>Bad Request</code> 消息。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Module import</span></span><br><span class="line"><span class="keyword">from</span> .restapis <span class="keyword">import</span> get_request, analyze_review_sentiments, post_review, searchcars_request</span><br><span class="line"></span><br><span class="line"><span class="comment"># Code for the view</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_inventory</span>(<span class="params">request, dealer_id</span>):</span><br><span class="line">    data = request.GET</span><br><span class="line">    <span class="keyword">if</span> (dealer_id):</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;year&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">            endpoint = <span class="string">&quot;/carsbyyear/&quot;</span>+<span class="built_in">str</span>(dealer_id)+<span class="string">&quot;/&quot;</span>+data[<span class="string">&#x27;year&#x27;</span>]</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">&#x27;make&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">            endpoint = <span class="string">&quot;/carsbymake/&quot;</span>+<span class="built_in">str</span>(dealer_id)+<span class="string">&quot;/&quot;</span>+data[<span class="string">&#x27;make&#x27;</span>]</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">&#x27;model&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">            endpoint = <span class="string">&quot;/carsbymodel/&quot;</span>+<span class="built_in">str</span>(dealer_id)+<span class="string">&quot;/&quot;</span>+data[<span class="string">&#x27;model&#x27;</span>]</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">&#x27;mileage&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">            endpoint = <span class="string">&quot;/carsbymaxmileage/&quot;</span>+<span class="built_in">str</span>(dealer_id)+<span class="string">&quot;/&quot;</span>+data[<span class="string">&#x27;mileage&#x27;</span>]</span><br><span class="line">        <span class="keyword">elif</span> <span class="string">&#x27;price&#x27;</span> <span class="keyword">in</span> data:</span><br><span class="line">            endpoint = <span class="string">&quot;/carsbyprice/&quot;</span>+<span class="built_in">str</span>(dealer_id)+<span class="string">&quot;/&quot;</span>+data[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            endpoint = <span class="string">&quot;/cars/&quot;</span>+<span class="built_in">str</span>(dealer_id)</span><br><span class="line"></span><br><span class="line">        cars = searchcars_request(endpoint)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>: <span class="number">200</span>, <span class="string">&quot;cars&quot;</span>: cars&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>: <span class="number">400</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Bad Request&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>: <span class="number">400</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Bad Request&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python"># Module import
+from .restapis import get_request, analyze_review_sentiments, post_review, searchcars_request
+
+# Code for the view
+def get_inventory(request, dealer_id):
+    data = request.GET
+    if (dealer_id):
+        if &#x27;year&#x27; in data:
+            endpoint = &quot;/carsbyyear/&quot;+str(dealer_id)+&quot;/&quot;+data[&#x27;year&#x27;]
+        elif &#x27;make&#x27; in data:
+            endpoint = &quot;/carsbymake/&quot;+str(dealer_id)+&quot;/&quot;+data[&#x27;make&#x27;]
+        elif &#x27;model&#x27; in data:
+            endpoint = &quot;/carsbymodel/&quot;+str(dealer_id)+&quot;/&quot;+data[&#x27;model&#x27;]
+        elif &#x27;mileage&#x27; in data:
+            endpoint = &quot;/carsbymaxmileage/&quot;+str(dealer_id)+&quot;/&quot;+data[&#x27;mileage&#x27;]
+        elif &#x27;price&#x27; in data:
+            endpoint = &quot;/carsbyprice/&quot;+str(dealer_id)+&quot;/&quot;+data[&#x27;price&#x27;]
+        else:
+            endpoint = &quot;/cars/&quot;+str(dealer_id)
+
+        cars = searchcars_request(endpoint)
+        return JsonResponse(&#123;&quot;status&quot;: 200, &quot;cars&quot;: cars&#125;)
+    else:
+        return JsonResponse(&#123;&quot;status&quot;: 400, &quot;message&quot;: &quot;Bad Request&quot;&#125;)
+    return JsonResponse(&#123;&quot;status&quot;: 400, &quot;message&quot;: &quot;Bad Request&quot;&#125;)</code></pre>
 </li>
 <li>
 <p>在 <code>djangoapp/urls.py</code> 文件中包含该视图的路由。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;get_inventory/&lt;int:dealer_id&gt;&#x27;</span>, view=views.get_inventory, name=<span class="string">&#x27;get_inventory&#x27;</span>),</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">path(route=&#x27;get_inventory/&lt;int:dealer_id&gt;&#x27;, view=views.get_inventory, name=&#x27;get_inventory&#x27;),</code></pre>
 </li>
 <li>
 <p>导航到 <code>xrwvm-fullstack_developer_capstone/server</code> 目录。<br>
@@ -428,7 +690,9 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 </li>
 <li>
 <p>执行模型迁移并启动服务器。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations</span><br><span class="line">python3 manage.py migrate</span><br><span class="line">python3 manage.py runserver</span><br></pre></td></tr></table></figure>
+<pre><code class="language-bash">python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver</code></pre>
 </li>
 <li>
 <p>确保服务器启动成功且无错误。如果出现任何错误日志，请检查并根据需要处理您的代码。</p>
@@ -442,26 +706,347 @@ schema 应定义汽车文件的结构，其中应包括以下字段及其数据�
 <p>创建一个用于搜索和显示汽车信息的 React 组件。</p>
 <ol>
 <li>导航至 <code>xrwvm-fullstack_developer_capstone/server/frontend/src/components/Dealers</code> 目录，并添加名为 <code>SearchCars.jsx</code> 的新文件。</li>
-<li>在该文件中加入以下内容：<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useParams &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Header</span> <span class="keyword">from</span> <span class="string">&#x27;../Header/Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">SearchCars</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [cars, setCars] = <span class="title function_">useState</span>([]);</span><br><span class="line">  <span class="keyword">const</span> [makes, setMakes] = <span class="title function_">useState</span>([]);</span><br><span class="line">  <span class="keyword">const</span> [models, setModels] = <span class="title function_">useState</span>([]);</span><br><span class="line">  <span class="keyword">const</span> [dealer, setDealer] = <span class="title function_">useState</span>(&#123;<span class="string">&quot;full_name&quot;</span>:<span class="string">&quot;&quot;</span>&#125;);</span><br><span class="line">  <span class="keyword">const</span> [message, setMessage] = <span class="title function_">useState</span>(<span class="string">&quot;Loading Cars....&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; id &#125; = <span class="title function_">useParams</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> dealer_url = <span class="string">`/djangoapp/get_inventory/<span class="subst">$&#123;id&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> fetch_url = <span class="string">`/djangoapp/dealer/<span class="subst">$&#123;id&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">fetchDealer</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(fetch_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> dealer = retobj.<span class="property">dealer</span>;</span><br><span class="line">      <span class="title function_">setDealer</span>(&#123;<span class="string">&quot;full_name&quot;</span>:dealer[<span class="number">0</span>].<span class="property">full_name</span>&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">populateMakesAndModels</span> = (<span class="params">cars</span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> tmpmakes = []</span><br><span class="line">    <span class="keyword">let</span> tmpmodels = []</span><br><span class="line">    cars.<span class="title function_">forEach</span>(<span class="function">(<span class="params">car</span>)=&gt;</span>&#123;</span><br><span class="line">      tmpmakes.<span class="title function_">push</span>(car.<span class="property">make</span>)</span><br><span class="line">      tmpmodels.<span class="title function_">push</span>(car.<span class="property">model</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="title function_">setMakes</span>(<span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="keyword">new</span> <span class="title class_">Set</span>(tmpmakes)));</span><br><span class="line">    <span class="title function_">setModels</span>(<span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="keyword">new</span> <span class="title class_">Set</span>(tmpmodels)));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">fetchCars</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&quot;GET&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> cars = <span class="title class_">Array</span>.<span class="title function_">from</span>(retobj.<span class="property">cars</span>)</span><br><span class="line">      <span class="title function_">setCars</span>(cars);</span><br><span class="line">      <span class="title function_">populateMakesAndModels</span>(cars);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">setCarsmatchingCriteria</span> = <span class="keyword">async</span>(<span class="params">matching_cars</span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> cars = <span class="title class_">Array</span>.<span class="title function_">from</span>(matching_cars)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Number of matching cars &quot;</span>+cars.<span class="property">length</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> makeIdx = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;make&#x27;</span>).<span class="property">selectedIndex</span>;</span><br><span class="line">    <span class="keyword">let</span> modelIdx = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;model&#x27;</span>).<span class="property">selectedIndex</span>;</span><br><span class="line">    <span class="keyword">let</span> yearIdx = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;year&#x27;</span>).<span class="property">selectedIndex</span>;</span><br><span class="line">    <span class="keyword">let</span> mileageIdx = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;mileage&#x27;</span>).<span class="property">selectedIndex</span>;</span><br><span class="line">    <span class="keyword">let</span> priceIdx = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;price&#x27;</span>).<span class="property">selectedIndex</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(makeIdx !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> currmake = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;make&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">      cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">make</span> === currmake);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(modelIdx !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> currmodel = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;model&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">      cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">model</span> === currmodel);</span><br><span class="line">      <span class="keyword">if</span>(cars.<span class="property">length</span> !== <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;make&#x27;</span>).<span class="property">value</span> = cars[<span class="number">0</span>].<span class="property">make</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(yearIdx !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> curryear = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;year&#x27;</span>).<span class="property">value</span>;</span><br><span class="line">      cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">year</span> &gt;= curryear);</span><br><span class="line">      <span class="keyword">if</span>(cars.<span class="property">length</span> !== <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;make&#x27;</span>).<span class="property">value</span> = cars[<span class="number">0</span>].<span class="property">make</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(mileageIdx !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> currmileage = <span class="built_in">parseInt</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;mileage&#x27;</span>).<span class="property">value</span>);</span><br><span class="line">      <span class="keyword">if</span>(currmileage === <span class="number">50000</span>) &#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">mileage</span> &lt;= currmileage);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currmileage === <span class="number">100000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">mileage</span> &lt;= currmileage &amp;&amp; car.<span class="property">mileage</span> &gt; <span class="number">50000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currmileage === <span class="number">150000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">mileage</span> &lt;= currmileage &amp;&amp; car.<span class="property">mileage</span> &gt; <span class="number">100000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currmileage === <span class="number">200000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">mileage</span> &lt;= currmileage &amp;&amp; car.<span class="property">mileage</span> &gt; <span class="number">150000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">mileage</span> &gt; <span class="number">200000</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(priceIdx !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> currprice = <span class="built_in">parseInt</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;price&#x27;</span>).<span class="property">value</span>);</span><br><span class="line">      <span class="keyword">if</span>(currprice === <span class="number">20000</span>) &#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">price</span> &lt;= currprice);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currprice === <span class="number">40000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">price</span> &lt;= currprice &amp;&amp; car.<span class="property">price</span> &gt; <span class="number">20000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currprice === <span class="number">60000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">price</span> &lt;= currprice &amp;&amp; car.<span class="property">price</span> &gt; <span class="number">40000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currprice === <span class="number">80000</span>)&#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">price</span> &lt;= currprice &amp;&amp; car.<span class="property">price</span> &gt; <span class="number">60000</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cars = cars.<span class="title function_">filter</span>(<span class="function"><span class="params">car</span> =&gt;</span> car.<span class="property">price</span> &gt; <span class="number">80000</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(cars.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="title function_">setMessage</span>(<span class="string">&quot;No cars found matching criteria&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">setCars</span>(cars);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">SearchCarsByMake</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> make = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;make&quot;</span>).<span class="property">value</span>;</span><br><span class="line">    dealer_url = dealer_url + <span class="string">&quot;?make=&quot;</span>+make;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">      &#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">setCarsmatchingCriteria</span>(retobj.<span class="property">cars</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">SearchCarsByModel</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> model = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;model&quot;</span>).<span class="property">value</span>;</span><br><span class="line">    dealer_url = dealer_url + <span class="string">&quot;?model=&quot;</span>+model;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">      &#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">setCarsmatchingCriteria</span>(retobj.<span class="property">cars</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">SearchCarsByYear</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> year = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;year&quot;</span>).<span class="property">value</span>;</span><br><span class="line">    <span class="keyword">if</span> (year !== <span class="string">&quot;all&quot;</span>) &#123;</span><br><span class="line">      dealer_url = dealer_url + <span class="string">&quot;?year=&quot;</span>+year;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">      &#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">setCarsmatchingCriteria</span>(retobj.<span class="property">cars</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">SearchCarsByMileage</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> mileage = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;mileage&quot;</span>).<span class="property">value</span>;</span><br><span class="line">    <span class="keyword">if</span> (mileage !== <span class="string">&quot;all&quot;</span>) &#123;</span><br><span class="line">      dealer_url = dealer_url + <span class="string">&quot;?mileage=&quot;</span>+mileage;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">      &#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">setCarsmatchingCriteria</span>(retobj.<span class="property">cars</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">SearchCarsByPrice</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> price = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;price&quot;</span>).<span class="property">value</span>;</span><br><span class="line">    <span class="keyword">if</span>(price !== <span class="string">&quot;all&quot;</span>) &#123;</span><br><span class="line">      dealer_url = dealer_url + <span class="string">&quot;?price=&quot;</span>+price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(dealer_url, &#123;</span><br><span class="line">      <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">      <span class="attr">headers</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">      &#125;&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> retobj = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(retobj.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="title function_">setCarsmatchingCriteria</span>(retobj.<span class="property">cars</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">reset</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> selectElements = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;select&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    selectElements.<span class="title function_">forEach</span>(<span class="function">(<span class="params">select</span>) =&gt;</span> &#123;</span><br><span class="line">      select.<span class="property">selectedIndex</span> = <span class="number">0</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="title function_">fetchCars</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">fetchCars</span>();</span><br><span class="line">    <span class="title function_">fetchDealer</span>();</span><br><span class="line">  &#125;,[]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Header</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginBottom:</span> &#x27;<span class="attr">20px</span>&#x27;&#125;&#125;&gt;</span>Cars at &#123;dealer.full_name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125;&gt;</span>Make<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; ,<span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">borderRadius</span> <span class="attr">:</span>&#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">name</span>=<span class="string">&quot;make&quot;</span> <span class="attr">id</span>=<span class="string">&quot;make&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;SearchCarsByMake&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;makes.length === 0 ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;&#x27;</span>&gt;</span>No data found<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ):(</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">defaultValue</span>&gt;</span> -- All -- <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              &#123;makes.map((make, index) =&gt; (</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> <span class="attr">value</span>=<span class="string">&#123;make&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  &#123;make&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              ))&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/&gt;</span></span></span><br><span class="line"><span class="language-xml">          )</span></span><br><span class="line"><span class="language-xml">          &#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125;&gt;</span>Model<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; ,<span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">borderRadius</span> <span class="attr">:</span>&#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">name</span>=<span class="string">&quot;model&quot;</span> <span class="attr">id</span>=<span class="string">&quot;model&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;SearchCarsByModel&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;models.length === 0 ? (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;&#x27;</span>&gt;</span>No data found<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          ) : (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">option</span> <span class="attr">disabled</span> <span class="attr">defaultValue</span>&gt;</span> -- All -- <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              &#123;models.map((model, index) =&gt; (</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">option</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span> <span class="attr">value</span>=<span class="string">&#123;model&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  &#123;model&#125;</span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              ))&#125;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/&gt;</span></span></span><br><span class="line"><span class="language-xml">          )&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125;&gt;</span>Year<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">select</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; ,<span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">borderRadius</span> <span class="attr">:</span>&#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">name</span>=<span class="string">&quot;year&quot;</span> <span class="attr">id</span>=<span class="string">&quot;year&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;SearchCarsByYear&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span> <span class="attr">value</span>=<span class="string">&#x27;all&#x27;</span>&gt;</span> -- All -- <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;2024&#x27;</span>&gt;</span>2024 or newer<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;2023&#x27;</span>&gt;</span>2023 or newer<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;2022&#x27;</span>&gt;</span>2022 or newer<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;2021&#x27;</span>&gt;</span>2021 or newer<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;2020&#x27;</span>&gt;</span>2020 or newer<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125;&gt;</span>Mileage<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">select</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; ,<span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">borderRadius</span> <span class="attr">:</span>&#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">name</span>=<span class="string">&quot;mileage&quot;</span> <span class="attr">id</span>=<span class="string">&quot;mileage&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;SearchCarsByMileage&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span> <span class="attr">value</span>=<span class="string">&#x27;all&#x27;</span>&gt;</span> -- All -- <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;50000&#x27;</span>&gt;</span>Under 50000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;100000&#x27;</span>&gt;</span>50000 - 100000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;150000&#x27;</span>&gt;</span>100000 - 150000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;200000&#x27;</span>&gt;</span>150000 - 200000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;200001&#x27;</span>&gt;</span>Over 200000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125;&gt;</span>Price<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">select</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; ,<span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">borderRadius</span> <span class="attr">:</span>&#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">name</span>=<span class="string">&quot;price&quot;</span> <span class="attr">id</span>=<span class="string">&quot;price&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;SearchCarsByPrice&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">selected</span> <span class="attr">value</span>=<span class="string">&#x27;all&#x27;</span>&gt;</span> -- All -- <span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;20000&#x27;</span>&gt;</span>Under 20000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;40000&#x27;</span>&gt;</span>20000 - 40000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;60000&#x27;</span>&gt;</span>40000 - 60000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;80000&#x27;</span>&gt;</span>60000 - 80000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&#x27;80001&#x27;</span>&gt;</span>Over 80000<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">        <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">style</span>=<span class="string">&#123;&#123;marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">paddingLeft:</span> &#x27;<span class="attr">10px</span>&#x27;&#125;&#125; <span class="attr">onClick</span>=<span class="string">&#123;reset&#125;</span>&gt;</span>Reset<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">      &lt;/div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27; , <span class="attr">marginTop:</span> &#x27;<span class="attr">20px</span>&#x27;&#125;&#125; &gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;cars.length === 0 ? (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginLeft:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginRight:</span> &#x27;<span class="attr">10px</span>&#x27;, <span class="attr">marginTop:</span> &#x27;<span class="attr">20px</span>&#x27; &#125;&#125;&gt;</span>&#123;message&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        ) : (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            &#123;cars.map((car) =&gt; (</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;car._id&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;car.make&#125; &#123;car.model&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Year: &#123;car.year&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Mileage: &#123;car.mileage&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Price: &#123;car.price&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            ))&#125;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        )&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">SearchCars</span>;</span><br></pre></td></tr></table></figure>
+<li>在该文件中加入以下内容：<pre><code class="language-jsx">import React, &#123; useState, useEffect &#125; from &#x27;react&#x27;;
+import &#123; useParams &#125; from &#x27;react-router-dom&#x27;;
+import Header from &#x27;../Header/Header&#x27;;
+
+const SearchCars = () =&gt; &#123;
+  const [cars, setCars] = useState([]);
+  const [makes, setMakes] = useState([]);
+  const [models, setModels] = useState([]);
+  const [dealer, setDealer] = useState(&#123;&quot;full_name&quot;:&quot;&quot;&#125;);
+  const [message, setMessage] = useState(&quot;Loading Cars....&quot;);
+  const &#123; id &#125; = useParams();
+
+
+  let dealer_url = `/djangoapp/get_inventory/$&#123;id&#125;`;
+
+  let fetch_url = `/djangoapp/dealer/$&#123;id&#125;`;
+
+  const fetchDealer = async ()=&gt;&#123;
+    const res = await fetch(fetch_url, &#123;
+      method: &quot;GET&quot;
+    &#125;);
+    const retobj = await res.json();
+    if(retobj.status === 200) &#123;
+      let dealer = retobj.dealer;
+      setDealer(&#123;&quot;full_name&quot;:dealer[0].full_name&#125;)
+    &#125;
+  &#125;
+
+  const populateMakesAndModels = (cars)=&gt;&#123;
+    let tmpmakes = []
+    let tmpmodels = []
+    cars.forEach((car)=&gt;&#123;
+      tmpmakes.push(car.make)
+      tmpmodels.push(car.model)
+    &#125;)
+    setMakes(Array.from(new Set(tmpmakes)));
+    setModels(Array.from(new Set(tmpmodels)));
+  &#125;
+
+
+  const fetchCars = async ()=&gt;&#123;
+    const res = await fetch(dealer_url, &#123;
+      method: &quot;GET&quot;
+    &#125;);
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      let cars = Array.from(retobj.cars)
+      setCars(cars);
+      populateMakesAndModels(cars);
+    &#125;
+  &#125;
+
+  const setCarsmatchingCriteria = async(matching_cars)=&gt;&#123;
+    let cars = Array.from(matching_cars)
+    console.log(&quot;Number of matching cars &quot;+cars.length);
+
+    let makeIdx = document.getElementById(&#x27;make&#x27;).selectedIndex;
+    let modelIdx = document.getElementById(&#x27;model&#x27;).selectedIndex;
+    let yearIdx = document.getElementById(&#x27;year&#x27;).selectedIndex;
+    let mileageIdx = document.getElementById(&#x27;mileage&#x27;).selectedIndex;
+    let priceIdx = document.getElementById(&#x27;price&#x27;).selectedIndex;
+
+    if(makeIdx !== 0) &#123;
+      let currmake = document.getElementById(&#x27;make&#x27;).value;
+      cars = cars.filter(car =&gt; car.make === currmake);
+    &#125;
+    if(modelIdx !== 0) &#123;
+      let currmodel = document.getElementById(&#x27;model&#x27;).value;
+      cars = cars.filter(car =&gt; car.model === currmodel);
+      if(cars.length !== 0) &#123;
+        document.getElementById(&#x27;make&#x27;).value = cars[0].make;
+      &#125;
+    &#125;
+
+    if(yearIdx !== 0) &#123;
+      let curryear = document.getElementById(&#x27;year&#x27;).value;
+      cars = cars.filter(car =&gt; car.year &gt;= curryear);
+      if(cars.length !== 0) &#123;
+        document.getElementById(&#x27;make&#x27;).value = cars[0].make;
+      &#125;
+    &#125;
+
+    if(mileageIdx !== 0) &#123;
+      let currmileage = parseInt(document.getElementById(&#x27;mileage&#x27;).value);
+      if(currmileage === 50000) &#123;
+        cars = cars.filter(car =&gt; car.mileage &lt;= currmileage);
+      &#125; else if (currmileage === 100000)&#123;
+        cars = cars.filter(car =&gt; car.mileage &lt;= currmileage &amp;&amp; car.mileage &gt; 50000);
+      &#125; else if (currmileage === 150000)&#123;
+        cars = cars.filter(car =&gt; car.mileage &lt;= currmileage &amp;&amp; car.mileage &gt; 100000);
+      &#125; else if (currmileage === 200000)&#123;
+        cars = cars.filter(car =&gt; car.mileage &lt;= currmileage &amp;&amp; car.mileage &gt; 150000);
+      &#125; else &#123;
+        cars = cars.filter(car =&gt; car.mileage &gt; 200000);
+      &#125;
+    &#125;
+
+    if(priceIdx !== 0) &#123;
+      let currprice = parseInt(document.getElementById(&#x27;price&#x27;).value);
+      if(currprice === 20000) &#123;
+        cars = cars.filter(car =&gt; car.price &lt;= currprice);
+      &#125; else if (currprice === 40000)&#123;
+        cars = cars.filter(car =&gt; car.price &lt;= currprice &amp;&amp; car.price &gt; 20000);
+      &#125; else if (currprice === 60000)&#123;
+        cars = cars.filter(car =&gt; car.price &lt;= currprice &amp;&amp; car.price &gt; 40000);
+      &#125; else if (currprice === 80000)&#123;
+        cars = cars.filter(car =&gt; car.price &lt;= currprice &amp;&amp; car.price &gt; 60000);
+      &#125; else &#123;
+        cars = cars.filter(car =&gt; car.price &gt; 80000);
+      &#125;
+    &#125;
+
+    if(cars.length === 0) &#123;
+      setMessage(&quot;No cars found matching criteria&quot;);
+    &#125;
+    setCars(cars);
+  &#125;
+
+
+  let SearchCarsByMake = async ()=&gt; &#123;
+    let make = document.getElementById(&quot;make&quot;).value;
+    dealer_url = dealer_url + &quot;?make=&quot;+make;
+
+    const res = await fetch(dealer_url, &#123;
+      method: &#x27;GET&#x27;,
+      headers: &#123;
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      &#125;&#125;)
+
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      setCarsmatchingCriteria(retobj.cars);
+    &#125;
+  &#125;
+
+  let SearchCarsByModel = async ()=&gt; &#123;
+    let model = document.getElementById(&quot;model&quot;).value;
+    dealer_url = dealer_url + &quot;?model=&quot;+model;
+
+    const res = await fetch(dealer_url, &#123;
+      method: &#x27;GET&#x27;,
+      headers: &#123;
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      &#125;&#125;)
+
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      setCarsmatchingCriteria(retobj.cars);
+    &#125;
+  &#125;
+
+  let SearchCarsByYear = async ()=&gt; &#123;
+    let year = document.getElementById(&quot;year&quot;).value;
+    if (year !== &quot;all&quot;) &#123;
+      dealer_url = dealer_url + &quot;?year=&quot;+year;
+    &#125;
+
+    const res = await fetch(dealer_url, &#123;
+      method: &#x27;GET&#x27;,
+      headers: &#123;
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      &#125;&#125;)
+
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      setCarsmatchingCriteria(retobj.cars);
+    &#125;
+  &#125;
+
+  let SearchCarsByMileage = async ()=&gt; &#123;
+
+    let mileage = document.getElementById(&quot;mileage&quot;).value;
+    if (mileage !== &quot;all&quot;) &#123;
+      dealer_url = dealer_url + &quot;?mileage=&quot;+mileage;
+    &#125;
+
+    const res = await fetch(dealer_url, &#123;
+      method: &#x27;GET&#x27;,
+      headers: &#123;
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      &#125;&#125;)
+
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      setCarsmatchingCriteria(retobj.cars);
+    &#125;
+  &#125;
+
+
+  let SearchCarsByPrice = async ()=&gt; &#123;
+    let price = document.getElementById(&quot;price&quot;).value;
+    if(price !== &quot;all&quot;) &#123;
+      dealer_url = dealer_url + &quot;?price=&quot;+price;
+    &#125;
+
+    const res = await fetch(dealer_url, &#123;
+      method: &#x27;GET&#x27;,
+      headers: &#123;
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;,
+      &#125;&#125;)
+
+    const retobj = await res.json();
+
+    if(retobj.status === 200) &#123;
+      setCarsmatchingCriteria(retobj.cars);
+    &#125;
+  &#125;
+
+  const reset = ()=&gt;&#123;
+    const selectElements = document.querySelectorAll(&#x27;select&#x27;);
+
+    selectElements.forEach((select) =&gt; &#123;
+      select.selectedIndex = 0;
+    &#125;);
+    fetchCars();
+  &#125;
+
+
+  useEffect(() =&gt; &#123;
+    fetchCars();
+    fetchDealer();
+  &#125;,[]);
+
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;h1 style=&#123;&#123; marginBottom: &#x27;20px&#x27;&#125;&#125;&gt;Cars at &#123;dealer.full_name&#125;&lt;/h1&gt;
+      &lt;div&gt;
+        &lt;span style=&#123;&#123; marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125;&gt;Make&lt;/span&gt;
+        &lt;select style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; ,paddingLeft: &#x27;10px&#x27;, borderRadius :&#x27;10px&#x27;&#125;&#125; name=&quot;make&quot; id=&quot;make&quot; onChange=&#123;SearchCarsByMake&#125;&gt;
+          &#123;makes.length === 0 ? (
+            &lt;option value=&#x27;&#x27;&gt;No data found&lt;/option&gt;
+          ):(
+            &lt;&gt;
+              &lt;option disabled defaultValue&gt; -- All -- &lt;/option&gt;
+              &#123;makes.map((make, index) =&gt; (
+                &lt;option key=&#123;index&#125; value=&#123;make&#125;&gt;
+                  &#123;make&#125;
+                &lt;/option&gt;
+              ))&#125;
+            &lt;/&gt;
+          )
+          &#125;
+        &lt;/select&gt;
+        &lt;span style=&#123;&#123; marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125;&gt;Model&lt;/span&gt;
+        &lt;select style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; ,paddingLeft: &#x27;10px&#x27;, borderRadius :&#x27;10px&#x27;&#125;&#125; name=&quot;model&quot; id=&quot;model&quot; onChange=&#123;SearchCarsByModel&#125;&gt;
+          &#123;models.length === 0 ? (
+            &lt;option value=&#x27;&#x27;&gt;No data found&lt;/option&gt;
+          ) : (
+            &lt;&gt;
+              &lt;option disabled defaultValue&gt; -- All -- &lt;/option&gt;
+              &#123;models.map((model, index) =&gt; (
+                &lt;option key=&#123;index&#125; value=&#123;model&#125;&gt;
+                  &#123;model&#125;
+                &lt;/option&gt;
+              ))&#125;
+            &lt;/&gt;
+          )&#125;
+        &lt;/select&gt;
+        &lt;span style=&#123;&#123; marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125;&gt;Year&lt;/span&gt;
+        &lt;select style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; ,paddingLeft: &#x27;10px&#x27;, borderRadius :&#x27;10px&#x27;&#125;&#125; name=&quot;year&quot; id=&quot;year&quot; onChange=&#123;SearchCarsByYear&#125;&gt;
+          &lt;option selected value=&#x27;all&#x27;&gt; -- All -- &lt;/option&gt;
+          &lt;option value=&#x27;2024&#x27;&gt;2024 or newer&lt;/option&gt;
+          &lt;option value=&#x27;2023&#x27;&gt;2023 or newer&lt;/option&gt;
+          &lt;option value=&#x27;2022&#x27;&gt;2022 or newer&lt;/option&gt;
+          &lt;option value=&#x27;2021&#x27;&gt;2021 or newer&lt;/option&gt;
+          &lt;option value=&#x27;2020&#x27;&gt;2020 or newer&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;span style=&#123;&#123; marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125;&gt;Mileage&lt;/span&gt;
+        &lt;select style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; ,paddingLeft: &#x27;10px&#x27;, borderRadius :&#x27;10px&#x27;&#125;&#125; name=&quot;mileage&quot; id=&quot;mileage&quot; onChange=&#123;SearchCarsByMileage&#125;&gt;
+          &lt;option selected value=&#x27;all&#x27;&gt; -- All -- &lt;/option&gt;
+          &lt;option value=&#x27;50000&#x27;&gt;Under 50000&lt;/option&gt;
+          &lt;option value=&#x27;100000&#x27;&gt;50000 - 100000&lt;/option&gt;
+          &lt;option value=&#x27;150000&#x27;&gt;100000 - 150000&lt;/option&gt;
+          &lt;option value=&#x27;200000&#x27;&gt;150000 - 200000&lt;/option&gt;
+          &lt;option value=&#x27;200001&#x27;&gt;Over 200000&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;span style=&#123;&#123; marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125;&gt;Price&lt;/span&gt;
+        &lt;select style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; ,paddingLeft: &#x27;10px&#x27;, borderRadius :&#x27;10px&#x27;&#125;&#125; name=&quot;price&quot; id=&quot;price&quot; onChange=&#123;SearchCarsByPrice&#125;&gt;
+          &lt;option selected value=&#x27;all&#x27;&gt; -- All -- &lt;/option&gt;
+          &lt;option value=&#x27;20000&#x27;&gt;Under 20000&lt;/option&gt;
+          &lt;option value=&#x27;40000&#x27;&gt;20000 - 40000&lt;/option&gt;
+          &lt;option value=&#x27;60000&#x27;&gt;40000 - 60000&lt;/option&gt;
+          &lt;option value=&#x27;80000&#x27;&gt;60000 - 80000&lt;/option&gt;
+          &lt;option value=&#x27;80001&#x27;&gt;Over 80000&lt;/option&gt;
+        &lt;/select&gt;
+
+        &lt;button style=&#123;&#123;marginLeft: &#x27;10px&#x27;, paddingLeft: &#x27;10px&#x27;&#125;&#125; onClick=&#123;reset&#125;&gt;Reset&lt;/button&gt;
+
+      &lt;/div&gt;
+
+
+      &lt;div style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27; , marginTop: &#x27;20px&#x27;&#125;&#125; &gt;
+        &#123;cars.length === 0 ? (
+          &lt;p style=&#123;&#123; marginLeft: &#x27;10px&#x27;, marginRight: &#x27;10px&#x27;, marginTop: &#x27;20px&#x27; &#125;&#125;&gt;&#123;message&#125;&lt;/p&gt;
+        ) : (
+          &lt;div&gt;
+            &lt;hr/&gt;
+            &#123;cars.map((car) =&gt; (
+              &lt;div&gt;
+                &lt;div key=&#123;car._id&#125;&gt;
+                  &lt;h3&gt;&#123;car.make&#125; &#123;car.model&#125;&lt;/h3&gt;
+                  &lt;p&gt;Year: &#123;car.year&#125;&lt;/p&gt;
+                  &lt;p&gt;Mileage: &#123;car.mileage&#125;&lt;/p&gt;
+                  &lt;p&gt;Price: &#123;car.price&#125;&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;hr/&gt;
+              &lt;/div&gt;
+            ))&#125;
+          &lt;/div&gt;
+        )&#125;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+&#125;;
+
+export default SearchCars;</code></pre>
 </li>
 </ol>
 </li>
 <li>
 <p>为该组件添加路由并构建前端。</p>
 <ol>
-<li>在 <code>frontend/src/App.js</code> 中为该组件添加导入语句和路由，将搜索路径设为 <code>/searchcars/:id</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">SearchCars</span> <span class="keyword">from</span> <span class="string">&quot;./components/Dealers/SearchCars&quot;</span>;	</span><br></pre></td></tr></table></figure>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/searchcars/:id&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">SearchCars</span> /&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<li>在 <code>frontend/src/App.js</code> 中为该组件添加导入语句和路由，将搜索路径设为 <code>/searchcars/:id</code>。<pre><code class="language-js">import SearchCars from &quot;./components/Dealers/SearchCars&quot;;	</code></pre>
+<pre><code class="language-jsx">&lt;Route path=&quot;/searchcars/:id&quot; element=&#123;&lt;SearchCars /&gt;&#125; /&gt;</code></pre>
 </li>
 <li>整合锚链接，将用户从特定经销商的评论页面重定向到 <code>Search Cars</code> 页面。
 <ul>
 <li>转到 <code>frontend/src/components/Dealers/Dealer.jsx</code>，插入一个锚元素。</li>
 <li>将其标记为 <code>Search Cars</code>，并设置为点击后导航至 <code>Search Cars</code> 页面。</li>
 </ul>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&#123;<span class="string">`/searchcars/<span class="subst">$&#123;id&#125;</span>`</span>&#125;&gt;<span class="title class_">SearchCars</span>&lt;/a&gt;	</span><br></pre></td></tr></table></figure>
+<pre><code class="language-jsx">&lt;a href=&#123;`/searchcars/$&#123;id&#125;`&#125;&gt;SearchCars&lt;/a&gt;	</code></pre>
 </li>
-<li>构建应用程序的前端，以便部署。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<li>构建应用程序的前端，以便部署。<pre><code class="language-bash">npm run build</code></pre>
 </li>
-<li>在 <code>djangoproj/urls.py</code> 中添加路径为 <code>searchcars/&lt;int:dealer_id&gt;</code> 的动态 URL 模式。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;searchcars/&lt;int:dealer_id&gt;&#x27;</span>,TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
+<li>在 <code>djangoproj/urls.py</code> 中添加路径为 <code>searchcars/&lt;int:dealer_id&gt;</code> 的动态 URL 模式。<pre><code class="language-python">path(&#x27;searchcars/&lt;int:dealer_id&gt;&#x27;,TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
 </li>
 </ol>
 </li>
