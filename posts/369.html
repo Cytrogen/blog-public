@@ -1,43 +1,47 @@
-<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM全栈开发【12】：Git和GitHub入门 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的第十二篇学习笔记，详细介绍了版本控制工具 Git 与代码托管平台 GitHub 的入门知识。笔记内容从版本控制的核心理念讲起，涵盖了仓库、分支、提交、拉取请求等基本概念，并系统梳理了 git clone, commit, push, merge 等常用命令行操作。最后，通过一个完整的毕业项目，手把手指导读者分别使用 GitHub 网页界面和 Git 命令行（CLI）完成创建仓库、修复 Bug、分支管理和发起拉取请求的完整协作流程，为初学者提供了从理论到实战的全面指南。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>/* Inline critical Open Sans Regular @font-face for preloaded font */
-@font-face {
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM全栈开发【12】：Git和GitHub入门 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的第十二篇学习笔记，详细介绍了版本控制工具 Git 与代码托管平台 GitHub 的入门知识。笔记内容从版本控制的核心理念讲起，涵盖了仓库、分支、提交、拉取请求等基本概念，并系统梳理了 git clone, commit, push, merge 等常用命令行操作。最后，通过一个完整的毕业项目，手把手指导读者分别使用 GitHub 网页界面和 Git 命令行（CLI）完成创建仓库、修复 Bug、分支管理和发起拉取请求的完整协作流程，为初学者提供了从理论到实战的全面指南。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
   font-family: 'Open Sans';
   src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  /* CLS mitigation - metrically matched to Arial */
   size-adjust: 107%;
   ascent-override: 97%;
   descent-override: 25%;
   line-gap-override: 0%;
 }
 </style><link rel="stylesheet" href="../css/ares.css"><script>(function() {
-  // Get theme from localStorage or system preference
   const getInitialTheme = () => {
-    // Priority: localStorage > OS preference > default (light)
     const saved = localStorage.getItem('theme');
     if (saved && (saved === 'light' || saved === 'dark')) {
       return saved;
     }
     
-    // Check OS preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
     
-    // Default to light
     return 'light';
   };
   
-  // Set initial theme and color-scheme before content renders
   const theme = getInitialTheme();
   document.documentElement.setAttribute('data-theme', theme);
   
-  // Set color-scheme for native UI elements (scrollbars, form controls)
   document.documentElement.style.colorScheme = theme;
   
-  // Also set theme on page-wrapper for animation support
+  // Add anti-flicker style for dark mode
+  if (theme === 'dark') {
+    const style = document.createElement('style');
+    style.id = 'anti-flicker-style';
+    style.innerHTML = `
+      #page-wrapper[data-theme="dark"] {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
   document.addEventListener('DOMContentLoaded', function() {
     const pageWrapper = document.getElementById('page-wrapper');
     if (pageWrapper) {
@@ -464,6 +468,13 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script>(function() {
       const pageWrapper = document.getElementById('page-wrapper');
       if (pageWrapper) {
         pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
       }
       
       localStorage.setItem('theme', theme);

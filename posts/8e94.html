@@ -1,43 +1,47 @@
-<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>React + NestJS购物平台练习【2】后端项目框架搭建 · Cytrogen 的个人博客</title><meta name="description" content="本文是 React + NestJS 全栈购物平台实践的第二篇，专注于从零搭建一个生产级的 NestJS 后端项目框架。教程详细讲解了如何通过 @nestjs/config 和 Joi 实现类型安全的环境变量配置；如何使用 TypeORM 动态连接数据库；以及如何集成 Swagger 快速生成 API 文档。此外，文章还介绍了如何配置 helmet 安全防护、compression 响应压缩、@nestjs/throttler 速率限制等核心中间件，并重点演示了如何使用 Winston 构建一个支持分级、文件轮转和彩色输出的专业日志系统。本教程为启动一个健壮、可维护的 NestJS 应用提供了全方位的基础设施搭建指南。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>/* Inline critical Open Sans Regular @font-face for preloaded font */
-@font-face {
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>React + NestJS购物平台练习【2】后端项目框架搭建 · Cytrogen 的个人博客</title><meta name="description" content="本文是 React + NestJS 全栈购物平台实践的第二篇，专注于从零搭建一个生产级的 NestJS 后端项目框架。教程详细讲解了如何通过 @nestjs/config 和 Joi 实现类型安全的环境变量配置；如何使用 TypeORM 动态连接数据库；以及如何集成 Swagger 快速生成 API 文档。此外，文章还介绍了如何配置 helmet 安全防护、compression 响应压缩、@nestjs/throttler 速率限制等核心中间件，并重点演示了如何使用 Winston 构建一个支持分级、文件轮转和彩色输出的专业日志系统。本教程为启动一个健壮、可维护的 NestJS 应用提供了全方位的基础设施搭建指南。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
   font-family: 'Open Sans';
   src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  /* CLS mitigation - metrically matched to Arial */
   size-adjust: 107%;
   ascent-override: 97%;
   descent-override: 25%;
   line-gap-override: 0%;
 }
 </style><link rel="stylesheet" href="../css/ares.css"><script>(function() {
-  // Get theme from localStorage or system preference
   const getInitialTheme = () => {
-    // Priority: localStorage > OS preference > default (light)
     const saved = localStorage.getItem('theme');
     if (saved && (saved === 'light' || saved === 'dark')) {
       return saved;
     }
     
-    // Check OS preference
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
     
-    // Default to light
     return 'light';
   };
   
-  // Set initial theme and color-scheme before content renders
   const theme = getInitialTheme();
   document.documentElement.setAttribute('data-theme', theme);
   
-  // Set color-scheme for native UI elements (scrollbars, form controls)
   document.documentElement.style.colorScheme = theme;
   
-  // Also set theme on page-wrapper for animation support
+  // Add anti-flicker style for dark mode
+  if (theme === 'dark') {
+    const style = document.createElement('style');
+    style.id = 'anti-flicker-style';
+    style.innerHTML = `
+      #page-wrapper[data-theme="dark"] {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
   document.addEventListener('DOMContentLoaded', function() {
     const pageWrapper = document.getElementById('page-wrapper');
     if (pageWrapper) {
@@ -557,6 +561,13 @@ gtag('config', 'G-4PVPZXE0QQ');</script><script>(function() {
       const pageWrapper = document.getElementById('page-wrapper');
       if (pageWrapper) {
         pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
       }
       
       localStorage.setItem('theme', theme);
