@@ -75,70 +75,34 @@
 <ol>
 <li>
 <p>创建一个不是 root 的用户：</p>
-<pre><code class="language-bash">adduser 用户名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser 用户名</span><br></pre></td></tr></table></figure>
 <p>如果执行这个指令后系统要求你创建一个密码，那就不需要执行下面这个指令；反之，执行该命令给该用户设置密码：</p>
-<pre><code class="language-bash">passwd 用户名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd 用户名</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>将该用户添加到 sudo 组中，从而授予其 sudoer 权限：</p>
-<pre><code class="language-bash">usermod -aG sudo 用户名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -aG <span class="built_in">sudo</span> 用户名</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>从 root 切换到我们创建的用户：</p>
-<pre><code class="language-bash">su 用户名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su 用户名</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h1 id="安装-docker"><a class="markdownIt-Anchor" href="#安装-docker"></a> 安装 Docker</h1>
-<pre><code class="language-bash">sudo apt update
-sudo apt install nodejs npm nginx certbot python3-certbot-nginx
-
-# 下载 Docker 的 GPG 密钥
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-
-# 安装 Docker
-echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;
-echo &quot;sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null&quot;
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-sudo apt update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install nodejs npm nginx certbot python3-certbot-nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 Docker 的 GPG 密钥</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/apt/keyrings</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | <span class="built_in">sudo</span> gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Docker</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu <span class="subst">$(lsb_release -cs)</span> stable&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg</span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br></pre></td></tr></table></figure>
 <h1 id="下载-nostream"><a class="markdownIt-Anchor" href="#下载-nostream"></a> 下载 nostream</h1>
-<pre><code class="language-bash">cd /home/用户名
-git clone https://github.com/Cameri/nostream.git</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/用户名</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Cameri/nostream.git</span><br></pre></td></tr></table></figure>
 <h1 id="配置-nginx"><a class="markdownIt-Anchor" href="#配置-nginx"></a> 配置 nginx</h1>
-<pre><code class="language-bash"># 删除默认的 nginx 配置文件
-rm -rf /etc/nginx/sites-available/default
-
-# 通过 nano 进入新的配置文件
-sudo nano /etc/nginx/sites-available/default</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除默认的 nginx 配置文件</span></span><br><span class="line"><span class="built_in">rm</span> -rf /etc/nginx/sites-available/default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过 nano 进入新的配置文件</span></span><br><span class="line"><span class="built_in">sudo</span> nano /etc/nginx/sites-available/default</span><br></pre></td></tr></table></figure>
 <p>将以下内容复制粘贴到这个新的配置文件：</p>
-<pre><code class="language-nginx">server&#123;
-    server_name 子域名.域名.后缀;
-    location / &#123;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_pass http://127.0.0.1:8008;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection &quot;upgrade&quot;;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight nginx"><figcaption><span>default</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">    <span class="attribute">server_name</span> 子域名.域名.后缀;</span><br><span class="line">    <span class="section">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:8008;</span><br><span class="line">        <span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最后重启一下 nginx：</p>
-<pre><code class="language-bash">sudo service nginx restart</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> service nginx restart</span><br></pre></td></tr></table></figure>
 <h1 id="设置域名的-dns"><a class="markdownIt-Anchor" href="#设置域名的-dns"></a> 设置域名的 DNS</h1>
 <p>在你的域名 DNS 设置中，你需要添加两个记录：</p>
 <p><img src="/posts/2abc/1.png" alt></p>
 <h1 id="启动-nostr-中继器"><a class="markdownIt-Anchor" href="#启动-nostr-中继器"></a> 启动 Nostr 中继器</h1>
-<pre><code class="language-bash">sudo certbot --nginx -d 子域名.域名.后缀
-cd ~/nostream
-
-# 开启 TMUX 会话
-# 用于分离和维护进程运行
-tmux
-
-# 启动中继器
-sudo chmod 666 /var/run/docker.sock
-npm run docker:compose:start</code></pre></div></article></div></main><footer><div class="paginator"><a class="prev" href="d235.html">上一篇</a><a class="next" href="deef.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> certbot --nginx -d 子域名.域名.后缀</span><br><span class="line"><span class="built_in">cd</span> ~/nostream</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 TMUX 会话</span></span><br><span class="line"><span class="comment"># 用于分离和维护进程运行</span></span><br><span class="line">tmux</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动中继器</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> 666 /var/run/docker.sock</span><br><span class="line">npm run docker:compose:start</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a class="prev" href="d235.html">上一篇</a><a class="next" href="deef.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   
   codeBlocks.forEach(block => {

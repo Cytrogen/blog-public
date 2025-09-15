@@ -82,11 +82,7 @@
 <ol>
 <li>
 <p>打开终端，输入以下：</p>
- <pre><code class="language-bash">cd desmume/desmume/src/frontend/posix
-./autogen.sh
-./configure
-make
-sudo make install</code></pre>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> desmume/desmume/src/frontend/posix</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line"><span class="built_in">sudo</span> make install</span><br></pre></td></tr></table></figure>
 <p>如果想使用 offscreen mesa 作为替补 3D 引擎，改用 <code>./configure --enable-osmesa</code>。</p>
 <p>如果想启用 HUD 显示，则用 <code>./configure --enable-hud</code>。</p>
 </li>

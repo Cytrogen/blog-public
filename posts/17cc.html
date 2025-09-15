@@ -89,63 +89,12 @@
 </ol>
 </blockquote>
 <p>首先，我们需要在 Hexo 的配置文件中进行一些基本设置。这些设置将决定网站的语言选项和 URL 结构。</p>
-<pre><code class="language-yaml">language: [zh, en]  # 支持的语言列表，第一个为默认语言
-new_post_name: :title.md  # 新文章的命名方式
-
-# 如果你安装了 hexo-abbrlink
-permalink: posts/:abbrlink.html  # 文章的永久链接格式
-abbrlink:
-  rep: hex  # 使用十六进制作为文章的唯一标识
-
-# hexo-generator-plus 的配置项
-generator_plus:
-  language: [zh, en]  # 生成器支持的语言列表
-  pagination_dir: &#x27;page&#x27;  # 分页目录
-  generator: [&quot;index&quot;, &quot;archive&quot;, &quot;category&quot;, &quot;tag&quot;]  # 需要生成的页面类型
-
-  # 首页生成器配置
-  index_generator:
-    per_page: 10  # 这些数字和顺序可以自定义
-    order_by: -date
-
-  # 归档页面配置
-  archive_generator:
-    per_page: 25
-    order_by: -date
-
-  # 分类页面配置
-  category_generator:
-    per_page: 25
-    order_by: -date
-    enable_index_page: true  # 如果你想要分类列表页的话
-
-  # 标签页面配置
-  tag_generator:
-    per_page: 25
-    order_by: name
-    enable_index_page: true  # 如果你想要标签列表页的话</code></pre>
+<figure class="highlight yaml"><figcaption><span>_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># 支持的语言列表，第一个为默认语言</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span>  <span class="comment"># 新文章的命名方式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你安装了 hexo-abbrlink</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink.html</span>  <span class="comment"># 文章的永久链接格式</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>  <span class="comment"># 使用十六进制作为文章的唯一标识</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hexo-generator-plus 的配置项</span></span><br><span class="line"><span class="attr">generator_plus:</span></span><br><span class="line">  <span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># 生成器支持的语言列表</span></span><br><span class="line">  <span class="attr">pagination_dir:</span> <span class="string">&#x27;page&#x27;</span>  <span class="comment"># 分页目录</span></span><br><span class="line">  <span class="attr">generator:</span> [<span class="string">&quot;index&quot;</span>, <span class="string">&quot;archive&quot;</span>, <span class="string">&quot;category&quot;</span>, <span class="string">&quot;tag&quot;</span>]  <span class="comment"># 需要生成的页面类型</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 首页生成器配置</span></span><br><span class="line">  <span class="attr">index_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment"># 这些数字和顺序可以自定义</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 归档页面配置</span></span><br><span class="line">  <span class="attr">archive_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 分类页面配置</span></span><br><span class="line">  <span class="attr">category_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># 如果你想要分类列表页的话</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 标签页面配置</span></span><br><span class="line">  <span class="attr">tag_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">name</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># 如果你想要标签列表页的话</span></span><br></pre></td></tr></table></figure>
 <p>接着在主题配置项里配置想要的菜单链接：</p>
-<pre><code class="language-yaml">menu: 
-  home: / 
-  archive: /archives 
-  categories: /categories 
-  tags: /tags 
-  about: /about 
-  GitHub: https://github.com/cytrogen 
-  RSS: /atom.xml</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></table></figure>
 <h2 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构</h2>
 <p>以下是必需的目录结构：</p>
-<pre><code class="language-plaintext">source/
-├── _posts/                     # 默认语言的所有博文
-│   └── *.md                    # 不能有子目录
-├── en/                         # 英文版特定内容
-│   └── 与 source 目录结构相同
-├── archives/                   # 归档页面
-│   └── index.md                # layout: archive
-├── categories/                 # 分类页面
-│   └── index.md                # layout: category-index
-└── tags/                       # 标签页面
-    └── index.md                # layout: tag-index</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # 默认语言的所有博文</span><br><span class="line">│   └── *.md                    # 不能有子目录</span><br><span class="line">├── en/                         # 英文版特定内容</span><br><span class="line">│   └── 与 source 目录结构相同</span><br><span class="line">├── archives/                   # 归档页面</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # 分类页面</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # 标签页面</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>当然，你也可以选择其他语言，但其他语言的目录需要和对应的 <code>themes/**/languages/*.yml</code> 的名称相同。</p>
 </blockquote>
@@ -156,41 +105,11 @@ generator_plus:
 <ol>
 <li>
 <p><code>zh.yml</code>：</p>
- <pre><code class="language-yaml">menu:
-home: 首页
-archive: 归档
-tags: 标签
-categories: 分类
-about: 关于
-friendlinks: 友情链接
-archive_title: 归档
-tags_title: 标签
-categories_title: 分类
-prev: 上一页
-next: 下一页
-prev_post: 上一篇
-next_post: 下一篇
-more: ...阅读全文
-translated: 翻译 · 原文地址</code></pre>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">首页</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">关于</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">友情链接</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">上一页</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">下一页</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">上一篇</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">下一篇</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...阅读全文</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">翻译</span> <span class="string">·</span> <span class="string">原文地址</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p><code>en.yml</code>：</p>
- <pre><code class="language-yaml">menu:
-home: HOME
-archive: ARC
-tags: TAGS
-categories: CATE
-about: ABOUT
-friendlinks: Friend Links
-archive_title: Archive
-tags_title: Tags
-categories_title: Categories
-prev: PREV
-next: NEXT
-prev_post: PREV POST
-next_post: NEXT POST
-more: ...MORE
-translated: Translate · Original Link</code></pre>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">HOME</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">ARC</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">TAGS</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">CATE</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">ABOUT</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">Friend</span> <span class="string">Links</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">Archive</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">PREV</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">NEXT</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">PREV</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">NEXT</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...MORE</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">Translate</span> <span class="string">·</span> <span class="string">Original</span> <span class="string">Link</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="模板文件实现"><a class="markdownIt-Anchor" href="#模板文件实现"></a> 模板文件实现</h2>
@@ -201,65 +120,13 @@ translated: Translate · Original Link</code></pre>
 <ol>
 <li>
 <p>分类列表页面（<code>category-index.pug</code>）：</p>
- <pre><code class="language-plaintext">extends partial/layout
-
-block container
-    .archive
-        // 标题内容优先使用 page.title
-        // 如果不存在则使用国际化函数 __() 获取 categories_title 的翻译
-        h2.archive-title= page.title || __(&#x27;categories_title&#x27;)
-        .category-list
-            // 获取所有分类数据
-            each category in get_categories().data
-                // 对每个分类计算符合当前语言的文章数量
-                - var postCount = category.posts.data ? category.posts.data.filter(post =&gt; post.lang === page.lang).length : 0
-                if postCount &gt; 0
-                    .category-item
-                        // 每个分类显示为一个链接，包含分类名称、文章数量计数
-                        // url_for_lang() 生成多语言支持的 URL
-                        - var categoryPath = category.slug || category.name
-                        a.post-title-link(href=url_for_lang(page.lang, &#x27;categories/&#x27; + categoryPath))
-                            = category.name
-                            span.category-count= ` ($&#123;postCount&#125;)`</code></pre>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    .archive</span><br><span class="line">        // 标题内容优先使用 page.title</span><br><span class="line">        // 如果不存在则使用国际化函数 __() 获取 categories_title 的翻译</span><br><span class="line">        h2.archive-title= page.title || __(&#x27;categories_title&#x27;)</span><br><span class="line">        .category-list</span><br><span class="line">            // 获取所有分类数据</span><br><span class="line">            each category in get_categories().data</span><br><span class="line">                // 对每个分类计算符合当前语言的文章数量</span><br><span class="line">                - var postCount = category.posts.data ? category.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .category-item</span><br><span class="line">                        // 每个分类显示为一个链接，包含分类名称、文章数量计数</span><br><span class="line">                        // url_for_lang() 生成多语言支持的 URL</span><br><span class="line">                        - var categoryPath = category.slug || category.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, &#x27;categories/&#x27; + categoryPath))</span><br><span class="line">                            = category.name</span><br><span class="line">                            span.category-count= ` ($&#123;postCount&#125;)`</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>具体分类页面（<code>category.pug</code>）：</p>
- <pre><code class="language-plaintext">extends partial/layout
-
-block container
-    include mixins/post
-    .archive
-        h2.archive-title= page.category
-        +postList()</code></pre>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.category</span><br><span class="line">        +postList()</span><br></pre></td></tr></table></figure>
 <p>这里文章显示相关的功能被封装成了一系列混入（mixins），方便在不同页面重用（<code>mixins/post.pug</code>）：</p>
- <pre><code class="language-plaintext">mixin postInfo(item)
-    .post-info
-        != full_date(item.date, &#x27;l&#x27;)
-        // 如果文章有 from 属性且当前页面是首页或者文章页
-        if item.from &amp;&amp; (is_home() || is_post())
-            // 显示一个表示文章翻译来源的链接
-            a.post-from(href=item.from target=&quot;_blank&quot; title=item.from)!= __(&#x27;translated&#x27;)
-
-mixin posts()
-    ul.home.post-list
-        // 遍历所有的文章
-        - for (var post of page.posts.data || [])
-            // 只显示与当前页面语言匹配的文章
-            - if (post.lang == page.lang)
-                li.post-list-item
-                    article.post-block
-                        h2.post-title
-                            a.post-title-link(href= url_for(post.path))
-                                != post.title
-                        +postInfo(post)
-                        // 如果有摘要，就显示摘要和“阅读全文”链接
-                        if post.excerpt
-                            .post-content
-                                != post.excerpt
-                            a.read-more(href= url_for(post.path))!= __(&#x27;more&#x27;)
-                        else
-                            .post-content
-                                != post.content</code></pre>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mixin postInfo(item)</span><br><span class="line">    .post-info</span><br><span class="line">        != full_date(item.date, &#x27;l&#x27;)</span><br><span class="line">        // 如果文章有 from 属性且当前页面是首页或者文章页</span><br><span class="line">        if item.from &amp;&amp; (is_home() || is_post())</span><br><span class="line">            // 显示一个表示文章翻译来源的链接</span><br><span class="line">            a.post-from(href=item.from target=&quot;_blank&quot; title=item.from)!= __(&#x27;translated&#x27;)</span><br><span class="line"></span><br><span class="line">mixin posts()</span><br><span class="line">    ul.home.post-list</span><br><span class="line">        // 遍历所有的文章</span><br><span class="line">        - for (var post of page.posts.data || [])</span><br><span class="line">            // 只显示与当前页面语言匹配的文章</span><br><span class="line">            - if (post.lang == page.lang)</span><br><span class="line">                li.post-list-item</span><br><span class="line">                    article.post-block</span><br><span class="line">                        h2.post-title</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                        +postInfo(post)</span><br><span class="line">                        // 如果有摘要，就显示摘要和“阅读全文”链接</span><br><span class="line">                        if post.excerpt</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.excerpt</span><br><span class="line">                            a.read-more(href= url_for(post.path))!= __(&#x27;more&#x27;)</span><br><span class="line">                        else</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.content</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="标签页面模板"><a class="markdownIt-Anchor" href="#标签页面模板"></a> 标签页面模板</h4>
@@ -267,132 +134,27 @@ mixin posts()
 <ol>
 <li>
 <p><code>tag-index.pug</code>：</p>
- <pre><code class="language-plaintext">extends partial/layout
-
-block container
-    include mixins/post
-    .archive
-        h2.archive-title= page.title || __(&#x27;tags_title&#x27;)
-        .tag-list
-            each tag in get_tags().data
-                - var postCount = tag.posts.data ? tag.posts.data.filter(post =&gt; post.lang === page.lang).length : 0
-                if postCount &gt; 0
-                    .tag-item
-                        - var tagPath = tag.slug || tag.name
-                        a.post-title-link(href=url_for_lang(page.lang, &#x27;tags/&#x27; + tagPath))
-                            = tag.name
-                            span.tag-count= ` ($&#123;postCount&#125;)`
-
-block pagination
-    include mixins/paginator
-    +home()
-
-block copyright
-    include partial/copyright</code></pre>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.title || __(&#x27;tags_title&#x27;)</span><br><span class="line">        .tag-list</span><br><span class="line">            each tag in get_tags().data</span><br><span class="line">                - var postCount = tag.posts.data ? tag.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .tag-item</span><br><span class="line">                        - var tagPath = tag.slug || tag.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, &#x27;tags/&#x27; + tagPath))</span><br><span class="line">                            = tag.name</span><br><span class="line">                            span.tag-count= ` ($&#123;postCount&#125;)`</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p><code>tag.pug</code>：</p>
- <pre><code class="language-plaintext">extends partial/layout
-
-block container
-    include mixins/post
-    .archive
-        h2.archive-title= page.tag
-        +postList()
-
-block pagination
-    include mixins/paginator
-    +home()
-
-block copyright
-    include partial/copyright</code></pre>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.tag</span><br><span class="line">        +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="归档页面模板"><a class="markdownIt-Anchor" href="#归档页面模板"></a> 归档页面模板</h4>
 <p>归档页面只需要一个 <code>archive.pug</code>：</p>
-<pre><code class="language-plaintext">extends partial/layout
-
-block container
-    include mixins/post
-    +postList()
-
-block pagination
-    include mixins/paginator
-    +home()
-
-block copyright
-    include partial/copyright</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></table></figure>
 <p>它调用的混入：</p>
-<pre><code class="language-plaintext">mixin postList()
-    .archive
-        // 是否有文章数据
-        if page.posts
-            // 确保文章列表存在且不为空
-            - var posts = page.posts.data || page.posts
-            if posts &amp;&amp; posts.length
-                // 创建一个年份对象用于存储分组
-                // 只处理与当前页面语言相匹配的文章
-                // 使用文章日期获取年份
-                // 将文章添加到对应年份的数组中
-                - var years = &#123;&#125;
-                - for (var post of posts)
-                    - if (post.lang == page.lang)
-                        - var year = new Date(post.date).getFullYear()
-                        - if (!years[year]) years[year] = []
-                        - years[year].push(post)
-                // 将年份按降序排列（先显示年份最大的）
-                - Object.keys(years).sort((a, b) =&gt; b - a).forEach(function(year) &#123;
-                    h2.archive-year!= year
-                    - years[year].forEach(function(post) &#123;
-                        .post-item
-                            +postInfo(post)
-                            a.post-title-link(href= url_for(post.path))
-                                != post.title
-                    - &#125;)
-                - &#125;)</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mixin postList()</span><br><span class="line">    .archive</span><br><span class="line">        // 是否有文章数据</span><br><span class="line">        if page.posts</span><br><span class="line">            // 确保文章列表存在且不为空</span><br><span class="line">            - var posts = page.posts.data || page.posts</span><br><span class="line">            if posts &amp;&amp; posts.length</span><br><span class="line">                // 创建一个年份对象用于存储分组</span><br><span class="line">                // 只处理与当前页面语言相匹配的文章</span><br><span class="line">                // 使用文章日期获取年份</span><br><span class="line">                // 将文章添加到对应年份的数组中</span><br><span class="line">                - var years = &#123;&#125;</span><br><span class="line">                - for (var post of posts)</span><br><span class="line">                    - if (post.lang == page.lang)</span><br><span class="line">                        - var year = new Date(post.date).getFullYear()</span><br><span class="line">                        - if (!years[year]) years[year] = []</span><br><span class="line">                        - years[year].push(post)</span><br><span class="line">                // 将年份按降序排列（先显示年份最大的）</span><br><span class="line">                - Object.keys(years).sort((a, b) =&gt; b - a).forEach(function(year) &#123;</span><br><span class="line">                    h2.archive-year!= year</span><br><span class="line">                    - years[year].forEach(function(post) &#123;</span><br><span class="line">                        .post-item</span><br><span class="line">                            +postInfo(post)</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                    - &#125;)</span><br><span class="line">                - &#125;)</span><br></pre></td></tr></table></figure>
 <h4 id="导航栏实现"><a class="markdownIt-Anchor" href="#导航栏实现"></a> 导航栏实现</h4>
 <p>导航栏是实现语言切换的关键接口（<code>nav.pug</code>）。</p>
 <p>由于我的博客主题中，导航栏并不宽，因此我写了顶底部来区分开部分链接：</p>
-<pre><code class="language-plaintext">ul.nav.nav-list
-    // 顶层
-    div.nav-list-top
-        // 遍历主题配置项中 menu 的所有键值
-        each path, key in theme.menu
-            // 排除掉想要放在底部的链接，我这里写的 GitHub 和 RSS
-            if key !== &#x27;GitHub&#x27; &amp;&amp; key !== &#x27;RSS&#x27;
-                li.nav-list-item
-                    // 检测是否是外部链接
-                    // 如果是，就在新标签页打开
-                    // 英文页面的路径前添加 /en 前缀
-                    // 判断当前页面是否激活（用于高亮显示）
-                    - var re = /^(http|https):\/\/*/gi;
-                    - var tar = re.test(path) ? &quot;_blank&quot; : &quot;_self&quot;
-                    - var fullPath = page.lang === &#x27;en&#x27; ? &#x27;/en&#x27; + path : path
-                    - var act = !re.test(path) &amp;&amp; &quot;/&quot; + page.current_url === fullPath
-                    a.nav-list-link(class=&#123;active: act&#125; href=url_for(fullPath) target=tar)
-                        != __((&#x27;menu.&#x27; + key))
-    // 底部
-    div.nav-list-bottom
-        // 语言切换按钮
-        li.nav-list-item.lang-switch
-            if page.lang == &#x27;en&#x27;
-                a.nav-list-link(href=url_for(&#x27;/&#x27;)) 中文
-            else
-                a.nav-list-link(href=url_for(&#x27;/en&#x27;)) ENGLISH</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ul.nav.nav-list</span><br><span class="line">    // 顶层</span><br><span class="line">    div.nav-list-top</span><br><span class="line">        // 遍历主题配置项中 menu 的所有键值</span><br><span class="line">        each path, key in theme.menu</span><br><span class="line">            // 排除掉想要放在底部的链接，我这里写的 GitHub 和 RSS</span><br><span class="line">            if key !== &#x27;GitHub&#x27; &amp;&amp; key !== &#x27;RSS&#x27;</span><br><span class="line">                li.nav-list-item</span><br><span class="line">                    // 检测是否是外部链接</span><br><span class="line">                    // 如果是，就在新标签页打开</span><br><span class="line">                    // 英文页面的路径前添加 /en 前缀</span><br><span class="line">                    // 判断当前页面是否激活（用于高亮显示）</span><br><span class="line">                    - var re = /^(http|https):\/\/*/gi;</span><br><span class="line">                    - var tar = re.test(path) ? &quot;_blank&quot; : &quot;_self&quot;</span><br><span class="line">                    - var fullPath = page.lang === &#x27;en&#x27; ? &#x27;/en&#x27; + path : path</span><br><span class="line">                    - var act = !re.test(path) &amp;&amp; &quot;/&quot; + page.current_url === fullPath</span><br><span class="line">                    a.nav-list-link(class=&#123;active: act&#125; href=url_for(fullPath) target=tar)</span><br><span class="line">                        != __((&#x27;menu.&#x27; + key))</span><br><span class="line">    // 底部</span><br><span class="line">    div.nav-list-bottom</span><br><span class="line">        // 语言切换按钮</span><br><span class="line">        li.nav-list-item.lang-switch</span><br><span class="line">            if page.lang == &#x27;en&#x27;</span><br><span class="line">                a.nav-list-link(href=url_for(&#x27;/&#x27;)) 中文</span><br><span class="line">            else</span><br><span class="line">                a.nav-list-link(href=url_for(&#x27;/en&#x27;)) ENGLISH</span><br></pre></td></tr></table></figure>
 <h2 id="使用方法"><a class="markdownIt-Anchor" href="#使用方法"></a> 使用方法</h2>
 <p>完成上述配置后，创建新文章时需要在 Front-Matter 中指定语言：</p>
-<pre><code class="language-markdown">---
-title: 文章标题
-date: 2024-01-01
-lang: zh
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2024-01-01</span><br><span class="line"><span class="section">lang: zh</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
 <p>如果想创建同一篇文章的其他语言版本，只需要创建一个新的 Markdown 文件，指定相应的 <code>lang</code>，并在 Front-Matter中通过 <code>from</code> 字段关联原文：</p>
-<pre><code class="language-markdown">---
-title: Article Title
-date: 2024-01-01
-lang: en
-from: /posts/original-post.html
----</code></pre>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Article Title</span><br><span class="line">date: 2024-01-01</span><br><span class="line">lang: en</span><br><span class="line"><span class="section">from: /posts/original-post.html</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="567.html">上一篇</a><a class="next" href="8853.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   

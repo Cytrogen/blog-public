@@ -387,12 +387,7 @@
 <p>NoSQL设计用于大型数据集的高性能和灵活性，它们通常用于Web应用程序和大数据应用程序。</p>
 <h2 id="41-mongodb"><a class="markdownIt-Anchor" href="#41-mongodb"></a> 4.1. MongoDB</h2>
 <p>MongoDB是一种开源的文档和NoSQL数据库，它使用类似于JSON对象和Python字典的文档来存储数据。</p>
-<pre><code class="language-json">&#123;
-    &quot;firstName&quot;: &quot;John&quot;,
-    &quot;lastName&quot;: &quot;Doe&quot;,
-    &quot;email&quot;: &quot;john.doe@email.com&quot;,
-    &quot;studentId&quot;: 20217484
-&#125;</code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;firstName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;John&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lastName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Doe&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;email&quot;</span><span class="punctuation">:</span> <span class="string">&quot;john.doe@email.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;studentId&quot;</span><span class="punctuation">:</span> <span class="number">20217484</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>集合（Collection）是一组文档，类似于关系数据库中的表。比方说，你可以创建一个名为<code>students</code>的集合，其中包含所有学生的文档。</p>
 <p>数据库（Database）是一组集合，类似于关系数据库中的数据库。比方说，你可以创建一个名为<code>school</code>的数据库，其中包含所有学生的集合。</p>
 <h4 id="411-mongodb的优势"><a class="markdownIt-Anchor" href="#411-mongodb的优势"></a> 4.1.1. MongoDB的优势</h4>
@@ -403,24 +398,9 @@
 </ul>
 <p>MongoDB适合用于大型和非结构化、复杂、灵活、高度可扩展的应用程序。</p>
 <p>在传统的关系数据库中，你需要先设计，再写代码。例如：</p>
-<pre><code class="language-bash">CREATE TABLE Students (
-	FirstName varchar(255),
-    LastName varchar(255),
-    Email varchar(255),
-    StudentId int);
-
-INSERT INTO Students
-VALUES (&quot;John&quot;,
-        &quot;Doe&quot;,
-       	&quot;john.doe@email.com&quot;,
-        20217484);</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE Students (</span><br><span class="line">	FirstName varchar(255),</span><br><span class="line">    LastName varchar(255),</span><br><span class="line">    Email varchar(255),</span><br><span class="line">    StudentId int);</span><br><span class="line"></span><br><span class="line">INSERT INTO Students</span><br><span class="line">VALUES (<span class="string">&quot;John&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Doe&quot;</span>,</span><br><span class="line">       	<span class="string">&quot;john.doe@email.com&quot;</span>,</span><br><span class="line">        20217484);</span><br></pre></td></tr></table></figure>
 <p>而在MongoDB中，你可以直接写代码，无需设计复杂的表格定义。例如：</p>
-<pre><code class="language-bash">db.persons.insertOne(&#123;
-	&quot;firstName&quot;: &quot;John&quot;,
-    &quot;lastName&quot;: &quot;Doe&quot;,
-    &quot;email&quot;: &quot;john.doe@email.com&quot;,
-    &quot;studentId&quot;: 20217484
-&#125;)</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.persons.insertOne(&#123;</span><br><span class="line">	<span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">    <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;Doe&quot;</span>,</span><br><span class="line">    <span class="string">&quot;email&quot;</span>: <span class="string">&quot;john.doe@email.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;studentId&quot;</span>: 20217484</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h4 id="412-案例"><a class="markdownIt-Anchor" href="#412-案例"></a> 4.1.2. 案例</h4>
 <p>假设你正经营一家快递公司，因此需要存储送货地址。随着2020年送货流程的巨大变化，你需要存储更多的数据，比如该客户是否选用了无接触送货。</p>
 <p>使用MongoDB可以轻松存储这些数据；如果使用的是关系数据库，你可能需要重新设计表格，以便存储新的数据。</p>
@@ -431,64 +411,58 @@ VALUES (&quot;John&quot;,
 <ol>
 <li>
 <p>启动MongoDB Shell</p>
-<pre><code class="language-bash">mongo</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>连接到MongoDB服务器</p>
-<pre><code class="language-bash">mongosh -u root -p xxx --authenticationDatabase admin local</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongosh -u root -p xxx --authenticationDatabase admin <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>列出所有数据库</p>
-<pre><code class="language-bash">show dbs</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show dbs</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>创建一个名为<code>school</code>的数据库</p>
-<pre><code class="language-bash">use school</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use school</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>创建一个名为<code>students</code>的集合</p>
-<pre><code class="language-bash">db.createCollection(&quot;students&quot;)</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(<span class="string">&quot;students&quot;</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>列出所有集合</p>
-<pre><code class="language-bash">show collections</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show collections</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>向<code>students</code>集合中插入一条文档</p>
-<pre><code class="language-bash">db.students.insertOne(&#123;
-	&quot;firstName&quot;: &quot;John&quot;,
-     &quot;lastName&quot;: &quot;Doe&quot;
-&#125;)</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.students.insertOne(&#123;</span><br><span class="line">	<span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>,</span><br><span class="line">     <span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;Doe&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>数插入了多少条文档</p>
-<pre><code class="language-bash">db.students.count()</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.count()</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>列出所有文档</p>
-<pre><code class="language-bash">db.students.find()</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find()</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>更新一条文档</p>
-<pre><code class="language-bash">db.students.updateOne(
-	&#123;&quot;firstName&quot;: &quot;John&quot;&#125;,
-    &#123;$set: &#123;&quot;lastName&quot;: &quot;Smith&quot;&#125;&#125;
-)</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.students.updateOne(</span><br><span class="line">	&#123;<span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="variable">$set</span>: &#123;<span class="string">&quot;lastName&quot;</span>: <span class="string">&quot;Smith&quot;</span>&#125;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>删除一条文档</p>
-<pre><code class="language-bash">db.students.deleteOne(&#123;&quot;firstName&quot;: &quot;John&quot;&#125;)</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.deleteOne(&#123;<span class="string">&quot;firstName&quot;</span>: <span class="string">&quot;John&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>从服务器断开连接</p>
-<pre><code class="language-bash">exit</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="414-mongo-shell"><a class="markdownIt-Anchor" href="#414-mongo-shell"></a> 4.1.4. Mongo Shell</h4>
 <p>Mongo Shell是MongoDB的命令行接口，它允许你与MongoDB服务器进行交互。</p>
 <p>Mongo Shell也是一种JavaScript解释器，它允许你在MongoDB服务器上运行JavaScript代码。</p>
 <p>连接到集群：</p>
-<pre><code class="language-bash">mongosh &quot;mongodb://USER:PASSWORD@url/test&quot;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongosh <span class="string">&quot;mongodb://USER:PASSWORD@url/test&quot;</span></span><br></pre></td></tr></table></figure>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="d011.html">上一篇</a><a class="next" href="3571.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   

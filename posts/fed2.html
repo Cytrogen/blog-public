@@ -132,66 +132,39 @@
 </table>
 <blockquote>
 <p><code>require()</code>：</p>
-<pre><code class="language-js">// export from a file named message.js
-module.exports = &#x27;Hello Programmers&#x27;;</code></pre>
-<pre><code class="language-js">// import from the message.js file
-let msg = require(&#x27;./message.js&#x27;);
-console.log(msg);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// export from a file named message.js</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="string">&#x27;Hello Programmers&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import from the message.js file</span></span><br><span class="line"><span class="keyword">let</span> msg = <span class="built_in">require</span>(<span class="string">&#x27;./message.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br></pre></td></tr></table></figure>
 </blockquote>
 <blockquote>
 <p><code>import()</code>：</p>
-<pre><code class="language-js">// export from file named module.mjs
-const a = 1;
-export &#123; a as &quot;myvalue&quot; &#125;;</code></pre>
-<pre><code class="language-js">// import from module.mjs
-import &#123; myvalue &#125; from module.mjs;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// export from file named module.mjs</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123; a <span class="keyword">as</span> <span class="string">&quot;myvalue&quot;</span> &#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// import from module.mjs</span></span><br><span class="line"><span class="keyword">import</span> &#123; myvalue &#125; <span class="keyword">from</span> <span class="variable language_">module</span>.<span class="property">mjs</span>;</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h4 id="122-创建简单的网络服务器"><a class="markdownIt-Anchor" href="#122-创建简单的网络服务器"></a> 1.2.2. 创建简单的网络服务器</h4>
 <p>Node.js runtime打包了许多实用程序模块，你可以使用它们来创建和扩展应用程序。例如，HTTP Node.js模块提供了能够监听HTTP请求的功能。</p>
-<pre><code class="language-js">let server = http.createServer(function(request, response) &#123;  // create an instance of a web server
-    let body = &quot;Hello World!&quot;;
-    response.writeHead(200, &#123;  // this callback function handles the incoming request message and provides an appropriate response message
-        &quot;Content-Length&quot;: body.length,
-        &quot;Content-Type&quot;: &quot;text/plain&quot;
-    &#125;);
-    response.end(body);
-&#125;);
-
-server.listen(8080);  // set the server to listen to a specific port</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> server = http.<span class="title function_">createServer</span>(<span class="keyword">function</span>(<span class="params">request, response</span>) &#123;  <span class="comment">// create an instance of a web server</span></span><br><span class="line">    <span class="keyword">let</span> body = <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">    response.<span class="title function_">writeHead</span>(<span class="number">200</span>, &#123;  <span class="comment">// this callback function handles the incoming request message and provides an appropriate response message</span></span><br><span class="line">        <span class="string">&quot;Content-Length&quot;</span>: body.<span class="property">length</span>,</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/plain&quot;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    response.<span class="title function_">end</span>(body);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">server.<span class="title function_">listen</span>(<span class="number">8080</span>);  <span class="comment">// set the server to listen to a specific port</span></span><br></pre></td></tr></table></figure>
 <h4 id="123-packagejson"><a class="markdownIt-Anchor" href="#123-packagejson"></a> 1.2.3. <code>Package.json</code></h4>
 <p>一个软件包由一个或多个模块组成。每个软件包都有一个<code>package.json</code>文件，用于描述Node.js模块的详细信息。</p>
 <p>如果模块没有<code>package.json</code>文件，Node.js就会假定主模块是<code>index.js</code>文件。</p>
-<pre><code class="language-json">// Package.json
-&#123;
-    &quot;name&quot;: &quot;mod_today&quot;,
-    &quot;version&quot;: &quot;1.0.0&quot;,
-    &quot;main&quot;: &quot;./lib/today&quot;,
-    &quot;license&quot;: &quot;Apache-2.0&quot;
-&#125;</code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Package.json</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;mod_today&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./lib/today&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Apache-2.0&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>要为模块指定不同的主模块，可以在模块目录中Node.js脚本的相对路径中指定主模块。</p>
 <h4 id="124-导入导出nodejs模块"><a class="markdownIt-Anchor" href="#124-导入导出nodejs模块"></a> 1.2.4. 导入/导出Node.js模块</h4>
 <p>你可以使用<code>require()</code>函数导入Node.js模块。</p>
-<pre><code class="language-js">let today = require(&quot;./today&quot;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> today = <span class="built_in">require</span>(<span class="string">&quot;./today&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p><code>require()</code>语句假定了脚本的文件扩展名为<code>.js</code>。它会创建一个对象来表示导入的模块，并将其分配给变量<code>today</code>。</p>
 <p>每个Node.js模块都有一个隐式<code>exports</code>对象。要向导入模块的Node.js应用程序提供函数或值，就需要在<code>exports</code>中添加属性。</p>
-<pre><code class="language-js">let date = new Date();
-
-let days = [&#x27;Monday&#x27;, &#x27;Tuesday&#x27;, &#x27;Wednesday&#x27;, &#x27;Thursday&#x27;, &#x27;Friday&#x27;, &#x27;Saturday&#x27;, &#x27;Sunday&#x27;];
-
-exports.dayOfWeek = function() &#123;  // the dayOfWeek property is added to the exports object
-    return days[date.getDay() - 1];
-&#125;;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> days = [<span class="string">&#x27;Monday&#x27;</span>, <span class="string">&#x27;Tuesday&#x27;</span>, <span class="string">&#x27;Wednesday&#x27;</span>, <span class="string">&#x27;Thursday&#x27;</span>, <span class="string">&#x27;Friday&#x27;</span>, <span class="string">&#x27;Saturday&#x27;</span>, <span class="string">&#x27;Sunday&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">dayOfWeek</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;  <span class="comment">// the dayOfWeek property is added to the exports object</span></span><br><span class="line">    <span class="keyword">return</span> days[date.<span class="title function_">getDay</span>() - <span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>导入Node.js模块时，<code>require()</code>函数会返回一个JavaScript对象，该对象代表着模块的一个实例。</p>
-<pre><code class="language-js">let today = require(&quot;./mod_today&quot;);  // the today variable is an instance of the today Node.js module that is called &quot;today&quot;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> today = <span class="built_in">require</span>(<span class="string">&quot;./mod_today&quot;</span>);  <span class="comment">// the today variable is an instance of the today Node.js module that is called &quot;today&quot;</span></span><br></pre></td></tr></table></figure>
 <p>要访问模块的属性，就要从变量中检索属性。</p>
-<pre><code class="language-js">console.log(&quot;Happy %s!&quot;, today.dayOfWeek());  // today.dayOfWeek() represents the current exported property from the today Node.js module</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Happy %s!&quot;</span>, today.<span class="title function_">dayOfWeek</span>());  <span class="comment">// today.dayOfWeek() represents the current exported property from the today Node.js module</span></span><br></pre></td></tr></table></figure>
 <h2 id="13-express"><a class="markdownIt-Anchor" href="#13-express"></a> 1.3. Express</h2>
 <p>Express.js是一个高度可配置的框架，用于在Node.js上构建应用程序。它通过使用HTTP实现程序方法和中间件来抽象出Node.js中的低级API。</p>
 <p>以下功能可让你快速开发应用程序：</p>
 <ol>
 <li>
 <p>Express.js应用程序</p>
- <pre><code class="language-js">const app = express();</code></pre>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>图像、CSS和JavaScript文件等静态文件</p>
@@ -213,28 +186,15 @@ exports.dayOfWeek = function() &#123;  // the dayOfWeek property is added to the
 <h4 id="141-npm"><a class="markdownIt-Anchor" href="#141-npm"></a> 1.4.1. npm</h4>
 <p>npm是Node.js的软件包管理器。它是一个命令行工具，用于安装、更新、配置和删除Node.js软件包。</p>
 <p>所有的npm软件包都需要一个<code>package.json</code>文件，该文件描述了软件包的详细信息。</p>
-<pre><code class="language-json">&#123;
-    &quot;name&quot;: &quot;myapp&quot;,
-    &quot;version&quot;: &quot;1.0.0&quot;,
-    &quot;description&quot;: &quot;My first Node.js app&quot;,
-    &quot;main&quot;: &quot;server.js&quot;,
-    &quot;scripts&quot;: &#123;
-        &quot;start&quot;: &quot;node server.js&quot;
-    &#125;,
-    &quot;author&quot;: &quot;John Doe&quot;,
-    &quot;license&quot;: &quot;ISC&quot;,
-    &quot;dependencies&quot;: &#123;
-        &quot;express&quot;: &quot;^4.17.1&quot;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;myapp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;My first Node.js app&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;main&quot;</span><span class="punctuation">:</span> <span class="string">&quot;server.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node server.js&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span> <span class="string">&quot;John Doe&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;license&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ISC&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;express&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^4.17.1&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>npm使用<code>package.json</code>文件中的<code>dependencies</code>属性来确定软件包的依赖关系。<code>dependencies</code>属性是一个对象，其中包含着软件包的名称和版本号。</p>
 <p>npm有两种安装软件包的方式：本地安装或者全局安装。如果安装的软件包要在应用程序中使用，就应该使用本地安装。如果安装的软件包要在命令行中使用，就应该使用全局安装。</p>
 <p>默认情况下npm会采用本地安装。</p>
-<pre><code class="language-bash">npm install &lt;package_name&gt;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
 <p>该命令将在当前工作目录中创建一个<code>node_modules</code>文件夹，并将软件包安装到该文件夹中。</p>
 <p>全局安装意味着安装软件包的计算机上的所有应用程序都可以使用该代码。全局安装应当谨慎使用，因为它会在计算机上创建一个全局软件包，这可能会导致版本冲突。</p>
 <p>要安装<code>node_modules</code>文件夹中的所有软件包，要使用以下命令：</p>
-<pre><code class="language-bash">npm install -g &lt;package_name&gt;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
 <h1 id="2-异步io与回调编程"><a class="markdownIt-Anchor" href="#2-异步io与回调编程"></a> 2. 异步I/O与回调编程</h1>
 <h2 id="21-异步io"><a class="markdownIt-Anchor" href="#21-异步io"></a> 2.1. 异步I/O</h2>
 <p>所有的网络操作都是异步的，因为它们需要等待网络响应。</p>
@@ -248,82 +208,30 @@ exports.dayOfWeek = function() &#123;  // the dayOfWeek property is added to the
 <li>在Node.js框架从远程网络服务器接收HTTP响应消息之前，它会立即返回<code>http.request()</code>函数调用的结果。该结果只表明请求消息已成功发送，并不会说明任何有关响应消息的信息</li>
 <li>当Node.js框架从远程服务器接收到HTTP响应消息时，它会调用在<code>http.request()</code>函数调用过程中定义的回调函数。该函数处理HTTP响应消息，并将结果返回给应用程序</li>
 </ol>
-<pre><code class="language-js">let options = &#123;  // included the hostname of the remote server, and a URL resource path
-    host: &quot;w1.weather.gov&quot;,
-    path: &quot;/xml/current_obs/KSFO.xml&quot;
-&#125;;
-
-http.request(options, function(response) &#123;  // when the Node.js module calls this anonymous function, events occur while it is receiving parts of the HTTP response object
-    let buffer = &quot;&quot;;
-    let result = &quot;&quot;;
-    
-    response.on(&quot;data&quot;, function(chunk) &#123;
-        buffer += chunk;
-    &#125;);
-    
-    response.on(&quot;end&quot;, function() &#123;
-        console.log(buffer);
-    &#125;);
-&#125;).end();</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> options = &#123;  <span class="comment">// included the hostname of the remote server, and a URL resource path</span></span><br><span class="line">    <span class="attr">host</span>: <span class="string">&quot;w1.weather.gov&quot;</span>,</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/xml/current_obs/KSFO.xml&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123;  <span class="comment">// when the Node.js module calls this anonymous function, events occur while it is receiving parts of the HTTP response object</span></span><br><span class="line">    <span class="keyword">let</span> buffer = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    response.<span class="title function_">on</span>(<span class="string">&quot;data&quot;</span>, <span class="keyword">function</span>(<span class="params">chunk</span>) &#123;</span><br><span class="line">        buffer += chunk;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(buffer);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;).<span class="title function_">end</span>();</span><br></pre></td></tr></table></figure>
 <ul>
 <li>在实际的应用程序时，你可能需要使用HTTPS而不是HTTP</li>
 </ul>
 <h4 id="211-httprequest"><a class="markdownIt-Anchor" href="#211-httprequest"></a> 2.1.1. <code>http.request()</code></h4>
 <p>该函数接收一个URL和一组选项。如果URL和选项都被传入，则将两者合并，选项优先。</p>
-<pre><code class="language-js">http.request(options, [callback function]);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.<span class="title function_">request</span>(options, [callback <span class="keyword">function</span>]);</span><br></pre></td></tr></table></figure>
 <p>该方法还可以接收一个可选的回调函数，在收到响应后立即调用。</p>
-<pre><code class="language-js">http.request(options, function(response) &#123; ... &#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123; ... &#125;);</span><br></pre></td></tr></table></figure>
 <p>当<code>http.request()</code>调用回调函数时，会在回调函数的第一个参数中传递一个响应对象。该回调函数的第一个参数就是响应对象。</p>
 <p>Node.js框架会在请求函数运行时发出多个事件。你可以使用<code>object.on()</code>方法并将事件名称作为第一个参数传递，从而监听这些事件。如果请求成功，每次数据输入时都会在响应对象上触发一个数据事件，响应结束时触发一个结束事件。</p>
 <h4 id="212-处理错误"><a class="markdownIt-Anchor" href="#212-处理错误"></a> 2.1.2. 处理错误</h4>
 <p>如果请求失败，在<code>close</code>事件之后就会出现<code>error</code>事件。</p>
-<pre><code class="language-js">let request = http.request(options, function(response) &#123; ... &#125;);
-                                                        
-request.on(&quot;error&quot;, function(e) &#123;
-    resultCallback(e.message);
-&#125;);
-request.end();</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> request = http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123; ... &#125;);</span><br><span class="line">                                                        </span><br><span class="line">request.<span class="title function_">on</span>(<span class="string">&quot;error&quot;</span>, <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="title function_">resultCallback</span>(e.<span class="property">message</span>);</span><br><span class="line">&#125;);</span><br><span class="line">request.<span class="title function_">end</span>();</span><br></pre></td></tr></table></figure>
 <h2 id="22-回调函数"><a class="markdownIt-Anchor" href="#22-回调函数"></a> 2.2. 回调函数</h2>
 <p>作为一个异步框架，Node.js广泛地使用了回调函数。回调函数是一个函数，它作为参数传递给另一个函数，并在另一个函数完成后调用。</p>
 <p>软件开发工具包（SDK）中的Node.js模块会将错误对象作为回调函数的第一个参数。</p>
-<pre><code class="language-js">Call function((error))</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Call</span> <span class="keyword">function</span>(<span class="params">(error)</span>)</span><br></pre></td></tr></table></figure>
 <p>根据这一约定，回调函数会检查第一个参数是否包含了错误对象。</p>
-<pre><code class="language-js">function(error, parameter1, parameter2, ...) &#123; ... &#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(<span class="params">error, parameter1, parameter2, ...</span>) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <p>如果定义了错误对象，回调函数就会处理错误并清理所有打开的网络或数据库连接。</p>
-<pre><code class="language-js">weather.current(location, function(error, temp_f) &#123;
-    if (error) &#123;
-        console.log(error);  // if the error is defined, print the error message
-        return;
-    &#125;
-    
-    // otherwise, the weather.current function call completed successfully
-    console.log(&quot;The current weather reading is %s degrees.&quot;, temp_f);
-&#125;);
-
-response.end(&quot;... $&#123;temp_f&#125;_&quot;)</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">weather.<span class="title function_">current</span>(location, <span class="keyword">function</span>(<span class="params">error, temp_f</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(error);  <span class="comment">// if the error is defined, print the error message</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// otherwise, the weather.current function call completed successfully</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;The current weather reading is %s degrees.&quot;</span>, temp_f);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">response.<span class="title function_">end</span>(<span class="string">&quot;... $&#123;temp_f&#125;_&quot;</span>)</span><br></pre></td></tr></table></figure>
 <h4 id="221-传递错误对象"><a class="markdownIt-Anchor" href="#221-传递错误对象"></a> 2.2.1. 传递错误对象</h4>
-<pre><code class="language-js">exports.current = function(location, resultCallback) &#123;
-    // ...
-    http.request(options, function(response) &#123;
-        let buffer = &quot;&quot;;
-        let result = &quot;&quot;;
-        
-        response.on(&quot;data&quot;, function(chunk) &#123;
-            buffer += chunk;
-        &#125;);
-        
-        response.on(&quot;end&quot;, function() &#123;
-            parseString(buffer, function(error, result) &#123;
-                if (error) &#123;
-                    resultCallback(error);
-                    return;
-                &#125;
-                
-                resultCallback(null, result.current_observation.temp_f[0]);
-            &#125;);
-        &#125;);
-    &#125;);
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">current</span> = <span class="keyword">function</span>(<span class="params">location, resultCallback</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> buffer = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">let</span> result = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        </span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;data&quot;</span>, <span class="keyword">function</span>(<span class="params">chunk</span>) &#123;</span><br><span class="line">            buffer += chunk;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title function_">parseString</span>(buffer, <span class="keyword">function</span>(<span class="params">error, result</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (error) &#123;</span><br><span class="line">                    <span class="title function_">resultCallback</span>(error);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="title function_">resultCallback</span>(<span class="literal">null</span>, result.<span class="property">current_observation</span>.<span class="property">temp_f</span>[<span class="number">0</span>]);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="222-每级一个回调"><a class="markdownIt-Anchor" href="#222-每级一个回调"></a> 2.2.2. 每级一个回调</h4>
 <p>当Node.js应用程序以非阻塞方式来调用一个模块时，该应用程序会提供一个回调函数来处理结果。 如果主应用程序调用了<code>http.request()</code>，它就必须提供一个回调处理程序来处理HTTP响应消息。</p>
 <p>如果主应用程序调用了一个调用了<code>http.request()</code>的函数，那就会有两个回调函数：</p>
@@ -332,62 +240,19 @@ response.end(&quot;... $&#123;temp_f&#125;_&quot;)</code></pre>
 <li>主营用程序有一个回调函数，用于处理第一个回调函数捕获的结果</li>
 </ol>
 <p>带回调的主应用程序：</p>
-<pre><code class="language-js">let weather = require(&quot;./weather&quot;);
-let location = &quot;KSFO&quot;;
-
-weather.current(location, function(temp_f) &#123;
-    console.log(temp_f);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> weather = <span class="built_in">require</span>(<span class="string">&quot;./weather&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> location = <span class="string">&quot;KSFO&quot;</span>;</span><br><span class="line"></span><br><span class="line">weather.<span class="title function_">current</span>(location, <span class="keyword">function</span>(<span class="params">temp_f</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(temp_f);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>主程序调用<code>weather.current()</code>时，会传递一个匿名的回调函数来处理调用结果。</p>
-<pre><code class="language-js">exports.current = function(location, resultCallback) &#123;
-    // ...
-    http.request(options, function(response) &#123;
-        // ...
-        response.on(&quot;end&quot;, function() &#123;
-            resultCallback(...);
-        &#125;);
-    &#125;).end();
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">current</span> = <span class="keyword">function</span>(<span class="params">location, resultCallback</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title function_">resultCallback</span>(...);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;).<span class="title function_">end</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>自定义的Node.js模块函数中的<code>resultCallback()</code>函数链接着主应用程序中<code>weather.current()</code>函数的匿名回调函数<code>function(temp_f)</code>。</p>
 <p>通过回调返回结果：</p>
-<pre><code class="language-js">exports.current = function(location, resultCallback) &#123;
-    let option = &#123;
-        host: &quot;w1.weather.gov&quot;,
-        path: &quot;/xml/current_obs/&quot; + location + &quot;.xml&quot;
-    &#125;;
-    
-    http.request(options, function(response) &#123;
-        let buffer = &quot;&quot;;
-        
-        response.on(&quot;data&quot;, function(chunk) &#123;
-            buffer += chunk;
-        &#125;);
-        
-        response.on(&quot;end&quot;, function() &#123;
-            parseString(buffer, function(error, result) &#123;
-                // ...
-                resultCallback(null, result.current_observation.temp_f[0]);
-            &#125;);
-        &#125;);
-    &#125;).end();
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">current</span> = <span class="keyword">function</span>(<span class="params">location, resultCallback</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> option = &#123;</span><br><span class="line">        <span class="attr">host</span>: <span class="string">&quot;w1.weather.gov&quot;</span>,</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/xml/current_obs/&quot;</span> + location + <span class="string">&quot;.xml&quot;</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    http.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> buffer = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        </span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;data&quot;</span>, <span class="keyword">function</span>(<span class="params">chunk</span>) &#123;</span><br><span class="line">            buffer += chunk;</span><br><span class="line">        &#125;);</span><br><span class="line">        </span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title function_">parseString</span>(buffer, <span class="keyword">function</span>(<span class="params">error, result</span>) &#123;</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">                <span class="title function_">resultCallback</span>(<span class="literal">null</span>, result.<span class="property">current_observation</span>.<span class="property">temp_f</span>[<span class="number">0</span>]);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;).<span class="title function_">end</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另一个回调函数的例子：</p>
-<pre><code class="language-js">const message = function() &#123;
-    console.log(&quot;This message is shown after 3 seconds&quot;);
-&#125;
-
-setTimeout(message, 3000);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> message = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;This message is shown after 3 seconds&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(message, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
 <p>JavaScript中有一个内置方法叫<code>setTimeout()</code>，它会在执行操作前等待指定的时间（以毫秒为单位）。在示例中，信息被传入<code>setTimeout()</code>函数。因此，在等待3秒后，<code>setTimeout()</code>会将消息写入控制台。</p>
 <p>通常这些异步回调（简称async）都用于访问数据库中的数值、下载图像、读取文件等。</p>
 <h4 id="223-回调地狱"><a class="markdownIt-Anchor" href="#223-回调地狱"></a> 2.2.3. 回调地狱</h4>
 <p>回调地狱是指在异步编程中，回调函数嵌套过多，导致代码难以阅读和维护。每个回调函数都依赖于前一个回调函数，并等待前一个回调函数完成后才能执行。</p>
-<pre><code class="language-js">firstFunction(args, function() &#123;
-    secondFunction(args, function() &#123;
-        thirdFunction(args, function() &#123;
-            // And so on ...
-        &#125;);
-    &#125;);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">firstFunction</span>(args, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">secondFunction</span>(args, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="title function_">thirdFunction</span>(args, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">// And so on ...</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这种结构有时也被称为“The Pyramid of Doom”（末日金字塔）。</p>
 </blockquote>
@@ -401,38 +266,10 @@ setTimeout(message, 3000);</code></pre>
 </ul>
 <h2 id="23-promise"><a class="markdownIt-Anchor" href="#23-promise"></a> 2.3. Promise</h2>
 <p>对于API请求、I/O操作和其他异步操作，Promise是一种更好的解决方案。</p>
-<pre><code class="language-js">let prompt = require(&quot;prompt-sync&quot;);
-let fs = require(&quot;fs&quot;);
-
-const methCall = new Promise((resolve, reject) =&gt; &#123;
-    setTimeout(() =&gt; &#123;
-        let filename = prompt(&quot;What is the name of the file?&quot;);
-        try &#123;
-            const data = fs.readFileSync(filename, &#123;
-                encoding: &quot;UTF-8&quot;,
-            	flag: &quot;r&quot;
-            &#125;);
-            resolve(data);
-        &#125; catch(err) &#123;
-            reject(err);
-        &#125;
-    &#125;, 3000);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> prompt = <span class="built_in">require</span>(<span class="string">&quot;prompt-sync&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> methCall = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> filename = <span class="title function_">prompt</span>(<span class="string">&quot;What is the name of the file?&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> data = fs.<span class="title function_">readFileSync</span>(filename, &#123;</span><br><span class="line">                <span class="attr">encoding</span>: <span class="string">&quot;UTF-8&quot;</span>,</span><br><span class="line">            	<span class="attr">flag</span>: <span class="string">&quot;r&quot;</span></span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="title function_">resolve</span>(data);</span><br><span class="line">        &#125; <span class="keyword">catch</span>(err) &#123;</span><br><span class="line">            <span class="title function_">reject</span>(err);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">3000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h4 id="231-axios请求"><a class="markdownIt-Anchor" href="#231-axios请求"></a> 2.3.1. Axios请求</h4>
 <p>HTTP请求在同步调用时可能会阻塞。Node.js生态系统中有许多包，它们将Promise封装在HTTP请求中，axios就是其中之一。</p>
-<pre><code class="language-js">const axios = require(&quot;axios&quot;).default;
-
-const connectToURL = (url) =&gt; &#123;
-    const req = axios.get(url);  // the status of the promise until it hears back from the URL requested is pending
-    console.log(req);
-    req.then(resp =&gt; &#123;
-        console.log(&quot;Fulfilling&quot;);
-        console.log(resp.data);
-    &#125;)
-    .catch(err =&gt; &#123;
-        console.log(&quot;Rejected&quot;);
-    &#125;);
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">&quot;axios&quot;</span>).<span class="property">default</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">connectToURL</span> = (<span class="params">url</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> req = axios.<span class="title function_">get</span>(url);  <span class="comment">// the status of the promise until it hears back from the URL requested is pending</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(req);</span><br><span class="line">    req.<span class="title function_">then</span>(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Fulfilling&quot;</span>);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(resp.<span class="property">data</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Rejected&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="24-json"><a class="markdownIt-Anchor" href="#24-json"></a> 2.4. JSON</h2>
 <p>JSON是API数据交换的标准格式。</p>
 <p>要将JSON字符串解析为JavaScript对象，可以使用方法<code>JSON.parse()</code>。而要将JavaScript对象转换为JSON字符串，可以使用方法<code>JSON.stringify()</code>。</p>
@@ -443,18 +280,7 @@ const connectToURL = (url) =&gt; &#123;
 </blockquote>
 <p>开发人员往往依赖第三方软件包来扩展Node.js功能。</p>
 <p>你可以将网络服务信息解析为字符串：</p>
-<pre><code class="language-js">response.on(&quot;data&quot;, function(chunk) &#123;
-    buffer += chunk;
-&#125;);
-
-response.on(&quot;end&quot;, function() &#123;
-    let matches = buffer.match(/\&lt;temp_f\&gt;.+\&lt;\/temp_f\&gt;/g);
-    if (null != matches || matches.length &gt; 0) &#123;
-        let result = matches[0].replace(/\&lt;temp_f\&gt;/, &quot;&quot;).replace(/\&lt;\temp_f\&gt;/, &quot;&quot;);
-    &#125;
-    
-    resultCallback(null, result);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">response.<span class="title function_">on</span>(<span class="string">&quot;data&quot;</span>, <span class="keyword">function</span>(<span class="params">chunk</span>) &#123;</span><br><span class="line">    buffer += chunk;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> matches = buffer.<span class="title function_">match</span>(<span class="regexp">/\&lt;temp_f\&gt;.+\&lt;\/temp_f\&gt;/g</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != matches || matches.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> result = matches[<span class="number">0</span>].<span class="title function_">replace</span>(<span class="regexp">/\&lt;temp_f\&gt;/</span>, <span class="string">&quot;&quot;</span>).<span class="title function_">replace</span>(<span class="regexp">/\&lt;\temp_f\&gt;/</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="title function_">resultCallback</span>(<span class="literal">null</span>, result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>这种手动解析的方法有着许多缺点：</p>
 <ul>
 <li>字符串匹配忽略了XML数据的结构</li>
@@ -467,23 +293,9 @@ response.on(&quot;end&quot;, function() &#123;
 <blockquote>
 <p>第三方软件包的软件许可可能与Node.js框架不同。在安装软件包之前，请确认许可条款是否适用于你的公司和应用程序。</p>
 </blockquote>
-<pre><code class="language-bash">npm install xml2js</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install xml2js</span><br></pre></td></tr></table></figure>
 <p>将软件包导入到Node.js应用程序中：</p>
-<pre><code class="language-js">let parseString = require(&quot;xml2js&quot;).parseString;
-exports.current = function(location, resultCallback) &#123;
-    // ...
-    let request = https.request(options, function(response) &#123;
-        // ...
-        response.on(&quot;end&quot;, function() &#123;
-            parseString(buffer, function(error, result) &#123;
-                if (error) &#123; ... &#125;
-                
-                // the result JavaScript variable represents the contents of the XML fragment in buffer
-                resultCallback(null, result.current_observation.temp_f[0]);
-            &#125;);
-        &#125;);
-    &#125;);
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parseString = <span class="built_in">require</span>(<span class="string">&quot;xml2js&quot;</span>).<span class="property">parseString</span>;</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">current</span> = <span class="keyword">function</span>(<span class="params">location, resultCallback</span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">let</span> request = https.<span class="title function_">request</span>(options, <span class="keyword">function</span>(<span class="params">response</span>) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        response.<span class="title function_">on</span>(<span class="string">&quot;end&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="title function_">parseString</span>(buffer, <span class="keyword">function</span>(<span class="params">error, result</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (error) &#123; ... &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// the result JavaScript variable represents the contents of the XML fragment in buffer</span></span><br><span class="line">                <span class="title function_">resultCallback</span>(<span class="literal">null</span>, result.<span class="property">current_observation</span>.<span class="property">temp_f</span>[<span class="number">0</span>]);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="31-网页框架"><a class="markdownIt-Anchor" href="#31-网页框架"></a> 3.1. 网页框架</h2>
 <p>Node.js不是网页框架，而是在服务器上执行JavaScript的runtime环境。网页框架是支持网页应用程序的基本结构，因此要使用Node.js，就需要使用与之配合使用的网页框架。</p>
 <p>与Node.js协同工作的框架被称为node网页框架。它们可采用两种方法构建后端：</p>
@@ -535,13 +347,7 @@ exports.current = function(location, resultCallback) &#123;
 <p>而在SSR中，Express用于设置模板。Express负责使用客户端通过HTTP请求的数据、结合模板动态编写HTML、CSS和/或JavaScript。</p>
 <h4 id="321-nodejs应用程序框架"><a class="markdownIt-Anchor" href="#321-nodejs应用程序框架"></a> 3.2.1. Node.js应用程序框架</h4>
 <p>Express实现了一个<code>app</code>类，你可以将其映射到网络资源路径。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = express();
-const port = 3000;
-// ...
-let server = app.listen(port, function() &#123;
-    console.log(`Listening on URL http://localhost:$&#123;port&#125;`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">let</span> server = app.<span class="title function_">listen</span>(port, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening on URL http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h4 id="322-express是如何工作的"><a class="markdownIt-Anchor" href="#322-express是如何工作的"></a> 3.2.2. Express是如何工作的</h4>
 <ol>
 <li>在Node.js项目的包文件中，将Express作为依赖项添加到<code>dependencies</code>属性中</li>
@@ -550,74 +356,14 @@ let server = app.listen(port, function() &#123;
 <li>创建一个新的路由处理程序</li>
 <li>在指定端口号上启动HTTP服务器</li>
 </ol>
-<pre><code class="language-js">// mynodeserver.js
-const express = require(&quot;express&quot;);
-const app = express();
-const port = 3000;
-app.get(&#x27;/temperature/:location_code&#x27;, function(request, response) &#123;
-    const varlocation = request.params.location_code;
-    weather.current(location, function(error, temp_f) &#123;
-        // ...
-    &#125;);
-&#125;);
-let server = app.listen(port, function() &#123;
-    console.log(`Listening on URL http://localhost:$&#123;port&#125;`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mynodeserver.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/temperature/:location_code&#x27;</span>, <span class="keyword">function</span>(<span class="params">request, response</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> varlocation = request.<span class="property">params</span>.<span class="property">location_code</span>;</span><br><span class="line">    weather.<span class="title function_">current</span>(location, <span class="keyword">function</span>(<span class="params">error, temp_f</span>) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> server = app.<span class="title function_">listen</span>(port, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening on URL http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>要处理网页应用程序请求，可将HTTP方法和网络资源路径映射到JavaScript函数。</p>
 <h4 id="323-路由"><a class="markdownIt-Anchor" href="#323-路由"></a> 3.2.3. 路由</h4>
 <p>路由是服务器端脚本的一个重要组成部分。对同一服务器的不同路由的请求必须由服务器处理。服务器必须处理对每个路由的请求，否则就会返回相应的错误信息。路由可在应用程序级或路由器级处理。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-app.get(&quot;user/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Response about user &quot; + req.params.id);
-&#125;);
-
-app.post(&quot;user/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Response about user &quot; + req.params.id);
-&#125;);
-
-app.get(&quot;item/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Response about user &quot; + req.params.id);
-&#125;);
-
-app.post(&quot;item/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Response about user &quot; + req.params.id);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;user/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Response about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;user/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Response about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;item/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Response about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&quot;item/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Response about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>你需要在应用程序级别使用单独的方法来处理每个路由上的每个方法。当端点或路由较少时，这种方法很简单。但是，当端点或路由数量增加时，这种方法就会变得复杂。我们需要使用路由器来让我们的代码更加简洁、易于阅读和维护。</p>
 <p>路由器本身用于处理分支查询，并以不同方法路由每个查询。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-let userRouter = express.Router();
-let itemRouter = express.Router();
-
-app.use(&quot;/item&quot;, itemRouter);
-app.use(&quot;/user&quot;, userRouter);
-
-userRouter.get(&quot;/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Response about user &quot; + req.params.id);
-&#125;);
-
-userRouter.get(&quot;/details/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Details about user &quot; + req.params.id);
-&#125;);
-
-itemRouter.get(&quot;/about/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Information about item &quot; + req.params.id);
-&#125;);
-
-itemRouter.get(&quot;/details/:id&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Details about item &quot; + req.params.id);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> userRouter = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">let</span> itemRouter = express.<span class="title class_">Router</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/item&quot;</span>, itemRouter);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/user&quot;</span>, userRouter);</span><br><span class="line"></span><br><span class="line">userRouter.<span class="title function_">get</span>(<span class="string">&quot;/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Response about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">userRouter.<span class="title function_">get</span>(<span class="string">&quot;/details/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Details about user &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">itemRouter.<span class="title function_">get</span>(<span class="string">&quot;/about/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Information about item &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">itemRouter.<span class="title function_">get</span>(<span class="string">&quot;/details/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Details about item &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h4 id="324-中间件"><a class="markdownIt-Anchor" href="#324-中间件"></a> 3.2.4. 中间件</h4>
 <p>中间件包括了可以访问请求和响应对象以及下一个函数的函数。下一个参数决定了函数执行后的操作。</p>
 <p>一个Express应用程序可以有多个中间件，而且它们之间可以相互连接。</p>
@@ -630,136 +376,24 @@ app.listen(3333, () =&gt; &#123;
 <li>第三方</li>
 </ol>
 <p>应用程序级中间件可以使用<code>app.use()</code>方法绑定到应用程序上：</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-app.use(function(req, res, next) &#123;
-    if (req.query.password !== &quot;pwd123&quot;) &#123;
-        return res.status(402).send(&quot;This user cannot login &quot;);
-    &#125;
-    console.log(&quot;Time:&quot;, Date.now());
-&#125;);
-
-app.get(&quot;/&quot;, (req, res) =&gt; &#123;
-    return res.send(&quot;Hello World!&quot;);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (req.<span class="property">query</span>.<span class="property">password</span> !== <span class="string">&quot;pwd123&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">402</span>).<span class="title function_">send</span>(<span class="string">&quot;This user cannot login &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Time:&quot;</span>, <span class="title class_">Date</span>.<span class="title function_">now</span>());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>客户端向服务器应用程序发出的所有请求都会通过该中间件进行路由。这种路由对验证和检查会话信息等操作很有用。</p>
 <p>路由器级中间件不与应用程序绑定。相反，它与<code>express.Router()</code>实例绑定。你可以为特定路由使用特定的中间件，而不是让所有请求都通过同一个中间件：</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-let userRouter = express.Router();
-let itemRouter = express.Router();
-
-userRouter.use(function(req, res, next) &#123;
-    console.log(&quot;User query Time: &quot;, Date());
-    next();
-&#125;);
-
-userRouter.get(&quot;/:id&quot;, function(req, res, next) &#123;
-    res.send(&quot;User &quot; + req.params.id + &quot; last successful login &quot; + Date());
-&#125;);
-
-itemRouter.use(function(req, res, next) &#123;
-    console.log(&quot;Item query Time: &quot;, Date());
-	next();
-&#125;);
-
-itemRouter.get(&quot;/:id&quot;, function(req, res, next) &#123;
-    res.send(&quot;Item &quot; + req.params.id + &quot; last enquiry &quot; + Date());
-&#125;);
-
-app.use(&quot;/user&quot;, userRouter);
-app.use(&quot;/item&quot;, itemRouter);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> userRouter = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">let</span> itemRouter = express.<span class="title class_">Router</span>();</span><br><span class="line"></span><br><span class="line">userRouter.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;User query Time: &quot;</span>, <span class="title class_">Date</span>());</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">userRouter.<span class="title function_">get</span>(<span class="string">&quot;/:id&quot;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;User &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span> + <span class="string">&quot; last successful login &quot;</span> + <span class="title class_">Date</span>());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">itemRouter.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Item query Time: &quot;</span>, <span class="title class_">Date</span>());</span><br><span class="line">	<span class="title function_">next</span>();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">itemRouter.<span class="title function_">get</span>(<span class="string">&quot;/:id&quot;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Item &quot;</span> + req.<span class="property">params</span>.<span class="property">id</span> + <span class="string">&quot; last enquiry &quot;</span> + <span class="title class_">Date</span>());</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/user&quot;</span>, userRouter);</span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/item&quot;</span>, itemRouter);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <ul>
 <li>响应将根据客户端的请求路径而不同</li>
 </ul>
 <p>错误处理中间件既可以绑定到整个应用程序，也可以绑定到特定路由器：</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-app.use(&quot;/user/:id&quot;, function(req, res, next) &#123;
-    if (req.params.id == 1) &#123;
-        throw new Error(&quot;Trying to access admin login&quot;);
-    &#125; else &#123;
-        next();
-    &#125;
-&#125;);
-
-app.use(function(err, req, res, next) &#123;
-    if (err != null) &#123;
-        res.status(500).send(err.toString());
-    &#125; else &#123;
-        next();
-    &#125;
-&#125;);
-
-app.get(&quot;/user/:id&quot;, (req, res) =&gt; &#123;
-    return res.send(&quot;Hello! User Id &quot;, req.params.id);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&quot;/user/:id&quot;</span>, <span class="keyword">function</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (req.<span class="property">params</span>.<span class="property">id</span> == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;Trying to access admin login&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">err, req, res, next</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (err != <span class="literal">null</span>) &#123;</span><br><span class="line">        res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(err.<span class="title function_">toString</span>());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/user/:id&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&quot;Hello! User Id &quot;</span>, req.<span class="property">params</span>.<span class="property">id</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>错误处理中间件总是需要四个参数：<code>error</code>、<code>request</code>、<code>response</code>和<code>next()</code>。不过，你可以省略<code>next()</code>参数；即使省略了，也可以在方法中定义。</p>
 <p>内置中间件可以绑定到整个应用程序或者特定路由器上。内置中间件对于从服务器渲染HTML、解析来自前端的JSON输入和解析cookie等操作很有用。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-// define the static files that can be rendered from the cad220_staticfiles directory
-app.use(express.static(&quot;cad220_staticfiles&quot;));
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// define the static files that can be rendered from the cad220_staticfiles directory</span></span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&quot;cad220_staticfiles&quot;</span>));</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>你也可以定义自己的中间件或使用第三方中间件，这些中间件可以通过<code>npm install</code>命令安装。</p>
 <p>创建中间件很简单。你可以定义一个包含三个参数的函数，然后将其与<code>app.use()</code>或者<code>router.use()</code>绑定。中间件的顺序取决于<code>.use()</code>方法用于绑定中间件的顺序。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-
-function myLogger(req, res, next) &#123;
-    req.timeReceived = Date();
-    next();
-&#125;
-
-app.use(myLogger);
-
-app.get(&quot;/&quot;, (req, res) =&gt; &#123;
-    res.send(&quot;Request received at &quot; + req.timeReceived + &quot; is a success!&quot;);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-    console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">myLogger</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    req.<span class="property">timeReceived</span> = <span class="title class_">Date</span>();</span><br><span class="line">    <span class="title function_">next</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(myLogger);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    res.<span class="title function_">send</span>(<span class="string">&quot;Request received at &quot;</span> + req.<span class="property">timeReceived</span> + <span class="string">&quot; is a success!&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h4 id="325-模板渲染"><a class="markdownIt-Anchor" href="#325-模板渲染"></a> 3.2.5. 模板渲染</h4>
 <p>模板渲染是服务器在HTML模板中填充动态内容的能力。</p>
-<pre><code class="language-js">const express = require(&quot;express&quot;);
-const app = new express();
-const expressReactViews = require(&quot;express-react-views&quot;);
-
-const jsxEngine = expressReactViews.createEngine();
-
-app.set(&quot;view engine&quot;, &#x27;jsx&#x27;);  // views are JSX code
-
-app.set(&quot;views&quot;, &quot;myviews&quot;);  // the views are in a directory named myviews
-
-app.engine(&quot;jsx&quot;, jsxEngine);
-
-app.get(&quot;/:name&quot;, (req, res) =&gt; &#123;
-   res.render(&quot;index&quot;, &#123;name: req.params.name&#125;);
-&#125;);
-
-app.listen(3333, () =&gt; &#123;
-   console.log(`Listening at http://localhost:3333`);
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> expressReactViews = <span class="built_in">require</span>(<span class="string">&quot;express-react-views&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> jsxEngine = expressReactViews.<span class="title function_">createEngine</span>();</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&quot;view engine&quot;</span>, <span class="string">&#x27;jsx&#x27;</span>);  <span class="comment">// views are JSX code</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&quot;views&quot;</span>, <span class="string">&quot;myviews&quot;</span>);  <span class="comment">// the views are in a directory named myviews</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">engine</span>(<span class="string">&quot;jsx&quot;</span>, jsxEngine);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/:name&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">   res.<span class="title function_">render</span>(<span class="string">&quot;index&quot;</span>, &#123;<span class="attr">name</span>: req.<span class="property">params</span>.<span class="property">name</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(<span class="number">3333</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening at http://localhost:3333`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>本代码示例使用了express-react-views软件包，它是一个用于渲染React视图的Express模板引擎。</p>
 <h2 id="33-验证"><a class="markdownIt-Anchor" href="#33-验证"></a> 3.3. 验证</h2>
 <p>身份验证是通过获取凭证并使用这些凭证验证用户身份的过程。身份验证的目的是识别用户身份，并根据其身份提供访问权限和内容。</p>
@@ -774,55 +408,14 @@ app.listen(3333, () =&gt; &#123;
 <p>让我们建立一个Express.js API服务器、根据使用权限访问员工信息。应用程序将有两个API，每个API都有自己的端点：</p>
 <ol>
 <li>使用<code>POST</code> API登录，通过在请求体中发送用户名和密码、返回网页令牌（对该应用程序接口端点的调用应当通过托管应用程序前端的网页服务器来进行）</li>
-<li><code>GET</code> API将获取只有通过身份验证的用户才能访问的员工信息：<pre><code class="language-js">const express = require(&quot;express&quot;);
-const myapp = express();
-
-// creates a web server module by calling the express() function and assigning it to the constant myapp
-// the myapp.get() function creates a GET API endpoint for the Employees API, and any call to this endpoint currently returns an HTTP status code of 401
-// 401 means Not Authorized
-myapp.get(&quot;/employees&quot;. (req, res) =&gt; &#123;
-    return res.status(401).json(&#123;message: &quot;Please login to access this resource&quot;&#125;);
-&#125;);
-
-myapp.listen(5000, () =&gt; &#123;
-    console.log(&quot;API Server is localhost:5000&quot;);
-&#125;);</code></pre>
+<li><code>GET</code> API将获取只有通过身份验证的用户才能访问的员工信息：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> myapp = <span class="title function_">express</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// creates a web server module by calling the express() function and assigning it to the constant myapp</span></span><br><span class="line"><span class="comment">// the myapp.get() function creates a GET API endpoint for the Employees API, and any call to this endpoint currently returns an HTTP status code of 401</span></span><br><span class="line"><span class="comment">// 401 means Not Authorized</span></span><br><span class="line">myapp.<span class="title function_">get</span>(<span class="string">&quot;/employees&quot;</span>. (req, res) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">json</span>(&#123;<span class="attr">message</span>: <span class="string">&quot;Please login to access this resource&quot;</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">myapp.<span class="title function_">listen</span>(<span class="number">5000</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;API Server is localhost:5000&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 在代码的下一部分，只要用户名和密码正确，我们就允许用户登录，并返回经过验证生成的令牌。一般来说，用户名和密码都存储在数据库中。但是，为了简单起见，我们将在代码中使用“user”和“password”作为用户名和密码。<br>
-要生成经过验证的JWT（JSON Web Token），要使用jsonwebtoken包：<pre><code class="language-js">const express = require(&quot;express&quot;);
-const jsonwebtoken = require(&quot;jsonwebtoken&quot;);
-
-const JWT_SECRET = &quot;aVeryVerySecretString&quot;;</code></pre>
-通过<code>myapp.use()</code>方法，API方法可以返回JSON响应：<pre><code class="language-js">const myapp = express();
-myapp.use(express.json());
-
-myapp.post(&quot;/signin&quot;, (req, res) =&gt; &#123;
-    const &#123;uname, pwd&#125; = req.body;
-    // however, that the JWT Secret should always be generated using a password generator and stored in the config file as an environment variable and not hard coded in the API, as shown here
-&#125;);</code></pre>
-然后将请求正文中的用户名和密码与从数据库中获取的值进行比较：<pre><code class="language-js">if (uname === &quot;user&quot; &amp;&amp; pwd === &quot;password&quot;) &#123;
-    return res.json(&#123;
-        // Once the username and password match, the JWT is generated using the jsonwebstoken.sign() function by including the username and the JWT secret as parameters and is returned as a JSON response from the signin API
-        token: jsonwebtoken.sign(&#123;user: &quot;user&quot;&#125;, JWT_SECRET)
-    &#125;);
-    // if the username and password match fails, then a HTTP status code of 401 is returned with the message &quot;Invalid username and/or password&quot;
-    return res.status(401).json(&#123;message: &quot;Invalid username and/or password&quot;&#125;);
-&#125;);</code></pre>
-接着，我们用“employees”端点定义<code>GET</code> API方法：<pre><code class="language-js">myapp.get(&quot;/employees&quot;, (req, res) =&gt; &#123;
-    let tkn = req.header(&quot;Authorization&quot;);
-    if (!tkn) return res.status(401).send(&quot;No Token&quot;);
-    if (tkn.startsWith(&quot;Bearer &quot;)) &#123;
-        tokenValue = tkn.slice(7, tkn.length).trimLeft();
-    &#125;
-    // ...
-&#125;);</code></pre>
+要生成经过验证的JWT（JSON Web Token），要使用jsonwebtoken包：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> jsonwebtoken = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">JWT_SECRET</span> = <span class="string">&quot;aVeryVerySecretString&quot;</span>;</span><br></pre></td></tr></table></figure>
+通过<code>myapp.use()</code>方法，API方法可以返回JSON响应：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myapp = <span class="title function_">express</span>();</span><br><span class="line">myapp.<span class="title function_">use</span>(express.<span class="title function_">json</span>());</span><br><span class="line"></span><br><span class="line">myapp.<span class="title function_">post</span>(<span class="string">&quot;/signin&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;uname, pwd&#125; = req.<span class="property">body</span>;</span><br><span class="line">    <span class="comment">// however, that the JWT Secret should always be generated using a password generator and stored in the config file as an environment variable and not hard coded in the API, as shown here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+然后将请求正文中的用户名和密码与从数据库中获取的值进行比较：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (uname === <span class="string">&quot;user&quot;</span> &amp;&amp; pwd === <span class="string">&quot;password&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">json</span>(&#123;</span><br><span class="line">        <span class="comment">// Once the username and password match, the JWT is generated using the jsonwebstoken.sign() function by including the username and the JWT secret as parameters and is returned as a JSON response from the signin API</span></span><br><span class="line">        <span class="attr">token</span>: jsonwebtoken.<span class="title function_">sign</span>(&#123;<span class="attr">user</span>: <span class="string">&quot;user&quot;</span>&#125;, <span class="variable constant_">JWT_SECRET</span>)</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// if the username and password match fails, then a HTTP status code of 401 is returned with the message &quot;Invalid username and/or password&quot;</span></span><br><span class="line">    <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">json</span>(&#123;<span class="attr">message</span>: <span class="string">&quot;Invalid username and/or password&quot;</span>&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+接着，我们用“employees”端点定义<code>GET</code> API方法：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">myapp.<span class="title function_">get</span>(<span class="string">&quot;/employees&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> tkn = req.<span class="title function_">header</span>(<span class="string">&quot;Authorization&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!tkn) <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">401</span>).<span class="title function_">send</span>(<span class="string">&quot;No Token&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (tkn.<span class="title function_">startsWith</span>(<span class="string">&quot;Bearer &quot;</span>)) &#123;</span><br><span class="line">        tokenValue = tkn.<span class="title function_">slice</span>(<span class="number">7</span>, tkn.<span class="property">length</span>).<span class="title function_">trimLeft</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 从<code>signin</code> API调用中获取的令牌会在<code>Authorization</code>标头中传递。<code>GET</code> API（也就是“employees”）已更新，可以使用<code>req.header()</code>函数从传入的API请求中读取<code>Authorization</code>标头。值得注意的是，<code>Authorization</code>标头的值总是以<code>Bearer</code>开头，因此这个令牌也被称为Bearer令牌。<br>
-获取的JWT可通过传递获取的令牌和JWT密钥、使用函数<code>jsonwebtoken.verify()</code>进行验证：<pre><code class="language-js">myapp.get(&quot;/employees&quot;, (req, res) =&gt; &#123;
-    // ...
-    const verificationStatus = jsonwebtoken.verify(tokenValue, &quot;aVeryVerySecretString&quot;);
-    if (verificationStatus.user === &quot;user&quot;) &#123;
-        return res.status(200).json(&#123;message: &quot;Access Successful to Employee Endpoint&quot;&#125;);
-    &#125;
-&#125;);</code></pre>
+获取的JWT可通过传递获取的令牌和JWT密钥、使用函数<code>jsonwebtoken.verify()</code>进行验证：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">myapp.<span class="title function_">get</span>(<span class="string">&quot;/employees&quot;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">const</span> verificationStatus = jsonwebtoken.<span class="title function_">verify</span>(tokenValue, <span class="string">&quot;aVeryVerySecretString&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (verificationStatus.<span class="property">user</span> === <span class="string">&quot;user&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(&#123;<span class="attr">message</span>: <span class="string">&quot;Access Successful to Employee Endpoint&quot;</span>&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 如果验证失败，则会将401状态码返回给客户端。</li>
 </ol>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="948f.html">上一篇</a><a class="next" href="d011.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {

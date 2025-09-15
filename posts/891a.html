@@ -77,13 +77,12 @@
 </ol>
 <h1 id="创建容器"><a class="markdownIt-Anchor" href="#创建容器"></a> 创建容器</h1>
 <ol>
-<li>打开任一终端，拉取Ubuntu镜像：<pre><code class="language-bash">docker pull ubuntu</code></pre>
+<li>打开任一终端，拉取Ubuntu镜像：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu</span><br></pre></td></tr></table></figure>
 <img src="/posts/891a/Docker Pull.png" alt="终端内输入docker pull ubuntu">
 </li>
-<li>继续在终端内创建空容器：<pre><code class="language-bash">docker run -it --name CodeServer ubuntu:latest /bin/bash</code></pre>
+<li>继续在终端内创建空容器：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name CodeServer ubuntu:latest /bin/bash</span><br></pre></td></tr></table></figure>
 </li>
-<li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<pre><code class="language-bash">apt-get update
-apt install curl</code></pre>
+<li>此时终端的目标路径变为了<code>root@巴拉巴拉巴拉:/#</code>，输入以下命令安装curl库：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt install curl</span><br></pre></td></tr></table></figure>
 <img src="/posts/891a/apt-get update.png" alt="终端内输入apt-get update">
 <img src="/posts/891a/apt install curl.png" alt="终端内输入apt install curl">
 </li>
@@ -95,11 +94,11 @@ apt install curl</code></pre>
 <ol>
 <li>
 <p>依然是在终端内，执行以下命令来安装：</p>
-<pre><code class="language-bash">curl -fsSL https://code-server.dev/install.sh | sh</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://code-server.dev/install.sh | sh</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>为了能够让其他设备也可以访问网页，需要执行以下命令：</p>
-<pre><code class="language-bash">code-server --link</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code-server --<span class="built_in">link</span></span><br></pre></td></tr></table></figure>
 <img src="/posts/891a/code-server --link.png" alt="终端内输入code-server --link">
 <blockquote>
 <p>我在这里换了个终端，实际上不需要更换。</p>

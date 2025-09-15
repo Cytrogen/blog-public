@@ -67,38 +67,7 @@
 </blockquote>
 <h4 id="111-代码实现分析"><a class="markdownIt-Anchor" href="#111-代码实现分析"></a> 1.1.1. 代码实现分析</h4>
 <p>让我们深入分析 <code>Users</code> 实体的代码实现：</p>
-<pre><code class="language-ts">import &#123;
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-  OneToOne
-&#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Users &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column(&#123; unique: true &#125;)
-  username: string;
-
-  @Column(&#123; unique: true &#125;)
-  email: string;
-
-  @Column()
-  password: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Entity</span>,</span><br><span class="line">  <span class="title class_">PrimaryGeneratedColumn</span>,</span><br><span class="line">  <span class="title class_">Column</span>,</span><br><span class="line">  <span class="title class_">CreateDateColumn</span>,</span><br><span class="line">  <span class="title class_">UpdateDateColumn</span>,</span><br><span class="line">  <span class="title class_">OneToMany</span>,</span><br><span class="line">  <span class="title class_">OneToOne</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Users</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">unique</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123; <span class="attr">unique</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">  <span class="attr">email</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">password</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这部分使用了 TypeORM 的装饰器来定义表结构：</p>
 <ul>
 <li><code>@Entity()</code> 装饰器将这个类标记为一个数据库实体</li>
@@ -117,27 +86,7 @@ export class Users &#123;
 </ul>
 <h4 id="112-关联关系分析"><a class="markdownIt-Anchor" href="#112-关联关系分析"></a> 1.1.2. 关联关系分析</h4>
 <p><code>Users</code> 实体与其他实体之间建立了多个关联关系：</p>
-<pre><code class="language-ts">import &#123; Orders &#125; from &#x27;./orders.entity&#x27;;
-import &#123; Carts &#125; from &#x27;./carts.entity&#x27;;
-import &#123; Addresses &#125; from &#x27;./addresses.entity&#x27;;
-import &#123; Payments &#125; from &#x27;./payments.entity&#x27;;
-
-@Entity()
-export class Users &#123;
-    // ...
-
-    @OneToMany(() =&gt; Orders, order =&gt; order.user)
-    orders: Orders[];
-
-    @OneToOne(() =&gt; Carts, cart =&gt; cart.user)
-    cart: Carts;
-
-    @OneToMany(() =&gt; Addresses, address =&gt; address.user)
-    addresses: Addresses[];
-
-    @OneToMany(() =&gt; Payments, payment =&gt; payment.user)
-    payments: Payments[];
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Orders</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./orders.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Carts</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./carts.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Addresses</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./addresses.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Payments</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./payments.entity&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Users</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">Orders</span>, <span class="function"><span class="params">order</span> =&gt;</span> order.<span class="property">user</span>)</span><br><span class="line">    <span class="attr">orders</span>: <span class="title class_">Orders</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OneToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Carts</span>, <span class="function"><span class="params">cart</span> =&gt;</span> cart.<span class="property">user</span>)</span><br><span class="line">    <span class="attr">cart</span>: <span class="title class_">Carts</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">Addresses</span>, <span class="function"><span class="params">address</span> =&gt;</span> address.<span class="property">user</span>)</span><br><span class="line">    <span class="attr">addresses</span>: <span class="title class_">Addresses</span>[];</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">Payments</span>, <span class="function"><span class="params">payment</span> =&gt;</span> payment.<span class="property">user</span>)</span><br><span class="line">    <span class="attr">payments</span>: <span class="title class_">Payments</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这些关联展示了用户实体在系统中的核心地位：</p>
 <ol>
 <li>用户-订单关系（<code>@OneToMany</code>）
@@ -185,25 +134,7 @@ export class Users &#123;
 <p><code>enum</code> 是一种特殊的类，用来表示一组固定的常量。</p>
 </blockquote>
 <p>通过将 <code>role</code> 字段设置为枚举类型，我们可以确保角色值仅限于我们定义的固定值，这些值会自动被 TypeORM 映射到数据库字段中。</p>
-<pre><code class="language-ts">// 添加角色的枚举类型
-export enum UserRole &#123;
-  ADMIN = &#x27;admin&#x27;,
-  USER = &#x27;user&#x27;,
-  GUEST = &#x27;guest&#x27;,
-&#125;
-
-@Entity()
-export class Users &#123;
-  // ...
-
-  // 在 Users 实体中添加 role 字段
-  @Column(&#123;
-    type: &#x27;enum&#x27;,
-    enum: UserRole,
-    default: UserRole.USER,  // 默认值为普通用户
-  &#125;)
-  role: UserRole;
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加角色的枚举类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">enum</span> <span class="title class_">UserRole</span> &#123;</span><br><span class="line">  <span class="variable constant_">ADMIN</span> = <span class="string">&#x27;admin&#x27;</span>,</span><br><span class="line">  <span class="variable constant_">USER</span> = <span class="string">&#x27;user&#x27;</span>,</span><br><span class="line">  <span class="variable constant_">GUEST</span> = <span class="string">&#x27;guest&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Users</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在 Users 实体中添加 role 字段</span></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;enum&#x27;</span>,</span><br><span class="line">    <span class="attr">enum</span>: <span class="title class_">UserRole</span>,</span><br><span class="line">    <span class="attr">default</span>: <span class="title class_">UserRole</span>.<span class="property">USER</span>,  <span class="comment">// 默认值为普通用户</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="attr">role</span>: <span class="title class_">UserRole</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="12-商品"><a class="markdownIt-Anchor" href="#12-商品"></a> 1.2. 商品</h2>
 <p>商品实体是平台中与交易直接相关的核心实体，它承载了商品的基本信息、库存管理、定价等重要功能。一个设计良好的商品实体不仅要满足基本的展示需求，还要支持库存管理、订单处理等复杂业务场景。</p>
 <p>商品表的作用是提供系统中可供购买的商品清单，记录商品价格和库存。在库存管理方面，当库存减少到零时，商品需要标记为“缺货”或“下架”。</p>
@@ -212,41 +143,7 @@ export class Users &#123;
 </blockquote>
 <h4 id="121-代码实现分析"><a class="markdownIt-Anchor" href="#121-代码实现分析"></a> 1.2.1. 代码实现分析</h4>
 <p>让我们详细分析 <code>Products</code> 实体的代码实现：</p>
-<pre><code class="language-ts">import &#123;
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-  OneToMany
-&#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Products &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column(&#x27;text&#x27;)
-  description: string;
-
-  @Column(&#x27;decimal&#x27;)
-  price: number;
-
-  @Column()
-  stock: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Entity</span>,</span><br><span class="line">  <span class="title class_">PrimaryGeneratedColumn</span>,</span><br><span class="line">  <span class="title class_">Column</span>,</span><br><span class="line">  <span class="title class_">CreateDateColumn</span>,</span><br><span class="line">  <span class="title class_">UpdateDateColumn</span>,</span><br><span class="line">  <span class="title class_">ManyToOne</span>,</span><br><span class="line">  <span class="title class_">OneToMany</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Products</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;text&#x27;</span>)</span><br><span class="line">  <span class="attr">description</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">stock</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码实现的特点：</p>
 <ul>
 <li>使用 <code>text</code> 类型存储描述，支持长文本内容</li>
@@ -264,27 +161,7 @@ export class Products &#123;
 </ul>
 <h4 id="122-关联关系分析"><a class="markdownIt-Anchor" href="#122-关联关系分析"></a> 1.2.2. 关联关系分析</h4>
 <p><code>Products</code> 实体与其他实体建立了多个关联关系：</p>
-<pre><code class="language-ts">import &#123; Categories &#125; from &#x27;./categories.entity&#x27;;
-import &#123; OrderItems &#125; from &#x27;./order-items.entity&#x27;;
-import &#123; CartItems &#125; from &#x27;./cart-items.entity&#x27;;
-import &#123; InventoryLogs &#125; from &#x27;./inventory-logs.entity&#x27;;
-
-@Entity()
-export class Products &#123;
-  // ...
-
-  @ManyToOne(() =&gt; Categories, category =&gt; category.products)
-  category: Categories;
-
-  @OneToMany(() =&gt; OrderItems, orderItem =&gt; orderItem.product)
-  orderItems: OrderItems[];
-
-  @OneToMany(() =&gt; CartItems, cartItem =&gt; cartItem.product)
-  cartItems: CartItems[];
-
-  @OneToMany(() =&gt; InventoryLogs, inventoryLog =&gt; inventoryLog.product)
-  inventoryLogs: InventoryLogs[];
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Categories</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./categories.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">OrderItems</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./order-items.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CartItems</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./cart-items.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InventoryLogs</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./inventory-logs.entity&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Products</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Categories</span>, <span class="function"><span class="params">category</span> =&gt;</span> category.<span class="property">products</span>)</span><br><span class="line">  <span class="attr">category</span>: <span class="title class_">Categories</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">OrderItems</span>, <span class="function"><span class="params">orderItem</span> =&gt;</span> orderItem.<span class="property">product</span>)</span><br><span class="line">  <span class="attr">orderItems</span>: <span class="title class_">OrderItems</span>[];</span><br><span class="line"></span><br><span class="line">  <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">CartItems</span>, <span class="function"><span class="params">cartItem</span> =&gt;</span> cartItem.<span class="property">product</span>)</span><br><span class="line">  <span class="attr">cartItems</span>: <span class="title class_">CartItems</span>[];</span><br><span class="line"></span><br><span class="line">  <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">InventoryLogs</span>, <span class="function"><span class="params">inventoryLog</span> =&gt;</span> inventoryLog.<span class="property">product</span>)</span><br><span class="line">  <span class="attr">inventoryLogs</span>: <span class="title class_">InventoryLogs</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>商品-类别关系 (<code>@ManyToOne</code>)
 <ul>
@@ -319,27 +196,7 @@ export class Products &#123;
 <p>当平台增加新类别“智能家居”时，它会被添加到 <code>Categories</code> 表中。用户在浏览智能家居产品时，只需点击此类别，即可看到所有相关商品。</p>
 </blockquote>
 <h4 id="131-代码实现分析"><a class="markdownIt-Anchor" href="#131-代码实现分析"></a> 1.3.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Categories &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column(&#x27;text&#x27;)
-  description: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">CreateDateColumn</span>, <span class="title class_">UpdateDateColumn</span>, <span class="title class_">OneToMany</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Categories</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;text&#x27;</span>)</span><br><span class="line">  <span class="attr">description</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>类别表的字段及其业务含义如下：</p>
 <ul>
 <li><code>id</code>：主键，唯一标识类别，类型为 <code>UUID</code></li>
@@ -349,15 +206,7 @@ export class Categories &#123;
 </ul>
 <h4 id="132-关联关系分析"><a class="markdownIt-Anchor" href="#132-关联关系分析"></a> 1.3.2. 关联关系分析</h4>
 <p><code>Categories</code> 实体主要与 <code>Products</code> 实体建立了一对多的关联关系：</p>
-<pre><code class="language-ts">import &#123; Products &#125; from &#x27;./products.entity&#x27;;
-
-@Entity()
-export class Categories &#123;
-  // ...
-
-  @OneToMany(() =&gt; Products, product =&gt; product.category)
-  products: Products[];
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Products</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./products.entity&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Categories</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">Products</span>, <span class="function"><span class="params">product</span> =&gt;</span> product.<span class="property">category</span>)</span><br><span class="line">  <span class="attr">products</span>: <span class="title class_">Products</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>类别-商品关系 (<code>@OneToMany</code>)
 <ul>
@@ -373,35 +222,7 @@ export class Categories &#123;
 <p>当用户下单购买一部智能手表，总价为 200 元，订单状态为“待支付”。在用户支付成功后，订单状态更新为“已支付”。</p>
 </blockquote>
 <h4 id="141-代码实现分析"><a class="markdownIt-Anchor" href="#141-代码实现分析"></a> 1.4.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123;
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-  OneToMany
-&#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Orders &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column(&#x27;decimal&#x27;)
-  total_price: number;
-
-  @Column()
-  status: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">Entity</span>,</span><br><span class="line">  <span class="title class_">PrimaryGeneratedColumn</span>,</span><br><span class="line">  <span class="title class_">Column</span>,</span><br><span class="line">  <span class="title class_">CreateDateColumn</span>,</span><br><span class="line">  <span class="title class_">UpdateDateColumn</span>,</span><br><span class="line">  <span class="title class_">ManyToOne</span>,</span><br><span class="line">  <span class="title class_">OneToMany</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Orders</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line">  <span class="attr">total_price</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">status</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>id</code>：订单的唯一标识符，使用 <code>UUID</code> 类型</li>
 <li><code>total_price</code>：订单总价，使用 <code>decimal</code> 类型确保精确计算</li>
@@ -410,19 +231,7 @@ export class Orders &#123;
 </ul>
 <h4 id="142-关联关系分析"><a class="markdownIt-Anchor" href="#142-关联关系分析"></a> 1.4.2. 关联关系分析</h4>
 <p><code>Orders</code> 实体与其他实体建立了多个关联关系：</p>
-<pre><code class="language-ts">import &#123; Users &#125; from &#x27;./users.entity&#x27;;
-import &#123; OrderItems &#125; from &#x27;./order-items.entity&#x27;;
-
-@Entity()
-export class Orders &#123;
-  // ...
-
-  @ManyToOne(() =&gt; Users, user =&gt; user.orders)
-  user: Users;
-
-  @OneToMany(() =&gt; OrderItems, orderItem =&gt; orderItem.order)
-  orderItems: OrderItems[];
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Users</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./users.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">OrderItems</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./order-items.entity&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Orders</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Users</span>, <span class="function"><span class="params">user</span> =&gt;</span> user.<span class="property">orders</span>)</span><br><span class="line">  <span class="attr">user</span>: <span class="title class_">Users</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">OrderItems</span>, <span class="function"><span class="params">orderItem</span> =&gt;</span> orderItem.<span class="property">order</span>)</span><br><span class="line">  <span class="attr">orderItems</span>: <span class="title class_">OrderItems</span>[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这些关联关系支持了完整的订单业务流程：</p>
 <ol>
 <li>订单-用户关系 (<code>@ManyToOne</code>)
@@ -443,24 +252,7 @@ export class Orders &#123;
 <h2 id="15-订单项"><a class="markdownIt-Anchor" href="#15-订单项"></a> 1.5. 订单项</h2>
 <p>订单项实体记录了订单中每个商品的具体购买信息，包括数量、单价和总价等。它不仅连接了订单和商品，还保存了购买时的价格快照，这对于订单历史记录和财务核算都很重要。</p>
 <h4 id="151-代码实现分析"><a class="markdownIt-Anchor" href="#151-代码实现分析"></a> 1.5.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, ManyToOne &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class OrderItems &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  quantity: number;
-
-  @Column(&#x27;decimal&#x27;)
-  price: number;
-
-  @Column(&#x27;decimal&#x27;)
-  total_price: number;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">ManyToOne</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">OrderItems</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">quantity</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line">  <span class="attr">price</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line">  <span class="attr">total_price</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>id</code>：订单项的唯一标识符，使用 <code>UUID</code> 类型</li>
 <li><code>quantity</code>：购买数量</li>
@@ -472,8 +264,7 @@ export class OrderItems &#123;
 <ol>
 <li>
 <p>订单项-订单关系 (<code>@ManyToOne</code>)</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Orders, order =&gt; order.orderItems)
-order: Orders;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Orders</span>, <span class="function"><span class="params">order</span> =&gt;</span> order.<span class="property">orderItems</span>)</span><br><span class="line"><span class="attr">order</span>: <span class="title class_">Orders</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>多个订单项属于同一个订单</li>
 <li>通过这个关系可以获取订单的完整商品清单</li>
@@ -482,8 +273,7 @@ order: Orders;</code></pre>
 </li>
 <li>
 <p>订单项-商品关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Products, product =&gt; product.orderItems)
-product: Products;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Products</span>, <span class="function"><span class="params">product</span> =&gt;</span> product.<span class="property">orderItems</span>)</span><br><span class="line"><span class="attr">product</span>: <span class="title class_">Products</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>记录该订单项对应的具体商品</li>
 <li>支持商品销售统计和分析</li>
@@ -495,23 +285,7 @@ product: Products;</code></pre>
 <p>每个用户都有一个购物车，用于暂存待购买的商品信息。</p>
 <p>购物车实体记录了用户在线上选择和加入的商品，是下单前的临时存储。它与订单实体有着类似的结构，但服务于不同的业务场景。</p>
 <h4 id="161-代码实现分析"><a class="markdownIt-Anchor" href="#161-代码实现分析"></a> 1.6.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany &#125; from &#x27;typeorm&#x27;;
-import &#123; Users &#125; from &#x27;./users.entity&#x27;;
-import &#123; CartItems &#125; from &#x27;./cart-items.entity&#x27;;
-
-@Entity()
-export class Carts &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">CreateDateColumn</span>, <span class="title class_">UpdateDateColumn</span>, <span class="title class_">OneToOne</span>, <span class="title class_">OneToMany</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Users</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./users.entity&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CartItems</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./cart-items.entity&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Carts</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码实现的特点:</p>
 <ul>
 <li>使用一对一关系与用户实体关联，确保每个用户只有一个购物车</li>
@@ -527,13 +301,11 @@ export class Carts &#123;
 <ol>
 <li>
 <p>购物车-用户关系（<code>@OneToOne</code>）</p>
- <pre><code class="language-ts">@OneToOne(() =&gt; Users, user =&gt; user.cart)
-user: Users;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OneToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Users</span>, <span class="function"><span class="params">user</span> =&gt;</span> user.<span class="property">cart</span>)</span><br><span class="line"><span class="attr">user</span>: <span class="title class_">Users</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>购物车-购物车项关系（<code>@OneToMany</code>）</p>
- <pre><code class="language-ts">@OneToMany(() =&gt; CartItems, cartItem =&gt; cartItem.cart)
-cartItems: CartItems[];</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OneToMany</span>(<span class="function">() =&gt;</span> <span class="title class_">CartItems</span>, <span class="function"><span class="params">cartItem</span> =&gt;</span> cartItem.<span class="property">cart</span>)</span><br><span class="line"><span class="attr">cartItems</span>: <span class="title class_">CartItems</span>[];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>一个购物车可以包含多个购物车项</li>
 <li>通过这个关系可以获取购物车中的商品列表</li>
@@ -546,18 +318,7 @@ cartItems: CartItems[];</code></pre>
 <p>用户在购物车中添加了两部智能手表，购物车项记录该商品 ID、数量为 2，以及关联的购物车 ID。</p>
 </blockquote>
 <h4 id="171-代码实现分析"><a class="markdownIt-Anchor" href="#171-代码实现分析"></a> 1.7.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, ManyToOne &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class CartItems &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  quantity: number;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">ManyToOne</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CartItems</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">quantity</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>CartItems</code> 实体的特点:</p>
 <ul>
 <li>使用多对一关系连接购物车和商品实体</li>
@@ -567,36 +328,17 @@ export class CartItems &#123;
 <ol>
 <li>
 <p>购物车项-购物车关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Carts, cart =&gt; cart.cartItems)
-cart: Carts;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Carts</span>, <span class="function"><span class="params">cart</span> =&gt;</span> cart.<span class="property">cartItems</span>)</span><br><span class="line"><span class="attr">cart</span>: <span class="title class_">Carts</span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p>购物车项-商品关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Products, product =&gt; product.cartItems)
-product: Products;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Products</span>, <span class="function"><span class="params">product</span> =&gt;</span> product.<span class="property">cartItems</span>)</span><br><span class="line"><span class="attr">product</span>: <span class="title class_">Products</span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="18-支付"><a class="markdownIt-Anchor" href="#18-支付"></a> 1.8. 支付</h2>
 <p>支付实体记录了用户在完成下单后的支付信息，包括支付金额、支付状态等。它与订单实体有着直接的关联关系。</p>
 <h4 id="181-代码实现分析"><a class="markdownIt-Anchor" href="#181-代码实现分析"></a> 1.8.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Payments &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column(&#x27;decimal&#x27;)
-  amount: number;
-
-  @Column()
-  status: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">CreateDateColumn</span>, <span class="title class_">ManyToOne</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Payments</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line">  <span class="attr">amount</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">status</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>Payments</code> 实体的特点：</p>
 <ul>
 <li>使用多对一关系连接订单和用户实体</li>
@@ -607,8 +349,7 @@ export class Payments &#123;
 <ol>
 <li>
 <p>支付-订单关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Orders, order =&gt; order.id)
-order: Orders;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Orders</span>, <span class="function"><span class="params">order</span> =&gt;</span> order.<span class="property">id</span>)</span><br><span class="line"><span class="attr">order</span>: <span class="title class_">Orders</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>一笔订单可以有多个支付记录</li>
 <li>通过这个关系可以获取支付所属的订单信息</li>
@@ -616,8 +357,7 @@ order: Orders;</code></pre>
 </li>
 <li>
 <p>支付-用户关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Users, user =&gt; user.payments)
-user: Users;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Users</span>, <span class="function"><span class="params">user</span> =&gt;</span> user.<span class="property">payments</span>)</span><br><span class="line"><span class="attr">user</span>: <span class="title class_">Users</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>一个用户可以有多笔支付记录</li>
 <li>通过这个关系可以获取支付所属的用户信息</li>
@@ -627,42 +367,12 @@ user: Users;</code></pre>
 <h2 id="19-地址"><a class="markdownIt-Anchor" href="#19-地址"></a> 1.9. 地址</h2>
 <p>地址实体记录了用户的收货地址信息，包括街道、城市、州/省、邮编和国家等详细信息。这些信息在用户下单时需要用到，也可以用于生成发货标签等。</p>
 <h4 id="191-代码实现分析"><a class="markdownIt-Anchor" href="#191-代码实现分析"></a> 1.9.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class Addresses &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  street: string;
-
-  @Column()
-  city: string;
-
-  @Column()
-  state: string;
-
-  @Column()
-  postal_code: string;
-
-  @Column()
-  country: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">CreateDateColumn</span>, <span class="title class_">UpdateDateColumn</span>, <span class="title class_">ManyToOne</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">Addresses</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">street</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">city</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">state</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">postal_code</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">country</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@UpdateDateColumn</span>()</span><br><span class="line">  <span class="attr">updated_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="192-关联关系分析"><a class="markdownIt-Anchor" href="#192-关联关系分析"></a> 1.9.2. 关联关系分析</h4>
 <ol>
 <li>
 <p>地址-用户关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Users, user =&gt; user.addresses)
-user: Users; </code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Users</span>, <span class="function"><span class="params">user</span> =&gt;</span> user.<span class="property">addresses</span>)</span><br><span class="line"><span class="attr">user</span>: <span class="title class_">Users</span>; </span><br></pre></td></tr></table></figure>
 <ul>
 <li>一个用户可以有多个地址信息</li>
 <li>通过这个关系可以获取地址所属的用户信息</li>
@@ -672,21 +382,7 @@ user: Users; </code></pre>
 <h2 id="110-库存日志"><a class="markdownIt-Anchor" href="#110-库存日志"></a> 1.10. 库存日志</h2>
 <p>库存日志实体记录了商品库存的变动历史，包括每次库存增减的数量和时间。这些记录对于库存管理、库存盘点和异常排查都非常重要。</p>
 <h4 id="1101-代码实现分析"><a class="markdownIt-Anchor" href="#1101-代码实现分析"></a> 1.10.1. 代码实现分析</h4>
-<pre><code class="language-ts">import &#123; Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne &#125; from &#x27;typeorm&#x27;;
-
-@Entity()
-export class InventoryLogs &#123;
-  @PrimaryGeneratedColumn(&#x27;uuid&#x27;)
-  id: string;
-
-  @Column()
-  change: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  // ...
-&#125;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Entity</span>, <span class="title class_">PrimaryGeneratedColumn</span>, <span class="title class_">Column</span>, <span class="title class_">CreateDateColumn</span>, <span class="title class_">ManyToOne</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">InventoryLogs</span> &#123;</span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">&#x27;uuid&#x27;</span>)</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>()</span><br><span class="line">  <span class="attr">change</span>: <span class="built_in">number</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@CreateDateColumn</span>()</span><br><span class="line">  <span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>InventoryLogs</code> 实体的特点：</p>
 <ul>
 <li>使用多对一关系与商品实体关联</li>
@@ -697,8 +393,7 @@ export class InventoryLogs &#123;
 <ol>
 <li>
 <p>库存日志-商品关系（<code>@ManyToOne</code>）</p>
- <pre><code class="language-ts">@ManyToOne(() =&gt; Products, product =&gt; product.inventoryLogs)
-product: Products;</code></pre>
+ <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ManyToOne</span>(<span class="function">() =&gt;</span> <span class="title class_">Products</span>, <span class="function"><span class="params">product</span> =&gt;</span> product.<span class="property">inventoryLogs</span>)</span><br><span class="line"><span class="attr">product</span>: <span class="title class_">Products</span>;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>一个商品可以有多条库存变动记录</li>
 <li>通过这个关系可以追踪特定商品的库存变动历史</li>
@@ -711,16 +406,7 @@ product: Products;</code></pre>
 <p>TypeORM 可以帮助我们轻松处理数据库操作。它内置了强大的迁移功能，使我们能够定义数据库结构变更并自动应用到数据库中。</p>
 <h2 id="21-添加自定义命令"><a class="markdownIt-Anchor" href="#21-添加自定义命令"></a> 2.1. 添加自定义命令</h2>
 <p>首先，我们在 <code>package.json</code> 中添加一些脚本来管理 TypeORM 的迁移操作。这些脚本将自动构建项目并运行相应的迁移命令，方便我们快速执行迁移操作：</p>
-<pre><code class="language-json">&#123;
-  &quot;scripts&quot;: &#123;
-    // ...
-    &quot;typeorm&quot;: &quot;typeorm-ts-node-commonjs -d src/config/data-source.ts&quot;,
-    &quot;migration:initialize&quot;: &quot;yarn build &amp;&amp; yarn typeorm migration:generate src/migrations/InitialMigration&quot;,
-    &quot;migration:generate&quot;: &quot;yarn build &amp;&amp; yarn typeorm migration:generate&quot;,
-    &quot;migration:run&quot;: &quot;yarn build &amp;&amp; yarn typeorm migration:run&quot;,
-    &quot;migration:revert&quot;: &quot;yarn build &amp;&amp; yarn typeorm migration:revert&quot;
-  &#125;
-&#125;</code></pre>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="attr">&quot;typeorm&quot;</span><span class="punctuation">:</span> <span class="string">&quot;typeorm-ts-node-commonjs -d src/config/data-source.ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;migration:initialize&quot;</span><span class="punctuation">:</span> <span class="string">&quot;yarn build &amp;&amp; yarn typeorm migration:generate src/migrations/InitialMigration&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;migration:generate&quot;</span><span class="punctuation">:</span> <span class="string">&quot;yarn build &amp;&amp; yarn typeorm migration:generate&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;migration:run&quot;</span><span class="punctuation">:</span> <span class="string">&quot;yarn build &amp;&amp; yarn typeorm migration:run&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;migration:revert&quot;</span><span class="punctuation">:</span> <span class="string">&quot;yarn build &amp;&amp; yarn typeorm migration:revert&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>让我们一行一行地分析这些脚本的作用：</p>
 <ul>
 <li><code>typeorm</code>：指定 TypeORM 的配置文件路径（<code>src/config/data-source.ts</code>），它是所有 TypeORM 操作的基础</li>
@@ -737,28 +423,7 @@ product: Products;</code></pre>
 <p>接下来，我们需要设置 TypeORM 的数据库配置。</p>
 <p>在项目的 <code>src/config/data-source.ts</code> 文件中，我们使用 <code>DataSourceOptions</code> 来定义数据库连接的详细信息。</p>
 <p>这里我们还使用了 <code>@nestjs/config</code> 模块来动态读取环境变量，这样在不同环境中可以使用不同的数据库配置。</p>
-<pre><code class="language-ts">import &#123; ConfigService &#125; from &#x27;@nestjs/config&#x27;;
-import &#123; DataSource, DataSourceOptions &#125; from &#x27;typeorm&#x27;;
-import &#123; config &#125; from &#x27;dotenv&#x27;;
-
-config();
-
-const configService = new ConfigService();
-
-const dataSourceOptions: DataSourceOptions = &#123;
-  type: configService.get&lt;any&gt;(&#x27;DB_TYPE&#x27;, &#x27;mysql&#x27;),
-  host: configService.get&lt;string&gt;(&#x27;DB_HOST&#x27;),
-  port: configService.get&lt;number&gt;(&#x27;DB_PORT&#x27;),
-  username: configService.get&lt;string&gt;(&#x27;DB_USER&#x27;),
-  password: configService.get&lt;string&gt;(&#x27;DB_PASSWORD&#x27;),
-  database: configService.get&lt;string&gt;(&#x27;DB_NAME&#x27;),
-  synchronize: configService.get&lt;string&gt;(&#x27;APP_ENV&#x27;) === &#x27;development&#x27;,
-  entities: [&#x27;dist/entities/*.entity&#123;.ts,.js&#125;&#x27;],
-  migrations: [&#x27;dist/migrations/*&#123;.ts,.js&#125;&#x27;],
-  subscribers: []
-&#125;;
-
-export default new DataSource(dataSourceOptions);</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ConfigService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@nestjs/config&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">DataSource</span>, <span class="title class_">DataSourceOptions</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;typeorm&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; config &#125; <span class="keyword">from</span> <span class="string">&#x27;dotenv&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_">config</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> configService = <span class="keyword">new</span> <span class="title class_">ConfigService</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="attr">dataSourceOptions</span>: <span class="title class_">DataSourceOptions</span> = &#123;</span><br><span class="line">  <span class="attr">type</span>: configService.<span class="property">get</span>&lt;<span class="built_in">any</span>&gt;(<span class="string">&#x27;DB_TYPE&#x27;</span>, <span class="string">&#x27;mysql&#x27;</span>),</span><br><span class="line">  <span class="attr">host</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_HOST&#x27;</span>),</span><br><span class="line">  <span class="attr">port</span>: configService.<span class="property">get</span>&lt;<span class="built_in">number</span>&gt;(<span class="string">&#x27;DB_PORT&#x27;</span>),</span><br><span class="line">  <span class="attr">username</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_USER&#x27;</span>),</span><br><span class="line">  <span class="attr">password</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_PASSWORD&#x27;</span>),</span><br><span class="line">  <span class="attr">database</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;DB_NAME&#x27;</span>),</span><br><span class="line">  <span class="attr">synchronize</span>: configService.<span class="property">get</span>&lt;<span class="built_in">string</span>&gt;(<span class="string">&#x27;APP_ENV&#x27;</span>) === <span class="string">&#x27;development&#x27;</span>,</span><br><span class="line">  <span class="attr">entities</span>: [<span class="string">&#x27;dist/entities/*.entity&#123;.ts,.js&#125;&#x27;</span>],</span><br><span class="line">  <span class="attr">migrations</span>: [<span class="string">&#x27;dist/migrations/*&#123;.ts,.js&#125;&#x27;</span>],</span><br><span class="line">  <span class="attr">subscribers</span>: []</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">DataSource</span>(dataSourceOptions);</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>type</code>：指定数据库类型，这里我们通过环境变量 <code>DB_TYPE</code> 来设置，默认为 MySQL</li>
 <li><code>host</code>、<code>port</code>、<code>username</code>、<code>password</code>、<code>database</code>：这些参数是数据库连接的必要信息，都可以通过环境变量配置</li>
@@ -771,16 +436,16 @@ export default new DataSource(dataSourceOptions);</code></pre>
 </ul>
 <h2 id="23-生成数据库迁移文件"><a class="markdownIt-Anchor" href="#23-生成数据库迁移文件"></a> 2.3. 生成数据库迁移文件</h2>
 <p>当配置完成后，我们可以通过以下命令来生成用于初始化数据库的迁移文件：</p>
-<pre><code class="language-bash">yarn migration:initialize</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn migration:initialize</span><br></pre></td></tr></table></figure>
 <p>这条命令会自动构建项目，并使用 TypeORM 生成一个迁移文件（位于 <code>src/migrations</code>，且默认命名为 <code>数字数字数字-InitialMigration.ts</code>）。</p>
 <p>这个文件会包含创建、修改或删除表结构的 SQL 语句。例如，如果你添加了一个新的字段，生成的迁移文件就会包含一个 <code>ALTER TABLE</code> 语句。</p>
 <h2 id="24-执行迁移"><a class="markdownIt-Anchor" href="#24-执行迁移"></a> 2.4. 执行迁移</h2>
 <p>生成迁移文件后，使用以下命令将其应用到数据库：</p>
-<pre><code class="language-bash">yarn migration:run</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn migration:run</span><br></pre></td></tr></table></figure>
 <p>此命令会检查并执行所有尚未在数据库中应用的迁移。这样可以确保你的数据库结构与最新的迁移文件一致。</p>
 <h2 id="25-回滚迁移"><a class="markdownIt-Anchor" href="#25-回滚迁移"></a> 2.5. 回滚迁移</h2>
 <p>在开发过程中，偶尔可能需要回滚上次迁移，例如在测试或调试时。使用以下命令可以撤销上一次迁移：</p>
-<pre><code class="language-bash">yarn migration:revert</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn migration:revert</span><br></pre></td></tr></table></figure>
 <p>TypeORM 会自动识别上次执行的迁移，并撤销相应的更改，恢复到之前的数据库结构。</p>
 <h1 id="3-设置数据库索引"><a class="markdownIt-Anchor" href="#3-设置数据库索引"></a> 3. 设置数据库索引</h1>
 <p>在开发应用程序时，尤其是当数据库中的数据量越来越大时，查询性能变得至关重要。</p>
@@ -799,9 +464,7 @@ export default new DataSource(dataSourceOptions);</code></pre>
 </blockquote>
 <p>在 NestJS 中，我们可以通过 TypeORM 为实体字段添加索引。TypeORM 提供了 <code>@Index()</code> 装饰器，允许我们在数据库表的字段上添加索引。</p>
 <h2 id="31-用户"><a class="markdownIt-Anchor" href="#31-用户"></a> 3.1. 用户</h2>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <p>在 <code>Users</code> 实体中，我们使用了 <code>@Index()</code> 装饰器来为 <code>created_at</code> 字段添加索引。</p>
 <p>在大多数应用程序中，<code>created_at</code> 字段通常用于按照时间排序或进行时间范围查询。</p>
 <blockquote>
@@ -818,87 +481,61 @@ created_at: Date;</code></pre>
 <p>在 TypeORM 中，关系字段（比如 <code>orders</code> 和 <code>cart</code>）通常是外键字段，数据库会自动为这些字段创建索引。例如，在 <code>Users</code> 实体中，<code>orders</code> 字段是通过 <code>@OneToMany</code> 与 <code>Orders</code> 实体关联的。虽然我们没有显式地为 <code>orders</code> 字段添加索引，但在 <code>Orders</code> 表中，<code>user</code> 字段作为外键会自动被索引。</p>
 <p>这意味着，当我们查询某个用户的所有订单时，数据库会直接利用 <code>Orders</code> 表中自动创建的 <code>user</code> 索引，来加速查询。而我们不需要额外为 <code>orders</code> 字段添加索引，TypeORM 和数据库已经为我们处理好了这部分的优化。</p>
 <h2 id="32-商品"><a class="markdownIt-Anchor" href="#32-商品"></a> 3.2. 商品</h2>
-<pre><code class="language-ts">@Index()
-@Column(&#x27;decimal&#x27;)
-price: number;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>(<span class="string">&#x27;decimal&#x27;</span>)</span><br><span class="line"><span class="attr">price</span>: <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure>
 <p><code>price</code> 字段通常会用于以下几种查询：</p>
 <ul>
 <li>按照价格范围查询产品，例如查找价格低于某个值的所有产品</li>
 <li>按照价格排序，例如将产品列表按价格从低到高或从高到低排序</li>
 </ul>
-<pre><code class="language-ts">@Index()
-@Column()
-stock: number;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>()</span><br><span class="line"><span class="attr">stock</span>: <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure>
 <p><code>stock</code> 字段通常用于以下查询场景：</p>
 <ul>
 <li>查找库存数量为零或低于某个值的产品（例如“缺货”产品或“库存预警”产品）</li>
 <li>按照库存数量排序，帮助商家快速查看库存最少的产品</li>
 </ul>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <p>所有的 <code>created_at</code> 字段都需要添加索引。</p>
 <h2 id="33-支付"><a class="markdownIt-Anchor" href="#33-支付"></a> 3.3. 支付</h2>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="34-订单"><a class="markdownIt-Anchor" href="#34-订单"></a> 3.4. 订单</h2>
-<pre><code class="language-ts">@Index()
-@Column()
-status: string;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>()</span><br><span class="line"><span class="attr">status</span>: <span class="built_in">string</span>;</span><br></pre></td></tr></table></figure>
 <p><code>status</code> 字段通常用于查询订单的状态，例如：</p>
 <ul>
 <li>查询某一状态的订单（如“待处理”、“已发货”、“已完成”等）</li>
 <li>按照订单状态统计订单数量</li>
 </ul>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="35-订单项"><a class="markdownIt-Anchor" href="#35-订单项"></a> 3.5. 订单项</h2>
-<pre><code class="language-ts">@Index()
-@Column()
-quantity: number;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>()</span><br><span class="line"><span class="attr">quantity</span>: <span class="built_in">number</span>;</span><br></pre></td></tr></table></figure>
 <p><code>quantity</code> 字段通常在以下情况中用于查询：</p>
 <ul>
 <li>查询具有特定数量的订单项（例如查询某种商品的批量购买情况）</li>
 <li>按照数量对订单项进行筛选或排序</li>
 </ul>
 <h2 id="36-类别"><a class="markdownIt-Anchor" href="#36-类别"></a> 3.6. 类别</h2>
-<pre><code class="language-ts">@Index()
-@Column()
-name: string;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>()</span><br><span class="line"><span class="attr">name</span>: <span class="built_in">string</span>;</span><br></pre></td></tr></table></figure>
 <p><code>name</code> 字段是分类的唯一标识，用于以下情况：</p>
 <ul>
 <li>按类别名称搜索产品类别（例如，用户希望快速找到特定名称的类别）</li>
 <li>在名称字段上进行排序或进行自动完成的匹配查询</li>
 </ul>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="37-购物车"><a class="markdownIt-Anchor" href="#37-购物车"></a> 3.7. 购物车</h2>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="38-地址"><a class="markdownIt-Anchor" href="#38-地址"></a> 3.8. 地址</h2>
-<pre><code class="language-ts">@Index()
-@Column()
-postal_code: string;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@Column</span>()</span><br><span class="line"><span class="attr">postal_code</span>: <span class="built_in">string</span>;</span><br></pre></td></tr></table></figure>
 <p>在地址系统中，<code>postal_code</code>（邮政编码）字段可能用于以下场景：</p>
 <ul>
 <li>按邮政编码筛选地址。例如，在电商系统中，按邮政编码筛选用户地址，以确定是否支持配送</li>
 <li>邮政编码的批量统计或区域分析，例如确定特定邮政编码区域的用户密度</li>
 </ul>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="39-库存日志"><a class="markdownIt-Anchor" href="#39-库存日志"></a> 3.9. 库存日志</h2>
-<pre><code class="language-ts">@Index()
-@CreateDateColumn()
-created_at: Date;</code></pre>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Index</span>()</span><br><span class="line"><span class="meta">@CreateDateColumn</span>()</span><br><span class="line"><span class="attr">created_at</span>: <span class="title class_">Date</span>;</span><br></pre></td></tr></table></figure>
 <p>接下来，我们可以使用以下命令生成数据库迁移文件：</p>
-<pre><code class="language-bash">yarn migration:generate src/migrations/CreateIndex</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn migration:generate src/migrations/CreateIndex</span><br></pre></td></tr></table></figure>
 <p>然后使用以下命令应用迁移并更新数据库：</p>
-<pre><code class="language-bash">yarn migration:run</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn migration:run</span><br></pre></td></tr></table></figure>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="8853.html">上一篇</a><a class="next" href="8e94.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   

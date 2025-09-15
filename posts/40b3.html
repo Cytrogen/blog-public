@@ -71,21 +71,18 @@
 </ul>
 <center>------------------</center>
 <h1 id="事先准备"><a class="markdownIt-Anchor" href="#事先准备"></a> 事先准备</h1>
-<pre><code class="language-bash">pip install openai
-
-# 使用bash...
-export OPENAI_API_KEY=&quot;你的OpenAI API KEY&quot;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install openai</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用bash...</span></span><br><span class="line"><span class="built_in">export</span> OPENAI_API_KEY=<span class="string">&quot;你的OpenAI API KEY&quot;</span></span><br></pre></td></tr></table></figure>
 <h1 id="创建微调模型"><a class="markdownIt-Anchor" href="#创建微调模型"></a> 创建微调模型</h1>
 <div class="danger">
 <p>注意，GPT-3.5-Turbo API 目前<strong>不支持</strong>微调！</p>
 <p>该栏块说的 API 统一默认为 <strong>GPT-3</strong> ！</p>
 </div>
 <p>微调 GPT-3 所需要的数据必须是 <code>JSONL</code> 文件，格式为：</p>
-<pre><code class="language-plaintext">&#123;&quot;prompt&quot;: &quot;提白文本&quot;, &quot;completion&quot;: &quot;想要生成的文本&quot;&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;prompt&quot;: &quot;提白文本&quot;, &quot;completion&quot;: &quot;想要生成的文本&quot;&#125;</span><br></pre></td></tr></table></figure>
 <p>假设已经有一个 <code>CSV</code>、<code>TSV</code>、<code>XLSX</code> 或 <code>JSON</code> 文件作为数据库，则可以使用以下命令行来重新格式化数据：</p>
-<pre><code class="language-bash">openai tools fine_tunes.prepare_data -f 文件名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai tools fine_tunes.prepare_data -f 文件名</span><br></pre></td></tr></table></figure>
 <p>有了 <code>JSONL</code> 文件后，开始微调：</p>
-<pre><code class="language-bash">openai api fine_tunes.create -t JSONL文件名 -m 模型名</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api fine_tunes.create -t JSONL文件名 -m 模型名</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>模型名分为：ada、babbage、curie、davinci。<br>
 从左到右，速度越来越慢，能力越来越强。</p>
@@ -126,64 +123,33 @@ export OPENAI_API_KEY=&quot;你的OpenAI API KEY&quot;</code></pre>
 </table>
 </div>
 <p>有时事件流可能会被中断，使用以下命令行来恢复微调：</p>
-<pre><code class="language-bash">openai api fine_tunes.follow -i 微调工作ID</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api fine_tunes.follow -i 微调工作ID</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>事件流被中断后会自动生成一个命令供你复制粘贴运行。</p>
 </blockquote>
 <h2 id="查看微调工作"><a class="markdownIt-Anchor" href="#查看微调工作"></a> 查看微调工作</h2>
 <p>列出所有被创建的微调工作：</p>
-<pre><code class="language-bash">openai api fine_tunes.list</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api fine_tunes.list</span><br></pre></td></tr></table></figure>
 <p>检索一个微调工作的状态和其他信息：</p>
-<pre><code class="language-bash">openai api fine_tunes.get -i 微调工作ID</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api fine_tunes.get -i 微调工作ID</span><br></pre></td></tr></table></figure>
 <p>取消一个微调工作：</p>
-<pre><code class="language-bash">openai api fine_tunes.cancel -i 微调工作ID</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api fine_tunes.cancel -i 微调工作ID</span><br></pre></td></tr></table></figure>
 <h1 id="删除微调模型"><a class="markdownIt-Anchor" href="#删除微调模型"></a> 删除微调模型</h1>
 <p>有光就有影子，有创建就有删除：</p>
-<pre><code class="language-bash">openai api models.delete -i 微调模型</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api models.delete -i 微调模型</span><br></pre></td></tr></table></figure>
 <p>Python也可以删除一个微调模型：</p>
-<pre><code class="language-python">import openai
-openai.Model.delete(微调模型)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> openai</span><br><span class="line">openai.Model.delete(微调模型)</span><br></pre></td></tr></table></figure>
 <center>------------------</center>
 <h1 id="使用微调模型"><a class="markdownIt-Anchor" href="#使用微调模型"></a> 使用微调模型</h1>
 <p>你可以直接使用微调成功后，自动生成的命令行：</p>
-<pre><code class="language-bash">openai api completions.create -m 微调模型 -p 提白</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openai api completions.create -m 微调模型 -p 提白</span><br></pre></td></tr></table></figure>
 <p>当然主要的还是我们的 Python，这是官网示范：</p>
-<pre><code class="language-python">import openai
-openai.Completion.create(
-    model=FINE_TUNED_MODEL,
-    prompt=YOUR_PROMPT)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> openai</span><br><span class="line">openai.Completion.create(</span><br><span class="line">    model=FINE_TUNED_MODEL,</span><br><span class="line">    prompt=YOUR_PROMPT)</span><br></pre></td></tr></table></figure>
 <p><code>openai.Completion.create()</code> 返回一个字典：</p>
-<pre><code class="language-python">&#123;
-    &quot;choices&quot;: [
-        &#123;
-            &quot;finish_reason&quot;: &quot;length&quot;,
-            &quot;index&quot;: 数字,
-            &quot;logprobs&quot;: null,
-            &quot;text&quot;: &quot;字符串&quot;
-        &#125;
-    ],
-    &quot;created&quot;: 数字,
-    &quot;id&quot;: &quot;字符串&quot;,
-    &quot;model&quot;: &quot;微调模型&quot;,
-    &quot;object&quot;: &quot;text_completion&quot;,
-    &quot;usage&quot;: &#123;
-        &quot;completion_tokens&quot;: 数字,
-        &quot;prompt_tokens&quot;: 数字,
-        &quot;total_tokens&quot;: 数字
-    &#125;
-&#125;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;choices&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;finish_reason&quot;</span>: <span class="string">&quot;length&quot;</span>,</span><br><span class="line">            <span class="string">&quot;index&quot;</span>: 数字,</span><br><span class="line">            <span class="string">&quot;logprobs&quot;</span>: null,</span><br><span class="line">            <span class="string">&quot;text&quot;</span>: <span class="string">&quot;字符串&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;created&quot;</span>: 数字,</span><br><span class="line">    <span class="string">&quot;id&quot;</span>: <span class="string">&quot;字符串&quot;</span>,</span><br><span class="line">    <span class="string">&quot;model&quot;</span>: <span class="string">&quot;微调模型&quot;</span>,</span><br><span class="line">    <span class="string">&quot;object&quot;</span>: <span class="string">&quot;text_completion&quot;</span>,</span><br><span class="line">    <span class="string">&quot;usage&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;completion_tokens&quot;</span>: 数字,</span><br><span class="line">        <span class="string">&quot;prompt_tokens&quot;</span>: 数字,</span><br><span class="line">        <span class="string">&quot;total_tokens&quot;</span>: 数字</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>也就是说，只要拿到 <code>openai.Completion.create()['choices'][0]['text']</code>，就拿到了模型返回的字符串，我们打印这个字符串就好了。</p>
 <p>稍作修改一番：</p>
-<pre><code class="language-python">import openai
-import prompt_toolkit
-
-while True:
-    user_input = prompt_toolkit.prompt(&#x27;&gt; &#x27;)
-    response = openai.Completion.create(
-        model=微调模型,
-        prompt=user_input
-    )
-    print(response[&#x27;choices&#x27;][0][&#x27;text&#x27;])</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> openai</span><br><span class="line"><span class="keyword">import</span> prompt_toolkit</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    user_input = prompt_toolkit.prompt(<span class="string">&#x27;&gt; &#x27;</span>)</span><br><span class="line">    response = openai.Completion.create(</span><br><span class="line">        model=微调模型,</span><br><span class="line">        prompt=user_input</span><br><span class="line">    )</span><br><span class="line">    <span class="built_in">print</span>(response[<span class="string">&#x27;choices&#x27;</span>][<span class="number">0</span>][<span class="string">&#x27;text&#x27;</span>])</span><br></pre></td></tr></table></figure>
 <p>一个简易的控制台机器人就写好了。</p>
 </div></article></div></main><footer><div class="paginator"><a class="prev" href="cf92.html">上一篇</a><a class="next" href="60db.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');

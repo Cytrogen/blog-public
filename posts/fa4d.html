@@ -62,11 +62,7 @@
 <p>Django 应用程序将主要用于用户管理和身份验证、管理汽车型号和品牌，以及路由其他 MongoDB 服务以获取经销商和客户评论。您将在毕业设计课程中分阶段构建此 Django 应用程序和相关服务。</p>
 <blockquote>
 <p>将更改推送到 Git 仓库的步骤：</p>
-<pre><code class="language-bash">git config --global user.email &quot;yourgithub@email.com&quot;
-git config --global user.name &quot;name&quot;
-git add .
-git commit -m&quot;Adding temporary changes to Github&quot;
-git push</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">&quot;yourgithub@email.com&quot;</span></span><br><span class="line">git config --global user.name <span class="string">&quot;name&quot;</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m<span class="string">&quot;Adding temporary changes to Github&quot;</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/ibm-developer-skills-network/xrwvm-fullstack_developer_capstone"><img src="https://gh-card.dev/repos/ibm-developer-skills-network/xrwvm-fullstack_developer_capstone.svg" alt="ibm-developer-skills-network/xrwvm-fullstack_developer_capstone - GitHub"></a></p>
 <p>导航至此仓库，并创建一个包含本项目所需的基本启动代码的版本库分叉（fork）。</p>
@@ -78,49 +74,39 @@ git push</code></pre>
 <li><code>frontend</code>：HTML 和 CSS 以及 React 前端。</li>
 </ul>
 <p>接下来，让我们设置 Python 运行时并测试应用程序。</p>
-<pre><code class="language-bash">cd xrwvm-fullstack_developer_capstone/server
-pip install virtualenv
-virtualenv djangoenv
-source djangoenv/bin/activate</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> xrwvm-fullstack_developer_capstone/server</span><br><span class="line">pip install virtualenv</span><br><span class="line">virtualenv djangoenv</span><br><span class="line"><span class="built_in">source</span> djangoenv/bin/activate</span><br></pre></td></tr></table></figure>
 <p>在虚拟环境中安装必要的 Python 软件包。软件包名称已在 <code>requirements.txt</code> 中提供。</p>
-<pre><code class="language-bash">python3 -m pip install -U -r requirements.txt</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -U -r requirements.txt</span><br></pre></td></tr></table></figure>
 <p>在 <code>server/djangoproj/settings.py</code> 的 <code>TEMPLATES</code> 下，您会发现 <code>DIRS</code> 是一个空列表。在列表中添加 <code>os.path.join(BASE_DIR,'frontend/static')</code>，以便 Django 应用程序识别前端静态文件。设置如下：</p>
-<pre><code class="language-python">&#x27;DIRS&#x27;: [
-    os.path.join(BASE_DIR,&#x27;frontend/static&#x27;)
-],</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;DIRS&#x27;</span>: [</span><br><span class="line">    os.path.join(BASE_DIR,<span class="string">&#x27;frontend/static&#x27;</span>)</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
 <p>在同一文件 <code>server/djangoproj/settings.py</code> 中，在文件底部添加 Django 应用程序查找静态文件的目录。</p>
-<pre><code class="language-python">STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,&#x27;frontend/static&#x27;)
-]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR,<span class="string">&#x27;frontend/static&#x27;</span>)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>执行迁移，创建必要的表格。</p>
-<pre><code class="language-bash">python3 manage.py makemigrations</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations</span><br></pre></td></tr></table></figure>
 <p>运行迁移以激活应用程序的模型。</p>
-<pre><code class="language-bash">python3 manage.py migrate</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate</span><br></pre></td></tr></table></figure>
 <p>启动本地开发服务器。</p>
-<pre><code class="language-bash">python3 manage.py runserver</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py runserver</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>在文件编辑器中打开 <code>server/djangoproj/settings.py</code>，设置 <code>ALLOWED_HOSTS</code> 和 <code>CSRF_TRUSTED_ORIGINS</code> 以反映 Django 应用程序的根 URL。</p>
 <p>请不要在末尾添加 /。</p>
-<pre><code class="language-python">ALLOWED_HOSTS=[&#x27;localhost&#x27;,&#x27;&lt;your application URL here&gt;&#x27;]
-CSRF_TRUSTED_ORIGINS=[&#x27;&lt;your application URL here&gt;&#x27;]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALLOWED_HOSTS=[<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;&lt;your application URL here&gt;&#x27;</span>]</span><br><span class="line">CSRF_TRUSTED_ORIGINS=[<span class="string">&#x27;&lt;your application URL here&gt;&#x27;</span>]</span><br></pre></td></tr></table></figure>
 </blockquote>
 <h2 id="12-添加-about-us-页面"><a class="markdownIt-Anchor" href="#12-添加-about-us-页面"></a> 1.2. 添加 “About Us” 页面</h2>
 <p>在编辑器中打开 <code>server/frontend/static/About.html</code>。同一文件夹中还有样式表 <code>style.css</code>。在 <code>About.html</code> 中的 <code>&lt;head&gt;</code> 标签中链接样式表，以便在 HTML 文件中使用。</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/style.css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/bootstrap.min.css&quot;&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/static/style.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/static/bootstrap.min.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在名为 <code>about-header</code> 的 <code>&lt;div&gt;</code> 标记中粘贴以下内容。</p>
-<pre><code class="language-html">&lt;h1&gt;About Us&lt;/h1&gt;
-Welcome to Best Cars dealership, home to the best cars in North America. We deal in sale of domestic and imported cars at reasonable prices.</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>About Us<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">Welcome to Best Cars dealership, home to the best cars in North America. We deal in sale of domestic and imported cars at reasonable prices.</span><br></pre></td></tr></table></figure>
 <p>将图片 <code>person.png</code> 改为真人图片，并修改 <code>About.html</code> 中的所有文字，使其看起来更真实。根据您的喜好更改样式。</p>
 <p>转到 <code>djangoproj/urls.py</code>，在 <code>urlpatterns</code> 中添加以下内容：</p>
-<pre><code class="language-python">path(&#x27;about/&#x27;, TemplateView.as_view(template_name=&quot;About.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;about/&#x27;</span>, TemplateView.as_view(template_name=<span class="string">&quot;About.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <h2 id="13-添加-contact-us-页面"><a class="markdownIt-Anchor" href="#13-添加-contact-us-页面"></a> 1.3. 添加 “Contact Us” 页面</h2>
 <p>在 <code>server/frontend/static</code> 文件夹下添加一个名为 <code>Contact.html</code> 的新文件。</p>
 <p>添加样式表链接。</p>
 <p>添加标题导航栏，将 <code>Contact Us</code> 作为活动链接。</p>
 <p>在文件中写入联系信息内容。您可以发挥创意，编写自己的信息。使用 css 创建样式。</p>
 <p>将 <code>contact</code> 路径添加到 <code>djangproj/urls.py</code>：</p>
-<pre><code class="language-python">path(&#x27;contact/&#x27;, TemplateView.as_view(template_name=&quot;Contact.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;contact/&#x27;</span>, TemplateView.as_view(template_name=<span class="string">&quot;Contact.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <p>Django 服务器会自动重启。</p>
 <h1 id="2-应用程序用户管理"><a class="markdownIt-Anchor" href="#2-应用程序用户管理"></a> 2. 应用程序：用户管理</h1>
 <p>现在，您已经构建并部署了最初的 Django 应用程序。下一步，经销商的管理员将查看应用程序，以识别用户并根据角色（如匿名用户或注册用户）管理其访问权限。为此，您需要在应用程序中添加身份验证和授权，即用户管理。在本课中，您需要执行以下任务来添加用户管理功能：</p>
@@ -134,212 +120,53 @@ Welcome to Best Cars dealership, home to the best cars in North America. We deal
 </ul>
 <h2 id="21-为您的应用创建超级用户"><a class="markdownIt-Anchor" href="#21-为您的应用创建超级用户"></a> 2.1. 为您的应用创建超级用户</h2>
 <p>运行以下命令创建超级用户：</p>
-<pre><code class="language-bash">python manage.py createsuperuser</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
 <p>输入用户名、电子邮件和密码后，您应该会看到 <code>Superuser created successfully</code> 的信息，表明超级用户已创建。执行以下命令运行服务器：</p>
-<pre><code class="language-bash">python manage.py runserver</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
 <p>请在端口 <code>8000</code> 上启动应用程序，并在 URL 末尾添加 <code>/admin</code>，以进入 Django 管理用户界面。使用刚刚为超级用户创建的凭据登录管理员站点。单击 <code>AUTHENTICATION AND AUTHORIZATION</code> 部分下的 <code>Users</code>。您应该可以查看刚刚创建的超级用户。</p>
 <h2 id="22-构建客户端并进行配置"><a class="markdownIt-Anchor" href="#22-构建客户端并进行配置"></a> 2.2. 构建客户端并进行配置</h2>
 <p>打开新终端，切换到客户端目录：</p>
-<pre><code class="language-bash">cd /server/frontend</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/frontend</span><br></pre></td></tr></table></figure>
 <p>安装所有必需的软件包：</p>
-<pre><code class="language-bash">npm install</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p>运行以下命令构建客户端：</p>
-<pre><code class="language-bash">npm run build</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
 <p>在编辑器中打开 <code>server/djangoproj/settings.py</code>。在 <code>TEMPLATES</code> 下可以找到 <code>DIRS</code>。在列表中添加 <code>os.path.join(BASE_DIR,'frontend/build')</code>，以便 Django 应用程序识别前端。设置如下：</p>
-<pre><code class="language-python">&#x27;DIRS&#x27;: [
-    os.path.join(BASE_DIR, &#x27;frontend/static&#x27;),
-    os.path.join(BASE_DIR, &#x27;frontend/build&#x27;),
-    os.path.join(BASE_DIR, &#x27;frontend/build/static&#x27;),
-],</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;DIRS&#x27;</span>: [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/static&#x27;</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/build&#x27;</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/build/static&#x27;</span>),</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
 <p>在 <code>server/djangoproj/settings.py</code> 中，将 Django 应用程序查找静态文件的目录添加到名为 <code>STATICFILES_DIRS</code> 的列表中。设置如下：</p>
-<pre><code class="language-python">STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, &#x27;frontend/static&#x27;),
-    os.path.join(BASE_DIR, &#x27;frontend/build&#x27;),
-    os.path.join(BASE_DIR, &#x27;frontend/build/static&#x27;),
-]</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/static&#x27;</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/build&#x27;</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">&#x27;frontend/build/static&#x27;</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <h2 id="23-添加新的登录视图"><a class="markdownIt-Anchor" href="#23-添加新的登录视图"></a> 2.3. 添加新的登录视图</h2>
 <p>接下来，您需要创建一个新的登录 Django 视图来处理登录请求。打开 <code>djangoapp/views.py</code>，取消顶部的导入语句。观察登录视图以验证用户身份。用户登录后，视图会返回一个包含用户名和状态的 JSON 对象。</p>
 <p>打开 <code>server/djangoapp/urls.py</code>，取消注释顶部的导入语句：</p>
-<pre><code class="language-python">from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
-from . import views</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.conf.urls.static <span class="keyword">import</span> static</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br></pre></td></tr></table></figure>
 <p>通过取消对 <code>server/djangoapp/urls.py</code> 中路径条目的注释，为登录视图配置路由，如下所示：</p>
-<pre><code class="language-python">path(route=&#x27;login&#x27;, view=views.login_user, name=&#x27;login&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;login&#x27;</span>, view=views.login_user, name=<span class="string">&#x27;login&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>如下所示，在 <code>server/djangoproj/urls.py</code> 中添加路径条目，为登录页面配置路由。登录页面是通过 <code>/server/frontend/src/App.js</code> 中配置的路由呈现的 React 页面。</p>
-<pre><code class="language-python">path(&#x27;login/&#x27;, TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;login/&#x27;</span>, TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <h2 id="24-添加注销功能"><a class="markdownIt-Anchor" href="#24-添加注销功能"></a> 2.4. 添加注销功能</h2>
 <p>您需要创建一个新的注销 Django 视图来处理注销请求。</p>
 <p>打开 <code>djangoapp/views.py</code>，添加一个新的注销视图来处理注销请求。用户注销后，视图应返回一个包含用户名的 JSON 对象。</p>
-<pre><code class="language-python">def logout_request(request):
-    logout(request)
-    data = &#123;&quot;userName&quot;: &quot;&quot;&#125;
-    return JsonResponse(data)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logout_request</span>(<span class="params">request</span>):</span><br><span class="line">    logout(request)</span><br><span class="line">    data = &#123;<span class="string">&quot;userName&quot;</span>: <span class="string">&quot;&quot;</span>&#125;</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(data)</span><br></pre></td></tr></table></figure>
 <p>在 <code>djangoapp/urls.py</code> 中添加路径条目，为注销视图配置路由：</p>
-<pre><code class="language-python">path(route=&#x27;logout&#x27;, view=views.logout_request, name=&#x27;logout&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;logout&#x27;</span>, view=views.logout_request, name=<span class="string">&#x27;logout&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>在 <code>server/frontend/static/Home.html</code> 中的空白处加入以下代码，以处理用户退出登录：</p>
-<pre><code class="language-python">const logout = async (e) =&gt; &#123;
-  let logout_url = window.location.origin+&quot;/djangoapp/logout&quot;;
-  const res = await fetch(logout_url, &#123;
-    method: &quot;GET&quot;,
-  &#125;);
-
-  const json = await res.json();
-  if (json) &#123;
-    let username = sessionStorage.getItem(&#x27;username&#x27;);
-    sessionStorage.removeItem(&#x27;username&#x27;);
-    window.location.href = window.location.origin;
-    window.location.reload();
-    alert(&quot;Logging out &quot;+username+&quot;...&quot;)
-  &#125;
-  else &#123;
-    alert(&quot;The user could not be logged out.&quot;)
-  &#125;
-&#125;;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const logout = <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line">  let logout_url = window.location.origin+<span class="string">&quot;/djangoapp/logout&quot;</span>;</span><br><span class="line">  const res = <span class="keyword">await</span> fetch(logout_url, &#123;</span><br><span class="line">    method: <span class="string">&quot;GET&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  const json = <span class="keyword">await</span> res.json();</span><br><span class="line">  <span class="keyword">if</span> (json) &#123;</span><br><span class="line">    let username = sessionStorage.getItem(<span class="string">&#x27;username&#x27;</span>);</span><br><span class="line">    sessionStorage.removeItem(<span class="string">&#x27;username&#x27;</span>);</span><br><span class="line">    window.location.href = window.location.origin;</span><br><span class="line">    window.location.reload();</span><br><span class="line">    alert(<span class="string">&quot;Logging out &quot;</span>+username+<span class="string">&quot;...&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">&quot;The user could not be logged out.&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>打开一个新的终端，运行以下命令：</p>
-<pre><code class="language-bash">cd /server/frontend
-npm run build</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/frontend</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
 <p>如果会话没有过期，您将从上一步登录。如果没有，请登录，然后单击 <code>Logout</code>。</p>
 <h2 id="25-添加注册功能"><a class="markdownIt-Anchor" href="#25-添加注册功能"></a> 2.5. 添加注册功能</h2>
 <p>您需要创建一个新的注册 Django 视图来处理注册请求。</p>
 <p>打开 <code>djangoapp/views.py</code>，添加一个新的注册视图来处理注册请求。用户注册时，应创建一个用户对象，并登录该用户。它应返回一个包含用户名的 JSON 对象。</p>
-<pre><code class="language-python">@csrf_exempt
-def registration(request):
-    context = &#123;&#125;
-
-    data = json.loads(request.body)
-    username = data[&#x27;userName&#x27;]
-    password = data[&#x27;password&#x27;]
-    first_name = data[&#x27;firstName&#x27;]
-    last_name = data[&#x27;lastName&#x27;]
-    email = data[&#x27;email&#x27;]
-    username_exist = False
-    email_exist = False
-    try:
-        # Check if user already exists
-        User.objects.get(username=username)
-        username_exist = True
-    except:
-        # If not, simply log this is a new user
-        logger.debug(&quot;&#123;&#125; is new user&quot;.format(username))
-
-    # If it is a new user
-    if not username_exist:
-        # Create user in auth_user table
-        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password, email=email)
-        # Login the user and redirect to list page
-        login(request, user)
-        data = &#123;&quot;userName&quot;:username,&quot;status&quot;:&quot;Authenticated&quot;&#125;
-        return JsonResponse(data)
-    else :
-        data = &#123;&quot;userName&quot;:username,&quot;error&quot;:&quot;Already Registered&quot;&#125;
-        return JsonResponse(data)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@csrf_exempt</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">registration</span>(<span class="params">request</span>):</span><br><span class="line">    context = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    data = json.loads(request.body)</span><br><span class="line">    username = data[<span class="string">&#x27;userName&#x27;</span>]</span><br><span class="line">    password = data[<span class="string">&#x27;password&#x27;</span>]</span><br><span class="line">    first_name = data[<span class="string">&#x27;firstName&#x27;</span>]</span><br><span class="line">    last_name = data[<span class="string">&#x27;lastName&#x27;</span>]</span><br><span class="line">    email = data[<span class="string">&#x27;email&#x27;</span>]</span><br><span class="line">    username_exist = <span class="literal">False</span></span><br><span class="line">    email_exist = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Check if user already exists</span></span><br><span class="line">        User.objects.get(username=username)</span><br><span class="line">        username_exist = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="comment"># If not, simply log this is a new user</span></span><br><span class="line">        logger.debug(<span class="string">&quot;&#123;&#125; is new user&quot;</span>.<span class="built_in">format</span>(username))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If it is a new user</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> username_exist:</span><br><span class="line">        <span class="comment"># Create user in auth_user table</span></span><br><span class="line">        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password, email=email)</span><br><span class="line">        <span class="comment"># Login the user and redirect to list page</span></span><br><span class="line">        login(request, user)</span><br><span class="line">        data = &#123;<span class="string">&quot;userName&quot;</span>:username,<span class="string">&quot;status&quot;</span>:<span class="string">&quot;Authenticated&quot;</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(data)</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        data = &#123;<span class="string">&quot;userName&quot;</span>:username,<span class="string">&quot;error&quot;</span>:<span class="string">&quot;Already Registered&quot;</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(data)</span><br></pre></td></tr></table></figure>
 <p>在 <code>djangoapp/urls.py</code> 中添加路径条目，为注册视图配置路由：</p>
-<pre><code class="language-python">path(route=&#x27;register&#x27;, view=views.registration, name=&#x27;register&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;register&#x27;</span>, view=views.registration, name=<span class="string">&#x27;register&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>在 <code>frontend/src/components/Register</code> 中创建一个名为 <code>Register.jsx</code> 的文件。我们已经提供了该页面要使用的 CSS。在 <code>Register.jsx</code> 中添加以下代码：</p>
-<pre><code class="language-jsx">import React, &#123; useState &#125; from &quot;react&quot;;
-import &quot;./Register.css&quot;;
-import user_icon from &quot;../assets/person.png&quot;
-import email_icon from &quot;../assets/email.png&quot;
-import password_icon from &quot;../assets/password.png&quot;
-import close_icon from &quot;../assets/close.png&quot;
-
-const Register = () =&gt; &#123;
-
-  const [userName, setUserName] = useState(&quot;&quot;);
-  const [password, setPassword] = useState(&quot;&quot;);
-  const [email, setEmail] = useState(&quot;&quot;);
-  const [firstName, setFirstName] = useState(&quot;&quot;);
-  const [lastName, setlastName] = useState(&quot;&quot;);
-
-
-  const gohome = ()=&gt; &#123;
-    window.location.href = window.location.origin;
-  &#125;
-
-  const register = async (e) =&gt; &#123;
-    e.preventDefault();
-
-    let register_url = window.location.origin+&quot;/djangoapp/register&quot;;
-    
-    const res = await fetch(register_url, &#123;
-        method: &quot;POST&quot;,
-        headers: &#123;
-            &quot;Content-Type&quot;: &quot;application/json&quot;,
-        &#125;,
-        body: JSON.stringify(&#123;
-            &quot;userName&quot;: userName,
-            &quot;password&quot;: password,
-            &quot;firstName&quot;:firstName,
-            &quot;lastName&quot;:lastName,
-            &quot;email&quot;:email
-        &#125;),
-    &#125;);
-
-    const json = await res.json();
-    if (json.status) &#123;
-        sessionStorage.setItem(&#x27;username&#x27;, json.userName);
-        window.location.href = window.location.origin;
-    &#125;
-    else if (json.error === &quot;Already Registered&quot;) &#123;
-      alert(&quot;The user with same username is already registered&quot;);
-      window.location.href = window.location.origin;
-    &#125;
-&#125;;
-
-  return(
-    &lt;div className=&quot;register_container&quot; style=&#123;&#123;width: &quot;50%&quot;&#125;&#125;&gt;
-      &lt;div className=&quot;header&quot; style=&#123;&#123;display: &quot;flex&quot;,flexDirection: &quot;row&quot;, justifyContent: &quot;space-between&quot;&#125;&#125;&gt;
-          &lt;span className=&quot;text&quot; style=&#123;&#123;flexGrow:&quot;1&quot;&#125;&#125;&gt;SignUp&lt;/span&gt; 
-          &lt;div style=&#123;&#123;display: &quot;flex&quot;,flexDirection: &quot;row&quot;, justifySelf: &quot;end&quot;, alignSelf: &quot;start&quot; &#125;&#125;&gt;
-          &lt;a href=&quot;/&quot; onClick=&#123;()=&gt;&#123;gohome()&#125;&#125; style=&#123;&#123;justifyContent: &quot;space-between&quot;, alignItems:&quot;flex-end&quot;&#125;&#125;&gt;
-            &lt;img style=&#123;&#123;width:&quot;1cm&quot;&#125;&#125; src=&#123;close_icon&#125; alt=&quot;X&quot;/&gt;
-          &lt;/a&gt;
-          &lt;/div&gt;
-          &lt;hr/&gt;
-        &lt;/div&gt;
-
-        &lt;form onSubmit=&#123;register&#125;&gt;
-        &lt;div className=&quot;inputs&quot;&gt;
-          &lt;div className=&quot;input&quot;&gt;
-            &lt;img src=&#123;user_icon&#125; className=&quot;img_icon&quot; alt=&#x27;Username&#x27;/&gt;
-            &lt;input type=&quot;text&quot;  name=&quot;username&quot; placeholder=&quot;Username&quot; className=&quot;input_field&quot; onChange=&#123;(e) =&gt; setUserName(e.target.value)&#125;/&gt;
-          &lt;/div&gt;
-          &lt;div&gt;
-            &lt;img src=&#123;user_icon&#125; className=&quot;img_icon&quot; alt=&#x27;First Name&#x27;/&gt;
-            &lt;input type=&quot;text&quot;  name=&quot;first_name&quot; placeholder=&quot;First Name&quot; className=&quot;input_field&quot; onChange=&#123;(e) =&gt; setFirstName(e.target.value)&#125;/&gt;
-          &lt;/div&gt;
-
-          &lt;div&gt;
-            &lt;img src=&#123;user_icon&#125; className=&quot;img_icon&quot; alt=&#x27;Last Name&#x27;/&gt;
-            &lt;input type=&quot;text&quot;  name=&quot;last_name&quot; placeholder=&quot;Last Name&quot; className=&quot;input_field&quot; onChange=&#123;(e) =&gt; setlastName(e.target.value)&#125;/&gt;
-          &lt;/div&gt;
-
-          &lt;div&gt;
-            &lt;img src=&#123;email_icon&#125; className=&quot;img_icon&quot; alt=&#x27;Email&#x27;/&gt;
-            &lt;input type=&quot;email&quot;  name=&quot;email&quot; placeholder=&quot;email&quot; className=&quot;input_field&quot; onChange=&#123;(e) =&gt; setEmail(e.target.value)&#125;/&gt;
-          &lt;/div&gt;
-
-          &lt;div className=&quot;input&quot;&gt;
-            &lt;img src=&#123;password_icon&#125; className=&quot;img_icon&quot; alt=&#x27;password&#x27;/&gt;
-            &lt;input name=&quot;psw&quot; type=&quot;password&quot;  placeholder=&quot;Password&quot; className=&quot;input_field&quot; onChange=&#123;(e) =&gt; setPassword(e.target.value)&#125;/&gt;
-          &lt;/div&gt;
-
-        &lt;/div&gt;
-        &lt;div className=&quot;submit_panel&quot;&gt;
-          &lt;input className=&quot;submit&quot; type=&quot;submit&quot; value=&quot;Register&quot;/&gt;
-        &lt;/div&gt;
-      &lt;/form&gt;
-      &lt;/div&gt;
-  )
-&#125;
-
-export default Register;</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./Register.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> user_icon <span class="keyword">from</span> <span class="string">&quot;../assets/person.png&quot;</span></span><br><span class="line"><span class="keyword">import</span> email_icon <span class="keyword">from</span> <span class="string">&quot;../assets/email.png&quot;</span></span><br><span class="line"><span class="keyword">import</span> password_icon <span class="keyword">from</span> <span class="string">&quot;../assets/password.png&quot;</span></span><br><span class="line"><span class="keyword">import</span> close_icon <span class="keyword">from</span> <span class="string">&quot;../assets/close.png&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Register</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [userName, setUserName] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [password, setPassword] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [email, setEmail] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [firstName, setFirstName] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> [lastName, setlastName] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">gohome</span> = (<span class="params"></span>)=&gt; &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">register</span> = <span class="keyword">async</span> (<span class="params">e</span>) =&gt; &#123;</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> register_url = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>+<span class="string">&quot;/djangoapp/register&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(register_url, &#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&quot;POST&quot;</span>,</span><br><span class="line">        <span class="attr">headers</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json&quot;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">            <span class="string">&quot;userName&quot;</span>: userName,</span><br><span class="line">            <span class="string">&quot;password&quot;</span>: password,</span><br><span class="line">            <span class="string">&quot;firstName&quot;</span>:firstName,</span><br><span class="line">            <span class="string">&quot;lastName&quot;</span>:lastName,</span><br><span class="line">            <span class="string">&quot;email&quot;</span>:email</span><br><span class="line">        &#125;),</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> json = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line">    <span class="keyword">if</span> (json.<span class="property">status</span>) &#123;</span><br><span class="line">        <span class="variable language_">sessionStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;username&#x27;</span>, json.<span class="property">userName</span>);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (json.<span class="property">error</span> === <span class="string">&quot;Already Registered&quot;</span>) &#123;</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&quot;The user with same username is already registered&quot;</span>);</span><br><span class="line">      <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;register_container&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;width:</span> &quot;<span class="attr">50</span>%&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;header&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;display:</span> &quot;<span class="attr">flex</span>&quot;,<span class="attr">flexDirection:</span> &quot;<span class="attr">row</span>&quot;, <span class="attr">justifyContent:</span> &quot;<span class="attr">space-between</span>&quot;&#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">&quot;text&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;flexGrow:</span>&quot;<span class="attr">1</span>&quot;&#125;&#125;&gt;</span>SignUp<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;display:</span> &quot;<span class="attr">flex</span>&quot;,<span class="attr">flexDirection:</span> &quot;<span class="attr">row</span>&quot;, <span class="attr">justifySelf:</span> &quot;<span class="attr">end</span>&quot;, <span class="attr">alignSelf:</span> &quot;<span class="attr">start</span>&quot; &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>&#123;gohome()&#125;&#125; style=&#123;&#123;justifyContent: &quot;space-between&quot;, alignItems:&quot;flex-end&quot;&#125;&#125;&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">&#123;&#123;width:</span>&quot;<span class="attr">1cm</span>&quot;&#125;&#125; <span class="attr">src</span>=<span class="string">&#123;close_icon&#125;</span> <span class="attr">alt</span>=<span class="string">&quot;X&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;register&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;inputs&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;input&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user_icon&#125;</span> <span class="attr">className</span>=<span class="string">&quot;img_icon&quot;</span> <span class="attr">alt</span>=<span class="string">&#x27;Username&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Username&quot;</span> <span class="attr">className</span>=<span class="string">&quot;input_field&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setUserName(e.target.value)&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user_icon&#125;</span> <span class="attr">className</span>=<span class="string">&quot;img_icon&quot;</span> <span class="attr">alt</span>=<span class="string">&#x27;First Name&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;first_name&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;First Name&quot;</span> <span class="attr">className</span>=<span class="string">&quot;input_field&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setFirstName(e.target.value)&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;user_icon&#125;</span> <span class="attr">className</span>=<span class="string">&quot;img_icon&quot;</span> <span class="attr">alt</span>=<span class="string">&#x27;Last Name&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;last_name&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Last Name&quot;</span> <span class="attr">className</span>=<span class="string">&quot;input_field&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setlastName(e.target.value)&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;email_icon&#125;</span> <span class="attr">className</span>=<span class="string">&quot;img_icon&quot;</span> <span class="attr">alt</span>=<span class="string">&#x27;Email&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;email&quot;</span> <span class="attr">className</span>=<span class="string">&quot;input_field&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setEmail(e.target.value)&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;input&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&#123;password_icon&#125;</span> <span class="attr">className</span>=<span class="string">&quot;img_icon&quot;</span> <span class="attr">alt</span>=<span class="string">&#x27;password&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;psw&quot;</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span>  <span class="attr">placeholder</span>=<span class="string">&quot;Password&quot;</span> <span class="attr">className</span>=<span class="string">&quot;input_field&quot;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setPassword(e.target.value)&#125;/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;submit_panel&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Register&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Register</span>;</span><br></pre></td></tr></table></figure>
 <p>在 <code>frontend/src/App.js</code> 中配置路由：</p>
-<pre><code class="language-javascript">&lt;Route path=&quot;/register&quot; element=&#123;&lt;Register /&gt;&#125; /&gt;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/register&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Register</span> /&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
 <p>在之前用于运行 <code>npm run build</code> 的终端中，再次运行以反映最新更改。</p>
 <p>在编辑器中打开 <code>server/djangoproj/urls.py</code>，在 <code>urlpatterns</code> 中添加以下路径。路由已在 <code>App.js</code> 中配置：</p>
-<pre><code class="language-python">path(&#x27;register/&#x27;, TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;register/&#x27;</span>, TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <p>如果已登录，请注销，然后点击 <code>Register</code> 链接。您将看到如下所示的注册页面。</p>
 <h1 id="3-后端服务"><a class="markdownIt-Anchor" href="#3-后端服务"></a> 3. 后端服务</h1>
 <p>在本模块中，您将在 Express 应用程序中实现一些与 MongoDB 进行交易的端点。然后使用 Docker 将 Mongo 和 Express 服务器容器化并运行。此外，您还将使用 Django 模型设置 <code>CarMake</code> 和 <code>CarModel</code>，并填充数据库。然后，将情感分析器部署到 IBM 代码引擎。最后，您将创建代理服务来访问这些外部服务。</p>
@@ -354,7 +181,7 @@ export default Register;</code></pre>
 </ul>
 <h2 id="31-使用-express-mongo-实现应用程序接口端点"><a class="markdownIt-Anchor" href="#31-使用-express-mongo-实现应用程序接口端点"></a> 3.1. 使用 <code>Express-Mongo</code> 实现应用程序接口端点</h2>
 <p>切换到包含数据文件的目录：</p>
-<pre><code class="language-bash">cd /server/database</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/database</span><br></pre></td></tr></table></figure>
 <p>在在线课程实验项目中，我们为您提供了两个用于 <code>Reviews</code> 和 <code>Dealerships</code> 实体的模式文件，以及包含要加载到 MongoDB 并通过端点提供的经销商和评论数据的 JSON 文件。</p>
 <ul>
 <li><code>server/database/data/dealerships.json</code></li>
@@ -377,44 +204,23 @@ export default Register;</code></pre>
 <p>请确保你的计算机里有安装 Docker。</p>
 <p>运行 Docker 还需要开启 Hyper-V，可以上网找教程。</p>
 </div>
-<pre><code class="language-bash">docker build . -t nodeapp</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t nodeapp</span><br></pre></td></tr></table></figure>
 <p>我们创建了用于运行两个容器的 <code>docker-compose.yml</code>，一个用于 Mongo，另一个用于 Node 应用程序。运行以下命令来运行服务器：</p>
-<pre><code class="language-bash">docker-compose up</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
 <h4 id="312-创建应用程序接口端点-url"><a class="markdownIt-Anchor" href="#312-创建应用程序接口端点-url"></a> 3.1.2. 创建应用程序接口端点 URL</h4>
 <p>实现 <code>server/database/app.js</code> 中尚未实施的以下端点（可以直接参考已经被实现的端点写法）：</p>
 <ul>
 <li>
 <p><code>fetchDealers</code>：</p>
-<pre><code class="language-js">app.get(&#x27;/fetchDealers&#x27;, async (req, res) =&gt; &#123;
-  try &#123;
-    const documents = await Dealerships.find();
-    res.json(documents);
-  &#125; catch (error) &#123;
-    res.status(500).json(&#123; error: &#x27;Error fetching documents&#x27; &#125;);
-  &#125;
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/fetchDealers&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>();</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching documents&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p><code>fetchDealers/:state</code>：</p>
-<pre><code class="language-js">app.get(&#x27;/fetchDealers/:state&#x27;, async (req, res) =&gt; &#123;
-  try &#123;
-    const documents = await Dealerships.find(&#123;state: req.params.state&#125;);
-    res.json(documents);
-  &#125; catch (error) &#123;
-    res.status(500).json(&#123; error: &#x27;Error fetching documents&#x27; &#125;);
-  &#125;
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/fetchDealers/:state&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>(&#123;<span class="attr">state</span>: req.<span class="property">params</span>.<span class="property">state</span>&#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching documents&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 <li>
 <p><code>fetchDealer/:id</code>：</p>
-<pre><code class="language-js">app.get(&#x27;/fetchDealer/:id&#x27;, async (req, res) =&gt; &#123;
-  try &#123;
-    const documents = await Dealerships.find(&#123;id: req.params.id&#125;);
-    res.json(documents);
-  &#125; catch (error) &#123;
-    res.status(500).json(&#123; error: &#x27;Error fetching documents&#x27; &#125;);
-  &#125;
-&#125;);</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/fetchDealer/:id&#x27;</span>, <span class="title function_">async</span> (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>(&#123;<span class="attr">id</span>: req.<span class="property">params</span>.<span class="property">id</span>&#125;);</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>(&#123; <span class="attr">error</span>: <span class="string">&#x27;Error fetching documents&#x27;</span> &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>写完后，停止上一个任务中启动的 Docker 应用程序，接着再次执行 <code>docker build</code> 和 <code>docker-compose</code> 命令。</p>
@@ -447,12 +253,7 @@ export default Register;</code></pre>
 <li>你想包含在汽车品牌中的任何其他字段</li>
 <li>打印汽车品牌对象的 <code>__str__</code> 方法</li>
 </ul>
-<pre><code class="language-python">class CarMake(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CarMake</span>(models.Model):</span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    description = models.TextField()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.name</span><br></pre></td></tr></table></figure>
 <p>创建汽车模型 Django 模型 <code>class CarModel(models.Model)</code>：</p>
 <ul>
 <li>与 <code>CarMake</code> 模型的多对一关系（使用外键字段，一个汽车品牌可以有多个汽车型号）</li>
@@ -463,94 +264,21 @@ export default Register;</code></pre>
 <li>您希望包含在汽车模型中的任何其他字段</li>
 <li>打印汽车品牌和车型对象的 <code>__str__</code> 方法</li>
 </ul>
-<pre><code class="language-python">class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Many-to-One relationship
-    name = models.CharField(max_length=100)
-    CAR_TYPES = [
-        (&#x27;SEDAN&#x27;, &#x27;Sedan&#x27;),
-        (&#x27;SUV&#x27;, &#x27;SUV&#x27;),
-        (&#x27;WAGON&#x27;, &#x27;Wagon&#x27;),
-        # Add more choices as required
-    ]
-    type = models.CharField(max_length=10, choices=CAR_TYPES, default=&#x27;SUV&#x27;)
-    year = models.IntegerField(default=2023,
-        validators=[
-            MaxValueValidator(2023),
-            MinValueValidator(2015)
-        ])
-
-    def __str__(self):
-        return self.name</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CarModel</span>(models.Model):</span><br><span class="line">    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  <span class="comment"># Many-to-One relationship</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    CAR_TYPES = [</span><br><span class="line">        (<span class="string">&#x27;SEDAN&#x27;</span>, <span class="string">&#x27;Sedan&#x27;</span>),</span><br><span class="line">        (<span class="string">&#x27;SUV&#x27;</span>, <span class="string">&#x27;SUV&#x27;</span>),</span><br><span class="line">        (<span class="string">&#x27;WAGON&#x27;</span>, <span class="string">&#x27;Wagon&#x27;</span>),</span><br><span class="line">        <span class="comment"># Add more choices as required</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="built_in">type</span> = models.CharField(max_length=<span class="number">10</span>, choices=CAR_TYPES, default=<span class="string">&#x27;SUV&#x27;</span>)</span><br><span class="line">    year = models.IntegerField(default=<span class="number">2023</span>,</span><br><span class="line">        validators=[</span><br><span class="line">            MaxValueValidator(<span class="number">2023</span>),</span><br><span class="line">            MinValueValidator(<span class="number">2015</span>)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.name</span><br></pre></td></tr></table></figure>
 <p>您需要在管理网站上注册 <code>CarMake</code> 和 <code>CarModel</code>，这样就可以方便地管理它们的内容（即执行 CRUD 操作）：</p>
-<pre><code class="language-python"># djangoapp/admin.py
-
-from django.contrib import admin
-from .models import CarMake, CarModel
-
-admin.site.register(CarMake)
-admin.site.register(CarModel)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># djangoapp/admin.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line">admin.site.register(CarMake)</span><br><span class="line">admin.site.register(CarModel)</span><br></pre></td></tr></table></figure>
 <p>为模型运行迁移：</p>
-<pre><code class="language-bash">python manage.py makemigrations
-python manage.py migrate --run-syncdb</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate --run-syncdb</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>--run-syncdb</code> 允许在不迁移的情况下为应用程序创建表格。</p>
 </blockquote>
 <h4 id="322-在管理网站注册-carmake-和-carmodel-模型的步骤"><a class="markdownIt-Anchor" href="#322-在管理网站注册-carmake-和-carmodel-模型的步骤"></a> 3.2.2. 在管理网站注册 <code>CarMake</code> 和 <code>CarModel</code> 模型的步骤</h4>
 <p>打开 <code>djangoapp/views.py</code>，在文件开头的其他导入语句之后导入 <code>CarMake</code> 和 <code>CarModel</code>，然后添加一个方法来获取汽车列表，方法中包含以下代码：</p>
-<pre><code class="language-python">from .models import CarMake, CarModel
-
-# ...
-
-def get_cars(request):
-    count = CarMake.objects.filter().count()
-    print(count)
-    if(count == 0):
-        initiate()
-    car_models = CarModel.objects.select_related(&#x27;car_make&#x27;)
-    cars = []
-    for car_model in car_models:
-        cars.append(&#123;&quot;CarModel&quot;: car_model.name, &quot;CarMake&quot;: car_model.car_make.name&#125;)
-    return JsonResponse(&#123;&quot;CarModels&quot;:cars&#125;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_cars</span>(<span class="params">request</span>):</span><br><span class="line">    count = CarMake.objects.<span class="built_in">filter</span>().count()</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    <span class="keyword">if</span>(count == <span class="number">0</span>):</span><br><span class="line">        initiate()</span><br><span class="line">    car_models = CarModel.objects.select_related(<span class="string">&#x27;car_make&#x27;</span>)</span><br><span class="line">    cars = []</span><br><span class="line">    <span class="keyword">for</span> car_model <span class="keyword">in</span> car_models:</span><br><span class="line">        cars.append(&#123;<span class="string">&quot;CarModel&quot;</span>: car_model.name, <span class="string">&quot;CarMake&quot;</span>: car_model.car_make.name&#125;)</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;CarModels&quot;</span>:cars&#125;)</span><br></pre></td></tr></table></figure>
 <p>打开 <code>server/djangoapp/urls.py</code>，在其中添加 <code>get_cars</code> 的路径：</p>
-<pre><code class="language-python">path(route=&#x27;get_cars&#x27;, view=views.get_cars, name =&#x27;getcars&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;get_cars&#x27;</span>, view=views.get_cars, name =<span class="string">&#x27;getcars&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>打开 <code>server/djangoapp/populate.py</code>，然后粘贴以下代码，以便在数据库中填充数据。如果 <code>CarModel</code> 为空，则在第一次调用 <code>get_cars</code> 时填充数据。如果您想手动添加数据，请跳过此步骤。</p>
-<pre><code class="language-python">from .models import CarMake, CarModel
-
-def initiate():
-    car_make_data = [
-        &#123;&quot;name&quot;:&quot;NISSAN&quot;, &quot;description&quot;:&quot;Great cars. Japanese technology&quot;&#125;,
-        &#123;&quot;name&quot;:&quot;Mercedes&quot;, &quot;description&quot;:&quot;Great cars. German technology&quot;&#125;,
-        &#123;&quot;name&quot;:&quot;Audi&quot;, &quot;description&quot;:&quot;Great cars. German technology&quot;&#125;,
-        &#123;&quot;name&quot;:&quot;Kia&quot;, &quot;description&quot;:&quot;Great cars. Korean technology&quot;&#125;,
-        &#123;&quot;name&quot;:&quot;Toyota&quot;, &quot;description&quot;:&quot;Great cars. Japanese technology&quot;&#125;,
-    ]
-
-    car_make_instances = []
-    for data in car_make_data:
-        car_make_instances.append(CarMake.objects.create(name=data[&#x27;name&#x27;], description=data[&#x27;description&#x27;]))
-
-
-    # Create CarModel instances with the corresponding CarMake instances
-    car_model_data = [
-        &#123;&quot;name&quot;:&quot;Pathfinder&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[0]&#125;,
-        &#123;&quot;name&quot;:&quot;Qashqai&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[0]&#125;,
-        &#123;&quot;name&quot;:&quot;XTRAIL&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[0]&#125;,
-        &#123;&quot;name&quot;:&quot;A-Class&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[1]&#125;,
-        &#123;&quot;name&quot;:&quot;C-Class&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[1]&#125;,
-        &#123;&quot;name&quot;:&quot;E-Class&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[1]&#125;,
-        &#123;&quot;name&quot;:&quot;A4&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[2]&#125;,
-        &#123;&quot;name&quot;:&quot;A5&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[2]&#125;,
-        &#123;&quot;name&quot;:&quot;A6&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[2]&#125;,
-        &#123;&quot;name&quot;:&quot;Sorrento&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[3]&#125;,
-        &#123;&quot;name&quot;:&quot;Carnival&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[3]&#125;,
-        &#123;&quot;name&quot;:&quot;Cerato&quot;, &quot;type&quot;:&quot;Sedan&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[3]&#125;,
-        &#123;&quot;name&quot;:&quot;Corolla&quot;, &quot;type&quot;:&quot;Sedan&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[4]&#125;,
-        &#123;&quot;name&quot;:&quot;Camry&quot;, &quot;type&quot;:&quot;Sedan&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[4]&#125;,
-        &#123;&quot;name&quot;:&quot;Kluger&quot;, &quot;type&quot;:&quot;SUV&quot;, &quot;year&quot;: 2023, &quot;car_make&quot;:car_make_instances[4]&#125;,
-    ]
-
-    for data in car_model_data:
-        CarModel.objects.create(name=data[&#x27;name&#x27;], car_make=data[&#x27;car_make&#x27;], type=data[&#x27;type&#x27;], year=data[&#x27;year&#x27;])</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initiate</span>():</span><br><span class="line">    car_make_data = [</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;NISSAN&quot;</span>, <span class="string">&quot;description&quot;</span>:<span class="string">&quot;Great cars. Japanese technology&quot;</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Mercedes&quot;</span>, <span class="string">&quot;description&quot;</span>:<span class="string">&quot;Great cars. German technology&quot;</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Audi&quot;</span>, <span class="string">&quot;description&quot;</span>:<span class="string">&quot;Great cars. German technology&quot;</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Kia&quot;</span>, <span class="string">&quot;description&quot;</span>:<span class="string">&quot;Great cars. Korean technology&quot;</span>&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Toyota&quot;</span>, <span class="string">&quot;description&quot;</span>:<span class="string">&quot;Great cars. Japanese technology&quot;</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    car_make_instances = []</span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> car_make_data:</span><br><span class="line">        car_make_instances.append(CarMake.objects.create(name=data[<span class="string">&#x27;name&#x27;</span>], description=data[<span class="string">&#x27;description&#x27;</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create CarModel instances with the corresponding CarMake instances</span></span><br><span class="line">    car_model_data = [</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Pathfinder&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">0</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Qashqai&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">0</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;XTRAIL&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">0</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;A-Class&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">1</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;C-Class&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">1</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;E-Class&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">1</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;A4&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">2</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;A5&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">2</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;A6&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">2</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Sorrento&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">3</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Carnival&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">3</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Cerato&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;Sedan&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">3</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Corolla&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;Sedan&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">4</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Camry&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;Sedan&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">4</span>]&#125;,</span><br><span class="line">        &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Kluger&quot;</span>, <span class="string">&quot;type&quot;</span>:<span class="string">&quot;SUV&quot;</span>, <span class="string">&quot;year&quot;</span>: <span class="number">2023</span>, <span class="string">&quot;car_make&quot;</span>:car_make_instances[<span class="number">4</span>]&#125;,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> car_model_data:</span><br><span class="line">        CarModel.objects.create(name=data[<span class="string">&#x27;name&#x27;</span>], car_make=data[<span class="string">&#x27;car_make&#x27;</span>], <span class="built_in">type</span>=data[<span class="string">&#x27;type&#x27;</span>], year=data[<span class="string">&#x27;year&#x27;</span>])</span><br></pre></td></tr></table></figure>
 <p>如果您想手动添加汽车品牌和型号，也可以进入管理页面，根据自己的意愿添加。请注意，在项目后期，您只能从这些表格中选择一个品牌和车型发表评论。</p>
 <p>进入 <code>127.0.0.1:8000/djangoapp/get_cars</code> 来查看已添加的汽车列表。</p>
 <h2 id="33-创建后台-api-的-django-代理服务"><a class="markdownIt-Anchor" href="#33-创建后台-api-的-django-代理服务"></a> 3.3. 创建后台 API 的 Django 代理服务</h2>
@@ -564,27 +292,12 @@ def initiate():
 <blockquote>
 <p>确保末尾的 <code>/</code> 没有被复制。</p>
 </blockquote>
-<pre><code class="language-plaintext">backend_url=your backend url</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backend_url=your backend url</span><br></pre></td></tr></table></figure>
 <h4 id="332-创建与后端交互的函数"><a class="markdownIt-Anchor" href="#332-创建与后端交互的函数"></a> 3.3.2. 创建与后端交互的函数</h4>
 <p>在之前的实验中，您已经创建了用于 <code>fetchReviews</code> 和 <code>fetchDealers</code> 的 API 端点。现在实现一个方法来从 Django 应用程序访问这些端点。</p>
 <p>在 Django 中，有许多方法可以进行 HTTP 请求。这里我们使用一个非常流行且易于使用的 Python 库，名为 <code>requests</code>。</p>
 <p>打开 <code>djangoapp/restapis.py</code>，添加 <code>get_request</code> 方法，如下所示：</p>
-<pre><code class="language-python">def get_request(endpoint, **kwargs):
-    params = &quot;&quot;
-    if(kwargs):
-        for key,value in kwargs.items():
-            params=params+key+&quot;=&quot;+value+&quot;&amp;&quot;
-
-    request_url = backend_url+endpoint+&quot;?&quot;+params
-
-    print(&quot;GET from &#123;&#125; &quot;.format(request_url))
-    try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
-        return response.json()
-    except:
-        # If any error occurs
-        print(&quot;Network exception occurred&quot;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_request</span>(<span class="params">endpoint, **kwargs</span>):</span><br><span class="line">    params = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span>(kwargs):</span><br><span class="line">        <span class="keyword">for</span> key,value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">            params=params+key+<span class="string">&quot;=&quot;</span>+value+<span class="string">&quot;&amp;&quot;</span></span><br><span class="line"></span><br><span class="line">    request_url = backend_url+endpoint+<span class="string">&quot;?&quot;</span>+params</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;GET from &#123;&#125; &quot;</span>.<span class="built_in">format</span>(request_url))</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Call get method of requests library with URL and parameters</span></span><br><span class="line">        response = requests.get(request_url)</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="comment"># If any error occurs</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Network exception occurred&quot;</span>)</span><br></pre></td></tr></table></figure>
 <h4 id="333-启动-code-engine"><a class="markdownIt-Anchor" href="#333-启动-code-engine"></a> 3.3.3. 启动 Code Engine</h4>
 <blockquote>
 <p>以下为 Code Engine 相关。该课程采用的是 IBM 的 Skills Network 实验环境，Code Engine 被直接嵌入在这个实验环境中。</p>
@@ -593,83 +306,43 @@ def initiate():
 <p>Code Engine 设置完成后，您可以看到它已激活。单击 <code>Code Engine CLI</code>，在下面的终端中开始预配置的 CLI。</p>
 <h4 id="334-将情感分析作为微服务部署在-code-engine-上"><a class="markdownIt-Anchor" href="#334-将情感分析作为微服务部署在-code-engine-上"></a> 3.3.4. 将情感分析作为微服务部署在 Code Engine 上</h4>
 <p>在 Code Engine CLI 中，更改为 <code>server/djangoapp/microservices</code> 目录：</p>
-<pre><code class="language-bash">cd xrwvm-fullstack_developer_capstone/server/djangoapp/microservices</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> xrwvm-fullstack_developer_capstone/server/djangoapp/microservices</span><br></pre></td></tr></table></figure>
 <p>我们为您提供了使用 NLTK 进行情感分析的 <code>sentiment_analyzer.py</code>。我们还为您提供了一个 Dockerfile，您将使用它在代码引擎中部署此服务，并将其作为微服务使用。</p>
 <p>运行以下命令，用 Docker 构建情感分析应用程序（请注意，代码引擎实例是瞬时的，并附在你的实验室空间用户名上）：</p>
-<pre><code class="language-bash">docker build . -t us.icr.io/$&#123;SN_ICR_NAMESPACE&#125;/senti_analyzer</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t us.icr.io/<span class="variable">$&#123;SN_ICR_NAMESPACE&#125;</span>/senti_analyzer</span><br></pre></td></tr></table></figure>
 <p>运行以下命令推送 Docker 镜像：</p>
-<pre><code class="language-bash">docker push us.icr.io/$&#123;SN_ICR_NAMESPACE&#125;/senti_analyzer</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push us.icr.io/<span class="variable">$&#123;SN_ICR_NAMESPACE&#125;</span>/senti_analyzer</span><br></pre></td></tr></table></figure>
 <p>在 Code Engine 上部署 <code>senti_analyzer</code> 应用程序：</p>
-<pre><code class="language-bash">ibmcloud ce application create --name sentianalyzer --image us.icr.io/$&#123;SN_ICR_NAMESPACE&#125;/senti_analyzer --registry-secret icr-secret --port 5000</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud ce application create --name sentianalyzer --image us.icr.io/<span class="variable">$&#123;SN_ICR_NAMESPACE&#125;</span>/senti_analyzer --registry-secret icr-secret --port 5000</span><br></pre></td></tr></table></figure>
 <p>连接到生成的 URL 以访问微服务，并检查部署是否成功。如果应用程序部署验证成功，请在浏览器中将 <code>/analyze/Fantastic</code> 服务附加到 URL，查看是否返回正值。</p>
 <p>打开 <code>djangoapp/.env</code>，将 Code Engine 部署 URL 替换为上文获得的部署 URL：</p>
-<pre><code class="language-plaintext">sentiment_analyzer_url=your code engine deployment url</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentiment_analyzer_url=your code engine deployment url</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>URL 最后的 <code>/</code> 要去掉。</p>
 </blockquote>
 <blockquote>
 <p>如果想要在本地环境中部署该微服务，可以进入 <code>/server/djangoapp/microservices</code> 目录，启动 Docker：</p>
-<pre><code class="language-bash">docker build -t sentiment_app .
-docker run -p 5050:5050 my_microservice</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -t sentiment_app .</span><br><span class="line">docker run -p 5050:5050 my_microservice</span><br></pre></td></tr></table></figure>
 <p>然后要在 <code>.env</code> 文件中注释掉 <code>sentiment_analyzer_url</code> 一行。</p>
 </blockquote>
 <p>更新 <code>djangoapp/restapis.py</code>，并在其中添加以下函数，以使用微服务分析情感：</p>
-<pre><code class="language-python">def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url+&quot;/analyze/&quot;+text
-    try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
-        return response.json()
-    except Exception as err:
-        print(f&quot;Unexpected &#123;err=&#125;, &#123;type(err)=&#125;&quot;)
-        print(&quot;Network exception occurred&quot;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">analyze_review_sentiments</span>(<span class="params">text</span>):</span><br><span class="line">    request_url = sentiment_analyzer_url+<span class="string">&quot;/analyze/&quot;</span>+text</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Call get method of requests library with URL and parameters</span></span><br><span class="line">        response = requests.get(request_url)</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Unexpected <span class="subst">&#123;err=&#125;</span>, <span class="subst">&#123;<span class="built_in">type</span>(err)=&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Network exception occurred&quot;</span>)</span><br></pre></td></tr></table></figure>
 <h4 id="335-创建-django-视图以获取经销商"><a class="markdownIt-Anchor" href="#335-创建-django-视图以获取经销商"></a> 3.3.5. 创建 Django 视图以获取经销商</h4>
 <p>使用以下代码更新 <code>djangoapp/views.py</code> 中的 <code>get_dealerships</code> 视图方法。它将使用您在 <code>restapis.py</code> 中通过 <code>/fetchDealers</code> 端点实现的 <code>get_request</code>。</p>
-<pre><code class="language-python">def get_dealerships(request, state=&quot;All&quot;):
-    if(state == &quot;All&quot;):
-        endpoint = &quot;/fetchDealers&quot;
-    else:
-        endpoint = &quot;/fetchDealers/&quot;+state
-    dealerships = get_request(endpoint)
-    return JsonResponse(&#123;&quot;status&quot;:200,&quot;dealers&quot;:dealerships&#125;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealerships</span>(<span class="params">request, state=<span class="string">&quot;All&quot;</span></span>):</span><br><span class="line">    <span class="keyword">if</span>(state == <span class="string">&quot;All&quot;</span>):</span><br><span class="line">        endpoint = <span class="string">&quot;/fetchDealers&quot;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        endpoint = <span class="string">&quot;/fetchDealers/&quot;</span>+state</span><br><span class="line">    dealerships = get_request(endpoint)</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">200</span>,<span class="string">&quot;dealers&quot;</span>:dealerships&#125;)</span><br></pre></td></tr></table></figure>
 <p>为 <code>url.py</code> 中的 <code>get_dealerships</code> 视图方法配置路由：</p>
-<pre><code class="language-python">path(route=&#x27;get_dealers&#x27;, view=views.get_dealerships, name=&#x27;get_dealers&#x27;),
-path(route=&#x27;get_dealers/&lt;str:state&gt;&#x27;, view=views.get_dealerships, name=&#x27;get_dealers_by_state&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;get_dealers&#x27;</span>, view=views.get_dealerships, name=<span class="string">&#x27;get_dealers&#x27;</span>),</span><br><span class="line">path(route=<span class="string">&#x27;get_dealers/&lt;str:state&gt;&#x27;</span>, view=views.get_dealerships, name=<span class="string">&#x27;get_dealers_by_state&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>在 <code>views.py</code> 中创建一个以 <code>dealer_id</code> 为参数的 <code>get_dealer_details</code> 方法，并添加一个映射 <code>urls.py</code>。它将使用你在 <code>restapis.py</code> 中实现的 <code>get_request</code>，并传递 <code>/fetchDealer/&lt;dealer id&gt;</code> 端点。</p>
-<pre><code class="language-python">def get_dealer_details(request, dealer_id):
-    if(dealer_id):
-        endpoint = &quot;/fetchDealer/&quot;+str(dealer_id)
-        dealership = get_request(endpoint)
-        return JsonResponse(&#123;&quot;status&quot;:200,&quot;dealer&quot;:dealership&#125;)
-    else:
-        return JsonResponse(&#123;&quot;status&quot;:400,&quot;message&quot;:&quot;Bad Request&quot;&#125;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealer_details</span>(<span class="params">request, dealer_id</span>):</span><br><span class="line">    <span class="keyword">if</span>(dealer_id):</span><br><span class="line">        endpoint = <span class="string">&quot;/fetchDealer/&quot;</span>+<span class="built_in">str</span>(dealer_id)</span><br><span class="line">        dealership = get_request(endpoint)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">200</span>,<span class="string">&quot;dealer&quot;</span>:dealership&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">400</span>,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;Bad Request&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
 <p>同样配置路由：</p>
-<pre><code class="language-python">path(route=&#x27;dealer/&lt;int:dealer_id&gt;&#x27;, view=views.get_dealer_details, name=&#x27;dealer_details&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;dealer/&lt;int:dealer_id&gt;&#x27;</span>, view=views.get_dealer_details, name=<span class="string">&#x27;dealer_details&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>在 <code>views.py</code> 中创建以 <code>dealer_id</code> 为参数的 <code>get_dealer_reviews</code> 方法，并添加 <code>urls.py</code> 映射。它将使用在 <code>restapis.py</code> 中实现的 <code>get_request</code>，并传递 <code>/fetchReviews/dealer/&lt;dealer id&gt;</code> 端点。它还将调用 <code>restapis.py</code> 中的 <code>analyze_review_sentiments</code>，以消费微服务并确定每条评论的情感，然后在 <code>review_detail</code> 字典中设置值，并作为 <code>JsonResponse</code> 返回。</p>
 <p>情感属性的值将由情感分析微服务决定。它可以是正面的、中性的或负面的。</p>
-<pre><code class="language-python">def get_dealer_reviews(request, dealer_id):
-    # if dealer id has been provided
-    if(dealer_id):
-        endpoint = &quot;/fetchReviews/dealer/&quot;+str(dealer_id)
-        reviews = get_request(endpoint)
-        for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail[&#x27;review&#x27;])
-            print(response)
-            review_detail[&#x27;sentiment&#x27;] = response[&#x27;sentiment&#x27;]
-        return JsonResponse(&#123;&quot;status&quot;:200,&quot;reviews&quot;:reviews&#125;)
-    else:
-        return JsonResponse(&#123;&quot;status&quot;:400,&quot;message&quot;:&quot;Bad Request&quot;&#125;)</code></pre>
-<pre><code class="language-python">path(route=&#x27;reviews/dealer/&lt;int:dealer_id&gt;&#x27;, view=views.get_dealer_reviews, name=&#x27;dealer_details&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealer_reviews</span>(<span class="params">request, dealer_id</span>):</span><br><span class="line">    <span class="comment"># if dealer id has been provided</span></span><br><span class="line">    <span class="keyword">if</span>(dealer_id):</span><br><span class="line">        endpoint = <span class="string">&quot;/fetchReviews/dealer/&quot;</span>+<span class="built_in">str</span>(dealer_id)</span><br><span class="line">        reviews = get_request(endpoint)</span><br><span class="line">        <span class="keyword">for</span> review_detail <span class="keyword">in</span> reviews:</span><br><span class="line">            response = analyze_review_sentiments(review_detail[<span class="string">&#x27;review&#x27;</span>])</span><br><span class="line">            <span class="built_in">print</span>(response)</span><br><span class="line">            review_detail[<span class="string">&#x27;sentiment&#x27;</span>] = response[<span class="string">&#x27;sentiment&#x27;</span>]</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">200</span>,<span class="string">&quot;reviews&quot;</span>:reviews&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">400</span>,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;Bad Request&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;reviews/dealer/&lt;int:dealer_id&gt;&#x27;</span>, view=views.get_dealer_reviews, name=<span class="string">&#x27;dealer_details&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <h4 id="336-创建-django-视图以发布经销商评论"><a class="markdownIt-Anchor" href="#336-创建-django-视图以发布经销商评论"></a> 3.3.6. 创建 Django 视图以发布经销商评论</h4>
 <p>你已经学会了如何进行各种 <code>GET</code> 调用，现在来创建 Django 视图以发布经销商评论：打开 <code>restapis.py</code>，添加一个 <code>post_review</code> 方法，该方法将接收一个数据字典，并在后台调用 <code>add_review</code>。字典将以键值对的形式接收经销商评论所需的所有值。</p>
-<pre><code class="language-python">def post_review(data_dict):
-    request_url = backend_url+&quot;/insert_review&quot;
-    try:
-        response = requests.post(request_url,json=data_dict)
-        print(response.json())
-        return response.json()
-    except:
-        print(&quot;Network exception occurred&quot;)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">post_review</span>(<span class="params">data_dict</span>):</span><br><span class="line">    request_url = backend_url+<span class="string">&quot;/insert_review&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.post(request_url,json=data_dict)</span><br><span class="line">        <span class="built_in">print</span>(response.json())</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Network exception occurred&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>打开 <code>views.py</code>，创建一个新的 <code>def add_review(request)：</code> 方法来处理评论文章请求。在 <code>add_review</code> 视图方法中：</p>
 <ul>
 <li>首先检查用户是否通过身份验证，因为只有通过身份验证的用户才能为经销商发布评论。</li>
@@ -678,19 +351,10 @@ path(route=&#x27;get_dealers/&lt;str:state&gt;&#x27;, view=views.get_dealerships
 <li>以 JSON 格式返回成功状态和信息。</li>
 <li>在 <code>url.py</code> 中为 <code>add_review</code> 视图配置路由。</li>
 </ul>
-<pre><code class="language-python">def add_review(request):
-    if(request.user.is_anonymous == False):
-        data = json.loads(request.body)
-        try:
-            response = post_review(data)
-            return JsonResponse(&#123;&quot;status&quot;:200&#125;)
-        except:
-            return JsonResponse(&#123;&quot;status&quot;:401,&quot;message&quot;:&quot;Error in posting review&quot;&#125;)
-    else:
-        return JsonResponse(&#123;&quot;status&quot;:403,&quot;message&quot;:&quot;Unauthorized&quot;&#125;)</code></pre>
-<pre><code class="language-python">path(route=&#x27;add_review&#x27;, view=views.add_review, name=&#x27;add_review&#x27;),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_review</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">if</span>(request.user.is_anonymous == <span class="literal">False</span>):</span><br><span class="line">        data = json.loads(request.body)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = post_review(data)</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">200</span>&#125;)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">401</span>,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;Error in posting review&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(&#123;<span class="string">&quot;status&quot;</span>:<span class="number">403</span>,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;Unauthorized&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">&#x27;add_review&#x27;</span>, view=views.add_review, name=<span class="string">&#x27;add_review&#x27;</span>),</span><br></pre></td></tr></table></figure>
 <p>从 <code>restapis.py</code> 导入方法，以便在 <code>views.py</code> 中使用：</p>
-<pre><code class="language-python">from .restapis import get_request, analyze_review_sentiments, post_review</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .restapis <span class="keyword">import</span> get_request, analyze_review_sentiments, post_review</span><br></pre></td></tr></table></figure>
 <h1 id="4-应用程序动态页面"><a class="markdownIt-Anchor" href="#4-应用程序动态页面"></a> 4. 应用程序：动态页面</h1>
 <p>在本模块中，您将使用 React 组件添加动态页面，以列出经销商、按州过滤经销商、查看经销商详细信息并添加经销商评论。</p>
 <ul>
@@ -707,32 +371,32 @@ path(route=&#x27;get_dealers/&lt;str:state&gt;&#x27;, view=views.get_dealerships
 </ul>
 <h2 id="41-为经销商页面添加和设置-react-组件"><a class="markdownIt-Anchor" href="#41-为经销商页面添加和设置-react-组件"></a> 4.1. 为经销商页面添加和设置 React 组件</h2>
 <p>打开 <code>frontend/src/App.js</code>，导入 <code>Dealer</code> 组件并将其与其他组件一起添加到顶部。该组件已为您创建，并使用表格元素列出经销商。您可以随意更改外观和感觉。</p>
-<pre><code class="language-jsx">import Dealers from &#x27;./components/Dealers/Dealers&#x27;;</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Dealers</span> <span class="keyword">from</span> <span class="string">&#x27;./components/Dealers/Dealers&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>为 <code>/dealers</code> 添加路由，以呈现 <code>Dealers</code> 组件：</p>
-<pre><code class="language-jsx">&lt;Route path=&quot;/dealers&quot; element=&#123;&lt;Dealers/&gt;&#125; /&gt;</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/dealers&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Dealers</span>/&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
 <p>打开 <code>server/djangoproj/urls.py</code>，在其中添加 <code>Dealers</code> 和 <code>Dealer</code> 的路由：</p>
-<pre><code class="language-python">path(&#x27;dealers/&#x27;, TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;dealers/&#x27;</span>, TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <p>打开一个新终端，像以前一样创建前端。进入 <code>127.0.0.1:8000/dealers</code> 测试 <code>get_dealers</code> 视图。</p>
 <h2 id="42-添加-react-组件-dealer-显示评论"><a class="markdownIt-Anchor" href="#42-添加-react-组件-dealer-显示评论"></a> 4.2. 添加 React 组件 <code>Dealer</code> 显示评论</h2>
 <p>打开 <code>frontend/src/App.js</code>，导入 <code>Dealer</code> React 组件的路由并将其添加到其他路由中。这样，当您点击经销商表上的链接时，就会呈现一个经销商特定的 React 页面以及评论。</p>
 <blockquote>
 <p>该页面还有一个链接，可以让已登录的用户发表评论。您将在下一个任务中添加发布评论页面。</p>
 </blockquote>
-<pre><code class="language-jsx">import Dealer from &quot;./components/Dealers/Dealer&quot;</code></pre>
-<pre><code class="language-jsx">&lt;Route path=&quot;/dealer/:id&quot; element=&#123;&lt;Dealer/&gt;&#125; /&gt;</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Dealer</span> <span class="keyword">from</span> <span class="string">&quot;./components/Dealers/Dealer&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/dealer/:id&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">Dealer</span>/&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
 <p>在之前创建前端的同一终端再次创建前端。</p>
 <p>打开 <code>server/djangoproj/urls.py</code>，加入以下代码，添加显示经销商页面的路径：</p>
-<pre><code class="language-python">path(&#x27;dealer/&lt;int:dealer_id&gt;&#x27;,TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;dealer/&lt;int:dealer_id&gt;&#x27;</span>,TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <p>刷新应用程序，进入 <code>View Reviews</code> 页面，点击任何经销商的名称链接，查看其评论。</p>
 <h2 id="43-创建经销商详情或评论页面"><a class="markdownIt-Anchor" href="#43-创建经销商详情或评论页面"></a> 4.3. 创建经销商详情或评论页面</h2>
 <p>通过身份验证的用户应能点击该链接并为经销商添加评论。我们将添加一个评论提交页面。</p>
 <p>打开并查看 <code>frontend/src/components/Dealers/PostReview.jsx</code>。根据需要对外观和感觉进行修改。</p>
 <p>导入 <code>PostReview</code> 组件，并在 <code>frontend/src/App.js</code> 中添加 <code>postreview/&lt;dealer id&gt;</code> 路由。</p>
-<pre><code class="language-jsx">import PostReview from &quot;./components/Dealers/PostReview&quot;</code></pre>
-<pre><code class="language-jsx">&lt;Route path=&quot;/postreview/:id&quot; element=&#123;&lt;PostReview/&gt;&#125; /&gt;</code></pre>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">PostReview</span> <span class="keyword">from</span> <span class="string">&quot;./components/Dealers/PostReview&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/postreview/:id&quot;</span> element=&#123;<span class="language-xml"><span class="tag">&lt;<span class="name">PostReview</span>/&gt;</span></span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
 <p>转到构建前端的终端，再次运行构建。</p>
 <p>打开 <code>server/djangoprojs/urls.py</code>，在其中加入以下代码，以添加审阅后页面的路径：</p>
-<pre><code class="language-python">path(&#x27;postreview/&lt;int:dealer_id&gt;&#x27;,TemplateView.as_view(template_name=&quot;index.html&quot;)),</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">&#x27;postreview/&lt;int:dealer_id&gt;&#x27;</span>,TemplateView.as_view(template_name=<span class="string">&quot;index.html&quot;</span>)),</span><br></pre></td></tr></table></figure>
 <p>使用已注册的用户名和密码登录。您将看到 <code>Post Review</code> 链接。向经销商添加评论，测试该链接。</p>
 <h1 id="5-cicd-容器化和部署到-kubernetes"><a class="markdownIt-Anchor" href="#5-cicd-容器化和部署到-kubernetes"></a> 5. CI/CD、容器化和部署到 Kubernetes</h1>
 <p>在本模块中，您将为您创建的所有 JavaScript 和 Python 文件设置一个 CI/CD 操作流程。然后，您将运行所有服务器端组件，包括 Docker 容器中的 Express-Mongo 服务器和代码引擎上的情感分析器无服务器部署。最后，您将构建前端 React 应用程序，并在 Kubernetes 上部署 Django 应用程序。</p>
@@ -775,62 +439,14 @@ path(route=&#x27;get_dealers/&lt;str:state&gt;&#x27;, view=views.get_dealerships
 <li>Actions：工作流的最小模块。</li>
 </ul>
 <p>下面为您提供了一个工作流程模板。让我们来研究一下：</p>
-<pre><code class="language-yaml">name: &#x27;Lint Code&#x27;
-on:
-  push:
-    branches: [master, main]
-  pull_request:
-    branches: [master, main]
-jobs:
-  lint_python:
-    name: Lint Python Files
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install flake8
-      - name: Print working directory
-        run: pwd
-      - name: Run Linter
-        run: |
-          pwd
-          # This command finds all Python files recursively and runs flake8 on them
-          find . -name &quot;*.py&quot; -exec flake8 &#123;&#125; +
-          echo &quot;Linted all the python files successfully&quot;
-  lint_js:
-    name: Lint JavaScript Files
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 14
-      - name: Install JSHint
-        run: npm install jshint --global
-      - name: Run Linter
-        run: |
-          # This command finds all JavaScript files recursively and runs JSHint on them
-          find ./server/database -name &quot;*.js&quot; -exec jshint &#123;&#125; +
-          echo &quot;Linted all the js files successfully&quot;</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">&#x27;Lint Code&#x27;</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">lint_python:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">Lint</span> <span class="string">Python</span> <span class="string">Files</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">Repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Python</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-python@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">python-version:</span> <span class="number">3.12</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          python -m pip install --upgrade pip</span></span><br><span class="line"><span class="string">          pip install flake8</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Print</span> <span class="string">working</span> <span class="string">directory</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">pwd</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">Linter</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          pwd</span></span><br><span class="line"><span class="string">          # This command finds all Python files recursively and runs flake8 on them</span></span><br><span class="line"><span class="string">          find . -name &quot;*.py&quot; -exec flake8 &#123;&#125; +</span></span><br><span class="line"><span class="string">          echo &quot;Linted all the python files successfully&quot;</span></span><br><span class="line"><span class="string"></span>  <span class="attr">lint_js:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">Lint</span> <span class="string">JavaScript</span> <span class="string">Files</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">Repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">14</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">JSHint</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">jshint</span> <span class="string">--global</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">Linter</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          # This command finds all JavaScript files recursively and runs JSHint on them</span></span><br><span class="line"><span class="string">          find ./server/database -name &quot;*.js&quot; -exec jshint &#123;&#125; +</span></span><br><span class="line"><span class="string">          echo &quot;Linted all the js files successfully&quot;</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>第一行命名工作流程。</li>
 <li>下一行定义了工作流的运行时间。工作流应在开发人员向主分支推送变更或创建 PR 时运行。这两种方式的捕获方式如下：
 <ul>
-<li>推送到主分支（主分支或主分支）时运行：<pre><code class="language-yaml">push:
-  branches: [master, main]</code></pre>
+<li>推送到主分支（主分支或主分支）时运行：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">push:</span></span><br><span class="line">  <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br></pre></td></tr></table></figure>
 </li>
-<li>在主分支（主分支或主分支）上创建 PR 时运行：<pre><code class="language-yaml">pull_request:
-  branches: [master, main]</code></pre>
+<li>在主分支（主分支或主分支）上创建 PR 时运行：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pull_request:</span></span><br><span class="line">  <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -873,8 +489,7 @@ jobs:
 <ol>
 <li>
 <p>如果收到下列一个或多个错误：</p>
-<pre><code class="language-plaintext">E117 over-indented
-E128 continuation line under-indented for visual indent</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E117 over-indented</span><br><span class="line">E128 continuation line under-indented for visual indent</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>确认所有代码都保持适当的缩进——既不会缩进过小，也不会缩进过大。</li>
@@ -882,14 +497,14 @@ E128 continuation line under-indented for visual indent</code></pre>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">E501 line too long (xxx &gt; 79 characters)</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E501 line too long (xxx &gt; 79 characters)</span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <ul>
 <li>将代码分成多行，确保每行最多不超过 79 个字符。</li>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">F401 &#x27;xxx&#x27; imported but unused</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F401 &#x27;xxx&#x27; imported but unused</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>核实后续代码段中是否使用了提及的实体或变量（<code>xxx</code>）。如果未使用实体或变量，则删除包含该实体或变量的行。</li>
@@ -899,21 +514,21 @@ E128 continuation line under-indented for visual indent</code></pre>
 </blockquote>
 </li>
 <li>
-<pre><code class="language-plaintext">W292 no newline at end of file</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W292 no newline at end of file</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>在文件的最终代码后插入新行，并将光标置于垂直窗格的最左侧（不向右缩进）。</li>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">E302 expected 2 blank lines, found 1</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E302 expected 2 blank lines, found 1</span><br></pre></td></tr></table></figure>
 <p>解决方案：</p>
 <ul>
 <li>确保每对相邻函数之间正好有两行空行（不能多也不能少）。</li>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">E231 missing whitespace after &#x27;:&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E231 missing whitespace after &#x27;:&#x27;</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>确保在所有字典键值对中的分号后留一个空格。</li>
@@ -921,7 +536,7 @@ E128 continuation line under-indented for visual indent</code></pre>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">E275 missing whitespace after keyword</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E275 missing whitespace after keyword</span><br></pre></td></tr></table></figure>
 <p>解决办法：</p>
 <ul>
 <li>确保每个关键字后都有一个空格。</li>
@@ -929,14 +544,12 @@ E128 continuation line under-indented for visual indent</code></pre>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">E722 do not use bare &#x27;except&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E722 do not use bare &#x27;except&#x27;</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>使用 <code>except Exception:</code> 而不是 <code>except</code> 作为捕获异常和全面处理异常的最佳实践。</li>
-<li>例如，如果现有代码是：<pre><code class="language-python">except:
-    print(&quot;Error&quot;)</code></pre>
-您可以将其改为：<pre><code class="language-python">except Exception as e:
-    print(f&quot;Error: &#123;e&#125;&quot;)</code></pre>
+<li>例如，如果现有代码是：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Error&quot;</span>)</span><br></pre></td></tr></table></figure>
+您可以将其改为：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Error: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -947,19 +560,15 @@ E128 continuation line under-indented for visual indent</code></pre>
 <ol>
 <li>
 <p>如果收到下列一个或多个错误：</p>
-<pre><code class="language-plaintext">&#x27;const&#x27; is available in ES6 (use &#x27;esversion: 6&#x27;) or Mozilla JS extensions (use moz).
-&#x27;arrow function syntax (=&gt;)&#x27; is only available in ES6 (use &#x27;esversion: 6&#x27;).
-&#x27;async functions&#x27; is only available in ES8 (use &#x27;esversion: 8&#x27;).
-&#x27;let&#x27; is available in ES6 (use &#x27;esversion: 6&#x27;) or Mozilla JS extensions (use moz).
-&#x27;template literal syntax&#x27; is only available in ES6 (use &#x27;esversion: 6&#x27;).</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x27;const&#x27; is available in ES6 (use &#x27;esversion: 6&#x27;) or Mozilla JS extensions (use moz).</span><br><span class="line">&#x27;arrow function syntax (=&gt;)&#x27; is only available in ES6 (use &#x27;esversion: 6&#x27;).</span><br><span class="line">&#x27;async functions&#x27; is only available in ES8 (use &#x27;esversion: 8&#x27;).</span><br><span class="line">&#x27;let&#x27; is available in ES6 (use &#x27;esversion: 6&#x27;) or Mozilla JS extensions (use moz).</span><br><span class="line">&#x27;template literal syntax&#x27; is only available in ES6 (use &#x27;esversion: 6&#x27;).</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
-<li>在报告此错误的文件开头添加以下一行：<pre><code class="language-js">/*jshint esversion: 8 */</code></pre>
+<li>在报告此错误的文件开头添加以下一行：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*jshint esversion: 8 */</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 <li>
-<pre><code class="language-plaintext">[&#x27;xxxxxx&#x27;] is better written in dot notation.</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#x27;xxxxxx&#x27;] is better written in dot notation.</span><br></pre></td></tr></table></figure>
 <p>解决方法：</p>
 <ul>
 <li>当字典或 JSON 键值对的格式为 <code>key[value]</code> 时，就会出现这个问题。要解决这个问题，请将格式切换为 <code>key.value</code>。</li>
@@ -981,13 +590,13 @@ E128 continuation line under-indented for visual indent</code></pre>
 <blockquote>
 <p>注意：在开始实验之前，请按照步骤检查和删除以前持续存在的会话，以避免在运行实验时出现任何问题。</p>
 <p>请运行以下命令：</p>
-<pre><code class="language-bash">kubectl get deployments</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deployments</span><br></pre></td></tr></table></figure>
 <p>如果您发现经部署 <code>dealership</code> 已经存在，请删除它：</p>
-<pre><code class="language-bash">kubectl delete deployment dealership</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete deployment dealership</span><br></pre></td></tr></table></figure>
 <p>请运行以下命令：</p>
-<pre><code class="language-bash">ibmcloud cr images</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud cr images</span><br></pre></td></tr></table></figure>
 <p>如果有任何 <code>dealership</code> 镜像，请使用删除它：</p>
-<pre><code class="language-bash">ibmcloud cr image-rm us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest &amp;&amp; docker rmi us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud cr image-rm us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest &amp;&amp; docker rmi us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>请输入您的 SN Labs 命名空间，以代替 <code>&lt;your sn labs namespace&gt;</code>。（SN Labs 命名空间是 IBM Skills Network 内置的）</p>
 <p>如果您不记得自己的命名空间，可以使用以下任一命令获取：</p>
@@ -1006,8 +615,7 @@ E128 continuation line under-indented for visual indent</code></pre>
 <li>如果实验室环境已重置，请克隆您的 Git 仓库。</li>
 <li>打开一个新终端，切换到 <code>server/database</code> 目录，然后按照之前的操作运行 Mongo Express 服务器。</li>
 <li>如果部署在 Code Engine 上的情感分析器微服务不可用，请重新部署并更新所需的 URL。</li>
-<li>打开另一个新终端。切换到 <code>server/frontend</code> 目录。运行以下命令创建前端：<pre><code class="language-bash">npm install
-npm run build</code></pre>
+<li>打开另一个新终端。切换到 <code>server/frontend</code> 目录。运行以下命令创建前端：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h4 id="522-添加-dockerfile"><a class="markdownIt-Anchor" href="#522-添加-dockerfile"></a> 5.2.2. 添加 Dockerfile</h4>
@@ -1021,86 +629,26 @@ npm run build</code></pre>
 <li>运行命令启动应用程序。</li>
 </ol>
 <p>下面是一个示例文件，供您开始使用：</p>
-<pre><code class="language-dockerfile">FROM python:3.12.0-slim-bookworm
-
-ENV PYTHONBUFFERED 1
-ENV PYTHONWRITEBYTECODE 1
-
-ENV APP=/app
-
-# Change the workdir.
-WORKDIR $APP
-
-# Install the requirements
-COPY requirements.txt $APP
-
-RUN pip3 install -r requirements.txt
-
-# Copy the rest of the files
-COPY . $APP
-
-EXPOSE 8000
-
-RUN chmod +x /app/entrypoint.sh
-
-ENTRYPOINT [&quot;/bin/bash&quot;,&quot;/app/entrypoint.sh&quot;]
-
-CMD [&quot;gunicorn&quot;, &quot;--bind&quot;, &quot;:8000&quot;, &quot;--workers&quot;, &quot;3&quot;, &quot;djangoproj.wsgi&quot;]</code></pre>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.12</span>.<span class="number">0</span>-slim-bookworm</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> PYTHONBUFFERED <span class="number">1</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONWRITEBYTECODE <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> APP=/app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Change the workdir.</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install the requirements</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip3 install -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the rest of the files</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> +x /app/entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;/bin/bash&quot;</span>,<span class="string">&quot;/app/entrypoint.sh&quot;</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;gunicorn&quot;</span>, <span class="string">&quot;--bind&quot;</span>, <span class="string">&quot;:8000&quot;</span>, <span class="string">&quot;--workers&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;djangoproj.wsgi&quot;</span>]</span></span><br></pre></td></tr></table></figure>
 <p>请注意，<code>Dockerfile</code> 中倒数第二个命令指的是 <code>entrypoint.sh</code>。在 <code>server</code> 目录中创建该文件。该文件应包含以下内容：</p>
-<pre><code class="language-shell">#!/bin/sh
-
-# Make migrations and migrate the database.
-echo &quot;Making migrations and migrating the database. &quot;
-python manage.py makemigrations --noinput
-python manage.py migrate --run-syncdb --noinput
-python manage.py collectstatic --noinput
-exec &quot;$@&quot;</code></pre>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Make migrations and migrate the database.</span></span><br><span class="line">echo &quot;Making migrations and migrating the database. &quot;</span><br><span class="line">python manage.py makemigrations --noinput</span><br><span class="line">python manage.py migrate --run-syncdb --noinput</span><br><span class="line">python manage.py collectstatic --noinput</span><br><span class="line">exec &quot;$@&quot;</span><br></pre></td></tr></table></figure>
 <h4 id="523-构建镜像并将其推送到容器注册表"><a class="markdownIt-Anchor" href="#523-构建镜像并将其推送到容器注册表"></a> 5.2.3. 构建镜像并将其推送到容器注册表</h4>
 <p>您必须记住如何构建镜像并将其推送到 IBM Cloud Image Registry (ICR)。您需要在这里执行相同的操作，然后在 Kubernetes 部署文件中引用该镜像。</p>
 <p>请导出 SN Labs 命名空间，并在控制台中打印出来，如下所示：</p>
-<pre><code class="language-bash">MY_NAMESPACE=$(ibmcloud cr namespaces | grep sn-labs-)
-echo $MY_NAMESPACE</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MY_NAMESPACE=$(ibmcloud cr namespaces | grep sn-labs-)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$MY_NAMESPACE</span></span><br></pre></td></tr></table></figure>
 <p>使用当前目录下的 <code>Dockerfile</code> 执行 docker 构建：</p>
-<pre><code class="language-bash">docker build -t us.icr.io/$MY_NAMESPACE/dealership .</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t us.icr.io/<span class="variable">$MY_NAMESPACE</span>/dealership .</span><br></pre></td></tr></table></figure>
 <p>接下来，将镜像推送到容器注册表：</p>
-<pre><code class="language-bash">docker push us.icr.io/$MY_NAMESPACE/dealership</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push us.icr.io/<span class="variable">$MY_NAMESPACE</span>/dealership</span><br></pre></td></tr></table></figure>
 <h4 id="524-添加部署工件"><a class="markdownIt-Anchor" href="#524-添加部署工件"></a> 5.2.4. 添加部署工件</h4>
 <p>在 <code>server</code> 目录下创建 <code>deployment.yaml</code> 文件，以创建部署和服务。文件应如下所示：</p>
-<pre><code class="language-yaml">apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    run: dealership
-  name: dealership
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: dealership
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        run: dealership
-    spec:
-      containers:
-      - image: us.icr.io/your-name-space/dealership:latest
-        imagePullPolicy: Always
-        name: dealership
-        ports:
-        - containerPort: 8000
-          protocol: TCP
-      restartPolicy: Always</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dealership</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">rollingUpdate:</span></span><br><span class="line">      <span class="attr">maxSurge:</span> <span class="number">25</span><span class="string">%</span></span><br><span class="line">      <span class="attr">maxUnavailable:</span> <span class="number">25</span><span class="string">%</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">RollingUpdate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">us.icr.io/your-name-space/dealership:latest</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">dealership</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8000</span></span><br><span class="line">          <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br></pre></td></tr></table></figure>
 <p>请在上述文件中输入您的 SN Labs 命名空间，以代替 <code>your-name-space</code>。</p>
 <h4 id="525-部署应用程序"><a class="markdownIt-Anchor" href="#525-部署应用程序"></a> 5.2.5. 部署应用程序</h4>
 <p>使用以下命令和部署文件创建部署：</p>
-<pre><code class="language-bash">kubectl apply -f deployment.yaml</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f deployment.yaml</span><br></pre></td></tr></table></figure>
 <p>通常，我们会在部署中添加一个服务；不过，我们将在此环境中使用端口转发功能来查看正在运行的应用程序：</p>
-<pre><code class="language-bash">kubectl port-forward deployment.apps/dealership 8000:8000</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl port-forward deployment.apps/dealership 8000:8000</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：如果出现任何错误，请稍等片刻，然后重新运行该命令。</p>
 </blockquote>
