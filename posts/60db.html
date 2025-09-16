@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Bot Framework SDK学习日志 · Cytrogen 的个人博客</title><meta name="description" content="仅作个人用途，微软Azure的机器人框架SDK Python分支的学习日志。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Bot Framework SDK 学习日志 · Cytrogen 的个人博客</title><meta name="description" content="仅作个人用途，微软 Azure 的机器人框架 SDK Python 分支的学习日志。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
   font-family: 'Open Sans';
   src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
   font-weight: 400;
@@ -55,7 +55,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
-</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Bot Framework SDK学习日志</h1><div class="post-info">3/7/2023</div><div class="post-content"><p>仅作个人用途，微软Azure的机器人框架SDK Python分支的学习日志。</p>
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Bot Framework SDK 学习日志</h1><div class="post-info">3/7/2023</div><div class="post-content"><html><head></head><body><p>仅作个人用途，微软 Azure 的机器人框架 SDK Python 分支的学习日志。</p>
 <span id="more"></span>
 <h1 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 目录</h1>
 <ul>
@@ -83,7 +83,7 @@
 </ul>
 </li>
 </ul>
-<center>-----------------------------</center>
+<center> -----------------------------</center>
 <h1 id="机器人初识"><a class="markdownIt-Anchor" href="#机器人初识"></a> 机器人初识</h1>
 <h2 id="机器人交互"><a class="markdownIt-Anchor" href="#机器人交互"></a> 机器人交互</h2>
 <p>机器人交互涉及到活动的交换，而这些活动在轮次中进行处理。</p>
@@ -98,14 +98,14 @@
 </ol>
 <h2 id="机器人应用程序结构"><a class="markdownIt-Anchor" href="#机器人应用程序结构"></a> 机器人应用程序结构</h2>
 <ol>
-<li>*<strong>机器人</strong>（bot）*类，用于处理机器人应用的聊天推理
+<li>*<strong> 机器人</strong>（bot）* 类，用于处理机器人应用的聊天推理
 <ul>
-<li>识别&amp;解释用户的输入</li>
-<li>对输入进行推理&amp;执行相关任务</li>
+<li>识别 &amp; 解释用户的输入</li>
+<li>对输入进行推理 &amp; 执行相关任务</li>
 <li>生成响应（如：机器人正在干什么）</li>
 </ul>
 </li>
-<li>*<strong>适配器</strong>（adapter）*类，用于处理与通道的连接
+<li>*<strong> 适配器</strong>（adapter）* 类，用于处理与通道的连接
 <ul>
 <li>提供用于处理来自用户通道的请求的方法</li>
 <li>提供用于对用户通道生成请求的方法</li>
@@ -118,7 +118,7 @@
 <p>机器人每个轮次还需要检索和存储 <em>状态（state）</em>。状态通过 <em>存储（storage）</em>、<em>机器人状态（bot state）</em> 和 <em>属性访问器（property accessor）</em> 类进行处理。</p>
 <h2 id="机器人逻辑"><a class="markdownIt-Anchor" href="#机器人逻辑"></a> 机器人逻辑</h2>
 <ol>
-<li><em><strong>活动处理程序</strong>（activity handler）</em>，提供事件驱动模型，其中传入的活动类型&amp;子类型是 <em>事件（event）</em>。</li>
+<li><em><strong>活动处理程序</strong>（activity handler）</em>，提供事件驱动模型，其中传入的活动类型 &amp; 子类型是 <em>事件（event）</em>。</li>
 <li><em><strong>对话库</strong>（dialog library）</em>，提供基于状态的模型用于管理与用户进行的长时间聊天。</li>
 </ol>
 <h2 id="机器人适配器"><a class="markdownIt-Anchor" href="#机器人适配器"></a> 机器人适配器</h2>
@@ -137,9 +137,9 @@
 <blockquote>
 <p>适配器还可以：</p>
 <ul>
-<li>格式化&amp;发送响应活动</li>
-<li><em>公开机器人连接器（Bot Connector）</em> REST API提供的其他方法</li>
-<li>捕获在轮次中不会被捕获到的错误&amp;异常</li>
+<li>格式化 &amp; 发送响应活动</li>
+<li><em>公开机器人连接器（Bot Connector）</em> REST API 提供的其他方法</li>
+<li>捕获在轮次中不会被捕获到的错误 &amp; 异常</li>
 </ul>
 </blockquote>
 <h2 id="轮次上下文"><a class="markdownIt-Anchor" href="#轮次上下文"></a> 轮次上下文</h2>
@@ -149,22 +149,22 @@
 </ul>
 <p>轮次上下文不仅将 <em>入站活动（inbound activity）</em> 传递到所有的中间件组件和应用程序逻辑，还提供了所需要的机制让中间件组件和机器人逻辑发送 <em>出站活动（outbound activity）</em>。</p>
 <h2 id="中间件"><a class="markdownIt-Anchor" href="#中间件"></a> 中间件</h2>
-<p>SDK的中间件由一组线性组件构成，其中每一个组件都会按照顺序执行并有一个操作活动的机会。</p>
-<p>中间件管道的最后一个阶段：回调机器人类中的轮次处理程序（已经被适配器的过程活动方法注册）。中间件执行被适配器调用的<code>on turn</code>方法。</p>
-<p>轮次处理程序采用轮次上下文作为参数。在轮次处理程序函数内运行的应用程序逻辑会处理入站活动的内容，并生成活动作为响应，在轮次上下文中调用<code>send activity</code>方法来发送出站活动。调用<code>send activity</code>方法会导致中间件组件在出站活动上被调用。</p>
+<p>SDK 的中间件由一组线性组件构成，其中每一个组件都会按照顺序执行并有一个操作活动的机会。</p>
+<p>中间件管道的最后一个阶段：回调机器人类中的轮次处理程序（已经被适配器的过程活动方法注册）。中间件执行被适配器调用的 <code>on turn</code> 方法。</p>
+<p>轮次处理程序采用轮次上下文作为参数。在轮次处理程序函数内运行的应用程序逻辑会处理入站活动的内容，并生成活动作为响应，在轮次上下文中调用 <code>send activity</code> 方法来发送出站活动。调用 <code>send activity</code> 方法会导致中间件组件在出站活动上被调用。</p>
 <p>中间件组件于轮次处理程序函数之前和之后执行。这些执行在本质上是套娃。</p>
 <h2 id="活动处理堆栈"><a class="markdownIt-Anchor" href="#活动处理堆栈"></a> 活动处理堆栈</h2>
 <ol>
-<li>通道终结点向Azure机器人服务发送HTTP POST信息</li>
-<li>Azure机器人服务处理活动，发送给适配器和轮次上下文</li>
-<li>适配器和轮次上下文调用<code>on turn</code>方法，发送给机器人</li>
-<li>机器人调用<code>send activity</code>方法，一个个返回给通道终结点</li>
-<li>通道终结点发送回状态码200，机器人同理</li>
+<li>通道终结点向 Azure 机器人服务发送 HTTP POST 信息</li>
+<li>Azure 机器人服务处理活动，发送给适配器和轮次上下文</li>
+<li>适配器和轮次上下文调用 <code>on turn</code> 方法，发送给机器人</li>
+<li>机器人调用 <code>send activity</code> 方法，一个个返回给通道终结点</li>
+<li>通道终结点发送回状态码 200，机器人同理</li>
 </ol>
 <h2 id="机器人模板"><a class="markdownIt-Anchor" href="#机器人模板"></a> 机器人模板</h2>
 <ul>
 <li>资源预配</li>
-<li>一个特定于语言的HTTP终结点实现，可以将传入的活动路由到一个适配器</li>
+<li>一个特定于语言的 HTTP 终结点实现，可以将传入的活动路由到一个适配器</li>
 <li>一个适配器对象</li>
 <li>一个机器人对象</li>
 </ul>
@@ -185,8 +185,8 @@
 </blockquote>
 </li>
 <li>
-<p><em><strong>状态管理</strong>（state management）</em>，自动在基础存储层中读取&amp;写入机器人的状态。状态以 <em>状态属性（state properties）</em> 的键值对形式存储。</p>
-<p>状态属性被集结到有范围的“桶”（帮助组织这些属性的集合）内，SDK的三个桶分别是：<em>用户状态（user state）</em>、<em>聊天状态（conversation state）</em>、<em>私人聊天状态（private conversation state）</em>。这些桶又是<code>bot state</code>类的子类。</p>
+<p><em><strong>状态管理</strong>（state management）</em>，自动在基础存储层中读取 &amp; 写入机器人的状态。状态以 <em>状态属性（state properties）</em> 的键值对形式存储。</p>
+<p>状态属性被集结到有范围的「桶」（帮助组织这些属性的集合）内，SDK 的三个桶分别是：<em>用户状态（user state）</em>、<em>聊天状态（conversation state）</em>、<em>私人聊天状态（private conversation state）</em>。这些桶又是 <code>bot state</code> 类的子类。</p>
 <ul>
 <li>
 <p>用户状态适合用于跟踪有关用户的信息，如：用户的姓名</p>
@@ -200,23 +200,23 @@
 </ul>
 </li>
 <li>
-<p><em><strong>状态属性访问器</strong>（state property accessors）</em>，用于实际读取&amp;写入某个状态属性，提供了<code>get</code>、<code>set</code>和<code>delete</code>方法用于从轮次内部访问状态属性。</p>
+<p><em><strong>状态属性访问器</strong>（state property accessors）</em>，用于实际读取 &amp; 写入某个状态属性，提供了 <code>get</code>、<code>set</code> 和 <code>delete</code> 方法用于从轮次内部访问状态属性。</p>
 <p>访问器创建需要用到属性名称。之后便可以使用访问器来获取和处理机器人状态的该属性。</p>
-<p>访问器允许SDK从基础存储获取状态&amp;更新机器人的状态缓存（机器人维护的本地缓存，用于存储状态对象和允许在不访问基础存储的情况下执行读取&amp;写入操作）。</p>
+<p>访问器允许 SDK 从基础存储获取状态 &amp; 更新机器人的状态缓存（机器人维护的本地缓存，用于存储状态对象和允许在不访问基础存储的情况下执行读取 &amp; 写入操作）。</p>
 <ul>
 <li>
-<p><code>get</code>方法，从状态缓存请求属性。如果在缓存中就返回属性，否则从状态管理对象获取该属性</p>
+<p><code>get</code> 方法，从状态缓存请求属性。如果在缓存中就返回属性，否则从状态管理对象获取该属性</p>
 </li>
 <li>
-<p><code>set</code>方法，使用新属性值更新状态缓存</p>
+<p><code>set</code> 方法，使用新属性值更新状态缓存</p>
 </li>
 <li>
-<p><code>delete</code>方法，从缓存和基础存储中删除属性</p>
+<p><code>delete</code> 方法，从缓存和基础存储中删除属性</p>
 </li>
 <li>
-<p><code>save changes</code>方法（状态管理对象的），检查状态缓存中属性所有的更改，并将属性写入存储</p>
+<p><code>save changes</code> 方法（状态管理对象的），检查状态缓存中属性所有的更改，并将属性写入存储</p>
 <ul>
-<li>要注意，<code>set</code>方法记录更新的状态后，该状态属性尚未保存到持久性存储，只是保存到机器人的状态缓存内而已。</li>
+<li>要注意，<code>set</code> 方法记录更新的状态后，该状态属性尚未保存到持久性存储，只是保存到机器人的状态缓存内而已。</li>
 </ul>
 </li>
 </ul>
@@ -225,9 +225,9 @@
 <p><em>对话框（dialog）</em> 库使用在机器人的 <em>会话状态（conversation state）</em> 上定义的对话框状态属性访问器来保留对话在会话中的位置。对话框状态属性还允许每个对话框在轮次之中存储临时信息。</p>
 <p><em>对话框管理器（dialog manager）</em> 使用用户和会话状态管理对象提供内存范围（这些内存范围可以用于自适应对话框）。</p>
 <h2 id="活动处理程序"><a class="markdownIt-Anchor" href="#活动处理程序"></a> 活动处理程序</h2>
-<p>生成机器人时，用于处理和响应消息的机器人逻辑将进入<code>on_message_activity</code>处理程序。同样，用于处理正在添加到聊天中的成员的逻辑将进入<code>on_members_added</code>处理程序。每当一个成员加入到聊天，这个处理程序就会被调用。</p>
+<p>生成机器人时，用于处理和响应消息的机器人逻辑将进入 <code>on_message_activity</code> 处理程序。同样，用于处理正在添加到聊天中的成员的逻辑将进入 <code>on_members_added</code> 处理程序。每当一个成员加入到聊天，这个处理程序就会被调用。</p>
 <p>机器人逻辑处理来自单个或多个通道的传入活动，并在响应中发生传出活动。</p>
-<p>在Python里，要使用<code>ActivityHandler</code>派生机器人类，前者为不同类型的活动定义各种各样的处理程序，例如上文的<code>on_message_activity</code>处理程序。</p>
+<p>在 Python 里，要使用 <code>ActivityHandler</code> 派生机器人类，前者为不同类型的活动定义各种各样的处理程序，例如上文的 <code>on_message_activity</code> 处理程序。</p>
 <details>
 <table>
 <thead>
@@ -246,12 +246,12 @@
 <tr>
 <td>已收到消息活动</td>
 <td style="text-align:left"><code>on_message_activity</code></td>
-<td>处理<code>message</code>活动。</td>
+<td>处理 <code>message</code> 活动。</td>
 </tr>
 <tr>
 <td>已收到聊天更新活动</td>
 <td style="text-align:left"><code>on_conversation_update_activity</code></td>
-<td>收到<code>conversationUpdate</code>活动时，如果除了机器人以外的成员加入或者退出聊天，则调用某个处理程序。</td>
+<td>收到 <code>conversationUpdate</code> 活动时，如果除了机器人以外的成员加入或者退出聊天，则调用某个处理程序。</td>
 </tr>
 <tr>
 <td>非机器人成员加入了聊天</td>
@@ -266,7 +266,7 @@
 <tr>
 <td>已收到事件活动</td>
 <td style="text-align:left"><code>on_event_activity</code></td>
-<td>收到<code>event</code>活动时，调用特定于事件类型的处理程序。</td>
+<td>收到 <code>event</code> 活动时，调用特定于事件类型的处理程序。</td>
 </tr>
 <tr>
 <td>已收到令牌响应事件活动</td>
@@ -281,7 +281,7 @@
 <tr>
 <td>已收到消息回应活动</td>
 <td style="text-align:left"><code>on_message_reaction_activity</code></td>
-<td>收到<code>messageReaction</code>活动时，如果已经在消息中添加&amp;删除一个或多个回应，则调用处理程序。</td>
+<td>收到 <code>messageReaction</code> 活动时，如果已经在消息中添加 &amp; 删除一个或多个回应，则调用处理程序。</td>
 </tr>
 <tr>
 <td>消息回应已添加到消息</td>
@@ -296,7 +296,7 @@
 <tr>
 <td>已收到安装更新活动</td>
 <td style="text-align:left"><code>on_installation_update</code></td>
-<td>对于<code>installationUpdate</code>活动，根据机器人是“已安装”还是“已卸载”来调用处理程序。</td>
+<td>对于 <code>installationUpdate</code> 活动，根据机器人是「已安装」还是「已卸载」来调用处理程序。</td>
 </tr>
 <tr>
 <td>安装了机器人</td>
@@ -316,13 +316,13 @@
 </tbody>
 </table>
 </details>
-<p>每个处理程序都有一个<code>turn_context</code>，用于提供有关对应于入站 HTTP 请求的传入活动的信息。</p>
+<p>每个处理程序都有一个 <code>turn_context</code>，用于提供有关对应于入站 HTTP 请求的传入活动的信息。</p>
 <blockquote>
 <p>示例：</p>
 <ul>
-<li>处理<code>on_members_added</code>来发送欢迎信息，并处理<code>on_message</code>来当复读机</li>
+<li>处理 <code>on_members_added</code> 来发送欢迎信息，并处理 <code>on_message</code> 来当复读机</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EchoBot</span>(<span class="title class_ inherited__">ActivityHandler</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_members_added_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        members_added: [ChannelAccount],</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        每当一个成员加入聊天，就发送`Hello and Welcome`。</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> member <span class="keyword">in</span> members_added:</span><br><span class="line">            <span class="keyword">if</span> member.<span class="built_in">id</span> != turn_context.activity.recipient.<span class="built_in">id</span>:</span><br><span class="line">                <span class="keyword">await</span> turn_context.send_activity(<span class="string">&#x27;Hello and Welcome!&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_message_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        每收到一个消息，就发送`Echo: &#123;消息&#125;`</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> turn_context.send_activity(</span><br><span class="line">        	MessageFactory.text(<span class="string">f&#x27;Echo: <span class="subst">&#123;turn_context.activity.text&#125;</span>&#x27;</span>)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EchoBot</span>(<span class="title class_ inherited__">ActivityHandler</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_members_added_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        members_added: [ChannelAccount],</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        每当一个成员加入聊天，就发送`Hello and Welcome`。</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> member <span class="keyword">in</span> members_added:</span><br><span class="line">            <span class="keyword">if</span> member.<span class="built_in">id</span> != turn_context.activity.recipient.<span class="built_in">id</span>:</span><br><span class="line">                <span class="keyword">await</span> turn_context.send_activity(<span class="string">'Hello and Welcome!'</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">on_message_activity</span>(<span class="params"></span></span><br><span class="line"><span class="params">    	self,</span></span><br><span class="line"><span class="params">        turn_context: TurnContext</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        每收到一个消息，就发送`Echo: {消息}`</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> turn_context.send_activity(</span><br><span class="line">        	MessageFactory.text(<span class="string">f'Echo: <span class="subst">{turn_context.activity.text}</span>'</span>)</span><br><span class="line">        )</span><br></pre></td></tr></tbody></table></figure>
 </blockquote>
 <h2 id="对话库"><a class="markdownIt-Anchor" href="#对话库"></a> 对话库</h2>
 <p>对话框提供管理与用户长期对话的方法。</p>
@@ -344,7 +344,7 @@
 <tbody>
 <tr>
 <td>对话框集（Dialog set）</td>
-<td>定义一组对话框，这些对话框可以相互引用&amp;协同工作。</td>
+<td>定义一组对话框，这些对话框可以相互引用 &amp; 协同工作。</td>
 </tr>
 <tr>
 <td>对话框上下文（Dialog context）</td>
@@ -408,9 +408,9 @@
 <blockquote>
 <ol>
 <li>对话框上下文开始瀑布</li>
-<li>瀑布#1：第一次提示</li>
-<li>瀑布#2：处理来自第一个提示的结果，并开始第二次提示</li>
-<li>瀑布#3：处理来自第二个提示的结果，结束对话（堆栈入口消失）</li>
+<li>瀑布 #1：第一次提示</li>
+<li>瀑布 #2：处理来自第一个提示的结果，并开始第二次提示</li>
+<li>瀑布 #3：处理来自第二个提示的结果，结束对话（堆栈入口消失）</li>
 </ol>
 </blockquote>
 <p>瀑布式对话框的上下文被存储在瀑布式步骤上下文中。这个步骤上下文与对话上下文类似，提供对当前轮次上下文和状态的访问。使用瀑布式步骤上下文对象来与瀑布式步骤中的对话框集进行交互。</p>
@@ -425,7 +425,7 @@
 <li><code>Result</code>：包含前一个步骤的结果</li>
 </ul>
 <blockquote>
-<p>Python的<code>next</code>方法可以在同一轮次内继续进行瀑布式对话框的下一步，也就是在需要时跳过某个步骤。</p>
+<p>Python 的 <code>next</code> 方法可以在同一轮次内继续进行瀑布式对话框的下一步，也就是在需要时跳过某个步骤。</p>
 </blockquote>
 <p><em>提示（Prompt）</em> 提供了一种简单的方法来询问用户的信息并评估他们的反应。</p>
 <ul>
@@ -439,7 +439,7 @@
 </ul>
 </li>
 <li>
-<p>当提示被创建时，也可以选择为提示添加自定义验证（如：小于18岁就不行的年龄验证）。提示先行检查它是否接收到了一个有效的数字，然后运行自定义验证。假如验证失败了，就重新提示。</p>
+<p>当提示被创建时，也可以选择为提示添加自定义验证（如：小于 18 岁就不行的年龄验证）。提示先行检查它是否接收到了一个有效的数字，然后运行自定义验证。假如验证失败了，就重新提示。</p>
 </li>
 <li>
 <p>当一个提示完成时，就会明确地返回所要求的结果值。</p>
@@ -487,7 +487,7 @@
 </tbody>
 </table>
 <br>
-<p>步骤上下文的<code>prompt</code>方法的第二个参数要求提供一个<code>prompt options</code>对象，该对象包含了这些属性：</p>
+<p>步骤上下文的 <code>prompt</code> 方法的第二个参数要求提供一个 <code>prompt options</code> 对象，该对象包含了这些属性：</p>
 <table>
 <thead>
 <tr>
@@ -497,7 +497,7 @@
 </thead>
 <tbody>
 <tr>
-<td>初始提示（Prompt/Initial prompt）</td>
+<td>初始提示（Prompt / Initial prompt）</td>
 <td>发送给用户的初始活动，用来征求用户的输入</td>
 </tr>
 <tr>
@@ -569,16 +569,15 @@
 <ol>
 <li>对话框开始</li>
 <li>对话框被推入堆栈，成为活动中的对话框</li>
-<li>对话框结束（被<code>replace dialog</code>方法移除）或者另一个对话框被推入堆栈并成为活动中的对话框</li>
+<li>对话框结束（被 <code>replace dialog</code> 方法移除）或者另一个对话框被推入堆栈并成为活动中的对话框</li>
 </ol>
 <center>-----------------------------</center>
-<div class="danger">
-    按照微软官方文档，我的Python版本为3.8.3。
+<div class="danger"> 按照微软官方文档，我的 Python 版本为 3.8.3。
 </div>
 <h2 id="配置机器人"><a class="markdownIt-Anchor" href="#配置机器人"></a> 配置机器人</h2>
-<p>在 Python 中，机器人的配置文件为 <code>config.py</code> 。</p>
+<p>在 Python 中，机器人的配置文件为 <code>config.py</code>。</p>
 <p>配置格式：<code>XXX = os.environ.get(标识属性, 标识值)</code>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DefaultConfig</span>:</span><br><span class="line">    PORT = <span class="number">3978</span></span><br><span class="line">    APP_ID = os.environ.get(<span class="string">&#x27;MicrosoftAppId&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    APP_PASSWORD = os.environ.get(<span class="string">&#x27;MicrosoftAppPassword&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DefaultConfig</span>:</span><br><span class="line">    PORT = <span class="number">3978</span></span><br><span class="line">    APP_ID = os.environ.get(<span class="string">'MicrosoftAppId'</span>, <span class="string">''</span>)</span><br><span class="line">    APP_PASSWORD = os.environ.get(<span class="string">'MicrosoftAppPassword'</span>, <span class="string">''</span>)</span><br></pre></td></tr></tbody></table></figure>
 <table>
 <thead>
 <tr>
@@ -593,7 +592,7 @@
 </tr>
 <tr>
 <td><code>MicrosoftAppId</code></td>
-<td>机器人的应用ID</td>
+<td>机器人的应用 ID</td>
 </tr>
 <tr>
 <td><code>MicrosoftAppPassword</code></td>
@@ -605,7 +604,7 @@
 </tr>
 </tbody>
 </table>
-</div></article></div></main><footer><div class="paginator"><a class="prev" href="40b3.html">上一篇</a><a class="next" href="891a.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="40b3.html">上一篇</a><a class="next" href="891a.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   
   codeBlocks.forEach(block => {
