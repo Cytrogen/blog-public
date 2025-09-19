@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>《黑客攻防技术宝典：Web 实战篇》・在读笔记 · Cytrogen 的个人博客</title><meta name="description" content="近期 “收割” 了一批感兴趣的书，空闲时会阅读一下。不过很快就会发现，没法随时随地阅读它们，因为我总是想要记笔记。 顺带一提，我用的是 Calibre 统一管理书籍，手机（安卓）用的是 Moon+ Reader、iPad 用的是 KyBook 3。Calibre 可以启动内容服务器，同个局域网下让移动设备访问所有的书籍并下载，很是方便。Moon+ Reader 还可以直接通过 OPDS（Open Publication Distribution System，开放式出版发布系统）下载书籍。 这一篇阅读的是《黑客攻防技术宝典：Web 实战篇》（The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws）。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>《黑客攻防技术宝典：Web 实战篇》・在读笔记 · Cytrogen 的个人博客</title><meta name="robots" content="noindex"><meta name="description" content="近期 “收割” 了一批感兴趣的书，空闲时会阅读一下。不过很快就会发现，没法随时随地阅读它们，因为我总是想要记笔记。 顺带一提，我用的是 Calibre 统一管理书籍，手机（安卓）用的是 Moon+ Reader、iPad 用的是 KyBook 3。Calibre 可以启动内容服务器，同个局域网下让移动设备访问所有的书籍并下载，很是方便。Moon+ Reader 还可以直接通过 OPDS（Open Publication Distribution System，开放式出版发布系统）下载书籍。 这一篇阅读的是《黑客攻防技术宝典：Web 实战篇》（The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws）。"><link rel="icon" href="../favicon.png"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
   font-family: 'Open Sans';
   src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
   font-weight: 400;
@@ -258,9 +258,91 @@
 <p>比方说，用户修改购物车商品数量，他提交的请求 <code>product_id=101&amp;quantity=-1</code>。从语法上来看，<code>-1</code> 是一个有效的整数，但从业务逻辑上看，数量不能为负数。另一个例子是，用户 A 尝试访问 <code>order_id=102</code>，虽然 <code>102</code> 是合法的订单号格式，但这个订单属于用户 B，所以这也是非法的。</p>
 </li>
 </ol>
-<p>很多初学者会犯的错误是，在应用的最外层写一个「超级过滤器」，试图把所有「坏」东西都挡在门外。作者解释道，这种一刀切的入口过滤是无效的。数据在系统内部流动和转换时会产生新的风险，所以必须在每个处理环节进行针对性的验证。</p>
-<p>例如</p>
-</body></html></div></article></div></main><footer><div class="paginator"><a class="next" href="b52f.html">下一篇</a></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+<p>很多初学者会犯的错误是，在应用的最外层写一个「超级过滤器」，试图把所有「坏」东西都挡在门外。作者解释道，这种一刀切的入口过滤是无效的。数据在系统内部流动和转换时会产生新的风险，所以必须在每个处理环节进行针对性的验证。就像是一个对 HTML 页面完全安全的字符串 <code>O'Malley</code>，对于 SQL 查询来说却是十分危险的存在（因为有单引号）。</p>
+<p>我们应当应用边界确认 —— 数据流传的每一个组件，都应将其输入视为不可信，并执行针对自己上下文的验证。</p>
+<ul>
+<li>用户 -&gt; Web 服务器（外部边界）：进行基础格式校验（白名单）</li>
+<li>Web 服务器 -&gt; 数据库（信任边界）：进行 SQL 转义或使用参数化查询</li>
+<li>Web 服务器 -&gt; 后端 API（信任边界）：进行 XML / JSON 编码</li>
+<li>Web 服务器 -&gt; 用户浏览器（信任边界）：进行 HTML 编码</li>
+</ul>
+<p>每个组件只负责保护自己，不信任任何上游组件传来的数据。</p>
+<p>我学习爬虫的时候，教师提到一个很有意思的点：「爬虫是永无止境的，因为会有反爬虫、反反爬虫、反反反爬虫……」我认为这跟开发者和攻击者的关系很类似（但是性质恶劣许多），为了可以「反反反爬虫」，我们需要了解攻击者如何「反反爬虫」我们。高级攻击者会利用我们防御逻辑的漏洞来绕过防御。</p>
+<ul>
+<li>当我们的防御措施是「删除」或者「替换」某个恶意字符串时，攻击者可以通过构造嵌套的恶意代码，利用你「删除」这个动作来重新组合出攻击代码</li>
+<li>攻击者提交编码后的恶意输入（<code>%27 OR 1=1</code>）。因为该字符串没有单引号，所以我们的过滤器会放行。这个字符串接着会被传递给后端的 SQL 查询模块。SQL 模块在执行前，会进行 URL 解码，<code>%27</code> 变回了 <code>'</code>。最终，恶意代码 <code>' OR 1=1</code> 被执行，攻击成功。这是利用了规范化这一概念</li>
+</ul>
+<h4 id="处理攻击者"><a class="markdownIt-Anchor" href="#处理攻击者"></a> 处理攻击者</h4>
+<p>一个成熟的应用程序，必须建立在「我一定会被攻击」这个残酷的假设之上。因此，安全机制不仅仅是建立一套静态的防御工事，更要设计一套动态的应对体系。当攻击发生时，应用需要能够以受控的方式去处理、响应、记录并挫败攻击者。</p>
+<ol>
+<li>
+<p>处理错误</p>
+<p>无论开发者多小心，意料之外的错误总会发生，尤其是在遭受恶意攻击时。一个关键的防御机制，就是优雅且安全地处理这些错误。</p>
+<p>在生产环境中，应用程序绝对不应该在返回给用户的页面中，显示任何系统生成的原始错误消息、堆栈跟踪（stack trace）或调试信息。这些看似无害的调试信息，在攻击者眼中却是藏宝图。它们会轻易地暴露你所使用的技术栈（如 <code>Microsoft SQL Server Error</code>）、数据库结构（如 <code>column 'username' not found</code>）、服务器的内部文件路径等等。在某些极端情况下，有缺陷的错误处理机制甚至可能成为攻击者直接窃取数据的渠道。</p>
+<p>正确的做法是「对用户，要含糊其辞；对日志，要事无巨细」：</p>
+<ul>
+<li>当发生无法处理的错误时，应该向用户展示一个统一的、友好的通用错误页面（例如，「抱歉，服务暂时出现问题，请稍后再试」）。这个页面不包含任何技术细节。</li>
+<li>在服务器的后台，应用程序应该使用 <code>try-catch</code> 块等机制捕获这个错误的<strong>全部</strong>详细信息，包括完整的堆栈跟踪、请求参数等，并将其完整地记录到内部的日志文件中，以便开发者进行分析和修复。</li>
+</ul>
+<p>无法预料的错误往往是应用程序防御体系中存在未知漏洞的信号。安全地处理它们，既能防止信息泄露，又能为我们修复漏洞提供线索。</p>
+</li>
+<li>
+<p>维护审计日志</p>
+<p>如果说错误日志记录的是应用的「意外」，那么审计日志记录的就是应用的「日常」。当安全事件（不幸地）发生后，审计日志就扮演着「黑匣子」的角色，是调查和追溯攻击过程的唯一依据。</p>
+<p>一个有效的审计日志，应该能帮助我们回答以下问题：<em>攻击者利用了什么漏洞？他访问了哪些不该访问的数据？他执行了哪些未授权的操作？他是谁（IP 地址、账户）？</em></p>
+<p>在任何注重安全的应用程序中，日志应当记录所有重要的安全相关事件，这至少应该包括：</p>
+<ul>
+<li>所有身份验证事件，无论是成功还是失败的登录、密码修改等</li>
+<li>关键的业务交易，比如信用卡支付、转账操作</li>
+<li>被访问控制机制明确拒绝的越权访问尝试</li>
+<li>任何包含了明显攻击字符串（如 <code>or 1=1--</code>）的恶意请求</li>
+</ul>
+<p>但这里存在一个悖论：<em>日志本身也可能成为一个安全风险</em>。因为日志中可能记录了用户的敏感请求参数，甚至是会话令牌。如果日志文件保护不当，被攻击者读取到，就可能直接导致整个应用被攻破。因此，日志文件必须受到严格的访问控制保护，甚至最好是存放在一个独立的、高度安全的日志服务器上，并确保其不可被篡改（例如写入到一次性写入的介质中）。</p>
+</li>
+<li>
+<p>向管理员发出警报</p>
+<p>警报系统的目标是在攻击者得手之前或得手之时，就立即通知管理员，以便采取实时干预。</p>
+<p>一个好的警报系统，关键在于在「准确性」和「信噪比」之间找到平衡。如果误报太多，管理员很快就会对警报变得麻木，从而忽略真正的攻击。因此，警报应该聚焦于那些高度可疑或明确恶意的「反常事件」，例如：</p>
+<ul>
+<li>某个 IP 地址或用户在短时间内发起了海量的请求，这很可能是自动化扫描或暴力破解的迹象</li>
+<li>某个账户的交易金额或频率远超正常范围</li>
+<li>请求中包含了已知的攻击字符串</li>
+<li>请求修改了普通用户根本不应该能修改的数据，比如隐藏表单字段中的商品价格或用户 ID</li>
+</ul>
+<p>书中提出了一个非常深刻的观点：外部的防火墙（WAF）无法理解你应用的业务逻辑。一个 WAF 也许能识别出请求参数里的 <code>SELECT * FROM</code> 是 SQL 注入，但它绝对无法判断 <code>GET /orders/102</code> 对于当前登录的用户 <code>A</code> 来说，是一次越权访问。</p>
+<p>但你的应用程序本身最清楚这些业务逻辑。因此，最有效的警报，是与应用自身的访问控制机制紧密结合。当访问控制逻辑拒绝了一个越权请求时，这不仅是一次成功的防御，更是一个极高质量的、几乎零误报的警报信号。</p>
+</li>
+<li>
+<p>应对攻击</p>
+<p>作者承认，没有任何应用是完美无缺的，总会有一些漏洞潜藏其中。既然无法做到完美，那我们至少可以增加攻击者发现和利用这些漏洞的成本。</p>
+<p>现实中的攻击，很少有一击即中的。攻击者需要系统性地进行大量探测，发送成百上千个精心构造的请求，来试探应用是否存在各种漏洞。这个过程就像在黑暗中摸索一扇没有上锁的门。</p>
+<p>应对攻击的机制，就是在他摸索的过程中，不断地给他制造障碍。例如：</p>
+<ul>
+<li>当应用识别到某个 IP 或用户正在进行系统性探测时，可以故意放慢对他们请求的响应速度，从 100 毫秒延长到 5 秒。这会极大地拖慢自动化扫描工具的效率</li>
+<li>当检测到明确的攻击行为时，可以立即终止当前用户的会话，强制他重新登录。这可以打断攻击者的攻击链</li>
+<li>在更极端的情况下，可以暂时封禁攻击者的 IP 地址或用户账户</li>
+</ul>
+</li>
+</ol>
+<p>这些措施虽然无法阻挡最顶尖、最有耐心的攻击者，但它们可以有效地劝退大量的「脚本小子」和随意攻击者。</p>
+<h4 id="管理应用程序"><a class="markdownIt-Anchor" href="#管理应用程序"></a> 管理应用程序</h4>
+<p>应用程序的管理功能（如用户管理、角色分配、系统配置）是为管理员等高权限用户设计的。由于这些功能常常与普通用户功能构建在同一个 Web 应用内，它们就成为了一个极具吸引力且高价值的攻击面。攻击者的核心目标是利用管理功能实现权限提升。</p>
+<p>攻击者有四条主要路径来攻破管理功能：</p>
+<ol>
+<li>通过暴力破解、凭证填充等手段直接获取管理员账户的登录权限。因为管理员账户数量少，目标明确，所以是常见的攻击起点</li>
+<li>应用程序的普通用户功能和管理功能之间，可能存在访问控制缺陷。攻击者以低权限用户身份登录后，尝试直接访问管理功能的 URL（例如 <code>GET /admin/create-user</code>）。如果后端没有对该端点进行严格的权限校验，攻击者就能执行未授权的管理操作</li>
+<li>攻击者在普通用户功能中（如个人资料、评论区）提交包含恶意 JavaScript 的输入。当管理员在管理后台查看这些被污染的数据时，恶意脚本会在管理员的浏览器中执行。这能导致管理员的会话令牌被窃取，或者让攻击者以管理员身份执行任意操作</li>
+<li>管理功能本身被设计用来执行危险操作，例如文件上传 / 下载、执行系统诊断命令等。这些功能内部如果存在漏洞（如路径遍历、命令注入），其破坏力会远超普通功能中的同类漏洞，可能直接导致服务器被完全控制</li>
+</ol>
+<p>管理功能之所以频繁出现漏洞，根本原因在于它们往往<strong>未经充分的安全测试</strong>。测试人员可能没有获得管理员权限，或者开发者错误地假设「管理员是可信的」，从而在开发管理界面时放松了安全警惕。这种假设是致命的，因为攻击者的目标正是利用其他漏洞，让自己成为那个「可信的」管理员。</p>
+<h2 id="第三章"><a class="markdownIt-Anchor" href="#第三章"></a> 第三章</h2>
+<h4 id="http"><a class="markdownIt-Anchor" href="#http"></a> HTTP</h4>
+<p>跳过。</p>
+<h4 id="解刨-web-功能"><a class="markdownIt-Anchor" href="#解刨-web-功能"></a> 解刨 Web 功能</h4>
+<p>一个 Web 应用并非铁板一块，而是由众多服务端和客户端技术共同协作构成的复杂生态系统。攻击的第一步，就是理解这个生态的组成，识别出每一个可能被利用的组件。</p>
+<p>作者介绍了（当时）几种主流的后端技术栈和前端技术，并介绍了它们各自的特点和风险。但因为这本书有点年头了，也就不说了。</p>
+<h4 id="编码方案"><a class="markdownIt-Anchor" href="#编码方案"></a> 编码方案</h4>
+<!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><div class="copyright"><p>© 2022 - 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
   const codeBlocks = document.querySelectorAll('figure.highlight');
   
   codeBlocks.forEach(block => {
