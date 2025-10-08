@@ -63,6 +63,12 @@
       </div>
       <!-- 详情页显示的完整microformats版本 -->
       <div class="h-entry reply-entry reply-microformats" style="display: none;">
+        <!-- 隐藏的作者信息 (h-card) -->
+        <div class="post-meta p-author h-card" style="display: none;">
+          <img class="author-avatar u-photo" src="/posts/b52f/favicon.png" alt="Cytrogen">
+          <a class="author-name p-name u-url" href="https://cytrogen.icu">Cytrogen</a>
+        </div>
+        
         <div class="e-content"><p>近期阅读一篇名为 <a target="_blank" rel="noopener" href="https://taxodium.ink/my-blog-design.html">《我的博客设计》</a> 的文章时，我深受启发。不只是极简设计的诸多考量（见 <a href="/posts/7f56.html">《博客重构记录》</a>），还让我第一次接触到 <a target="_blank" rel="noopener" href="https://github.com/sparanoid/chinese-copywriting-guidelines">《中文文案排版指北》</a> 这套详尽的规范。看来我对排版的一些零散的执念，早就被社区总结成一套系统性的方法论：比方说手动在中英文之间添加空格的习惯。</p>
 </div>
         <div class="reply-meta">
@@ -201,29 +207,24 @@
     }
   });
 });</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
-  // Wait for DOM to be ready
   document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.querySelector('.theme-toggle');
     
     if (!themeToggle) return;
     
-    // Get current theme
     const getCurrentTheme = () => {
       return document.documentElement.getAttribute('data-theme') || 'light';
     };
     
-    // Update UI to match current theme
     const updateUI = (theme) => {
       const isDark = theme === 'dark';
       themeToggle.setAttribute('aria-pressed', isDark.toString());
     };
     
-    // Simplified theme setter - CSS handles all animations
     const setTheme = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.style.colorScheme = theme; // Update native UI elements
+      document.documentElement.style.colorScheme = theme;
       
-      // Also update page-wrapper for animation support
       const pageWrapper = document.getElementById('page-wrapper');
       if (pageWrapper) {
         pageWrapper.setAttribute('data-theme', theme);
@@ -240,24 +241,19 @@
       updateUI(theme);
     };
     
-    // Simple theme toggle - letting CSS handle the smooth transitions
     const toggleTheme = () => {
       const current = getCurrentTheme();
       const newTheme = current === 'light' ? 'dark' : 'light';
       setTheme(newTheme);
     };
     
-    // Initialize UI on page load
     updateUI(getCurrentTheme());
     
-    // Add click event listener
     themeToggle.addEventListener('click', toggleTheme);
     
-    // Listen for system theme changes
     if (window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
       mediaQuery.addEventListener('change', function(e) {
-        // Only update if no manual preference is saved
         if (!localStorage.getItem('theme')) {
           const theme = e.matches ? 'dark' : 'light';
           setTheme(theme);
@@ -272,10 +268,9 @@
     
     if (!backToTopBtn) return;
     
-    // Show/hide button based on scroll position
     const toggleButtonVisibility = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const shouldShow = scrollTop > 200; // Show after scrolling 200px
+      const shouldShow = scrollTop > 200;
       
       if (shouldShow) {
         backToTopBtn.classList.add('is-visible');
@@ -284,7 +279,6 @@
       }
     };
     
-    // Throttle scroll events for better performance
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
@@ -296,7 +290,6 @@
       }
     };
     
-    // Smooth scroll to top when clicked
     const scrollToTop = (event) => {
       event.preventDefault();
       window.scrollTo({
@@ -305,22 +298,17 @@
       });
     };
     
-    // Add event listeners
     window.addEventListener('scroll', handleScroll);
     backToTopBtn.addEventListener('click', scrollToTop);
     
-    // Check initial scroll position
     toggleButtonVisibility();
   });
 })();
 </script><script>(function() {
   document.addEventListener('DOMContentLoaded', function() {
-    // 检查是否在文章列表页
     const isListPage = document.querySelector('ul.home.post-list');
     
     if (!isListPage) {
-      // 不是列表页，则是文章详情页，显示microformats版本
-      // 在文章详情页：隐藏纯文字版本，显示microformats版本
       const replyWrappers = document.querySelectorAll('.reply-content-wrapper');
       replyWrappers.forEach(wrapper => {
         const textOnly = wrapper.querySelector('.reply-text-only');
@@ -330,6 +318,5 @@
         if (microformats) microformats.style.display = 'block';
       });
     }
-    // 列表页保持默认状态：显示纯文字版本，隐藏microformats版本
   });
 })();</script></body></html>
