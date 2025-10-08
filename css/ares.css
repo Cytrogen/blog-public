@@ -487,8 +487,10 @@ figure {
 
 hr {
   box-sizing: content-box;
-  height: 0;
+  height: 1px;
   border: 0;
+  border-top: 1px solid var(--color-border, #e1e4e8);
+  margin: 1.5rem 0;
 }
 
 pre {
@@ -1663,17 +1665,70 @@ footer .copyright a:hover {
   color: white;
   background-color: #E36B6B;
 }
-.post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
+.post-reply {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid var(--color-accent);
+  background: var(--surface-elevated);
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  border-radius: 4px;
+}
+.post-reply a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+.post-reply a:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+.post .reply-content-wrapper {
+  margin: 1em 0;
+}
+.post .reply-content-wrapper .reply-microformats {
+  margin: 1.5em 0;
+  padding: 1em;
+  border: 1px solid var(--border-primary);
+  border-radius: 4px;
+  background: var(--surface-elevated);
+}
+.post .reply-content-wrapper .reply-microformats .reply-meta {
+  margin-top: 1em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--border-secondary);
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+.post .reply-content-wrapper .reply-microformats .reply-meta a {
+  color: var(--color-accent);
+  text-decoration: none;
+  word-break: break-all;
+}
+.post .reply-content-wrapper .reply-microformats .reply-meta a:hover {
+  text-decoration: underline;
+}
+.post .reply-error {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  background: var(--color-danger);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.post-content p, .post .e-content p {
+  margin-top: 0;
+}
+.post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6, .post .e-content h2, .post .e-content h3, .post .e-content h4, .post .e-content h5, .post .e-content h6 {
   position: relative;
   margin: 1em 0;
 }
-.post-content h2, .post-content h3 {
+.post-content h2, .post-content h3, .post .e-content h2, .post .e-content h3 {
   font-size: var(--font-size-h2-h3);
 }
-.post-content h4, .post-content h5, .post-content h6 {
+.post-content h4, .post-content h5, .post-content h6, .post .e-content h4, .post .e-content h5, .post .e-content h6 {
   font-size: var(--font-size-h4-h6);
 }
-.post-content h2 a:before, .post-content h3 a:before, .post-content h4 a:before, .post-content h5 a:before, .post-content h6 a:before {
+.post-content h2 a:before, .post-content h3 a:before, .post-content h4 a:before, .post-content h5 a:before, .post-content h6 a:before, .post .e-content h2 a:before, .post .e-content h3 a:before, .post .e-content h4 a:before, .post .e-content h5 a:before, .post .e-content h6 a:before {
   content: "#";
   color: var(--color-primary);
   position: absolute;
@@ -1682,10 +1737,10 @@ footer .copyright a:hover {
   font-size: 1.2em;
   font-weight: bold;
 }
-.post-content h4 a:before, .post-content h5 a:before, .post-content h6 a:before {
+.post-content h4 a:before, .post-content h5 a:before, .post-content h6 a:before, .post .e-content h4 a:before, .post .e-content h5 a:before, .post .e-content h6 a:before {
   content: "";
 }
-.post-content a {
+.post-content a, .post .e-content a {
   color: var(--color-primary);
   word-break: break-all;
   text-decoration: underline;
@@ -1697,35 +1752,36 @@ footer .copyright a:hover {
   transition: text-decoration-color 0.2s ease-in-out;
   transition: text-decoration-color 0.2s ease-in-out, -webkit-text-decoration-color 0.2s ease-in-out;
 }
-.post-content a:hover {
+.post-content a:hover, .post .e-content a:hover {
   -webkit-text-decoration-color: var(--color-primary);
           text-decoration-color: var(--color-primary);
 }
-.post-content blockquote {
+.post-content blockquote, .post .e-content blockquote {
   margin: 2em 0;
   padding-left: 20px;
   border-left: 4px solid var(--color-primary);
 }
-.post-content blockquote footer {
+.post-content blockquote footer, .post .e-content blockquote footer {
   margin-top: 0.5em;
 }
-.post-content blockquote footer cite::before {
+.post-content blockquote footer cite::before, .post .e-content blockquote footer cite::before {
   content: "——";
   margin: 0 0.2em;
 }
-.post-content blockquote:has(footer) {
+.post-content blockquote:has(footer), .post .e-content blockquote:has(footer) {
   border-left-color: var(--color-secondary);
 }
-.post-content img {
+.post-content img, .post .e-content img {
   display: block;
   max-width: 100%;
   margin: 1em auto;
 }
 .post-content > table,
-.post-content > figure.highlight {
+.post-content > figure.highlight, .post .e-content > table,
+.post .e-content > figure.highlight {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.125);
 }
-.post-content .danger {
+.post-content .danger, .post .e-content .danger {
   position: relative;
   margin: 2em 0;
   padding: 12px 24px 12px 30px;
@@ -1735,13 +1791,13 @@ footer .copyright a:hover {
   background-color: var(--surface-elevated);
   font-family: "Open Sans", "Open Sans Fallback", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
-.post-content .danger > p > br {
+.post-content .danger > p > br, .post .e-content .danger > p > br {
   display: none;
 }
-.post-content .danger br:not(figure.highlight *) {
+.post-content .danger br:not(figure.highlight *), .post .e-content .danger br:not(figure.highlight *) {
   display: none;
 }
-.post-content .danger:before {
+.post-content .danger:before, .post .e-content .danger:before {
   position: absolute;
   top: 14px;
   left: -12px;

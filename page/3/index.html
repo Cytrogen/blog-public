@@ -270,4 +270,24 @@
     // Check initial scroll position
     toggleButtonVisibility();
   });
+})();
+</script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    // 检查是否在文章列表页
+    const isListPage = document.querySelector('ul.home.post-list');
+    
+    if (!isListPage) {
+      // 不是列表页，则是文章详情页，显示microformats版本
+      // 在文章详情页：隐藏纯文字版本，显示microformats版本
+      const replyWrappers = document.querySelectorAll('.reply-content-wrapper');
+      replyWrappers.forEach(wrapper => {
+        const textOnly = wrapper.querySelector('.reply-text-only');
+        const microformats = wrapper.querySelector('.reply-microformats');
+        
+        if (textOnly) textOnly.style.display = 'none';
+        if (microformats) microformats.style.display = 'block';
+      });
+    }
+    // 列表页保持默认状态：显示纯文字版本，隐藏microformats版本
+  });
 })();</script></body></html>

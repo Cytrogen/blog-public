@@ -202,8 +202,10 @@ figure {
 
 hr {
   box-sizing: content-box;
-  height: 0;
+  height: 1px;
   border: 0;
+  border-top: 1px solid var(--color-border, #e1e4e8);
+  margin: 1.5rem 0;
 }
 
 pre {
