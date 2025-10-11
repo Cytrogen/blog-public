@@ -258,20 +258,4 @@
     
     toggleButtonVisibility();
   });
-})();
-</script><script>(function() {
-  document.addEventListener('DOMContentLoaded', function() {
-    const isListPage = document.querySelector('ul.home.post-list');
-    
-    if (!isListPage) {
-      const replyWrappers = document.querySelectorAll('.reply-content-wrapper');
-      replyWrappers.forEach(wrapper => {
-        const textOnly = wrapper.querySelector('.reply-text-only');
-        const microformats = wrapper.querySelector('.reply-microformats');
-        
-        if (textOnly) textOnly.style.display = 'none';
-        if (microformats) microformats.style.display = 'block';
-      });
-    }
-  });
 })();</script></body></html>
