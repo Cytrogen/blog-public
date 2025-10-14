@@ -77,8 +77,33 @@
 <figure class="highlight yaml"><figcaption><span>themes/主题/_config.yml</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">webmention:</span></span><br><span class="line">  <span class="attr">domain:</span> <span class="string">你的域名</span></span><br></pre></td></tr></tbody></table></figure>
 <p>为了让使用到 Hexo-Theme-Ares 的用户也可以立即使用上 Webmention，我写成了需要在主题配置项里配置、才能自动添加接收链接的逻辑。</p>
 <p>收到的所有 Webmention 都可以在 <a target="_blank" rel="noopener" href="https://webmention.io/settings/sites">Webmention.io 的仪表盘</a> 里查看。</p>
+<h4 id="显示"><a class="markdownIt-Anchor" href="#显示"></a> 显示</h4>
 <h2 id="发送"><a class="markdownIt-Anchor" href="#发送"></a> 发送</h2>
 <p>我参考的是 <a target="_blank" rel="noopener" href="https://webmention.app/docs">webmention.app 文档</a> 里的做法。</p>
+<h4 id="microformats"><a class="markdownIt-Anchor" href="#microformats"></a> MicroFormats</h4>
+<h4 id="仅发送一部分内容"><a class="markdownIt-Anchor" href="#仅发送一部分内容"></a> 仅发送一部分内容</h4>
+<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
+
+    <div class="reply-block h-entry">
+      <!-- 作者信息 (h-card) - 对解析器可见，但视觉上隐藏 -->
+      <div class="post-meta p-author h-card visually-hidden">
+        <img class="author-avatar u-photo" src="https://cytrogen.icu/favicon.png" alt="Cytrogen">
+        <a class="author-name p-name u-url" href="https://cytrogen.icu">Cytrogen</a>
+      </div>
+      
+      <!-- 回复内容 -->
+      <div class="reply-content e-content">
+        <p>如果你想要测试，又不想要打扰到其他人，你可以向 <a target="_blank" rel="noopener" href="https://hexo-theme-ares-demo.netlify.app/2025/10/14/webmention-%E6%B5%8B%E8%AF%95/">这个地址</a> 发送 Webmention。这是我为 Hexo-Theme-Ares 搭建的 Demo 页面。</p>
+
+      </div>
+      
+      <!-- 回复元信息 - 通过 CSS 在列表页隐藏 -->
+      <div class="reply-meta">
+        <span class="reply-label">回复：</span>
+        <a class="reply-target u-in-reply-to" target="_blank" rel="noopener" href="https://hexo-theme-ares-demo.netlify.app/2025/10/14/webmention-测试/">https://hexo-theme-ares-demo.netlify.app/2025/10/14/webmention - 测试/</a>
+      </div>
+    </div>
+  
 <!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section">
                 <h3 class="webmention-title">Webmentions (1)</h3>
                 <div class="webmention-list">
