@@ -18,6 +18,7 @@
 @use '_partial/footer';
 @use '_partial/a11y';
 @use '_partial/back-to-top';
+@use '_partial/webmention';
 
 @media screen and (min-width: $breakpoint-desktop) {
   .wrap {
