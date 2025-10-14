@@ -80,14 +80,197 @@
 <p>收到的所有 Webmention 都可以在 <a target="_blank" rel="noopener" href="https://webmention.io/settings/sites">Webmention.io 的仪表盘</a> 里查看。</p>
 <h4 id="显示"><a class="markdownIt-Anchor" href="#显示"></a> 显示</h4>
 <h2 id="发送"><a class="markdownIt-Anchor" href="#发送"></a> 发送</h2>
-<p>我参考的是 <a target="_blank" rel="noopener" href="https://webmention.app/docs">webmention.app 文档</a> 里的做法。</p>
-<h4 id="microformats"><a class="markdownIt-Anchor" href="#microformats"></a> MicroFormats</h4>
+<p>我参考的是 <a target="_blank" rel="noopener" href="https://webmention.app/docs">Webmention.app 文档</a> 里的做法。</p>
+<div class="danger">
+<p>我建议还在开发该功能的朋友们，先使用手动发送。待功能完善后，再进行自动化。</p>
+<p>问的话，只能说都是泪。我在功能还未完善时就采用了 Netlify 自动请求 Webhook 的方案。结果向接收方发送了数个不完善的 Webmention。这些 Webmention 还无法撤回，只能等待对方自行移除。不是什么大问题，但心里会想着给对方添了麻烦、实在是抱歉。</p>
+<p>再就是手动发送时请一定要注意自己网页的 URL 规范。例如我现在这个文章，你可以用 <code>/posts/1de</code> 访问，也可以用 <code>/posts/1de.html</code> 访问。看似是一样的，但是对于 <a target="_blank" rel="noopener" href="http://Webmention.io">Webmention.io</a> 而言它们是完全不同的源地址。</p>
+<p>假设你先用了不带 <code>.html</code> 的 URL 作为源地址发送，之后又用了带 <code>.html</code> 的 URL 作为源地址发送。即时它们内容一样、目标一样，服务器也会创建两条独立的记录。</p>
+<p>想知道我是如何知道的吗？就算你问我这个问题，我也只能看着接收方数个重复的 Webmention 记录、笑笑不说话了。</p>
+<p>我个人建议用后者发送，因为是 Permalink。</p>
+</div>
+<p>Webmention.app 提供了数个发送的方法，其核心都是通过检查指定 URL 的内容并自动发现其中的链接目标，然后向这些目标发送 Webmention 通知：</p>
+<ul>
+<li>基础发送方式
+<ol>
+<li>命令行工具
+<ul>
+<li>使用 <code>curl -X POST</code> 向 <code>https://webmention.app/check?url=你的网页地址</code> 发起请求</li>
+<li>支持一次性发送单条或多条条目，会自动发现 <code>.h-entry</code> 等 Microformats 标记（见 <a href="#microformats">Microformats</a>）</li>
+<li>可通过 GET 请求进行 dry-run 预览，也就是检查将要发送的 Webmention 但不会实际发送</li>
+<li>建议在 Webmention.app 内领取令牌并配合使用，避免速率限制。如果不添加令牌的话，每个独立的 URL 每四个小时只能请求一次。用法很简单，只需要在 API 里添加 <code>token</code> 参数</li>
+</ul>
+</li>
+<li>Node.JS 本地工具
+<ul>
+<li>安装 <code>@remy/webmention</code> 包后，可以使用 <code>webmention</code> 或者简写命令 <code>wm</code></li>
+<li>支持读取多种内容格式，包括 HTML、RSS、Atom</li>
+<li>使用方法：<code>npx webmention 你的网站的feed地址 --limit 数字 --send</code>
+<ul>
+<li><code>--limit</code> 默认为 10 条。假设设置成 1，就是发送 feed 里最新的文章的 Webmention</li>
+<li>默认执行 dry-run，加上 <code>--send</code> 参数才会实际发送 Webmention</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Webmention.app 网页
+<ul>
+<li>该方案没有在文档中提及。简单来说便是在 <a target="_blank" rel="noopener" href="https://webmention.app/check">Webmention.app 的 Test a URL 页</a> 手动填写网页地址、手动点击 <strong>Send All Webmentions</strong> 按钮发送</li>
+<li>其实就是「命令行工具」方案的网页版，更好看些</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>自动化发送方案
+<ol>
+<li>Netlify 部署通知
+<ul>
+<li>步骤
+<ol>
+<li>在 Netlify 项目中访问 <strong>Deploys</strong> 页</li>
+<li>点击 <strong>Notifications</strong> 按钮</li>
+<li>在 <strong>Deploy notifications</strong> 块旁找到 <strong>Add notification</strong> 选项</li>
+<li>点击后选择 <strong>HTTP POST request</strong></li>
+<li><strong>Event to listen for</strong> 选择 <strong>Deploy succeeded</strong></li>
+<li><strong>URL to notify</strong> 输入该 URL：<code>https://webmention.app/check?token=令牌&amp;limit=限制发送多少条&amp;url=你的网站feed地址</code></li>
+</ol>
+</li>
+<li>每次部署成功后，Netlify 都会自动向 Webmention.app 发送 POST 请求</li>
+<li>其实该方法就是最先说的「命令行工具」方案的进化版，并不一定必须要使用 Netlify 才能自动化。你只要能确保每次部署成功后都可以发送一次该 POST 请求即可</li>
+</ul>
+</li>
+<li>IFTTT + RSS Feed
+<ul>
+<li>该方案需要付费。我个人不推荐该方案，你可以找找 IFTTT 的免费代替品，或者使用其他方案。和我上面说的一样，这些方案的本质都是向 Webmention.app 发送 POST 请求</li>
+</ul>
+</li>
+<li>IFTTT + 定时触发
+<ul>
+<li>同上，不推荐</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="microformats"><a class="markdownIt-Anchor" href="#microformats"></a> Microformats</h4>
+<p>Microformats 是一组基于 HTML 的轻量级语义标记规范，用于在网页中嵌入结构化数据，使人类和机器都能更好地理解和使用网页内容。</p>
+<p>它的核心概念是：</p>
+<ul>
+<li>不需要额外的语法或嵌套语言，直接在网页中使用标准 HTML 元素和 <code>class</code> 属性</li>
+<li>通过添加特定 <code>class</code> 名称来标记文章、人物、事件等信息</li>
+<li>搜索引擎、浏览器、社交平台等可以自动识别这些标记并提取结构化数据</li>
+<li>标记内容仍然是普通网页的一部分，不影响用户阅读体验</li>
+</ul>
+<p>为了让 Webmention 功能更完整地显示我们的内容，Microformats 是十分建议添加的。重点在于第二条：<em>标记文章、人物、事件等信息</em>。</p>
+<ul>
+<li>
+<p>文章：<code>h-entry</code> 用于标记网页内容条目的语义类名</p>
+<ul>
+<li>
+<p>用纯 HTML 作为例子，用法是这样的：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"h-entry"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>世界你好~<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>要想添加标题、摘要、正文等信息，需要在 <code>h-entry</code> 所属的标签内部添加子标签。这些是广泛使用的属性：</p>
+<ul>
+<li>
+<p><code>p-name</code>：条目标题或名称</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"h-entry"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"p-name"</span>&gt;</span>我是标题<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>世界你好~<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>p-summary</code>：简短摘要</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"h-entry"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"p-name"</span>&gt;</span>我是标题<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"p-summary"</span>&gt;</span>我是摘要<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>世界你好~<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>e-content</code>：正文内容</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"h-entry"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"p-name"</span>&gt;</span>我是标题<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"p-summary"</span>&gt;</span>我是摘要<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"e-content"</span>&gt;</span>世界你好~<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>dt-published</code>：发布时间（建议使用 <code>&lt;time datetime&gt;</code>）</p>
+<p>就不举例了，总之和上面的例子一样，都是标签里加类名</p>
+</li>
+<li>
+<p><code>dt-updated</code>：更新时间</p>
+</li>
+<li>
+<p><code>p-author</code>：分类或标签</p>
+</li>
+<li>
+<p><code>u-url</code>：条目的永久链接</p>
+</li>
+<li>
+<p><code>u-uid</code>：唯一标识符，通常与 <code>u-url</code> 相同</p>
+</li>
+<li>
+<p><code>p-location</code>：发布地点（可嵌套 <code>h-card</code>、<code>h-adr</code>、<code>h-geo</code>）</p>
+</li>
+<li>
+<p><code>u-syndication</code>：条目的分发副本链接</p>
+</li>
+<li>
+<p><code>u-in-reply-to</code>：所回应的原始条目链接（可嵌套 <code>h-cite</code>）</p>
+</li>
+<li>
+<p><code>p-rsvp</code>：RSVP 状态（例如 <strong>yes</strong> / <strong>no</strong> / <strong>maybe</strong> / <strong>interested</strong>）</p>
+</li>
+<li>
+<p><code>u-like-of</code>：所点赞的条目链接</p>
+</li>
+<li>
+<p><code>u-repost-of</code>：所转发的条目链接</p>
+</li>
+</ul>
+</li>
+<li>
+<p>虽然没有强制要求，但一个典型的 <code>h-entry</code> 应至少包含：</p>
+<ul>
+<li><code>u-url</code></li>
+<li><code>dt-published</code></li>
+<li><code>e-content</code> 或 <code>p-summary</code></li>
+<li><code>p-name</code></li>
+<li><code>p-author</code>：稍后在 <code>h-card</code> 提到</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>人物：<code>h-card</code> 用于在网页中嵌入人物或组织的结构化信息</p>
+<ul>
+<li>和 <code>h-entry</code> 一样的用法。核心属性是这些，它们都是可选的，并且支持多值：
+<ul>
+<li><code>p-name</code>：姓名或组织名称</li>
+<li><code>u-url</code>：主页或代表链接</li>
+<li><code>u-photo</code>：头像或代表图像</li>
+<li><code>u-email</code>：邮箱地址</li>
+<li><code>p-org</code>：所属组织</li>
+<li><code>p-job-title</code>：职位名称</li>
+<li><code>p-note</code>：附加说明</li>
+<li><code>p-category</code>：标签或分类</li>
+<li><code>dt-bday</code>：生日日期</li>
+<li><code>p-tel</code>：电话号码</li>
+<li><code>p-adr</code>：地址信息，可嵌套 <code>h-adr</code></li>
+<li><code>p-geo</code> / <code>u-geo</code>：地理位置，可嵌套 <code>h-adr</code></li>
+</ul>
+</li>
+<li><code>h-card</code> 不强制放入 <code>h-entry</code> 内，但我 <strong>推荐</strong> 嵌套使用。这样有助于 Webmention 接收方或 Microformats 解析器识别作者是谁，并展示头像、名称、主页等信息</li>
+</ul>
+</li>
+</ul>
+<p>现在我们回到 Hexo。我建议在渲染文章的 <code>&lt;article&gt;</code> 标签里添加 <code>h-entry</code> 类。我个人的写法是这样的：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">article.post-block.h-entry</span><br><span class="line">    .post-meta.p-author.h-card</span><br><span class="line">        img.author-avatar.u-photo(src=url_for(theme.logo), alt=config.author)</span><br><span class="line">        a.author-name.p-name.u-url(href=config.url)= config.author</span><br><span class="line">                </span><br><span class="line">        a.post-permalink.u-url(href=full_url_for(item.path)) 永久链接</span><br><span class="line">                </span><br><span class="line">        if item.excerpt</span><br><span class="line">            .p-summary</span><br><span class="line">                != item.excerpt</span><br><span class="line">                </span><br><span class="line">        h1.post-title.p-name</span><br><span class="line">            != item.title</span><br><span class="line">        +postInfo(item)</span><br><span class="line">                </span><br><span class="line">        if item.in_reply_to</span><br><span class="line">            .post-reply</span><br><span class="line">                != __('reply_to') + ': '</span><br><span class="line">                a.u-in-reply-to(href=item.in_reply_to)= item.in_reply_to</span><br><span class="line">                </span><br><span class="line">        .post-content.e-content</span><br><span class="line">            != item.content</span><br></pre></td></tr></tbody></table></figure>
+<p>不过我的主题有些特殊：</p>
+<ol>
+<li>导航栏自动会有我的头像，我不想要重复显示</li>
+<li>部分内容显示出来会导致整体页面看上去比较臃肿</li>
+<li><code>item.content</code> 包含了 <code>item.excerpt</code> 在内。直接从 <code>item.content</code> 里取摘要会很麻烦，再显示一次 <code>item.excerpt</code> 又很奇怪</li>
+</ol>
+<p>解决方案也很简单。既然这部分内容只是给机器看的，我们将其隐藏就好了。直接全部加上 <code>display: none</code> 样式。</p>
 <h4 id="仅发送一部分内容"><a class="markdownIt-Anchor" href="#仅发送一部分内容"></a> 仅发送一部分内容</h4>
 <h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
 
     <div class="reply-block h-entry">
       <!-- 作者信息 (h-card) - 对解析器可见，但视觉上隐藏 -->
-      <div class="post-meta p-author h-card visually-hidden">
+      <div class="post-meta p-author h-card" style="display: none">
         <img class="author-avatar u-photo" src="https://cytrogen.icu/favicon.png" alt="Cytrogen">
         <a class="author-name p-name u-url" href="https://cytrogen.icu">Cytrogen</a>
       </div>
