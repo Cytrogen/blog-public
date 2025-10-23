@@ -1,0 +1,497 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>想法在乙巳开冬迭代 · Cytrogen 的个人博客</title><meta name="robots" content="noindex"><meta name="description" content="开冬不愧是开冬，前段时间还觉得有点热，现在每天都是冻醒的。这个月，我在缓慢地调整我的生活 —— 从兼职、工作、学业和自己。我还在摸索「想法迭代」这类文章的架构，所以该文章相较于 上篇文章 会有显著的差异。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/ea48.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  const getInitialTheme = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved && (saved === 'light' || saved === 'dark')) {
+      return saved;
+    }
+    
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    
+    return 'light';
+  };
+  
+  const theme = getInitialTheme();
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  document.documentElement.style.colorScheme = theme;
+  
+  // Add anti-flicker style for dark mode
+  if (theme === 'dark') {
+    const style = document.createElement('style');
+    style.id = 'anti-flicker-style';
+    style.innerHTML = `
+      #page-wrapper[data-theme="dark"] {
+        background-color: #0f172a;
+        color: #f1f5f9;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.0.0"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">想法在乙巳开冬迭代</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-10-17T02:12:23.000Z">10/16/2025</time></div><div class="post-content"><html><head></head><body><p>开冬不愧是开冬，前段时间还觉得有点热，现在每天都是冻醒的。这个月，我在缓慢地调整我的生活 —— 从兼职、工作、学业和自己。我还在摸索「想法迭代」这类文章的架构，所以该文章相较于 <a href="/posts/dc84.html">上篇文章</a> 会有显著的差异。</p>
+<span id="more"></span>
+<h2 id="日记"><a class="markdownIt-Anchor" href="#日记"></a> 日记</h2>
+<p>我决定调整一下日记板块的内容。该板块会注重于一些篇幅不长、专注于生活的内容。我希望展开讨论、有一定深度的内容则会在日记板块的后面。</p>
+<h4 id="perplexity-会员体验"><a class="markdownIt-Anchor" href="#perplexity-会员体验"></a> Perplexity 会员体验</h4>
+<p>PayPal 的首页上有个领取福利的栏块，我一直都没有去看。一次突发兴起、领取了 Perplexity 的一年免费会员。Perplexity 是一个基于大语言模型的应用程序，功能比较多，主要是帮助用户更好地搜索、研究。你想要搞清楚的问题，Perplexity 都会帮你「搜索」、「总结」。因为它会搜索网上的资源，因此幻觉不会太严重。就是有时候它会直接略过搜索这一步骤、根据自己的训练数据告诉你答案。另一个起眼的功能是新闻板块，它会自动抓取线上的新闻、结合成数个文章，并展示给用户。</p>
+<p>我个人用下来，新闻板块几乎没有主动看过。它每天都会推送给我一些新闻，我也都没有去看。除了个别新闻我有看 —— 例如联邦政府罢工一事 —— 其余的几乎都是「特朗普今天又做了什么」的新闻。我用的最多的是研究功能，主要是深入某个主题、靠问数个问题来得知客观数据。</p>
+<h4 id="咪咪"><a class="markdownIt-Anchor" href="#咪咪"></a> 咪咪</h4>
+<p>家里人从家附近捡了个小猫回来。刚捡回来的时候，小猫的身上全是跳蚤在爬，我母亲根据养狗的经验，直接用带药的宠物沐浴乳洗了一遍猫。这样做其实很危险，小猫还未打疫苗，洗澡容易导致问题。好在它之后表现得十分健康和好动，没过几天就会用「猫猫拳」打狗的鼻子，吃完猫粮后还会偷偷再吃狗的饭。</p>
+<p>我找了有空闲时间的一天回家、带小猫去医院做检查。我预约的是 Vetco，载着三人一狗一猫开了半小时的路才到。谁曾想 Vetco 这期间给我发了消息，说本次预约不正确、医生不在，需要我回电让他们客服进行人工预约。没办法，我们只是在那附近的零售连锁店买了一些猫玩具和猫抓板回去。</p>
+<p><img src="/posts/ea48/mimi.jpg" alt="幼年三色猫盖着被子在狗窝里"></p>
+<h4 id="兰州牛肉面"><a class="markdownIt-Anchor" href="#兰州牛肉面"></a> 兰州牛肉面</h4>
+<p>小时候住的巷子的路口有一家兰州牛肉面馆，特别好吃。这家店最稀奇的在于，老板是一位犹太人。他不仅管接客收银，面也是他在一个大铁桌上亲手拉的。我记得他会很用力地摔面，发出很响的声音。有时候会看见他的妻子和儿子，长相也是非常接近我们传统意识里的犹太人样貌：金发、黑衣、戴眼镜。</p>
+<p>学校附近有两家兰州牛肉面馆，其中一家免小费，不过单品价格并不便宜。我点了一份兰州牛肉面和一个肉夹馍。他家的肉夹馍味道很不错，税前 7 美元一个。</p>
+<p><img src="/posts/ea48/noodles.jpg" alt="洒满香菜的兰州牛肉面和一个肉夹馍"></p>
+<h4 id="中秋游行"><a class="markdownIt-Anchor" href="#中秋游行"></a> 中秋游行</h4>
+<p>中秋那天，布鲁克林的日落公园区有中秋游行，据说是 BBA（繁荣布碌仑协会，Better Brooklyn Association；这里的布碌仑是布鲁克林的另一种说法）举办的第二次中秋游行。游行里有数个学校的学生在演奏乐器、表演舞蹈，还有一个环节是一群玩偶服的人在朝街边扔毛绒玩具。神奇的是，游行队伍的最后还有长乐游神。</p>
+<h4 id="妹妹的游泳比赛"><a class="markdownIt-Anchor" href="#妹妹的游泳比赛"></a> 妹妹的游泳比赛</h4>
+<p>妹妹第三次比赛游泳，也是我第一次开车上高速。没开过那么快的车，脚感很不习惯，不过感觉没什么问题。这次妹妹比赛的场地在新泽西。不知为何，教练给她选了个 100 码的比赛项目。50 码后她明显变得力不从心。</p>
+<p>因为家人的影响，妹妹有些「一根筋」，比赛结束后不敢去问教练能否提早离开，导致我们晚了一小时才离开现场。下午饭依然是吃越南面，不过这家餐厅装修更高档、食物味道更好，随之提升的还有价格。好在份量不小，三个人就着俩主餐、一小吃和一碗加的面吃饱了。</p>
+<h4 id="和妹妹玩电子游戏"><a class="markdownIt-Anchor" href="#和妹妹玩电子游戏"></a> 和妹妹玩电子游戏</h4>
+<p>妹妹一直都有在玩 Roblox（罗布乐思）这款游戏。其中有个游戏叫做「99 Nights at Forest」，貌似近期在孩子们之间十分流行。该游戏的背景发生在一片森林里，人们声称目击到了一头「站着的鹿」，还有四个孩子在里面失踪。警方怎么找都找不到怪物和孩子，只能将其封锁。而玩家有 99 天的时间探索该森林、找出真相。该游戏的玩法不知为何会让我想起饥荒，玩家刚进入游戏就能看到营火、持有布袋和斧子。砍树可以获取木头、布袋可以装木头，木头又可以生火、扩大可探索范围。除了白天就能看到的动物外，该游戏还有晚上才会出现的鹿人、到一定天数会主动来找你麻烦的邪教徒、我目前还没见过的羊人…… 基地旁还会立着一个寻人启事板，可以根据上面给出的方向来找到失踪的孩子。这个游戏的桌面端快捷键设计有些不合理，操作实在是不习惯。</p>
+<p>但让我更在意的其实是另一个问题：这种恐怖主题的游戏在孩子中如此受欢迎，究竟合不合适？首先，我先说一下我的部分观点：</p>
+<ol>
+<li>
+<p>Roblox 本身就是多人游戏，会火的恐怖游戏也近乎都是多人合作。例如几年前很火的「Piggy」就是多人合作逃脱游戏，再到之后的一系列恐怖题材游戏都是多人合作。「99 Nights at Forest」也是一样。正是这种集体协作、彼此依赖的机制，让原本单纯的恐怖体验转化为社交刺激与游戏乐趣。</p>
+<p>心理学研究提出过 <strong>娱乐性恐惧</strong>（Recreational fear）这个概念，即一种恐惧与愉悦并存的混合情绪体验，而恐惧与愉悦之间是存在着「倒 U 型关系」的。当人们在安全的社交环境中体验恐惧时，恐惧会被转化为积极情绪。</p>
+</li>
+<li>
+<p>对于已经在上学的孩子而言，恐怖体验是有利的，可以帮助他们学习如何面对恐惧、管理焦虑情绪。前提是恐惧强度必须适中。事实上，从我观察来看，近些年在孩子之间火的恐怖游戏（如「Poppy's Playtime」）普遍属于「吉祥物恐怖」，其内容更偏向于紧张与刺激，而非真正的血腥或猎奇。这些游戏的恐怖也多数被包裹在任务、收集等系统里。</p>
+</li>
+<li>
+<p>我认为这个年龄段的孩子就算接触到了一些恐怖概念，例如邪教徒，他们也无法明白这到底是什么、只是将其看成是一种设定。这并不意味着孩子无法感知恐怖，他们只是难以理解背后的抽象含义。如果你在小时候玩过 4399 等平台上的小游戏的话，或许也接触过许多带有血腥、恐怖、猎奇要素的游戏。比方说「jumpaloo!」，屡次失败的玩家会遭受血腥的对待、看着代表自己的小动物被搅碎。但是对于当时的孩子而言，「被搅碎」这个行为本身不重要，重要的是「失败了」。因此，他们把这一幕理解为游戏中的失败信号，而不是现实暴力的再现，这正说明儿童在早期阶段对暴力的解读更多停留在规则层面。</p>
+</li>
+</ol>
+<p>那么，孩子到底适合游玩恐怖游戏吗？我的答案：<strong>这是一个双刃剑。</strong></p>
+<p>是的，恐怖游戏可以帮助孩子们脱敏，但是过量的暴力和血腥内容会导致孩子们的共情能力下降、培养出非黑即白的理念。关键在于剂量和语境：偶尔的卡通暴力可能无害，但如果每天数小时沉浸在「杀戮获得奖励」的游戏循环内呢？</p>
+<p>Roblox 也有着自己特有的风险。它其实比起说是一款游戏，更像是一个游戏平台、里面的游戏都是用户生成内容。而这种开放式平台设计虽然鼓励创造，但同时也带来了新的问题：</p>
+<ul>
+<li>内容质量不可控。虽然里面多数游戏都是正规的，但是质量低劣、设计不当的游戏也不是没有。突然的 jumpscares（突发惊吓，或称跳杀）就会被我称为「无营养的恐惧」。</li>
+<li>多人游戏意味着与陌生人互动。即使游戏本身适当，聊天功能也可能导致孩子们被有心者欺骗、骚扰、仇恨。
+<ul>
+<li>Bloomberg 曾经调查发现，Roblox 上的儿童性侵案件从 2018 年的 13 起激增至 2023 年的 <strong>147</strong> 起。要知道，Roblox 是全球最大的儿童游戏平台，日活跃用户超 <strong>7800 万</strong>，其中 40% 是 13 岁以下的儿童，也就是 <strong>312 万</strong>。这一数据之所以令人担忧，是因为 Roblox 的规模远大于其监管能力。全平台审核员竟然只有 <strong>3000</strong> 名左右！</li>
+<li>Roblox 有一个叫做 Robux 的货币，类似于 Q 币，可以购买角色装扮和部分游戏内的装备。对于已经有经济能力的大人而言，购买 Robux 根本就不是什么大事。但是对于孩子们而言，该系统会让他们感受到「经济焦虑」或同伴压力。再者，允许孩子为游戏充值的家庭我个人认为并不多。这就像一些现实的案例：没有经济能力的未成年人被一个有经济能力的成年失败者坑骗肉体。</li>
+</ul>
+</li>
+</ul>
+<p>如何更好地去评估一款游戏适不适合孩子们游玩？我认为可以参考这个框架：</p>
+<ol>
+<li>游戏是卡通化还是写实化？</li>
+<li>恐怖类型是跳跃惊吓、追逐紧张，还是心理恐怖、存在威胁？</li>
+<li>玩家能否通过技能避免威胁，还是只能被动承受？</li>
+<li>游戏的叙事框架是单纯的杀戮模拟吗？</li>
+<li>孩子多少岁？7 岁以下应完全避免；7-10 岁需严格选择和监督；10 岁以上可适度放宽。</li>
+<li>孩子对恐怖书籍、电影的反应如何？是否有持续恐惧史？</li>
+<li>独自一人玩还是和朋友一起玩？</li>
+<li>陪同孩子玩前 30 分钟至 1 小时，其面部表情、身体语言是什么样的？</li>
+<li>游玩后是否出现了睡眠问题、焦虑增加、攻击性言行或回避行为？</li>
+<li>游玩后询问孩子哪部分最可怕？这些怪物是否是真实的？如果害怕了怎么办？评估孩子的理解和应对能力。</li>
+<li>即时游戏适当，也应限制每周游戏时间，避免过度沉浸。</li>
+<li><strong>一定</strong> 要教育孩子们，如何应对陌生人、保护个人信息、如何举报不正当内容！</li>
+</ol>
+<p>那么，完全禁止是否更高效、也更有利于保护孩子？其实未必。对于 Z 世代和 Alpha 世代（前者指代 1997-2012 年出生的人，后者指代 2013 到现在出生的人）来说，这些游戏是社交货币和共同话题。拒绝参与可能导致社交孤立。这意味着完全禁止也有弊处。</p>
+<p>适合性是动态的、条件性的，而非静态的、普遍的。所以，与其追问「恐怖游戏是否适合儿童」，不如问「如何让恐怖体验在安全的环境下，为儿童心理成长服务」。</p>
+<h4 id="e-fika"><a class="markdownIt-Anchor" href="#e-fika"></a> E-Fika</h4>
+<p>我的辅修是日语。大学的日语部门要求我这学期参加两期信州大学的英语部门学生们举办的 E-Fika。Fika 是瑞典的一个类似于茶会的活动。你可以带自己的饮品、食物来参加，要做的事情只有两个：休息和聊天。而 E-Fika 就是线上的 Fika，大家用 Zoom 开着摄像头互相认识、聊天。我起先发现的是，信州大学的学生们讲英语明显要比我们讲日语利索许多。</p>
+<h4 id="语言是死去的诗歌"><a class="markdownIt-Anchor" href="#语言是死去的诗歌"></a> 语言是死去的诗歌</h4>
+<p>网上冲浪时，我发现了一个帖子，内容是帖主在一次思索时发现「不如」这个词的意思就是「我的提议更好、你的想法比不上我的」。评论区的人们发表了众多他们发现的一些有趣例子，比方说：</p>
+<ul>
+<li>「不知道」：「道」是一切的本源、组成万物的基本单位，那「不知道」不就是「什么都不知」的意思吗？（哎哟我才发现除了「不知道」外我都不知道该如何表达「不知道」的意思，像这句话里我又用了一次「不知道」）
+<ul>
+<li>不过现在「道」已经虚化成补语，表示「知晓」的结果，而非指称哲学意义上的「道」。</li>
+</ul>
+</li>
+<li>「开水」：想象「开花」，「开水」便是「水像花一样盛开」。</li>
+<li>「披风」：「披着风」。</li>
+<li>「未来」：「还未来到的」。</li>
+<li>「故事」：「过去的事情」。</li>
+<li>「太空」：这里的「空」是「空间」的意思，「太」则是「大之甚」，放一起便是极大的空间。</li>
+</ul>
+<p>我觉得很有趣，简单研究了一下，发现这涉及到一个概念 —— 语义透明度。意思是复合词的整体意义能够从构成它的语素意义推知的程度。学者们将复合词分为了不同类型：</p>
+<ul>
+<li>完全透明的词：词义基本等于语素意义的直接相加，能从语素义直接推求词义</li>
+<li>半透明或不透明的词：整词语义与语素意义存在差异，甚至完全不相关</li>
+</ul>
+<h4 id="日记片段"><a class="markdownIt-Anchor" href="#日记片段"></a> 日记片段</h4>
+<p>该栏块专门放置一些日记片段……</p>
+<blockquote>
+<p>近日我考虑写月刊，名字想好了：想法在 YYXX 迭代。这里的 YY 指的是年份，不过是用天干地支的写法，例如二〇二五年叫作乙巳；XX 用的也是中国较为传统的写法。例如九月就是菊月，合在一起叫作「想法在乙巳菊月迭代」。</p>
+<p>我之前给【室友】看了一些我的日记，她以为我写的「二〇二五年」是出自于日本的年份书写格式。其实这个〇是小写的「零」，零则是大写的。这很有意思，我们在日常生活中几乎见不到小写的〇，但是其他数字用的都是小写的（如一二三，大写的话则是壹贰叁）。我想起小学的时候，语文老师教过我们如何写大写的数字，以及如何写支票。</p>
+<p>说回我的月刊，我打算在其中添加我这个月看过的、感受到的、学到的东西。例如我这个月读的书我就可以写在里面，讲讲我的想法；读过的技术文章或者写项目的时候学到的内容也可以写在月刊内；日记片段也可以取一些出来，尤其是那些体量不够我写一篇文章，但是有意思到我想要去分享的片段。我也想要添加我最近听的歌、专辑，应该也会很有意思。</p>
+<p>不写周刊的原因是我认为我没有那个精力、时间去每周写个周刊，万一我这周什么都没做怎么办？但是一个月就足够我去分享些内容。我不打算准时发布月刊，但还是尽量在一个月的 5 号左右发布吧。</p>
+</blockquote>
+<blockquote>
+<p>打工，最近天气变冷了，都比以往晚醒了一小时半的时间。店里没什么人，我还忘了带下午饭，点了个预订送达的外卖。我用的平台是饭团外卖，说是有活动，肉夹馍 0 元。自然这个便宜在北美的外卖平台里是占不到的，平台费小费等东西加起来，变成了比肉夹馍原价还要贵一点的价钱。如果没有这个活动，一个肉夹馍说不定就要 12 美元呢。</p>
+<p><img src="/posts/ea48/bing.jpg" alt="很小的肉夹馍，也就比手大点。"></p>
+<p>大一的时候我很喜欢用熊猫外卖，当时的一个十元吃饱活动，一碗土豆粉真的就是十元多。后来纽约市要求顾客必须至少给外卖员固定比例的小费。小费文化真是个糟蹋，我也不理解为什么有人会喜欢这东西。一次网上冲浪，我表达了对小费文化的厌恶，还有个人阴阳怪气地回复我，说我在这里说没用、要去申报才行。</p>
+<p>这样说的话，是不是送外卖也很赚钱呢？我要不要也去送外卖看看？</p>
+</blockquote>
+<blockquote>
+<p>我要发表我对领英这个 app 的想法：无聊透顶。每次刷都是看高中生进了什么名校、大学生找到了什么实习、应届生找了什么工作。也没什么办法，这是一个报喜不报忧的平台。</p>
+</blockquote>
+<blockquote>
+<p>【室友】买了一堆原材料，包了个越南的 summer roll（脍卷、夏卷，或者直接说越南春卷）给我吃。首先是煮越南的一种粉，然后煮虾剥虾、切黄瓜丝萝卜丝等。春卷皮（其实是米纸）最初很硬，沾了水后很快就软了下来。为了不破掉，要在还有点硬的时候就开始包。酱料则是花生酱、番茄酱、耗油和热水搅拌而成。</p>
+<p>【室友】的师傅有开做越南面的餐厅，他家的酱料非常好吃，我跟【室友】经常会抢着舔它。根据师傅所说，里面添加了猪肝。</p>
+<p>【室友】为我卷了一些带去工作。因为没有小盒子装酱料，她故作聪明地把酱料包在了卷皮内。结果就是，等我要吃饭的时候才发现，皮全部破了、酱料也都流了出来。</p>
+<p><img src="/posts/ea48/summer.jpg" alt="没有卷起来的脍卷，放了水煮蛋、黄瓜片、虾和越南粉"></p>
+</blockquote>
+<blockquote>
+<p>我发现移动端的 Fluent Reader Lite 和桌面端的 Fluent Reader 的区别还挺大：</p>
+<ol>
+<li>不能改字体</li>
+<li>会自动删除 7-28 天之内的文章</li>
+</ol>
+<p>导致我去床上躺着还不能愉快阅读 RSS Feed。我订阅的很多博客都不是一个月一更的。像我自己都可能不会几个月更一次。</p>
+</blockquote>
+<blockquote>
+<p>我换了个新鼠标，因为旧的鼠标按键有点坏了。这次买的是人体工学鼠标，没我家里的那款鼠标「垂直」，不过大小很匹配我的手。凯感觉有点大。</p>
+<p><img src="/posts/ea48/anker.jpg" alt="Anker 人体工学鼠标"></p>
+</blockquote>
+<blockquote>
+<p>工作，今天很忙碌。有几个有意思的顾客：</p>
+<ul>
+<li>两个学生，买一个东西 6.26 美元，甲求着乙帮她付。乙起先说可以付 6 块，在甲的万般请求下帮付了 6.20 美元，甲则刷卡支付了剩余的 6 美分。后面甲还想买东西，老板看她没零钱，给她抹了零。</li>
+<li>有一位看上去就有点「问题」的男孩，他作为孩子脸、长得很高，不停地走来走去，还询问了我数个问题。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>我感觉我的生活已经没有了自己的时间了。一段不会被别人打扰的、自己想事情自己可以写下来的时间。我写日记都是选在较特别的时间段：坐车通勤、打工空闲… 就算是在家里，我也要赶项目的进度，更别提很多时候都有学校的作业要写。</p>
+</blockquote>
+<blockquote>
+<p>我梦到我和家人翻山越岭来到大陆的一个角落，在海里放了个 Hello Kitty 大脸气球，坐在上面想慢慢地飘到北极……</p>
+</blockquote>
+<blockquote>
+<p>你的大脑只能理解它已知的信息，所以当你选择你想要的未来时，你实际上只是基于过去创造了一个理想化的方案。</p>
+<p>如果事情没有按照你希望的方式发展，你就会认为自己失败了，因为你没有创造出你想要的东西。</p>
+<p>而实际上，你创造了更好的东西，但它对你的大脑而言是陌生的，所以大脑将其错误地理解为「不好的」。</p>
+</blockquote>
+<blockquote>
+<p>一个过于在意他人感受和看法的人，是否也是一个极度以自我为中心的人呢？</p>
+<p>拼命寻求认可是一种以自我为中心的表现。</p>
+<p>之所以在意他人的看法，是因为希望世界以自己想要的方式运行。</p>
+<p>课题分离：</p>
+<p>没有比主观感受更大的事情。</p>
+<p>课题 = 个体的主观感受 + 选择</p>
+<p>人际关系的烦恼：</p>
+<ol>
+<li>心甘情愿让他人干涉自己的课题</li>
+<li>企图强行干涉他人的课题</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>反叛精神不等于叛逆。</p>
+<p>叛逆青年无法跳脱出赏罚机制，只是因为无法因赞赏而得到他人的关注，因此走向极端，做叛逆的行为来获得关注。</p>
+<p>反叛精神则是跳脱出赏罚机制，不做会得到他人表扬的事，而是做自己想做的事。</p>
+</blockquote>
+<h2 id="职场与创业观察"><a class="markdownIt-Anchor" href="#职场与创业观察"></a> 职场与创业观察</h2>
+<h4 id="天使-vs-恶魔的管理风格"><a class="markdownIt-Anchor" href="#天使-vs-恶魔的管理风格"></a> 天使 vs 恶魔的管理风格</h4>
+<p>兼职的店里有两个「头儿」，一个是「天使」，一个是「恶魔」。前者我会在文章里称呼为「经理」，后者则会称呼为「老板」。但他们是不是真的经理和老板呢？我就不知道了。他俩对员工的要求是一个在天、一个在地。经理总是担心员工做不好，觉得大家都是孩子，基本上不会训斥员工，甚至巴不得员工不去做、他来做。老板则希望员工什么都能做、都得做好，必要的时候会训斥员工。如果要培训出一个能用的员工，自然是交给老板培训最好。但老板也不是什么时候都有空，就会把包袱丢给经理。结果便是经理培训过后的员工，没有几个是可以入老板眼的。</p>
+<h4 id="事精的定义"><a class="markdownIt-Anchor" href="#事精的定义"></a>「事精」的定义</h4>
+<p>这个月有两位新人来培训，其中有一位没想到竟是过去一次兼职的同事。因为本身就有奶茶店工作的经验，她学起来很快，不过老板的要求「道高一尺」。另一位则是由经理培训，培训结束后跟着老板做了两天就差点被炒鱿鱼。你们可以猜猜看，最终谁留了下来？</p>
+<p>两个都被炒掉了！</p>
+<p>前者被炒的理由较有意思：老板认为她是个「事精」。又或者说，不符合店铺氛围。</p>
+<p>对于这类小型服务业而言，店铺氛围是老板权威和管理风格的直接体现。员工无论主观是否愿意，都会受到这种氛围的影响而自动调整行为。在 10 人以下的小团队里，单个成员的态度和行为方式对整体氛围影响极大。一个「会搞事」的员工就足以改变整个团队的互动模式。</p>
+<h4 id="朋友的创业宣传策略"><a class="markdownIt-Anchor" href="#朋友的创业宣传策略"></a> <a href="/posts/c3f9.html">朋友的创业宣传策略</a></h4>
+<p>在营销至上的氛围中，我的一位创业者朋友也陷入了资源错配的怪圈。他的项目还未正式启动，但团队的所有人都开通了企业邮箱，一个月就要花掉不少钱。</p>
+<p>他认为团队里的多数人是做营销的，需要出头露面，企业邮箱因此是必需的。但是开支对于初创公司而言很大是真的，为此他想要削减技术人员的工具预算。</p>
+<p>我的第一反应是比较生气。同样作为技术人员，为什么这些人就要因为待在后面、不被人看到，就要把预算让给一些实际产出都不理想的人呢？</p>
+<p>我不是觉得营销没必要，事实上，我认为营销很有必要，因为没有什么产品是可以自销的。但是营销得有效，预算也得用在对的地方上。将「看起来像是在创业」的活动误认为是创业本身，可是毁灭性的想法！</p>
+<h2 id="技术学习与实践"><a class="markdownIt-Anchor" href="#技术学习与实践"></a> 技术学习与实践</h2>
+<h4 id="webmention"><a class="markdownIt-Anchor" href="#webmention"></a> Webmention</h4>
+<p>是的，现在这个博客网站支持 Webmention 了！这是 IndieWeb 的核心协议之一，想要详细了解我是如何做到的，可以看 <a href="/posts/1de.html">这篇文章</a>。目前我还在缓慢改进 Webmention 的显示方式，十分感谢 <a target="_blank" rel="noopener" href="https://taxodium.ink/">Spike</a> 在这期间主动联系我、帮助了我许多~</p>
+<p>然后我发现，开发 Hexo 的插件的话一定要在文件顶部写上：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* global hexo */</span></span><br></pre></td></tr></tbody></table></figure>
+<p>测试期间发现了 Hexo 实例未定义的错误。找了很久才发现是这行忘记加。</p>
+<h4 id="10x-工程师-vs-10x-工程师"><a class="markdownIt-Anchor" href="#10x-工程师-vs-10x-工程师"></a> 10x 工程师 vs -10x 工程师</h4>
+<p>在团队中，「10x 工程师」代表极高产能和影响力的人才；相对地，「-10x 工程师」则是以拖慢团队效率、增加内耗为特征的反面角色。他们的典型特征是：</p>
+<ul>
+<li>制造大量无效产出：例如幻灯片、图表、报告等形式主义成果，却无法交付可运行的产品。</li>
+<li>追求优雅胜过实用：花费大量时间在架构设计或代码风格打磨上，却忽视最终交付或快速迭代的需求。</li>
+<li>阻塞决策流程：反对「一锤定音」的决策方式，通过反复讨论、持续征求意见拖延进度。</li>
+<li>冗长且泛滥的沟通：在群组或邮件中发送长消息，要求团队成员广泛参与无意义的讨论。</li>
+<li>代码与脚本难以维护：编写晦涩难懂、仅自己能看懂的脚本或程序，没有文档；构建和测试流程非常缓慢。</li>
+<li>滥用测试与依赖：写大量毫无意义的测试用例；引入需要单独学习且维护成本高的第三方库。</li>
+<li>浪费团队智力：将团队困在复杂而收益不明的项目上，让其他工程师也陷入无产出的深坑。</li>
+<li>误导管理层：低估项目难度，夸大可行性，最终导致进度大幅延迟或彻底失败。</li>
+<li>复制「负能量」人才：倾向招募同样低效的工程师，进一步拖累团队。</li>
+</ul>
+<h2 id="社交与人际关系思考"><a class="markdownIt-Anchor" href="#社交与人际关系思考"></a> 社交与人际关系思考</h2>
+<h4 id="吃免费的饭骂做饭的厨子"><a class="markdownIt-Anchor" href="#吃免费的饭骂做饭的厨子"></a> <a href="/posts/a2a2.html">吃免费的饭，骂做饭的厨子</a></h4>
+<h4 id="一位自恋的朋友"><a class="markdownIt-Anchor" href="#一位自恋的朋友"></a> 一位自恋的朋友</h4>
+<p>我和一位朋友有过一段时间的来往。我始终自认我不是一位容易讨厌别人的人，但是和他对话总会升起我心中的一股无名火 —— 不是因为他说了什么过分的话，而是因为他从来没有真正地在「对话」。很多时候我在说一些我的事情，他总是可以接上不符合逻辑的话题，或者说毫无理由地反驳我。如果是他的事情，他则可以在我没有回复任何字的情况下，自言自语数十分钟，尽管我已经明显表达了不感兴趣的态度。</p>
+<p>这种交流模式的本质是自我呈现。根据社会学家戈夫曼的拟剧论，<strong>人生如戏，社交是表演</strong>。在这场社交的「舞台」上，人们在不同场合扮演不同角色，分为「前台」与「后台」两种状态：前台是对外展示、意识到被观察的行为空间，演员需遵循社会规范和期待，努力塑造理想形象；而后台则是私密放松、不被他人观察的区域，真实自我得以显露和调整。我和这位朋友的交谈，则陷入单向「前台」自我表演，他将所有交流均视作展现自我的舞台，缺少「后台」的真实释放心态，也不顾及作为「观众」，也就是我的反馈感受。</p>
+<p>从心理学角度讲，这种行为属于对话型自恋：他在对话中占据主导，只关注如何彰显自我，忽视对方的存在和感受。他总是对主流价值观持否定态度，但在现实生活里却是一位完全的「社交失败者」。单是日常聊天，他就只会使用网上流行的「梗句」作答，甚至很多时候，他使用的「梗句」还是具有一定侵入性、攻击性的。或许他以为网络上这么说没问题，但是他真的觉得这些「梗句」不具备任何攻击性的吗？答案是否定的。因为一次我刻意学他说话，他却跳脚般地说教我。</p>
+<p>他平日最爱说的一个话题，就是他有多么自卑、无能。我倒是没有看出他的自卑在哪里，只能看出他强烈的自恋。有一种自恋叫做脆弱型自恋，其中一个防御策略是 <strong>通过先发制人的自我贬低，钓取他人关注与安慰</strong>。一旦感知到安全，他便迅速切换模式，对我进行信息轰炸，说许多我根本不感兴趣的内容。</p>
+<p>人是需要知道自己的重要性的。为了达到这个目的，人是可以做出多个看似不符合逻辑、实际上很贴合的事情。比方说，他就很喜欢 <strong>比烂</strong>。比烂是一种攀比，重点是要成为「第一」。至于是什么的第一，无所谓，因为人们只会关注第一，不论是正数还是倒数。这也是一种竞争性依附。他将我和他的关系视为零和博弈，只有在我「输」的前提下，他自己才能「赢」。这种逻辑下，无论什么话题，他在乎的都是如何让我「输」，也就是用各种方式「扳倒」我。</p>
+<p>我之后便不再和这个朋友往来。不只是和他对话很火大，再就是他努力想要表达出的自我并不有趣，近乎都是从网络上搜刮来的人设。</p>
+<h4 id="阶段性朋友"><a class="markdownIt-Anchor" href="#阶段性朋友"></a> 阶段性朋友</h4>
+<p>人与人之间的关系，远没有想象中那般永恒，而是会随着个人成长、环境变迁逐渐发生裂变与疏离。所谓「阶段性朋友」，指的是那些在生命某个阶段因为特定经历或背景走到一起、彼此陪伴、共享过一段时光的朋友。但随着时间推移，彼此的世界观、生活轨迹乃至性格边界产生变化，这段关系逐渐失去了原有的连结，甚至在某个节点彻底失效。</p>
+<p>认识的年头再长，曾经再亲密都不能保证关系始终如一。人会成长，也会走散，有的人是陪你一阵子的，有的人才能陪你一辈子。</p>
+<p>我认为这并不等同于背叛或者消耗，这是一场彼此陪伴和成长的必经过程。感谢那段时光的相遇和陪伴，也坦然面对最终的分离。接受关系的自然流转，顺势而为。成长本就是一场不断筛选、不断更新关系的过程。</p>
+<h4 id="你只是在怪她没有选你"><a class="markdownIt-Anchor" href="#你只是在怪她没有选你"></a> 你只是在怪她没有选你</h4>
+<p>近日，一位朋友提起了自己的情感问题。简单来说便是他过去喜欢上了一位经常吊着他的女生，一次次经历快乐的时光，又一次次经历痛苦的瞬间。近期他意外发现这个女生找了新对象，过往的创伤再次以侵入性记忆的形式进入他的大脑。对话中，他提到他在网上看到的一句话：<em>你只是在怪她没有选你</em>。</p>
+<p>我想，他真正痛苦的不是那个女生找了对象，而是当初未必选择这个事实本身对自我价值的冲击。有一个概念叫做拒绝创伤（Rejection trauma），即人际拒绝激活的大脑区域与身体疼痛激活的区域高度重叠，被拒绝确实会产生类似生理创伤的痛感。对于他来说，更深层的创伤在于他在自己的脆弱时期经历了多重打击：</p>
+<ul>
+<li>被暧昧控制却不给明确关系</li>
+<li>被同学恶意针对并刻意「抢走」心上人</li>
+<li>被告知所有暧昧只是「同情」，彻底被否定了情感价值</li>
+</ul>
+<p>他不理解，为什么他那么优秀，但是被选的人从来就不是他。他已经在心中种下了一颗名为「根本性的失败」的种子：他想尽一切努力让她看到自己、认可自己，但从来都不够，因为他 <strong>不够好</strong>。</p>
+<p>创伤记忆是不会像普通记忆一样被妥善储存，而是以碎片化、高度情绪化的形式存在。当遇到类似的触发因素时，这些记忆会突然闯入意识，带来与当时一样的强烈情绪。</p>
+<p>更为复杂的是，这种未处理的创伤也以其他方式渗入他当前的关系。他是一个具有着强烈正义感和责任心的人。这种特质本是优点，但在经历情感创伤后，却演变成了一种过度的责任承担 —— 我会认为他有救世主情结。他现在在一段恋情当中，总是希望可以带着对象远离她的病态家庭。他过往在人际关系上经历的难处，他都会认为是他自己没有做好、没有开导好别人，或者没有早日察觉别人的异常。对于曾经历过「不被选择」创伤的人，拯救他人可以暂时填补自我价值的空洞。因为通过「被需要」，他可以获得一种确认 —— <strong> 我是有价值的、不可或缺的</strong> —— 这正是当年被拒绝时所失去的感受。</p>
+<p>正因为他目前身处一段恋情中，这些涌现的创伤记忆与对现任的责任感形成了激烈的内心冲突。他一边被过去的痛苦侵扰，一边因为「不应该想着过去」而产生强烈的负罪感。这种负罪感让他选择压抑，但压抑只会让创伤以更扭曲的方式显现 —— 在每一次「我是不是不够好」的自我怀疑中。</p>
+<p>创伤是合法的，痛苦是真实且值得被理解的。更重要的是，自己的价值从来不由「谁选择了我」来决定。他那么努力地想要被看见、被认可、被选择，却忘了最重要的选择权在他自己手中 —— 选择相信自己的价值，选择不再让过去的拒绝定义现在的自己，选择带着伤痕继续成长。那个女生没有选他，但他可以选择自己。我想，这是我试图想要告诉他的。</p>
+<h2 id="教育与学习"><a class="markdownIt-Anchor" href="#教育与学习"></a> 教育与学习</h2>
+<h4 id="番茄钟的个人想法"><a class="markdownIt-Anchor" href="#番茄钟的个人想法"></a> 番茄钟的个人想法</h4>
+<p>一次，一位校友询问我平日都是如何学习的。我说我会学到累为止。他立马开始批评我，并提到了他的一位朋友的学习方式，认为我应该向他学习。而那位朋友的学习方式，则是番茄钟学习法。</p>
+<p>我觉得这位校友人很烦。这已经不是第一次他因为一件自己完全不熟悉的事情而「说教」我了。我也不喜欢番茄钟，但我也不否认它的可用性，只是它强制的时间切割方式会和我的思考节奏产生冲突。</p>
+<blockquote>
+<p>番茄钟学习法：要求你每完成一个 25 分钟的专注周期，就必须暂停 5 分钟。</p>
+</blockquote>
+<p>我习惯深度沉浸地做事。如果在我思路连贯的时候突然中断我，我会十分愤怒，并且之后也很难迅速回到同样的专注状态。</p>
+<p>番茄钟本身是一套高度结构化、外在强制的时间管理体系。它规定了固定的工作与休息节奏。对于依赖自我判断来安排学习节奏的人来说，使用番茄钟容易产生被工具主导的无力感。并且对于需要更长的连续思考才能进入心流状态的人来说，当休息周期早于心流完成点时，反而会打乱最佳效率，还不如自然而然地寻找暂停时机。</p>
+<h2 id="书影音"><a class="markdownIt-Anchor" href="#书影音"></a> 书影音</h2>
+<h4 id="书籍"><a class="markdownIt-Anchor" href="#书籍"></a> 书籍</h4>
+<p>我这个月没有怎么阅读书籍。惭愧。</p>
+<h4 id="影视"><a class="markdownIt-Anchor" href="#影视"></a> 影视</h4>
+<p>这个月和室友重温了《Happy Sugar Life》。动画在播出时我还是个初中生，因为对题材比较感兴趣，期间还追了漫画连载。现在再来看这个动画，感觉节奏很不错、不拖沓。我在漫画完结后就再也没有关注过该作品，没想到作者之后还出了第 11 卷，其中最重要的是讲到了女主之一盐长大后的样子。</p>
+<h4 id="音乐"><a class="markdownIt-Anchor" href="#音乐"></a> 音乐</h4>
+<p>这个月初我没有继续听 YouTube Music 为我在年初时创建的 Recap 播放列表，而是按照它的推荐算法、听了一些它推荐给我的专辑和单曲。其中最让我印象深刻的便是 <strong>温室杂草</strong> 这支乐队。他们 2021 年发布的单曲《春天有脚》非常好听，很赞。</p>
+<blockquote>
+<p><em>一起离开吧~ 一起离开吧~</em></p>
+</blockquote>
+<p>另一首我比较喜欢的单曲是《快乐的形状》。我很喜欢主唱呼出「快乐」的时候。</p>
+<p><strong>傻子与白痴</strong> 这支乐队在 2019 年发布的专辑《夜长梦少》我也因推荐去听了。我认为该乐队的音乐风格不是我喜欢的那种，但是我很喜欢他们在该专辑里的一处设计。第七首《Taxi Radio》仅有一分钟，说是「歌曲」很奇怪，它更像是过渡段：一位出租车司机接了几个客人，问他们是不是玩乐队的。客人好似有些尴尬，一个接一个地说「是啊，算是吧」。背景里的电台主持人介绍着一支正在崛起的乐队 —— 傻子与白痴，播放了该专辑的第八首《美好前程》。</p>
+<p>我还听了 <strong>伤心欲绝</strong> 的专辑《逊到简直是个艺术品》。不得不说，这些乐队的取名风格实在是艺术，我很喜欢。</p>
+<h2 id="工具"><a class="markdownIt-Anchor" href="#工具"></a> 工具</h2>
+<!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/ea48.html" data-full-url="https://cytrogen.icu/posts/ea48.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

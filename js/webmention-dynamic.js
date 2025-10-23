@@ -42,7 +42,12 @@ class WebmentionLoader {
     const publishedDate = new Date(mention.published || mention['wm-received']);
     const dateStr = publishedDate.toLocaleDateString('zh-CN');
 
-    const contentHtml = mention.content ? mention.content.html || mention.content.text : '';
+    let content = mention.content;
+    if (Array.isArray(content) && content.length > 0) {
+      content = content[0];
+    }
+
+    const contentHtml = content ? content.html || content.text : '';
 
     item.innerHTML = `
       <div class="webmention-author">
@@ -51,7 +56,7 @@ class WebmentionLoader {
         <span class="webmention-date">${dateStr}</span>
       </div>
       <div class="webmention-content">
-        ${this.truncateContent(contentHtml)}
+        ${DOMPurify.sanitize(this.truncateContent(contentHtml))}
       </div>
       <div class="webmention-meta">
         <a class="webmention-source" href="${mention['wm-source']}" target="_blank" rel="noopener ugc">查看原文</a>
