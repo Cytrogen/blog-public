@@ -82,6 +82,24 @@
   b,
   strong {
     font-weight: bold;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 1px;
+      background: repeating-linear-gradient(
+        to right,
+        currentColor 0,
+        currentColor 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      opacity: 0.6;
+    }
   }
   
   dfn {
@@ -113,7 +131,12 @@
     bottom: -0.25em;
   }
   
-  ul {
+  p {
+    margin: 1rem 0;
+  }
+
+  ul,
+  ol {
     margin: 1rem 0;
     
     &.nav,
