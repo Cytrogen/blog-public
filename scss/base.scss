@@ -82,16 +82,56 @@
   b,
   strong {
     font-weight: bold;
-    text-decoration: underline;
-    text-decoration-line: underline;
-    text-decoration-style: dotted;
-    text-decoration-color: currentColor;
-    text-underline-offset: 5px;
-    text-decoration-thickness: 1px;
+    // 移除下划线效果，让粗体更简洁
+    // text-decoration: underline;
+    // text-decoration-line: underline;
+    // text-decoration-style: dotted;
+    // text-decoration-color: currentColor;
+    // text-underline-offset: 5px;
+    // text-decoration-thickness: 1px;
   }
   
   dfn {
     font-style: italic;
+  }
+
+  // 中文着重号样式 - 不影响行高
+  .emphasis,
+  .em {
+    text-emphasis: filled circle;
+    text-emphasis-color: var(--color-primary);
+    font-weight: normal;
+    line-height: inherit; /* 保持原有行高 */
+    display: inline; /* 确保行内显示 */
+  }
+
+  // 不同的着重号样式
+  .emphasis-dot {
+    text-emphasis: filled dot;
+    text-emphasis-color: var(--color-primary);
+    line-height: inherit;
+    display: inline;
+  }
+
+  .emphasis-circle {
+    text-emphasis: filled circle;
+    text-emphasis-color: var(--color-primary);
+    line-height: inherit;
+    display: inline;
+  }
+
+  .emphasis-triangle {
+    text-emphasis: filled triangle;
+    text-emphasis-color: var(--color-primary);
+    line-height: inherit;
+    display: inline;
+  }
+
+  .emphasis-sesame {
+    text-emphasis: filled sesame;
+    text-emphasis-color: var(--color-primary);
+    line-height: inherit;
+    display: inline;
   }
   
   mark {

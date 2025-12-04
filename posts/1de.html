@@ -10,41 +10,25 @@
   descent-override: 25%;
   line-gap-override: 0%;
 }
-</style><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
-  const getInitialTheme = () => {
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
     const saved = localStorage.getItem('theme');
-    if (saved && (saved === 'light' || saved === 'dark')) {
-      return saved;
-    }
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    
-    return 'light';
-  };
-  
-  const theme = getInitialTheme();
-  document.documentElement.setAttribute('data-theme', theme);
-  
-  document.documentElement.style.colorScheme = theme;
-  
-  // Add anti-flicker style for dark mode
-  if (theme === 'dark') {
-    const style = document.createElement('style');
-    style.id = 'anti-flicker-style';
-    style.innerHTML = `
-      #page-wrapper[data-theme="dark"] {
-        background-color: #0f172a;
-        color: #f1f5f9;
-      }
-    `;
-    document.head.appendChild(style);
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
   }
-  
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
   document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
     const pageWrapper = document.getElementById('page-wrapper');
-    if (pageWrapper) {
+    if (pageWrapper && theme) {
       pageWrapper.setAttribute('data-theme', theme);
     }
   });
@@ -389,7 +373,7 @@
       </div>
       
       <!-- 发布时间 - 隐藏但可解析 -->
-      <time class="dt-published" style="position: absolute; left: -9999px;" datetime="2025-12-02T00:29:11.594Z"> 2025-12-02T00:29:11.594Z </time>
+      <time class="dt-published" style="position: absolute; left: -9999px;" datetime="2025-12-02T23:49:57.244Z"> 2025-12-02T23:49:57.244Z </time>
       
       <!-- 回复内容 -->
       <div class="reply-content e-content">

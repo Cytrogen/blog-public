@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root {
   --color-primary: #5454f8;
   --color-secondary: #267B54;
@@ -145,19 +146,57 @@ abbr[title] {
 b,
 strong {
   font-weight: bold;
-  text-decoration: underline;
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
-  -webkit-text-decoration-style: dotted;
-          text-decoration-style: dotted;
-  -webkit-text-decoration-color: currentColor;
-          text-decoration-color: currentColor;
-  text-underline-offset: 5px;
-  text-decoration-thickness: 1px;
 }
 
 dfn {
   font-style: italic;
+}
+
+.emphasis,
+.em {
+  -webkit-text-emphasis: filled circle;
+          text-emphasis: filled circle;
+  -webkit-text-emphasis-color: var(--color-primary);
+          text-emphasis-color: var(--color-primary);
+  font-weight: normal;
+  line-height: inherit; /* 保持原有行高 */
+  display: inline; /* 确保行内显示 */
+}
+
+.emphasis-dot {
+  -webkit-text-emphasis: filled dot;
+          text-emphasis: filled dot;
+  -webkit-text-emphasis-color: var(--color-primary);
+          text-emphasis-color: var(--color-primary);
+  line-height: inherit;
+  display: inline;
+}
+
+.emphasis-circle {
+  -webkit-text-emphasis: filled circle;
+          text-emphasis: filled circle;
+  -webkit-text-emphasis-color: var(--color-primary);
+          text-emphasis-color: var(--color-primary);
+  line-height: inherit;
+  display: inline;
+}
+
+.emphasis-triangle {
+  -webkit-text-emphasis: filled triangle;
+          text-emphasis: filled triangle;
+  -webkit-text-emphasis-color: var(--color-primary);
+          text-emphasis-color: var(--color-primary);
+  line-height: inherit;
+  display: inline;
+}
+
+.emphasis-sesame {
+  -webkit-text-emphasis: filled sesame;
+          text-emphasis: filled sesame;
+  -webkit-text-emphasis-color: var(--color-primary);
+          text-emphasis-color: var(--color-primary);
+  line-height: inherit;
+  display: inline;
 }
 
 mark {

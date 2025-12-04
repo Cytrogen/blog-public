@@ -10,41 +10,25 @@
   descent-override: 25%;
   line-gap-override: 0%;
 }
-</style><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
-  const getInitialTheme = () => {
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
     const saved = localStorage.getItem('theme');
-    if (saved && (saved === 'light' || saved === 'dark')) {
-      return saved;
-    }
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    
-    return 'light';
-  };
-  
-  const theme = getInitialTheme();
-  document.documentElement.setAttribute('data-theme', theme);
-  
-  document.documentElement.style.colorScheme = theme;
-  
-  // Add anti-flicker style for dark mode
-  if (theme === 'dark') {
-    const style = document.createElement('style');
-    style.id = 'anti-flicker-style';
-    style.innerHTML = `
-      #page-wrapper[data-theme="dark"] {
-        background-color: #0f172a;
-        color: #f1f5f9;
-      }
-    `;
-    document.head.appendChild(style);
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
   }
-  
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
   document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
     const pageWrapper = document.getElementById('page-wrapper');
-    if (pageWrapper) {
+    if (pageWrapper && theme) {
       pageWrapper.setAttribute('data-theme', theme);
     }
   });
@@ -55,18 +39,95 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
-</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">想法在乙巳临月迭代</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-11-02T05:47:29.000Z">11/2/2025</time></div><div class="post-content"><html><head></head><body><span id="more"></span>
-<h2 id="日记"><a class="markdownIt-Anchor" href="#日记"></a> 日记</h2>
-<h2 id="书影音"><a class="markdownIt-Anchor" href="#书影音"></a> 书影音</h2>
-<h4 id="书籍"><a class="markdownIt-Anchor" href="#书籍"></a> 书籍</h4>
-<h4 id="影视"><a class="markdownIt-Anchor" href="#影视"></a> 影视</h4>
-<h4 id="音乐"><a class="markdownIt-Anchor" href="#音乐"></a> 音乐</h4>
-<h2 id="博客"><a class="markdownIt-Anchor" href="#博客"></a> 博客</h2>
-<h2 id="职场与创业观察"><a class="markdownIt-Anchor" href="#职场与创业观察"></a> 职场与创业观察</h2>
-<h2 id="技术学习与实践"><a class="markdownIt-Anchor" href="#技术学习与实践"></a> 技术学习与实践</h2>
-<h2 id="社交与人际关系思考"><a class="markdownIt-Anchor" href="#社交与人际关系思考"></a> 社交与人际关系思考</h2>
-<h2 id="教育与学习"><a class="markdownIt-Anchor" href="#教育与学习"></a> 教育与学习</h2>
-<h2 id="日记片段"><a class="markdownIt-Anchor" href="#日记片段"></a> 日记片段</h2>
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">想法在乙巳临月迭代</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-12-02T02:54:00.000Z">12/1/2025</time></div><div class="post-content"><html><head></head><body><span id="more"></span>
+<details>
+<summary>本期导读</summary>
+<h2 id="商业与社会"><a class="markdownIt-Anchor" href="#商业与社会"></a> 商业与社会</h2>
+<p>关注资本流向与阶层分化。</p>
+<h2 id="心理与关系"><a class="markdownIt-Anchor" href="#心理与关系"></a> 心理与关系</h2>
+<p>我们如何处理与自己、与他人的关系。</p>
+<h2 id="技术与创造"><a class="markdownIt-Anchor" href="#技术与创造"></a> 技术与创造</h2>
+<p>互联网生态观察与本站折腾记录。</p>
+<ul>
+<li><a href="#%E6%9C%89%E8%B6%A3%E9%A1%B9%E7%9B%AE">有趣项目分享</a></li>
+</ul>
+<h2 id="生活与文娱"><a class="markdownIt-Anchor" href="#生活与文娱"></a> 生活与文娱</h2>
+<p>具体的、鲜活的【】月。</p>
+<ul>
+<li><a href="#%E4%B9%A6%E5%BD%B1%E9%9F%B3">书影音</a></li>
+<li><a href="#%E6%97%A5%E8%AE%B0%E7%89%87%E6%AE%B5">真生活</a></li>
+</ul>
+</details>
+<h2 id="商业与社会-2"><a class="markdownIt-Anchor" href="#商业与社会-2"></a> 商业与社会</h2>
+<h4 id="高收入工作岗位流失正在抑制住房需求"><a class="markdownIt-Anchor" href="#高收入工作岗位流失正在抑制住房需求"></a> <a target="_blank" rel="noopener" href="https://jbrec.com/insights/job-growth-housing-demand-metro-analysis-2026/">《高收入工作岗位流失正在抑制住房需求》</a></h4>
+<p>作者 John Macke 发现，信息、专业服务和金融活动等高收入行业的就业岗位正在流失，而这一趋势正在直接冷却住房需求。这是因为这些行业的从业者通常是推动购房需求，而非租房需求。与此同时，教育和医疗保健行业在几乎所有都会区都扩张得比正常更快。虽然这些新增岗位数量庞大，但平均工资较低，更容易带动租赁需求。</p>
+<p>整体来看，这篇文章揭示了一个我们平时可能注意到却没深想的细节：房市的冷热不仅取决于就业总量，更取决于就业结构。当高收入岗位减少时，即使其他行业在扩张，购房需求也会明显降温。住房市场的未来走向与劳动力市场的构成紧密相连，而不仅仅是数字上的增长或下降。</p>
+<h4 id="民意调查美国人不再认为四年制大学学位物有所值这是一个戏剧性的转变"><a class="markdownIt-Anchor" href="#民意调查美国人不再认为四年制大学学位物有所值这是一个戏剧性的转变"></a> <a target="_blank" rel="noopener" href="https://www.nbcnews.com/politics/politics-news/poll-dramatic-shift-americans-no-longer-see-four-year-college-degrees-rcna243672">《民意调查：美国人不再认为四年制大学学位物有所值，这是一个戏剧性的转变》</a></h4>
+<p>作者 Ben Kamisar 发现，美国人对四年制大学学位的价值观正在发生剧烈转变。</p>
+<p>近三分之二的注册选民如今认为大学学位「不值这个价」，理由是毕业生往往缺乏具体职业技能，同时背负沉重债务。只有约三分之一的人仍然相信学位能带来更好的工作机会和长期收入。这与十年前的情况形成鲜明对比：2013 年多数人认为学位值得投资，而如今这一比例下降了 20 个百分点。</p>
+<h2 id="心理与关系-2"><a class="markdownIt-Anchor" href="#心理与关系-2"></a> 心理与关系</h2>
+<h4 id="只需要有一个成功就够了"><a class="markdownIt-Anchor" href="#只需要有一个成功就够了"></a> <a target="_blank" rel="noopener" href="https://alearningaday.blog/2025/11/28/all-it-takes-is-for-one-to-work-out-2/">《只需要有一个成功就够了》</a></h4>
+<p>很多时候，我们并不需要所有机会都奏效，只要有一个合适的结果，就能带来转折。</p>
+<h2 id="技术与创造-2"><a class="markdownIt-Anchor" href="#技术与创造-2"></a> 技术与创造</h2>
+<h4 id="网页浏览器状态栏太疯狂了"><a class="markdownIt-Anchor" href="#网页浏览器状态栏太疯狂了"></a> <a target="_blank" rel="noopener" href="https://lapcatsoftware.com/articles/2025/11/4.html">《网页浏览器状态栏太疯狂了》</a></h4>
+<p>作者 Jeff Johnson 发现，浏览器在状态栏和地址栏里对 URL 的显示方式存在一些细微但令人困惑的不一致。例如：</p>
+<ul>
+<li>在 Safari，如果你把鼠标悬停在一个 https 链接上，状态栏会显示完整的 URL；但如果是 http 链接，状态栏却省略了「http://」。</li>
+<li>Chrome 的表现与 Safari 类似，而 Firefox 则恰好相反：它会在状态栏里完整显示 http URL，却省略了 https 的开头。</li>
+<li>更讽刺的是，Safari 的地址栏默认省略 https，但状态栏却显示它；而 Firefox 地址栏和状态栏保持一致，都省略 https，只用一个锁图标来代替。</li>
+</ul>
+<p>这一点看似微不足道，但作者指出，它让用户在不同浏览器之间切换时产生混乱，甚至在同一个浏览器里也会遇到自相矛盾的逻辑。我们平常可能注意到「有时地址栏没写 http / https」，却很少深究为什么会这样。Johnson 的结论是：这种半吊子的做法不仅没有简化体验，反而让人更难记住规则，甚至可能掩盖了安全信息。</p>
+<h4 id="cloudflare-宕机是一件好事"><a class="markdownIt-Anchor" href="#cloudflare-宕机是一件好事"></a> <a target="_blank" rel="noopener" href="https://gist.github.com/jbreckmckye/32587f2907e473dd06d68b0362fb0048">《Cloudflare 宕机是一件好事》</a></h4>
+<p>作者 jbreckmkcye 认为，Cloudflare 这次大规模宕机事件虽然短期内让许多网站和服务瘫痪，但从长远来看却是一件好事。</p>
+<p>Cloudflare 是如何宕机的呢？只不过是一个配置错误而已，不过它确实导致了全球大量网站无法访问，凸显了 <strong>互联网基础设施过度集中在少数几家公司</strong> 身上的风险。作者指出，这种集中化让单点故障的影响被无限放大，而这次事故迫使开发者和企业重新思考冗余设计、分布式架构，以及避免把所有流量都交给一家供应商。</p>
+<p>换句话说，人们开始意识到鸡蛋不能放在同一个篮子里了，赛博鸡蛋也一样。</p>
+<h4 id="人工智能时代的批判性思维"><a class="markdownIt-Anchor" href="#人工智能时代的批判性思维"></a> <a target="_blank" rel="noopener" href="https://addyo.substack.com/p/critical-thinking-during-the-age">《人工智能时代的批判性思维》</a></h4>
+<p>作者 Addy Osmani 使用了十分经典的 5W1H 框架，来阐述在 AI 时代保持批判性思维的重要性。</p>
+<blockquote>
+<ul>
+<li>谁：不要依赖 AI 作为神谕。验证其输出。</li>
+<li>什么：在急于寻求解决方案之前，先定义真正的问题。</li>
+<li>在哪里：上下文为王。在沙盒中有效的修复可能会在生产环境中出现问题。</li>
+<li>何时：知道何时使用快速启发法（初步判断）与深度分析（根本原因）。</li>
+<li>原因：使用「5 个为什么」技巧来找出根本原因。</li>
+<li>如何：用证据和数据沟通，而不仅仅是依靠观点。</li>
+</ul>
+</blockquote>
+<p>AI 可以生成看似合理的答案，但真正的价值在于人类能否用批判性思维去验证、质疑和完善这些答案。</p>
+<h4 id="llm-是一场失败-新一轮人工智能寒冬即将来临"><a class="markdownIt-Anchor" href="#llm-是一场失败-新一轮人工智能寒冬即将来临"></a> <a target="_blank" rel="noopener" href="https://taranis.ie/llms-are-a-failure-a-new-ai-winter-is-coming/">《LLM 是一场失败。新一轮人工智能寒冬即将来临》</a></h4>
+<p>作者 Taranis 认为，LLM（大型语言模型）虽然一度被视为突破性的技术，但如今已显露出根本性的局限，甚至可能引发新一轮的「AI 寒冬」。</p>
+<p>随着模型规模不断扩大，它们生成的错误往往更加「逼真」，只有专家才能识别。这使得 LLM 在医学、教育评估、执法、税务等关键领域完全不可接受，因为错误率带来的风险过高。与此同时，即便是在编程辅助等场景，幻觉代码也可能导致严重漏洞和维护负担。</p>
+<p>更为严峻的是，目前企业界约有 95% 的生成式 AI 项目已经失败，投资和基础设施支出也可能很快崩塌。或许少数「杀手级应用」能够幸存，但大多数用例终将消失。未来，我们仍可能在文本编辑器或学生作业中看到 AI 的身影，但整体行业势必经历剧烈收缩。</p>
+<h4 id="阻止坏人使用我的开源项目"><a class="markdownIt-Anchor" href="#阻止坏人使用我的开源项目"></a> <a target="_blank" rel="noopener" href="https://evanhahn.com/stopping-bad-guys-from-using-my-open-source-project/">《阻止坏人使用我的开源项目》</a></h4>
+<p>作者 Evan Hahn 指出了一个看似简单却极具争议的问题：开源项目是否应该允许任何人、不加限制地使用？</p>
+<p>Hahn 维护着一个在 npm 上有超过 2 亿次下载的的开源包。虽然它默默嵌入在成千上万的项目中，但并不为人熟知。然而，正因为它的广泛使用，他开始担心 —— 大型公司和所谓的「坏人」正在免费利用这些成果，却没有任何回馈。</p>
+<p>因此，Hahn 提出了一系列问题：</p>
+<ul>
+<li>是否应该改变许可证，避免 MIT 这种「任何目的都可用」的完全自由？</li>
+<li>是否可以通过文档或博客呼吁，来引起更多关注？</li>
+<li>是否需要集体行动，让更多维护者联合起来？</li>
+<li>是否可以先在一些不太流行的项目上做实验？</li>
+</ul>
+<h4 id="阻止邪恶与开源我的想法"><a class="markdownIt-Anchor" href="#阻止邪恶与开源我的想法"></a> <a target="_blank" rel="noopener" href="https://blog.liw.fi/posts/2025/stop-evil/">《阻止邪恶与开源：我的想法》</a></h4>
+<p>作者 Lars Wirzenius 回应了上一篇《阻止坏人使用我的开源项目》的讨论。</p>
+<p>他首先明确表示，不赞成通过修改开源许可证来阻止坏人使用软件。在他看来，这样做并不能真正阻止邪恶行为，反而会破坏开源生态。开源之所以能繁荣，是因为它允许开发者在没有繁琐谈判的情况下自由组合和复用代码。如果许可证开始带有排他性或限制性条款，善意的开发者反而会因为兼容性问题而无法继续构建新的应用。</p>
+<p>其次，他强调，真正的坏人并不会在意许可证。无论是政府机构、大型企业，还是极端组织，他们都有能力无视规则，甚至凌驾于法律之上。换句话说，改变许可证只会增加好人的负担，却无法阻止坏人继续使用。</p>
+<p>在价值观层面，Wirzenius 承认自己也希望阻止破坏生态环境的公司、压迫性的执法机构或极权组织，但他认为开源许可证不是有效的武器。相反，他提出了另一种思路：<strong>人类社会需要通过发声、拒绝合作、抵制恶行、照顾他人、建设善意的事物来抵抗邪恶</strong>。这些方式虽然需要更多勇气和时间，但才是真正能发挥作用的长期策略。</p>
+<h4 id="有趣项目"><a class="markdownIt-Anchor" href="#有趣项目"></a> 有趣项目</h4>
+<h2 id="生活与文娱-2"><a class="markdownIt-Anchor" href="#生活与文娱-2"></a> 生活与文娱</h2>
+<h4 id="书影音"><a class="markdownIt-Anchor" href="#书影音"></a> 书影音</h4>
+<ul>
+<li>
+<p>书籍</p>
+</li>
+<li>
+<p>影视</p>
+</li>
+<li>
+<p>音乐</p>
+</li>
+</ul>
+<h4 id="日记片段"><a class="markdownIt-Anchor" href="#日记片段"></a> 日记片段</h4>
 <!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/b210.html" data-full-url="https://cytrogen.icu/posts/b210.html" data-mode="static">
               <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
               <div class="webmention-list"></div>
