@@ -382,3 +382,24 @@ optgroup {
 .hidden {
   display: none !important;
 }
+
+ruby {
+  ruby-align: center;
+  position: relative;
+  display: inline-block;
+}
+ruby rt {
+  font-size: 0.6em;
+  color: var(--text-secondary);
+  line-height: 1;
+  text-align: center;
+  font-weight: normal;
+  ruby-position: over;
+  -webkit-ruby-position: over;
+  -moz-ruby-position: over;
+  display: ruby-text;
+  -webkit-text-emphasis: none;
+          text-emphasis: none;
+  -webkit-text-emphasis-style: none;
+          text-emphasis-style: none;
+}
