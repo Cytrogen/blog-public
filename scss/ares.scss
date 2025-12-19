@@ -19,6 +19,7 @@
 @use '_partial/a11y';
 @use '_partial/back-to-top';
 @use '_partial/webmention';
+@use '_partial/diary';
 
 @media screen and (min-width: $breakpoint-desktop) {
   .wrap {
@@ -59,7 +60,6 @@
   .post-content {
     h2, h3, h4, h5, h6 {
       max-width: 300px;
-      left: 15px;
     }
   }
 

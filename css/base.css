@@ -148,6 +148,13 @@ strong {
   font-weight: bold;
 }
 
+u {
+  text-decoration: underline;
+  -webkit-text-decoration-color: currentColor;
+          text-decoration-color: currentColor;
+  text-underline-offset: clamp(1px, 0.1em, 3px);
+}
+
 dfn {
   font-style: italic;
 }
@@ -156,8 +163,6 @@ dfn {
 .em {
   -webkit-text-emphasis: filled circle;
           text-emphasis: filled circle;
-  -webkit-text-emphasis-color: var(--color-primary);
-          text-emphasis-color: var(--color-primary);
   font-weight: normal;
   line-height: inherit; /* 保持原有行高 */
   display: inline; /* 确保行内显示 */
@@ -383,23 +388,37 @@ optgroup {
   display: none !important;
 }
 
+/*
 ruby {
   ruby-align: center;
   position: relative;
   display: inline-block;
+
+  rt {
+    font-size: 0.6em;
+    color: var(--text-secondary);
+    line-height: 1;
+    text-align: center;
+    font-weight: normal;
+
+    // 强制设置正确的 ruby 位置
+    ruby-position: over;
+    -webkit-ruby-position: over;
+    -moz-ruby-position: over;
+
+    // 确保显示为 ruby 文本
+    display: ruby-text;
+
+    // 防止继承 text-emphasis 样式
+    text-emphasis: none;
+    text-emphasis-style: none;
+  }
 }
-ruby rt {
-  font-size: 0.6em;
-  color: var(--text-secondary);
-  line-height: 1;
-  text-align: center;
-  font-weight: normal;
-  ruby-position: over;
-  -webkit-ruby-position: over;
-  -moz-ruby-position: over;
-  display: ruby-text;
-  -webkit-text-emphasis: none;
-          text-emphasis: none;
-  -webkit-text-emphasis-style: none;
-          text-emphasis-style: none;
+*/
+img.emoji {
+  width: 1em !important;
+  height: 1em !important;
+  vertical-align: -0.1em !important;
+  margin: 0 !important;
+  display: inline-block !important;
 }

@@ -99,30 +99,8 @@
 <p>优化完字体系统后，可以想想图标字体该怎么办。我的原先方案是用 Font Awesome，实际上也不是一个很好的选择。Font Awesome 是用传统的网络请求加载的，也会导致不必要的性能和阻塞渲染问题。最好的方案是使用 SVG。很多时候我们的网站只会用到一些图标字体，为此下载一整个完整字体库很没必要，SVG 的可访问性也更好。</p>
 <p>我同时又检查了一遍博客的代码，发现主题的所有功能都被原生 JavaScript 实现。因此我移除了 jQuery 依赖。其实我都不是很明白这个主题哪里用到了 jQuery，可能是主题作者先前留下的。</p>
 <h2 id="提升交互体验"><a class="markdownIt-Anchor" href="#提升交互体验"></a> 提升交互体验</h2>
-
-    <div class="reply-block h-entry">
-      <!-- 作者信息 (h-card) - 使用视觉隐藏但解析器可见的方式 -->
-      <div class="post-meta p-author h-card" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
-        <img class="author-avatar u-photo" src="https://cytrogen.icu/favicon.png" alt="Cytrogen">
-        <a class="author-name p-name u-url" href="https://cytrogen.icu">Cytrogen</a>
-      </div>
-      
-      <!-- 发布时间 - 隐藏但可解析 -->
-      <time class="dt-published" style="position: absolute; left: -9999px;" datetime="2025-12-05T00:02:42.518Z"> 2025-12-05T00:02:42.518Z </time>
-      
-      <!-- 回复内容 -->
-      <div class="reply-content e-content">
-        <p>在阅读了 <a target="_blank" rel="noopener" href="https://taxodium.ink/my-blog-design.html">这篇文章</a> 之后，我为我的网站添加了一些可以交互的内容。主要添加的是一个「返回顶部」按钮，移动端上它会显示在顶部居中的位置，桌面端则固定显示在右下角。</p>
-
-      </div>
-      
-      <!-- 回复元信息 - 通过 CSS 在列表页隐藏 -->
-      <div class="reply-meta">
-        <span class="reply-label">回复：</span>
-        <a class="reply-target u-in-reply-to" target="_blank" rel="noopener" href="https://taxodium.ink/my-blog-design.html">https://taxodium.ink/my-blog-design.HTML</a>
-      </div>
-    </div>
-  
+<div class="reply-block h-entry"><div class="post-meta p-author h-card visually-hidden"><img class="u-photo" src="https://cytrogen.icu/favicon.png" alt="Cytrogen"><span class="p-name">Cytrogen</span><a class="u-url" href="https://cytrogen.icu">https://cytrogen.icu</a></div><time class="dt-published visually-hidden" datetime="2025-12-19T00:18:08.913Z">2025-12-19T00:18:08.913Z</time><a class="u-url visually-hidden" href="https://cytrogen.icu">Post Link</a><div class="reply-content e-content"><p>在阅读了 <a target="_blank" rel="noopener" href="https://taxodium.ink/my-blog-design.html">这篇文章</a> 之后，我为我的网站添加了一些可以交互的内容。主要添加的是一个「返回顶部」按钮，移动端上它会显示在顶部居中的位置，桌面端则固定显示在右下角。</p>
+</div><div class="reply-meta"><span class="reply-label">回复：</span><a class="reply-target u-in-reply-to" target="_blank" rel="noopener" href="https://taxodium.ink/my-blog-design.html">https://taxodium.ink/my-blog-design.HTML</a></div></div>
 <p>先前在 <a href="#%E5%A4%9A%E7%94%A8-css">这一节</a> 里的例子里提到的动画、基于 <code>&lt;details&gt;</code> 的菜单我也实现了。</p>
 <h2 id="无障碍增强"><a class="markdownIt-Anchor" href="#无障碍增强"></a> 无障碍增强</h2>
 <p>我几乎是不会考虑「无障碍」的，过去的时候。在阅读了一些博客网站的设计想法时我意识到，实际上用着「不寻常设备」的读者可能比想象中还要多，总是要确保所有的用户都能良好地使用博客功能。当然，不只是博客，未来开发的网站也要想到这一点才行。这次重构中，我添加了一个跳过导航的按钮，它平日会被藏在屏幕视图的上方，需要使用 Tab 才可以将其唤出。Tab 也可以用来快速导航到下一个标题、链接、代码块等。</p>
@@ -288,7 +266,7 @@
     }
   });
 })();
-</script><script>(function() {
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
   document.addEventListener('DOMContentLoaded', function() {
     const backToTopBtn = document.querySelector('.back-to-top');
     
