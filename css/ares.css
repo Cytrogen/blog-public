@@ -1809,7 +1809,7 @@ footer .copyright a:hover {
 .post .reply-block .reply-content {
   margin-bottom: 1em;
 }
-.post .reply-block .reply-content p:last-child {
+.post .reply-block .reply-content > p:last-child {
   margin-bottom: 0;
 }
 .post .reply-block .reply-meta {
@@ -1962,12 +1962,12 @@ footer .copyright a:hover {
   background-color: var(--surface-elevated);
   font-family: "Open Sans", "Open Sans Fallback", "Noto Sans SC", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
-.post-content .danger p:last-child, .post-content .warning p:last-child, .post-content .alert-info p:last-child, .post-content .success p:last-child, .post-content .error p:last-child,
-.post .e-content .danger p:last-child,
-.post .e-content .warning p:last-child,
-.post .e-content .alert-info p:last-child,
-.post .e-content .success p:last-child,
-.post .e-content .error p:last-child {
+.post-content .danger > p:last-child, .post-content .warning > p:last-child, .post-content .alert-info > p:last-child, .post-content .success > p:last-child, .post-content .error > p:last-child,
+.post .e-content .danger > p:last-child,
+.post .e-content .warning > p:last-child,
+.post .e-content .alert-info > p:last-child,
+.post .e-content .success > p:last-child,
+.post .e-content .error > p:last-child {
   margin-bottom: 0;
 }
 .post-content .danger > p > br, .post-content .warning > p > br, .post-content .alert-info > p > br, .post-content .success > p > br, .post-content .error > p > br,
@@ -2434,7 +2434,7 @@ details summary:hover {
 details summary::-webkit-details-marker {
   display: none;
 }
-details > *:not(summary):first-of-type {
+details > *:not(summary):not(.diary-entry):first-of-type {
   margin-top: 1rem;
 }
 details[open] summary::before {
@@ -2835,6 +2835,13 @@ details[data-group=diary_sections] figure.diary-media figcaption {
   color: var(--text-secondary) !important;
   line-height: 1.4 !important;
   text-align: center !important;
+}
+details[data-group=diary_sections] .diary-entry:first-of-type {
+  margin-top: 1rem;
+}
+
+.diary-entry > p:first-of-type {
+  margin-top: 1rem;
 }
 
 @media screen and (min-width: 700px) {
