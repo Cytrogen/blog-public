@@ -93,8 +93,9 @@ strong {
 
 u {
   text-decoration: underline;
-  text-decoration-color: currentColor; // Match text color
-  text-underline-offset: clamp(1px, 0.1em, 3px); // Responsive offset
+  text-decoration-style: wavy;
+  text-decoration-color: currentColor;
+  text-underline-offset: clamp(4px, 0.1em, 6px); // Responsive offset
 }
 
 dfn {

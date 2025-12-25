@@ -458,9 +458,11 @@ strong {
 
 u {
   text-decoration: underline;
+  -webkit-text-decoration-style: wavy;
+          text-decoration-style: wavy;
   -webkit-text-decoration-color: currentColor;
           text-decoration-color: currentColor;
-  text-underline-offset: clamp(1px, 0.1em, 3px);
+  text-underline-offset: clamp(4px, 0.1em, 6px);
 }
 
 dfn {
