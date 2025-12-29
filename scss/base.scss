@@ -224,6 +224,37 @@ code {
   font-family: $code-font-family;
 }
 
+// Relative font sizing for inline code in headings
+h1 code {
+  font-size: 0.65em; // Relative to H1 size
+}
+
+h2 code,
+h3 code {
+  font-size: 0.75em; // Relative to H2-H3 size
+}
+
+h4 code,
+h5 code,
+h6 code {
+  font-size: 0.8em; // Relative to H4-H6 size
+}
+
+// 字体分离：标题使用黑体，正文使用宋体
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family !important;
+}
+
+// 确保正文内容使用宋体
+body, p, article, section, li, dd, dt {
+  font-family: $serif-font-family;
+}
+
+// 特殊元素保持黑体
+nav, button, input, select, textarea, .nav, .button, .menu, .site-nav, .nav-link {
+  font-family: $heading-font-family;
+}
+
 button,
 input,
 optgroup,

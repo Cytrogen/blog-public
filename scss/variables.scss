@@ -39,14 +39,14 @@
   --color-secondary-hover: color-mix(in srgb, var(--color-secondary) 85%, black);
   --surface-interactive-hover: color-mix(in srgb, var(--surface-interactive) 80%, var(--color-primary));
 
-  // Fluid Typography System using clamp()
-  --font-size-body: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);        /* ~16px to 18px */
-  --font-size-h1: clamp(2rem, 1.5rem + 2.5vw, 3rem);              /* ~32px to 48px */
-  --font-size-h2-h3: clamp(1.375rem, 1.2rem + 0.875vw, 1.875rem); /* ~22px to 30px */
-  --font-size-h4-h6: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);   /* ~18px to 22px */
-  --font-size-nav: clamp(0.875rem, 0.85rem + 0.125vw, 1rem);      /* ~14px to 16px */
-  --font-size-small: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);   /* ~12px to 14px */
-  --font-size-code: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);      /* ~12.8px to 14.4px */
+  // Fluid Typography System using clamp() - Enhanced for better readability
+  --font-size-body: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);        /* ~18px to 22px */
+  --font-size-h1: clamp(2.25rem, 1.75rem + 2.8vw, 3.5rem);          /* ~36px to 56px */
+  --font-size-h2-h3: clamp(1.5rem, 1.3rem + 1vw, 2.125rem);         /* ~24px to 34px */
+  --font-size-h4-h6: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);     /* ~20px to 26px */
+  --font-size-nav: clamp(1rem, 0.95rem + 0.15vw, 1.125rem);         /* ~16px to 18px */
+  --font-size-small: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);         /* ~14px to 16px */
+  --font-size-code: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);          /* Increased to match body text better */
 }
 
 // Dark theme - Enhanced for WCAG AA compliance
@@ -113,17 +113,27 @@ $light-gray: var(--surface-elevated);
 $medium-gray: var(--text-secondary);
 $dark-gray: var(--text-primary);
 
-$base-font-size: 18px;
-$nav-font-size: 16px;
-$small-font-size: 0.8em;
-$code-font-size: 0.9em;
-$h1-font-size: 2em;
-$h2-font-size: 1.5em;
+$base-font-size: 20px;
+$nav-font-size: 17px;
+$small-font-size: 0.85em;
+$code-font-size: 0.95em;
+$h1-font-size: 2.25em;
+$h2-font-size: 1.75em;
 
 // Optimized font stacks with CLS mitigation and smart unicode-range loading
-$base-font-family: 'Open Sans', 'Open Sans Fallback', 'Noto Sans SC', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-$code-font-family: 'JetBrains Mono', 'Source Han Sans SC', 'SF Mono', Consolas, 'Liberation Mono', Menlo, 'Courier New', monospace;
-$special-font-family: 'Open Sans', 'Open Sans Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// 正文字体：思源宋体 + 西文serif fallback  
+$serif-font-family: 'Georgia', 'Times New Roman', 'Times', 'Source Han Serif CN', 'Source Han Serif JP', 'Noto Serif SC', 'Source Han Serif SC', 'Noto Serif JP', 'Songti SC', 'SimSun', serif;
+
+// 标题字体：保持黑体/无衬线字体
+$heading-font-family: 'Open Sans', 'Open Sans Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', 'Noto Sans JP', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+
+// 代码字体：等宽字体
+$code-font-family: 'JetBrains Mono', 'SF Mono', Consolas, 'Liberation Mono', Menlo, 'Courier New', 'Source Han Sans SC', 'Source Han Code JP', monospace;
+
+// Legacy 兼容性（保持向后兼容）
+$base-font-family: $serif-font-family; // 默认使用serif
+$special-font-family: $heading-font-family;
 
 $base-spacing: 1rem;
 $large-spacing: 2rem;
