@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【9】：使用 SQL 和数据库开发 Django 应用程序 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的第九篇学习笔记，内容涵盖数据库基础与 Python Django 框架的实战应用。笔记首先对比了关系型（RDBMS）与四种主流 NoSQL 数据库的特点，随后重点讲解了 Django 框架及其强大的对象关系映射（ORM）功能，演示了如何用 Python 模型替代原生 SQL 进行增删查改（CRUD）操作。最后，通过一个完整的在线课程项目，手把手教你如何为 Django 应用添加考试功能，内容涉及模型设计、后台管理、视图逻辑编写和前端模板渲染，提供了一条从数据库理论到全栈开发的清晰学习路径。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/407.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【9】：使用 SQL 和数据库开发 Django 应用程序 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的第九篇学习笔记，内容涵盖数据库基础与 Python Django 框架的实战应用。笔记首先对比了关系型（RDBMS）与四种主流 NoSQL 数据库的特点，随后重点讲解了 Django 框架及其强大的对象关系映射（ORM）功能，演示了如何用 Python 模型替代原生 SQL 进行增删查改（CRUD）操作。最后，通过一个完整的在线课程项目，手把手教你如何为 Django 应用添加考试功能，内容涉及模型设计、后台管理、视图逻辑编写和前端模板渲染，提供了一条从数据库理论到全栈开发的清晰学习路径。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/407.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
   font-family: 'Open Sans';
   src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
   font-weight: 400;
@@ -164,13 +164,13 @@
 <p>Apache OpenJPA 是 JPA 规范的开源实现。它便于将 Java 类映射到关系数据库表，并提供透明的 Java 对象持久性。</p>
 </li>
 <li>
-<p>Entity Framework 是微软用于。NET 应用程序的 ORM 框架。它提供了一个易于使用的 API，用于将。NET 对象映射到关系数据库。Entity Framework 支持不同的数据库提供商，提供查询功能，并包含代码优先和数据库优先的模型创建方法等功能。</p>
+<p>Entity Framework 是微软用于 .NET 应用程序的 ORM 框架。它提供了一个易于使用的 API，用于将 .NET 对象映射到关系数据库。Entity Framework 支持不同的数据库提供商，提供查询功能，并包含代码优先和数据库优先的模型创建方法等功能。</p>
 </li>
 <li>
-<p>Dapper <a target="_blank" rel="noopener" href="http://xn--0iv.NET">是。NET</a> 的微型操作系统，注重性能和简单性。它为查询数据库提供了轻量级、高效的 API。Dapper 适用于需要直接控制 SQL 查询和执行的场景。</p>
+<p>Dapper <a target="_blank" rel="noopener" href="http://xn--0iv.NET">是.NET</a> 的微型操作系统，注重性能和简单性。它为查询数据库提供了轻量级、高效的 API。Dapper 适用于需要直接控制 SQL 查询和执行的场景。</p>
 </li>
 <li>
-<p>NHibernate 是。NET 平台上广泛使用的 ORM 工具。它的灵感来自 Java 的 Hibernate ORM 工具。NHibernate 在。NET 面向对象编程和关系数据库之间架起了一座桥梁，允许开发人员使用。NET 对象与数据库交互。</p>
+<p>NHibernate 是 .NET 平台上广泛使用的 ORM 工具。它的灵感来自 Java 的 Hibernate ORM 工具。NHibernate 在 .NET 面向对象编程和关系数据库之间架起了一座桥梁，允许开发人员使用 .NET 对象与数据库交互。</p>
 </li>
 <li>
 <p>ActiveRecord 是 Ruby on Rails（一种流行的 Ruby 网络框架）中的默认 ORM。它提供了一种「约定重于配置」的方法，可轻松将 Ruby 对象映射到数据库表。ActiveRecord 提供了模型关联、查询生成和数据库迁移等功能。</p>
