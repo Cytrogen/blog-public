@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PC 通过 Proxmox 安装 MacOS · Cytrogen 的个人博客</title><meta name="description" content="本文记录了在普通 PC 上使用 Proxmox VE 7.4 虚拟化平台安装 macOS Ventura 的详细过程。教程涵盖了从安装 Proxmox、配置虚拟机硬件（CPU, OVMF/UEFI, VirtIO），到使用 KVM-OpenCore 引导并完成 macOS 初步安装的全流程。重要提示：作者明确表示本教程并未写完，后续关键配置已“鸽掉”，因此强烈建议不要完全参照此文进行安装，本文仅作为一次安装尝试的记录。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/deef.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">PC 通过 Proxmox 安装 MacOS</h1><div class="post-info"><time class="post-date dt-published" datetime="2023-08-17T01:15:00.000Z">8/16/2023</time></div><div class="post-content"><html><head></head><body><p>使用 Proxmox VE 在 PC 上安装 MacOS。</p>
+<span id="more"></span>
+<div class="danger">
+<p>我在这个文章 <strong>还未写完</strong> 的时候就 <strong>鸽</strong> 掉了 MacOS 的安装！</p>
+<p>该教程暂且只写到了安装 Proxmox VE 和安装 MacOS 13.0 Ventura，并未对之后的操作进行详细说明。</p>
+<p>强烈建议不要根据这个教程来安装 MacOS！</p>
+</div>
+<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<div class="danger">
+阅读该文章之前，你需要：
+<ul>
+<li>有一个至少 1GB 以上的 USB</li>
+<li>有 UltroISO 或者类似的启动盘制作工具</li>
+<li>知道如何进入 BIOS 界面</li>
+<li>给要装上 Proxmox VE 的电脑连接上 <strong>网线</strong>！<strong>不要</strong> 无线连接！</li>
+<li>另外一台可以联网的电子设备，无线连也可以，这台不挑
+<ul>
+<li>建议在开始安装 Proxmox VE 之前就拿这台电子设备下载 MacOS ISO 文件。13GB 下载起来还是蛮花时间的。<a href="#MacOS">跳转到安装 MacOS？</a></li>
+</ul>
+</li>
+<li>清楚该文章的日期是 <strong>2023 年 8 月 16 日</strong>，且我安装的并非最新版本而是 <strong>7.4</strong>！
+<ul>
+<li>不装 8.0 的原因：安装 8.0 时卡在加载驱动无法继续，换成 7.4 后秒装好，真是醉了…</li>
+</ul>
+</li>
+</ul>
+</div>
+<center>————————</center>
+<h1 id="安装-proxmox-ve"><a class="markdownIt-Anchor" href="#安装-proxmox-ve"></a> 安装 Proxmox VE</h1>
+<div class="danger">
+<p>因为一些原因，安装 Proxmox VE 时截下来的图片都不见了，所以这段就只能用文字描述。</p>
+</div>
+<ol>
+<li>进入 <a target="_blank" rel="noopener" href="https://www.proxmox.com/en/downloads/proxmox-virtual-environment/iso">Proxmox VE 官网</a>，下载 Proxmox VE ISO Installer。</li>
+<li>使用 UltroISO 制作启动盘。</li>
+<li>重启电脑、进入 BIOS 界面。</li>
+<li>先进入 Advanced 界面，开启 Intel Virtualization Technology。</li>
+<li>电脑再次重启后进入 BIOS，在 Boot Menu 中通过 USB 启动。</li>
+<li>看到硕大的 PROXMOX 后，选择 <strong>Install Proxmox VE</strong>。</li>
+<li>安装结束后点击右下角的 <strong>I agree</strong>。</li>
+<li>接下来的界面中，需要按照自己的配置依次选择目标硬盘、国家地区、键盘布局、密码邮箱、网络管理、主机名、IP 地址、网关、DNS。绝大多数都可以默认跳过，故仅展示部分界面，<sub>才不是重装了太多次完全忘记拍下来了呢！</sub></li>
+<li>设置结束后等配置，配置结束后等电脑重启，电脑重启后会自动启动 Proxmox VE，放着不管即可。<br>
+之后 Proxmox VE 会显示一个地址。这个地址的一部分正是之前设置的 IP 地址。</li>
+<li>启动同互联网下的另一个电子设备，打开浏览器访问该地址。<br>
+<img src="/posts/deef/2_001.png" alt=""><br>
+用户名是 <em>root</em>，密码则是先前我们设置的那个。<br>
+顺带一提 Proxmox VE 是有中文的。</li>
+<li>登陆成功。至此 Proxmox VE 安装好了。</li>
+</ol>
+<center>————————</center>
+<h1>安装 MacOS</h1>
+<div class="danger" id="MacOS">
+我测试安装的版本为 13.0 Ventura Beta。因此以下的设置无法保证对其他版本的 MacOS 同样有效。
+<p>你可以在 <a target="_blank" rel="noopener" href="https://archive.org/details/macos-collection"> archive.org</a> 下载它或者其他版本。</p>
+</div>
+<ol>
+<li>
+<p>依旧是在另一台电子设备上。现在我们需要将 MacOS ISO 文件上传到 Proxmox VE。<br>
+打开节点的 local 存储空间后点击 <strong>ISO Images</strong> &gt; <strong>Upload</strong> &gt; 找到 MacOS ISO 文件 &gt; <strong>Upload</strong>。</p>
+<p><img src="/posts/deef/2_002.png" alt=""><br>
+看到 <strong>TASK OK</strong> 就代表上传成功。</p>
+<p><img src="/posts/deef/2_003.png" alt=""></p>
+</li>
+<li>
+<p>想要启动 MacOS，还需要从 GitHub 上安装一个工具：<a target="_blank" rel="noopener" href="https://github.com/thenickdude/KVM-Opencore">KVM-Opencore</a>。<br>
+直接进到 Release 并下载 <strong>OpenCore-v20.iso.gz</strong>（最新版本）。</p>
+<p><img src="/posts/deef/2_004.png" alt=""></p>
+</li>
+<li>
+<p>解压该文件，获得崭新 ISO 文件一个。<br>
+使用和 MacOS ISO 文件一样的方法将其上传到 Proxmox VE。</p>
+<p><img src="/posts/deef/2_005.png" alt=""></p>
+</li>
+<li>
+<p>上传完成后，点击页面右上角的 <strong>Create VM</strong>。<br>
+给该虚拟机随便取一个名字。</p>
+<p><img src="/posts/deef/2_006.png" alt=""></p>
+</li>
+<li>
+<p>点击 OS 页面：</p>
+<ul>
+<li>在 ISO image 一栏选择 <strong>OpenCore-v20.iso</strong></li>
+<li>在 Type 一栏选择 <strong>Other</strong></li>
+</ul>
+<p><img src="/posts/deef/2_007.png" alt=""></p>
+</li>
+<li>
+<p>点击 System 页面：</p>
+<ul>
+<li>在 Graphic card 一栏选择 <strong>VMware compatible</strong></li>
+<li>在 Machine 一栏选择 <strong>q35</strong></li>
+<li>在 BIOS 一栏选择 <strong>OVMF (UE5FI)</strong></li>
+<li>在 EFI Storage 一栏选择 <strong>local-lvm</strong></li>
+<li>取消勾选 <strong>Pre-Enroll keys</strong></li>
+<li>在 SCSI Controller 一栏选择 <strong>VirtIO SCSI</strong></li>
+</ul>
+<p><img src="/posts/deef/2_008.png" alt=""></p>
+</li>
+<li>
+<p>点击 Disks 页面：</p>
+<ul>
+<li>在 Bus / Device 一栏选择 <strong>VirtIO Block</strong></li>
+<li>在 Disk size (GiB）一栏输入 <strong>64</strong></li>
+<li>在 Cache 一栏选择 <strong>White back (unsafe)</strong></li>
+</ul>
+<p><img src="/posts/deef/2_009.png" alt=""></p>
+</li>
+<li>
+<p>点击 CPU 页面：</p>
+<ul>
+<li>在 Cores 一栏根据你自己的配置输入核的数量（我输入了 4）</li>
+<li>在 Type 一栏选择 <strong>host</strong></li>
+</ul>
+<p><img src="/posts/deef/2_010.png" alt=""></p>
+</li>
+<li>
+<p>点击 Memory 页面。至少也需要 4GB 的内存，我输入了 6GB。<br>
+<img src="/posts/deef/2_011.png" alt=""></p>
+</li>
+<li>
+<p>点击 Network 页面：</p>
+<ul>
+<li>在 Model 一栏选择 <strong>VMWare vmxnet3</strong></li>
+</ul>
+<p><img src="/posts/deef/2_012.png" alt=""></p>
+</li>
+<li>
+<p>最终创建虚拟机。<br>
+<img src="/posts/deef/2_013.png" alt=""></p>
+</li>
+<li>
+<p>这时能在左侧看到我们的 Mac 虚拟机，点击后选择 <strong>Hardware</strong> &gt; <strong>Add</strong> &gt; <strong>CD/DVD Drive</strong>。<br>
+<img src="/posts/deef/2_014.png" alt=""></p>
+<ul>
+<li>在 Storage 一栏中选择 <strong>local</strong></li>
+<li>在 ISO image 一栏中选择我们的 MacOS ISO 文件，然后点击 <strong>Add</strong></li>
+</ul>
+<p><img src="/posts/deef/2_015.png" alt=""></p>
+</li>
+<li>
+<p>选择 <strong>Options</strong>，选中 <strong>Boot Order</strong> 后点击上方的 <strong>Edit</strong> 来修改虚拟机的 Boot 顺序。</p>
+<p><img src="/posts/deef/2_016.png" alt=""><br>
+拖拽 OpenCore 的 ISO 到第一位，接着拖拽 MacOS ISO 到第二位。拖拽完后点击 <strong>OK</strong>。</p>
+<p><img src="/posts/deef/2_017.png" alt=""></p>
+</li>
+<li>
+<p>点击左侧的节点 &gt; <strong>Shell</strong>。</p>
+<p><img src="/posts/deef/2_018.png" alt=""><br>
+安装 MacOS 之前我们还需要再修改一些配置文件。在 Shell 中输入以下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pve/qemu-server/VM的ID.conf</span><br><span class="line">如果没有设置的话，默认的 ID是100，所以就是100.conf</span><br></pre></td></tr></tbody></table></figure>
+<p>进入该配置文件后，需要复制粘贴参数信息。</p>
+<ul>
+<li>如果你是英特尔处理器：<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu host,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>如果你是 AMD 处理器：<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">args: -device isa-applesmc,osk="ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc" -smbios type=2 -device usb-kbd,bus=ehci.0,port=2 -global nec-usb-xhci.msi=off -global ICH9-LPC.acpi-pci-hotplug-with-bridge-support=off -cpu Haswell-noTSX,vendor=GenuineIntel,+invtsc,+hypervisor,kvm=on,vmware-cpuid-freq=on</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>我是英特尔处理器，复制粘贴完事。<br>
+接着将文件中出现的两条 <code>media=cdrom</code> 替换为 <code>cache=unsafe</code>。</p>
+<p><img src="/posts/deef/2_019.png" alt=""></p>
+<p>按 <code>Ctrl+O</code> &gt; <code>Enter</code> 保存，接着按 <code>Ctrl+X</code> 退出。</p>
+</li>
+<li>
+<p>回到 Mac 虚拟机，点击右上方的 <strong>Start</strong> 启动虚拟机，然后选中左侧的 <strong>Console</strong>。</p>
+<p><img src="/posts/deef/2_020.png" alt=""></p>
+<p>回车进入 UEFI Interface Shell，输入以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs0:</span><br><span class="line">System\Library\CoreServices\Boot.efi</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/posts/deef/2_021.png" alt=""></p>
+<p>熟悉的苹果图标出现！</p>
+<p><img src="/posts/deef/2_022.png" alt=""></p>
+</li>
+<li>
+<p>点击 <strong>Disk Utility</strong>，找到 VirtIO Block 硬盘并点击 <strong>Erase</strong>。</p>
+<p><img src="/posts/deef/2_023.png" alt=""><br>
+<img src="/posts/deef/2_024.png" alt=""></p>
+<p>修改硬盘的名称，点击 <strong>Erase</strong>。</p>
+<p><img src="/posts/deef/2_025.png" alt=""></p>
+</li>
+<li>
+<p>结束后左上角关闭 Disk Utility，接着点击 <strong>Install macOS Ventura</strong>。</p>
+<p><img src="/posts/deef/2_026.png" alt=""></p>
+<p>同意协议后，选择我们刚才格式化的硬盘来安装。</p>
+<p><img src="/posts/deef/2_027.png" alt=""></p>
+</li>
+<li>
+<p>回车继续安装，差不多要等半个小时左右。<br>
+期间可能会弹出多次下图的界面，回车就行。（我弹出了很多次…… 还重装了一遍…）</p>
+<p><img src="/posts/deef/2_028.png" alt=""></p>
+</li>
+<li>
+<p>经过多次硬盘弹出洗礼，终于看到了代表着胜利的橘色！</p>
+<p><img src="/posts/deef/2_029.png" alt=""></p>
+<p>之后的自行设置。</p>
+</li>
+</ol>
+<h1 id="安装-opencore-configurator"><a class="markdownIt-Anchor" href="#安装-opencore-configurator"></a> 安装 OpenCore Configurator</h1>
+<ol>
+<li>前往 <a target="_blank" rel="noopener" href="https://mackie100projects.altervista.org/opencore-configurator/">OpenCore Configurator 的网站</a> 来安装 OpenCore Configurator。<br>
+下载后可以在右下角找到它的图标，开启。（可能需要进入系统设置的 Privacy &amp; Security 中打开，因为它既不是 App Store 里的应用，也不来自于已被识别的开发者）</li>
+</ol>
+<div class="danger">
+<p>这个文章没写完的时候我就鸽了 MacOS 的安装，所以这个部分暂且不写、如果以后再捣鼓的话再补上。</p>
+</div>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="2abc.html">上一篇</a><a class="next" href="66e.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/deef.html" data-full-url="https://cytrogen.icu/posts/deef.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

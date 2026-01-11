@@ -1,0 +1,165 @@
+@use "sass:map";
+
+:root {
+  // Core brand colors
+  --color-primary: #5454f8;
+  --color-secondary: #267B54;
+  --color-accent: #4088b8;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  // Text colors with proper semantic naming
+  --text-primary: #2c3e50;        /* Main text - WCAG AA compliant on white */
+  --text-secondary: #64748b;      /* Supporting text - improved contrast */
+  --text-tertiary: #94a3b8;       /* Muted text */
+  --text-inverse: #ffffff;        /* Text on dark backgrounds */
+  
+  // Surface colors
+  --surface-background: #ffffff;
+  --surface-elevated: #f8fafc;    /* Cards, dropdowns */
+  --surface-overlay: #f1f5f9;     /* Modals, overlays */
+  --surface-interactive: #e2e8f0; /* Hover states */
+  
+  // Border and outline colors
+  --border-primary: #e2e8f0;      /* Main borders */
+  --border-secondary: #cbd5e1;    /* Subtle borders */
+  --border-interactive: var(--color-primary); /* Focus, active borders */
+  
+  // Code and syntax highlighting
+  --code-background: #f8fafc;
+  --code-text: #475569;
+  --code-keyword: #e96900;           /* Light theme uses orange */
+  --code-string: #22c55e;
+  --code-number: #8b5cf6;
+  --code-comment: #94a3b8;
+  
+  // Interactive states using modern color-mix()
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
+  --color-secondary-hover: color-mix(in srgb, var(--color-secondary) 85%, black);
+  --surface-interactive-hover: color-mix(in srgb, var(--surface-interactive) 80%, var(--color-primary));
+
+  // Fluid Typography System using clamp() - Enhanced for better readability
+  --font-size-body: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);        /* ~18px to 22px */
+  --font-size-h1: clamp(2.25rem, 1.75rem + 2.8vw, 3.5rem);          /* ~36px to 56px */
+  --font-size-h2-h3: clamp(1.5rem, 1.3rem + 1vw, 2.125rem);         /* ~24px to 34px */
+  --font-size-h4-h6: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);     /* ~20px to 26px */
+  --font-size-nav: clamp(1rem, 0.95rem + 0.15vw, 1.125rem);         /* ~16px to 18px */
+  --font-size-small: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);         /* ~14px to 16px */
+  --font-size-code: clamp(1rem, 0.95rem + 0.4vw, 1.25rem);          /* Increased to match body text better */
+}
+
+// Dark theme - Enhanced for WCAG AA compliance
+[data-theme="dark"] {
+  // Brand colors adjusted for dark theme
+  --color-primary: #818cf8;       /* Higher contrast on dark */
+  --color-secondary: #34d399;
+  --color-accent: #60a5fa;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #f87171;
+
+  // Text colors - All WCAG AA compliant
+  --text-primary: #f1f5f9;        /* 15.3:1 contrast ratio */
+  --text-secondary: #cbd5e1;      /* 10.4:1 contrast ratio */
+  --text-tertiary: #94a3b8;       /* 6.1:1 contrast ratio */
+  --text-inverse: #0f172a;
+  
+  // Surface colors
+  --surface-background: #0f172a;  /* Dark navy for better contrast */
+  --surface-elevated: #1e293b;    /* Elevated surfaces */
+  --surface-overlay: #334155;     /* Overlays and modals */
+  --surface-interactive: #475569; /* Interactive elements */
+  
+  // Borders
+  --border-primary: #334155;      /* Visible borders */
+  --border-secondary: #1e293b;    /* Subtle separators */
+  
+  // Code syntax with proper contrast
+  --code-background: #1e293b;
+  --code-text: #e2e8f0;
+  --code-keyword: #60a5fa;
+  --code-string: #34d399;
+  --code-number: #a78bfa;
+  --code-comment: #64748b;
+  
+  // Interactive states
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 80%, white);
+  --color-secondary-hover: color-mix(in srgb, var(--color-secondary) 80%, white);
+  --surface-interactive-hover: color-mix(in srgb, var(--surface-interactive) 70%, var(--color-primary));
+}
+
+// Legacy Sass variables for gradual migration
+$primary-color: var(--color-primary);
+$secondary-color: var(--color-secondary);
+$background-color: var(--surface-background);
+$text-color: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$heading-color: var(--text-primary);
+$link-color: var(--color-primary);
+$code-color: var(--code-keyword);
+$border-color: var(--border-primary);
+$danger-color: var(--color-danger);
+$warning-color: var(--color-warning);
+$success-color: var(--color-success);
+$info-color: var(--color-primary);
+$error-color: var(--color-danger);
+$highlight-color: var(--color-accent);
+$text-muted: var(--text-tertiary);
+$text-dark: var(--text-primary);
+$text-light: var(--text-tertiary);
+
+$light-gray: var(--surface-elevated);
+$medium-gray: var(--text-secondary);
+$dark-gray: var(--text-primary);
+
+$base-font-size: 20px;
+$nav-font-size: 17px;
+$small-font-size: 0.85em;
+$code-font-size: 0.95em;
+$h1-font-size: 2.25em;
+$h2-font-size: 1.75em;
+
+// Optimized font stacks with CLS mitigation and smart unicode-range loading
+
+// 正文字体：思源宋体 + 西文serif fallback  
+$serif-font-family: 'Georgia', 'Times New Roman', 'Times', 'Source Han Serif CN', 'Source Han Serif JP', 'Noto Serif SC', 'Source Han Serif SC', 'Noto Serif JP', 'Songti SC', 'SimSun', serif;
+
+// 标题字体：保持黑体/无衬线字体
+$heading-font-family: 'Open Sans', 'Open Sans Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans SC', 'Noto Sans JP', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+
+// 代码字体：等宽字体
+$code-font-family: 'JetBrains Mono', 'SF Mono', Consolas, 'Liberation Mono', Menlo, 'Courier New', 'Source Han Sans SC', 'Source Han Code JP', monospace;
+
+// Legacy 兼容性（保持向后兼容）
+$base-font-family: $serif-font-family; // 默认使用serif
+$special-font-family: $heading-font-family;
+
+$base-spacing: 1rem;
+$large-spacing: 2rem;
+$small-spacing: 0.5rem;
+
+$container-width: 700px;
+$header-height: 60px;
+$header-padding: 20px 100px;
+$nav-item-padding: 10px;
+
+$breakpoint-mobile: 699px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 700px;
+
+$z-index-dropdown: 100;
+$z-index-popup: 1000;
+$z-index-modal: 2000;
+$z-index-overlay: 200;
+
+$transition-duration: 0.3s;
+$transition-timing: ease-in-out;
+
+$border-radius: 4px;
+$border-width: 1px;
+
+$card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+$content-width: 1200px;

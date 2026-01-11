@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JS 逆向有道翻译 & wxPython 制作便宜翻译器 · Cytrogen 的个人博客</title><meta name="description" content="本文是一篇逆向分析有道翻译网页版API，并制作简易桌面翻译器的实战教程。文章通过浏览器开发者工具，详细追踪并破解了请求参数 sign 的MD5加密算法，以及响应内容的AES解密方法。在成功逆向API后，教程进一步展示了如何使用Python requests库模拟加密请求，并结合wxPython图形库，将成果封装成一个简单实用的桌面翻译工具。本文为对网页逆向、API抓包和加解密技术感兴趣的读者提供了一次从分析到应用的完整实践。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/a4b5.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">JS 逆向有道翻译 & wxPython 制作便宜翻译器</h1><div class="post-info"><time class="post-date dt-published" datetime="2023-10-29T22:28:10.792Z">10/29/2023</time></div><div class="post-content"><html><head></head><body><p>该文章讲述了如何逆向有道翻译，并且使用 wxPython 库来制作一个便宜翻译器。</p>
+<span id="more"></span>
+<div class="danger">
+<p>事先说明：</p>
+<ul>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>本文仅供学习交流，严禁用于商业用途，否则后果自负！</li>
+<li>你要先有 Python、requests 库和一定的 JS 基础</li>
+<li>你要先知道如何使用网页开发者工具</li>
+</ul>
+</div>
+<h1 id="逆向有道翻译"><a class="markdownIt-Anchor" href="#逆向有道翻译"></a> 逆向有道翻译</h1>
+<p>我们首要知道的是有道翻译客户端是如何发送请求给服务器的，才能知道如何逆向它。</p>
+<p>随便在有道翻译上输入一个单词，再在网络选项卡里翻找，你会发现有一个请求是这样的：</p>
+<p><img src="/posts/a4b5/1.png" alt=""></p>
+<p>该请求发送的表单数据中赫然出现了我们输入的单词，这就是我们要找的东西了。</p>
+<p>再来看看这个请求的响应：</p>
+<p><img src="/posts/a4b5/2.png" alt=""></p>
+<p>嗯…… 是一大串加密过的东西，完全看不懂捏。解密的事情之后再说，我们先来想：要如何发出请求才能得到类似的响应呢？</p>
+<p>重新来看该请求的表单数据，参数 <code>i</code> 顾名思义便是我们输入的单词的明文，而参数 <code>mysticTime</code> 一眼就能看出是一个时间戳。我们可以此时再输入一个单词，来看看表单数据的哪些参数是不变的、哪些是变化的。</p>
+<p><img src="/posts/a4b5/3.png" alt=""></p>
+<p>除了时间戳外，还有个参数 <code>sign</code> 也是动态的。也就是说整个请求中，仅有 <code>sign</code> 和 <code>mysticTime</code> 是动态的。又因为 <code>mysticTime</code> 是一个时间戳，所以我们只需要关注、逆向 <code>sign</code> 就行了。</p>
+<p>既然客户端需要发送请求给服务器，那自然就需要一个加密算法来加密 <code>sign</code>、便于服务器解密。我们可以在网页开发者工具中找到这个加密算法。有道翻译还是很厚道的，一搜索「sign」这个字眼就能找到客户端封装表单数据的函数：</p>
+<p><img src="/posts/a4b5/4.png" alt=""></p>
+<p>是不是很熟悉？这个函数中的每个变量都能在「webtranslate」这个请求的表单数据里找到。</p>
+<p>让我们来分析一下这个函数：</p>
+<ul>
+<li><code>o</code> 是一个时间戳</li>
+<li><code>sign</code> 值由 <code>k(o, e)</code> 得到，<code>o</code> 是时间戳、<code>e</code> 我们暂且不知道</li>
+</ul>
+<p>再来看看 <code>k</code> 函数，还真别说，就在 <code>E</code> 函数的上面：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">k</span>(<span class="params">e, t</span>) {</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">j</span>(<span class="string">`client=<span class="subst">${d}</span>&amp;mysticTime=<span class="subst">${e}</span>&amp;product=<span class="subst">${u}</span>&amp;key=<span class="subst">${t}</span>`</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>需要注意一点，<code>sign: k(o, e)</code> 中 <code>o</code> 是时间戳、<code>e</code> 是不知名的变量；而到 <code>k</code> 函数中，<code>e</code> 是时间戳，<code>t</code> 才是不知名的变量。<br>
+切记不要搞混了！</p>
+</blockquote>
+<p>能看出，被传入 <code>k</code> 函数中的不知名的变量实际上是 key，并且还多了两个不知名的变量 <code>d</code> 和 <code>u</code>。我们可以直接打断点，看看这些变量的值：</p>
+<p><img src="/posts/a4b5/5.png" alt=""></p>
+<p>再走一步我们便能看到 <code>k</code> 函数的两个参数。<code>e</code> 属实是时间戳，千万不要混淆了！</p>
+<p><img src="/posts/a4b5/6.png" alt=""></p>
+<p>停在该断点，我们可以看到 <code>d</code> 和 <code>u</code> 的值：</p>
+<p><img src="/posts/a4b5/8.png" alt=""></p>
+<p>相当于在 <code>k</code> 函数中，会生成这么一个字符串：<code>client=fanyideskweb&amp;mysticTime=${t}&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso</code>，仅有时间戳是动态，我们无脑塞时间戳就完事了。</p>
+<p>但是！这个字符串被生成后，还会被传入 <code>j</code> 函数进行加密，所以我们还需要看看 <code>j</code> 函数的内容：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">j</span>(<span class="params">e</span>) {</span><br><span class="line">    <span class="keyword">return</span> i.<span class="property">a</span>.<span class="title function_">createHash</span>(<span class="string">"md5"</span>).<span class="title function_">update</span>(e.<span class="title function_">toString</span>()).<span class="title function_">digest</span>(<span class="string">"hex"</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>嗯…… 无比熟悉有木有，这就是 MD5 加密算法；<code>j</code> 函数把 <code>k</code> 函数拼凑的字符串进行了 MD5 加密（注意是 hex 格式的），然后返回加密后的结果。</p>
+<p>继续走两步，<code>E</code> 函数到了尾声，果断打开控制台查询一下 <code>sign</code> 的值，正是加密后的内容，而不是一串明文：</p>
+<p><img src="/posts/a4b5/7.png" alt=""><br>
+<img src="/posts/a4b5/9.png" alt=""></p>
+<div class="danger">
+<p>继续码字的时候页面被刷新了，所以 <code>sign</code> 值和用上面的时间戳以及 key 加密出来的结果不同，懒得再截图了，大家自己试试吧。</p>
+</div>
+<p>至此我们已经搞清楚了有道翻译客户端是拿着什么参数去请求服务器的，接下来我们可以用 Python 来模拟这个请求。</p>
+<h1 id="python模拟请求"><a class="markdownIt-Anchor" href="#python模拟请求"></a> Python 模拟请求</h1>
+<p>比起直接用 <code>requests.post()</code>，我们这次要使用 <code>requests.session.post()</code>，否则不会成功；<code>headers</code> 和 <code>data</code> 之后再怼：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">session = requests.session()</span><br><span class="line">session.get(<span class="string">'https://fanyi.youdao.com/'</span>)</span><br><span class="line">res = session.post(<span class="string">'https://dict.youdao.com/webtranslate'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p><code>headers</code> 的内容可以直接从开发者工具那边复制，别忘了加上 <code>Referer</code>。</p>
+<p><code>data</code> 的内容我们需要模拟一下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳</span></span><br><span class="line"><span class="comment"># 因为JS的时间戳是毫秒级的，而Python的是秒级的，所以要乘以1000</span></span><br><span class="line">t = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加密和构建sign值</span></span><br><span class="line">s = <span class="string">f'client=fanyideskweb&amp;mysticTime=<span class="subst">{t}</span>&amp;product=webfanyi&amp;key=fsdsogkndfokasodnaso'</span></span><br><span class="line">sign = hashlib.md5(s.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line">data={</span><br><span class="line">    <span class="string">'i'</span>: word,  <span class="comment"># 要翻译的单词</span></span><br><span class="line">    <span class="string">'from'</span>: <span class="string">'auto'</span>,</span><br><span class="line">    <span class="string">'domain'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'dictResult'</span>: <span class="string">'true'</span>,</span><br><span class="line">    <span class="string">'keyid'</span>: <span class="string">'webfanyi'</span>,</span><br><span class="line">    <span class="string">'sign'</span>: sign,</span><br><span class="line">    <span class="string">'client'</span>: <span class="string">'fanyideskweb'</span>,</span><br><span class="line">    <span class="string">'product'</span>: <span class="string">'webfanyi'</span>,</span><br><span class="line">    <span class="string">'appVersion'</span>: <span class="string">'1.0.0'</span>,</span><br><span class="line">    <span class="string">'vendor'</span>: <span class="string">'web'</span>,</span><br><span class="line">    <span class="string">'pointParam'</span>: <span class="string">'client,mysticTime,product'</span>,</span><br><span class="line">    <span class="string">'mysticTime'</span>: t,</span><br><span class="line">    <span class="string">'keyfrom'</span>: <span class="string">'fanyi.web'</span>,</span><br><span class="line">    <span class="string">'mid'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'screen'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'model'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'network'</span>: <span class="string">'wifi'</span>,</span><br><span class="line">    <span class="string">'abtest'</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="string">'yduuid'</span>: <span class="string">'abcdefg'</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>接着来看一下响应的内容~</p>
+<p><img src="/posts/a4b5/10.png" alt=""></p>
+<p>居然是一大串看不懂的东西？！当然，相信大家看到这一大串中结尾的 <code>=</code> 时，应该就知道这是 base64 编码了。我们可以用 Python 来解码，不过还要插一句题外话：这个是 base64 变种，叫做 URL-safe base64，它把 <code>+</code> 和 <code>/</code> 换成了 <code>-</code> 和 <code>_</code>。这个变种的诞生是为了让 base64 编码后的内容能够安全地放在 URL 中。</p>
+<p>简单来说就是：我们还需要把 <code>-</code> 和 <code>_</code> 换回来才能解码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res = res.replace(<span class="string">'-'</span>, <span class="string">'+'</span>).replace(<span class="string">'_'</span>, <span class="string">'/'</span>)</span><br><span class="line">data = base64.b64decode(res)</span><br></pre></td></tr></tbody></table></figure>
+<p>再次运行，好家伙，得到了一串更过分的字节。</p>
+<p><img src="/posts/a4b5/11.png" alt=""></p>
+<h1 id="解密"><a class="markdownIt-Anchor" href="#解密"></a> 解密</h1>
+<p>既然有道翻译客户端已经准备好了表单数据，那证明这之后它就会发送请求给服务器，我们且看客户端是如何发送请求、又如何处理响应的。</p>
+<p>继续往下走一步，我们就能看到客户端发送请求的代码了：</p>
+<p><img src="/posts/a4b5/12.png" alt=""></p>
+<p>中间的链接是不是很熟悉？再看看右边的 <code>E(t)</code>，这正是会返回 <code>sign</code> 值的 <code>E</code> 函数。再用控制台一一检查过去，会发现老面孔和新面孔：</p>
+<p><img src="/posts/a4b5/13.png" alt=""></p>
+<ul>
+<li><code>(e,t)</code> 是 key 值</li>
+<li><code>a["d"]</code> 返回一个 <code>Promise</code> 对象，等下细说</li>
+<li><code>e</code> 是表单数据的一部分，里面包含了我们要翻译的单词的明文</li>
+<li><code>n["a"]</code> 可以不深究，你只需要知道它可以把多个对象合并成一个。事实上，它的作用就是把 <code>e</code> 和 <code>E(t)</code> 返回的两个表单数据合并成一个</li>
+</ul>
+<p>这里说一下 <code>a["d"]</code>，它的结构是这样的：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">l</span>(<span class="params">e, t, o</span>) {</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">n,c</span>)=&gt;</span>{</span><br><span class="line">        a[<span class="string">"a"</span>].<span class="title function_">post</span>(e, t, o).<span class="title function_">then</span>(<span class="function"><span class="params">e</span>=&gt;</span>{</span><br><span class="line">            <span class="title function_">n</span>(e.<span class="property">data</span>)</span><br><span class="line">        }</span><br><span class="line">        ).<span class="title function_">catch</span>(<span class="function"><span class="params">e</span>=&gt;</span>{</span><br><span class="line">            <span class="title function_">c</span>(e)</span><br><span class="line">        }</span><br><span class="line">        )</span><br><span class="line">    }</span><br><span class="line">    )</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>e</code> 是请求的链接</li>
+<li><code>t</code> 是表单数据</li>
+<li><code>o</code> 是请求头，也就是上上图中那个孤零零的 <code>"Content-Type": "application/x-www-form-urlencoded"</code></li>
+</ul>
+<blockquote>
+<p>如果你不了解 <code>Promise</code>，那么你可以把它理解成一个异步函数，它的作用是等待 <code>a["a"].post(e, t, o)</code> 这个请求完成，然后返回响应的内容。<br>
+如果这个请求成功了，那么 <code>e</code> 就是响应的内容，给到 <code>n()</code>；如果这个请求失败了，那么 <code>e</code> 就是错误信息，给到 <code>c()</code>。</p>
+<blockquote>
+<p><code>n()</code> 和 <code>c()</code> 的内容都是空函数，所以我们不需要管它们。</p>
+</blockquote>
+</blockquote>
+<p>那么 <code>a["d"]</code> 返回的 <code>Promise</code> 对象去了哪里咧？回到客户端发送请求的那一步（也就是上上图的 <code>I = (e,t)=&gt;略略略</code>），看开发者工具的 <strong>调用堆栈</strong>。</p>
+<blockquote>
+<p>调用堆栈：在开发者工具中你可以看到每个函数被调用的顺序。</p>
+</blockquote>
+<p><img src="/posts/a4b5/14.png" alt=""></p>
+<p>点击 <code>Po</code> 便会自动引导到这个函数的定义处：</p>
+<p><img src="/posts/a4b5/15.png" alt=""></p>
+<p><code>Mo["a"].getTextTranslateResult()</code> 正是函数 <code>I</code>！</p>
+<p><img src="/posts/a4b5/16.png" alt=""></p>
+<p>刚才提到的 <code>a["d"]</code> 所返回的 <code>Promise</code> 对象去了此处的 <code>Mo["a"].getTextTranslateResult()</code>，服务器成功响应，走到 <code>then</code>，也就是我们解密的关键：有道翻译客户端对这个响应做了什么处理？</p>
+<p>我们来看一下 <code>then</code> 中的代码：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">o</span>=&gt;</span>{</span><br><span class="line">    <span class="title class_">Mo</span>[<span class="string">"a"</span>].<span class="title function_">cancelLastGpt</span>();</span><br><span class="line">    <span class="keyword">const</span> n = <span class="title class_">Mo</span>[<span class="string">"a"</span>].<span class="title function_">decodeData</span>(o, <span class="title class_">Ko</span>[<span class="string">"a"</span>].<span class="property">state</span>.<span class="property">text</span>.<span class="property">decodeKey</span>, <span class="title class_">Ko</span>[<span class="string">"a"</span>].<span class="property">state</span>.<span class="property">text</span>.<span class="property">decodeIv</span>)</span><br><span class="line">        , a = n ? <span class="title class_">JSON</span>.<span class="title function_">parse</span>(n) : {};</span><br><span class="line">    <span class="number">0</span> === a.<span class="property">code</span> ? e.<span class="property">success</span> &amp;&amp; <span class="title function_">t</span>(e.<span class="property">success</span>)(a) : e.<span class="property">fail</span> &amp;&amp; <span class="title function_">t</span>(e.<span class="property">fail</span>)(a)</span><br><span class="line">}</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>Mo["a"].cancelLastGpt()</code> 不需要管，感兴趣的可以自己去看看</li>
+<li><code>const n = Mo["a"].decodeData...略</code> 才是我们要看的，<code>decodeData</code>，是不是立即就明白这行代码的作用了？</li>
+</ul>
+<p>有道翻译客户端使用了 <code>Ko["a"].state.text.decodeKey</code> 和 <code>Ko["a"].state.text.decodeIv</code> 来解密响应的内容。Key 和 Iv，好好好，这不就是 AES 加密算法吗？！</p>
+<p>打开控制台打印一下这两个变量的值：</p>
+<p><img src="/posts/a4b5/17.png" alt=""></p>
+<p>万事俱备，只欠东风，让我们最后看一眼 <code>Mo["a"].decodeData()</code> 函数：</p>
+<p><img src="/posts/a4b5/18.png" alt=""></p>
+<ul>
+<li>接收 <code>t</code>、<code>o</code>、<code>n</code> 三个参数，分别代表了 base64 编码后的数据、用于解密的 key 和用于解密的 iv</li>
+</ul>
+<ol>
+<li>分别将解密用的 key 和 iv 转化为 16 进制的字节</li>
+<li>用 key 和 iv 创建一个 AES 解密器 <code>r</code></li>
+<li>用解密器 <code>r</code> 解密 base64 编码后的数据 <code>t</code>，得到 JSON 数据，也就是原始的响应数据</li>
+<li>最终返回明文</li>
+</ol>
+<p>搞清楚逻辑后我们便可以继续用 Python 解密：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">digest_key</span>(<span class="params">value</span>):</span><br><span class="line">    md5_new = hashlib.md5()</span><br><span class="line">    md5_new.update(val.encode())</span><br><span class="line">    <span class="keyword">return</span> md5_new.digest()</span><br><span class="line"></span><br><span class="line">o = <span class="string">'ydsecret://query/key/B*RGygVywfNBwpmBaZg*WT7SIOUP2T0C9WHMZN39j^DAdaZhAnxvGcCY6VYFwnHl'</span></span><br><span class="line">n = <span class="string">'ydsecret://query/iv/C@lZe2YzHtZ2CYgaXKSVfsb7Y4QWHjITPPZ0nQp87fBeJ!Iv6v^6fvi2WN@bYpJ4'</span></span><br><span class="line"></span><br><span class="line">key = digest_key(o)</span><br><span class="line">iv = digest_key(n)</span><br><span class="line"></span><br><span class="line">aes = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">data = aes.decrypt(data).decode()</span><br></pre></td></tr></tbody></table></figure>
+<p>得到的结果：</p>
+<p><img src="/posts/a4b5/19.png" alt=""></p>
+<h1 id="制作翻译器"><a class="markdownIt-Anchor" href="#制作翻译器"></a> 制作翻译器</h1>
+<p>经过以上逆向过程，我们还可以制作一个翻译器，让它能够翻译我们输入的单词。</p>
+<p>首先我们需要一个 GUI 库，这里我选择了 wxPython。安装方法：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install wxPython</span><br></pre></td></tr></tbody></table></figure>
+<p>其次我们需要定义一个窗口类，该类继承自 <code>wx.Frame</code>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyFrame</span>(wx.Frame):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, parent, title</span>):</span><br><span class="line">        <span class="comment"># 调用父类的构造函数</span></span><br><span class="line">        <span class="built_in">super</span>(MyFrame, <span class="variable language_">self</span>).__init__(parent, title=title, size=(<span class="number">400</span>, <span class="number">250</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建一个面板</span></span><br><span class="line">        panel = wx.Panel(<span class="variable language_">self</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 左侧文本框</span></span><br><span class="line">        input_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 右侧文本框</span></span><br><span class="line">        output_text = wx.TextCtrl(panel, style=wx.TE_MULTILINE | wx.TE_READONLY, size=(<span class="number">150</span>, <span class="number">150</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 按钮</span></span><br><span class="line">        button = wx.Button(panel, label=<span class="string">'翻译'</span>, size=(<span class="number">50</span>, <span class="number">25</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 水平布局</span></span><br><span class="line">        sizer = wx.BoxSizer(wx.HORIZONTAL)</span><br><span class="line">        <span class="comment"># 添加输入框和输出框</span></span><br><span class="line">        sizer.Add(input_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line">        sizer.Add(output_text, <span class="number">1</span>, wx.EXPAND)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 垂直布局</span></span><br><span class="line">        inner_sizer = wx.BoxSizer(wx.VERTICAL)</span><br><span class="line">        <span class="comment"># 添加水平布局和按钮</span></span><br><span class="line">        inner_sizer.Add(sizer, <span class="number">0</span>, wx.ALL | wx.EXPAND, <span class="number">10</span>)</span><br><span class="line">        inner_sizer.Add(button, <span class="number">0</span>, wx.ALIGN_CENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置面板的布局</span></span><br><span class="line">        panel.SetSizerAndFit(inner_sizer)</span><br></pre></td></tr></tbody></table></figure>
+<p>运行一下，布局长这样：</p>
+<p><img src="/posts/a4b5/20.png" alt=""></p>
+<p>用户需要在左侧输入单词、点击按钮，右侧才能够显示翻译的结果。因此我们还需要给按钮绑定一个事件：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment"># ...继def __init__()的内容...</span></span><br><span class="line">    <span class="comment"># 绑定按钮事件</span></span><br><span class="line">    <span class="variable language_">self</span>.Bind(wx.EVT_BUTTON, <span class="variable language_">self</span>.on_button_click, button)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当按钮被点击时，执行该函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_button_click</span>(<span class="params">self, event</span>):</span><br><span class="line">    <span class="comment"># 获取输入框和输出框</span></span><br><span class="line">    input_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">2</span>)</span><br><span class="line">    output_text = <span class="variable language_">self</span>.FindWindowById(event.GetId()-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取输入框的内容</span></span><br><span class="line">    word = input_text.GetValue()</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来的内容我相信大家都心知肚明，正是上述的所有内容的结合体。我把那些代码封装成了函数塞在按钮事件中，大家则可以自己动动手、试试看（绝对不是因为我懒）。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继def on_button_click()的内容</span></span><br><span class="line"><span class="comment"># 发送请求</span></span><br><span class="line">res = request(word)</span><br><span class="line"><span class="comment"># 将响应用base64解码</span></span><br><span class="line">data = decode_result(res)</span><br><span class="line"><span class="comment"># 解密解码后的响应，获得JSON数据中的翻译结果</span></span><br><span class="line">word = decrypt_data(data)</span><br><span class="line"><span class="comment"># 设置输出框的内容</span></span><br><span class="line">output_text.SetValue(word)</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/posts/a4b5/21.png" alt=""></p>
+<p>完工！</p>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="f8ce.html">上一篇</a><a class="next" href="875a.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/a4b5.html" data-full-url="https://cytrogen.icu/posts/a4b5.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

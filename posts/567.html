@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hexo i18n Configuration · Cytrogen 的个人博客</title><meta name="description" content="This article is a comprehensive guide to setting up internationalization (i18n) for a Hexo blog, primarily using the hexo-generator-plus plugin. It walks you through the entire process, from initial configuration in _config.yml, organizing your directory structure, and creating language files, to modifying Pug templates for your archive, category, and tag pages. The tutorial also includes a practical implementation of a navigation bar language switcher. Follow this guide to seamlessly add bilingual or multilingual support to your website."><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/567.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>English</span></button><div class="language-dropdown"><a class="language-option" href="/posts/17cc.html">中文</a></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>MORE</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../en/archives/index.html">ARCHIVE</a></li><li class="dropdown-item"><a class="nav-link" href="../en/categories/index.html">CATEGORIES</a></li><li class="dropdown-item"><a class="nav-link" href="../en/tags/index.html">TAGS</a></li><li class="dropdown-item"><a class="nav-link" href="../en/about/index.html">ABOUT</a></li><li class="dropdown-item"><a class="nav-link" href="../en/friends/index.html">BLOGROLL</a></li><li class="dropdown-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GITHUB<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/">HOME</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/archives/index.html">ARCHIVE</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/categories/index.html">CATEGORIES</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/tags/index.html">TAGS</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/about/index.html">ABOUT</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/friends/index.html">BLOGROLL</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/atom.xml">RSS</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GITHUB<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Hexo i18n Configuration</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-12-03T03:37:58.000Z">12/2/2024</time><a class="post-from" href="/posts/17cc.html" target="_blank" title="/posts/17cc.html">Translate · Original Link</a></div><div class="post-content"><p>When running a personal blog, you might encounter this requirement: wanting your website to support multiple languages so that readers from different regions can easily read your content.</p>
+<p>This is where website internationalization (also known as i18n) comes into play.</p>
+<p>For blogs built with Hexo, implementing internationalization requires consideration not only of content translation but also template rendering and other issues.</p>
+<span id="more"></span>
+<div class="danger">
+<ul>
+<li>
+<p>This article primarily uses the <code>hexo-generator-plus</code> plugin.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kiwirafe/hexo-generator-plus"><img src="https://gh-card.dev/repos/kiwirafe/hexo-generator-plus.svg?fullname=" alt="kiwirafe/hexo-generator-plus - GitHub"></a></p>
+<p>Before starting the configuration, please ensure you have uninstalled the following plugins to avoid conflicts:</p>
+<ul>
+<li><code>hexo-generator-archive</code></li>
+<li><code>hexo-generator-category</code></li>
+<li><code>hexo-generator-index</code></li>
+<li><code>hexo-generator-tag</code></li>
+</ul>
+</li>
+<li>
+<p>This article uses the <strong>Pug</strong> templating language.</p>
+</li>
+<li>
+<p>For the language switching solution in the navigation bar, I have only implemented bilingual logic.</p>
+</li>
+</ul>
+</div>
+<h2 id="basic-configuration"><a class="markdownIt-Anchor" href="#basic-configuration"></a> Basic Configuration</h2>
+<blockquote>
+<p>To avoid confusion:</p>
+<ol>
+<li>
+<p>The <code>_config.yml</code> in the Hexo root directory will be referred to as <strong>Hexo Configuration</strong></p>
+</li>
+<li>
+<p><code>themes/**/_config.yml</code> will be referred to as <strong>Theme Configuration</strong></p>
+</li>
+</ol>
+</blockquote>
+<p>First, we need to make some basic settings in Hexo's configuration file. These settings will determine the website's language options and URL structure.</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># Supported language list, first one is default</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span>  <span class="comment"># New article naming convention</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If you have hexo-abbrlink installed</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink.html</span>  <span class="comment"># Article permalink format</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>  <span class="comment"># Use hexadecimal as unique identifier</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hexo-generator-plus configuration</span></span><br><span class="line"><span class="attr">generator_plus:</span></span><br><span class="line">  <span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># Generator supported languages</span></span><br><span class="line">  <span class="attr">pagination_dir:</span> <span class="string">'page'</span>  <span class="comment"># Pagination directory</span></span><br><span class="line">  <span class="attr">generator:</span> [<span class="string">"index"</span>, <span class="string">"archive"</span>, <span class="string">"category"</span>, <span class="string">"tag"</span>]  <span class="comment"># Pages to generate</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Index generator configuration</span></span><br><span class="line">  <span class="attr">index_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment"># These numbers and order can be customized</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Archive page configuration</span></span><br><span class="line">  <span class="attr">archive_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Category page configuration</span></span><br><span class="line">  <span class="attr">category_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># If you want a category index page</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Tag page configuration</span></span><br><span class="line">  <span class="attr">tag_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">name</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># If you want a tag index page</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Then configure the desired menu links in the theme configuration:</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="directory-structure"><a class="markdownIt-Anchor" href="#directory-structure"></a> Directory Structure</h2>
+<p>Here is the required directory structure:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # Default language blog posts</span><br><span class="line">│   └── *.md                    # No subdirectories allowed</span><br><span class="line">├── en/                         # English-specific content</span><br><span class="line">│   └── Same structure as source directory</span><br><span class="line">├── archives/                   # Archive page</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # Category page</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # Tag page</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>Of course, you can choose other languages, but other language directories need to match the names in <code>themes/**/languages/*.yml</code>.</p>
+</blockquote>
+<p>Please ensure each <code>*.md</code> file has <code>lang: **</code> in its Front-Matter.</p>
+<h2 id="language-file-configuration"><a class="markdownIt-Anchor" href="#language-file-configuration"></a> Language File Configuration</h2>
+<p>Fixed website text (such as navigation menus, button text, etc.) needs to be internationalized through language files. These files should be placed in the <code>themes/**/languages/</code> directory.</p>
+<p>Here's my examples:</p>
+<ol>
+<li>
+<p><code>zh.yml</code>:</p>
+ <figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">首页</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">关于</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">友情链接</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">上一页</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">下一页</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">上一篇</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">下一篇</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...阅读全文</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">翻译</span> <span class="string">·</span> <span class="string">原文地址</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>en.yml</code>:</p>
+ <figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">HOME</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">ARC</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">TAGS</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">CATE</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">ABOUT</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">Friend</span> <span class="string">Links</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">Archive</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">PREV</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">NEXT</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">PREV</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">NEXT</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...MORE</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">Translate</span> <span class="string">·</span> <span class="string">Original</span> <span class="string">Link</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h2 id="template-file-implementation"><a class="markdownIt-Anchor" href="#template-file-implementation"></a> Template File Implementation</h2>
+<p>From here on, I'll only write about the solution used for my blog website.</p>
+<p><strong>Please modify according to your own theme.</strong></p>
+<h4 id="category-page-templates"><a class="markdownIt-Anchor" href="#category-page-templates"></a> Category Page Templates</h4>
+<p>Category pages need two templates: category index page and specific category page.</p>
+<ol>
+<li>
+<p>Category list page (<code>category-index.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    .archive</span><br><span class="line">        // Title content prioritizes page.title</span><br><span class="line">        // If it doesn't exist, use the i18n function __() to get categories_title translation</span><br><span class="line">        h2.archive-title= page.title || __('categories_title')</span><br><span class="line">        .category-list</span><br><span class="line">            // Get all category data</span><br><span class="line">            each category in get_categories().data</span><br><span class="line">                // Calculate number of posts matching current language for each category</span><br><span class="line">                - var postCount = category.posts.data ? category.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .category-item</span><br><span class="line">                        // Each category shows as a link, including category name and post count</span><br><span class="line">                        // url_for_lang() generates multilingual-supported URL</span><br><span class="line">                        - var categoryPath = category.slug || category.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, 'categories/' + categoryPath))</span><br><span class="line">                            = category.name</span><br><span class="line">                            span.category-count= ` (${postCount})`</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>Specific category page (<code>category.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.category</span><br><span class="line">        +postList()</span><br></pre></td></tr></tbody></table></figure>
+<p>Here, post-related functionality is encapsulated in a series of mixins for reuse across different pages (<code>mixins/post.pug</code>):</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mixin postInfo(item)</span><br><span class="line">    .post-info</span><br><span class="line">        != full_date(item.date, 'l')</span><br><span class="line">        // If post has from property and current page is home or post page</span><br><span class="line">        if item.from &amp;&amp; (is_home() || is_post())</span><br><span class="line">            // Show a link indicating post translation source</span><br><span class="line">            a.post-from(href=item.from target="_blank" title=item.from)!= __('translated')</span><br><span class="line"></span><br><span class="line">mixin posts()</span><br><span class="line">    ul.home.post-list</span><br><span class="line">        // Iterate through all posts</span><br><span class="line">        - for (var post of page.posts.data || [])</span><br><span class="line">            // Only show posts matching current page language</span><br><span class="line">            - if (post.lang == page.lang)</span><br><span class="line">                li.post-list-item</span><br><span class="line">                    article.post-block</span><br><span class="line">                        h2.post-title</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                        +postInfo(post)</span><br><span class="line">                        // If there's an excerpt, show it with "read more" link</span><br><span class="line">                        if post.excerpt</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.excerpt</span><br><span class="line">                            a.read-more(href= url_for(post.path))!= __('more')</span><br><span class="line">                        else</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.content</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="tag-page-templates"><a class="markdownIt-Anchor" href="#tag-page-templates"></a> Tag Page Templates</h4>
+<p>Almost identical to category page templates:</p>
+<ol>
+<li>
+<p><code>tag-index.pug</code>:</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.title || __('tags_title')</span><br><span class="line">        .tag-list</span><br><span class="line">            each tag in get_tags().data</span><br><span class="line">                - var postCount = tag.posts.data ? tag.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .tag-item</span><br><span class="line">                        - var tagPath = tag.slug || tag.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, 'tags/' + tagPath))</span><br><span class="line">                            = tag.name</span><br><span class="line">                            span.tag-count= ` (${postCount})`</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>tag.pug</code>:</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.tag</span><br><span class="line">        +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="archive-page-template"><a class="markdownIt-Anchor" href="#archive-page-template"></a> Archive Page Template</h4>
+<p>Archive page only needs one <code>archive.pug</code>:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+<p>Its mixin:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mixin postList()</span><br><span class="line">    .archive</span><br><span class="line">        // Check if there are posts</span><br><span class="line">        if page.posts</span><br><span class="line">            // Ensure post list exists and is not empty</span><br><span class="line">            - var posts = page.posts.data || page.posts</span><br><span class="line">            if posts &amp;&amp; posts.length</span><br><span class="line">                // Create a years object for grouping</span><br><span class="line">                // Only process posts matching current page language</span><br><span class="line">                // Get year from post date</span><br><span class="line">                // Add posts to corresponding year array</span><br><span class="line">                - var years = {}</span><br><span class="line">                - for (var post of posts)</span><br><span class="line">                    - if (post.lang == page.lang)</span><br><span class="line">                        - var year = new Date(post.date).getFullYear()</span><br><span class="line">                        - if (!years[year]) years[year] = []</span><br><span class="line">                        - years[year].push(post)</span><br><span class="line">                // Sort years in descending order (show largest year first)</span><br><span class="line">                - Object.keys(years).sort((a, b) =&gt; b - a).forEach(function(year) {</span><br><span class="line">                    h2.archive-year!= year</span><br><span class="line">                    - years[year].forEach(function(post) {</span><br><span class="line">                        .post-item</span><br><span class="line">                            +postInfo(post)</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                    - })</span><br><span class="line">                - })</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="navigation-bar-implementation"><a class="markdownIt-Anchor" href="#navigation-bar-implementation"></a> Navigation Bar Implementation</h4>
+<p>The navigation bar is the key interface for language switching (<code>nav.pug</code>).</p>
+<p>Since my blog theme's navigation bar isn't wide, I wrote top and bottom sections to separate some links:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ul.nav.nav-list</span><br><span class="line">    // Top section</span><br><span class="line">    div.nav-list-top</span><br><span class="line">        // Iterate through all keys and values in theme menu config</span><br><span class="line">        each path, key in theme.menu</span><br><span class="line">            // Exclude links to be placed at bottom, in my case GitHub and RSS</span><br><span class="line">            if key !== 'GitHub' &amp;&amp; key !== 'RSS'</span><br><span class="line">                li.nav-list-item</span><br><span class="line">                    // Check if external link</span><br><span class="line">                    // If yes, open in new tab</span><br><span class="line">                    // Add /en prefix for English pages</span><br><span class="line">                    // Check if current page is active (for highlighting)</span><br><span class="line">                    - var re = /^(http|https):\/\/*/gi;</span><br><span class="line">                    - var tar = re.test(path) ? "_blank" : "_self"</span><br><span class="line">                    - var fullPath = page.lang === 'en' ? '/en' + path : path</span><br><span class="line">                    - var act = !re.test(path) &amp;&amp; "/" + page.current_url === fullPath</span><br><span class="line">                    a.nav-list-link(class={active: act} href=url_for(fullPath) target=tar)</span><br><span class="line">                        != __(('menu.' + key))</span><br><span class="line">    // Bottom section</span><br><span class="line">    div.nav-list-bottom</span><br><span class="line">        // Language switch button</span><br><span class="line">        li.nav-list-item.lang-switch</span><br><span class="line">            if page.lang == 'en'</span><br><span class="line">                a.nav-list-link(href=url_for('/')) 中文</span><br><span class="line">            else</span><br><span class="line">                a.nav-list-link(href=url_for('/en')) ENGLISH</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="usage"><a class="markdownIt-Anchor" href="#usage"></a> Usage</h2>
+<p>After completing the above configuration, specify the language in the Front-Matter when creating new articles:</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Article Title</span><br><span class="line">date: 2024-01-01</span><br><span class="line"><span class="section">lang: en</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></tbody></table></figure>
+<p>If you want to create versions of the same article in other languages, just create a new Markdown file, specify the appropriate <code>lang</code>, and link to the original article using the <code>from</code> field in the Front-Matter:</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2024-01-01</span><br><span class="line">lang: zh</span><br><span class="line"><span class="section">from: /posts/original-post.html</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></tbody></table></figure>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="270a.html">PREV POST</a><a class="next" href="17cc.html">NEXT POST</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/567.html" data-full-url="https://cytrogen.icu/posts/567.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = 'Expand';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? 'Expand' : 'Fold';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = 'Copied';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = 'Copy failed';
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

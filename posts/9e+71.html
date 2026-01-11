@@ -1,0 +1,1472 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ECO 1001 笔记 · Cytrogen 的个人博客</title><meta name="description" content="微观经济学笔记，仅作为个人学习记录，不保证正确性。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/9e+71.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">ECO 1001 笔记</h1><div class="post-info"><time class="post-date dt-published" datetime="2023-10-17T06:21:26.000Z">10/17/2023</time></div><div class="post-content"><html><head></head><body><p>微观经济学笔记，仅作为个人学习记录，不保证正确性。</p>
+<span id="more"></span> 
+<h1 id="目录"><a class="markdownIt-Anchor" href="#目录"></a> 目录</h1>
+<details>
+<ul>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E5%B8%82%E5%9C%BA">第三章：市场</a>
+<ul>
+<li><a href="#31-%E5%B8%82%E5%9C%BA%E7%9A%84%E5%AE%9A%E4%B9%89">3.1 市场的定义</a></li>
+<li><a href="#32-%E5%B8%82%E5%9C%BA%E9%9C%80%E6%B1%82">3.2 市场需求</a>
+<ul>
+<li><a href="#321-%E9%9C%80%E6%B1%82%E8%A1%A8">3.2.1 需求表</a></li>
+<li><a href="#322-%E9%9C%80%E6%B1%82%E6%9B%B2%E7%BA%BF">3.2.2 需求曲线</a></li>
+<li><a href="#323-%E9%9C%80%E6%B1%82%E7%9A%84%E5%8F%98%E5%8C%96">3.2.3 需求的变化</a></li>
+<li><a href="#324-%E9%9C%80%E6%B1%82%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A7%BB%E5%8A%A8">3.2.4 需求曲线的移动</a></li>
+<li><a href="#325-%E7%A7%BB%E5%8A%A8-vs-%E6%B2%BF%E7%9D%80%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A7%BB%E5%8A%A8">3.2.5 移动 vs. 沿着曲线的移动</a></li>
+</ul>
+</li>
+<li><a href="#33-%E5%B8%82%E5%9C%BA%E4%BE%9B%E7%BB%99">3.3 市场供给</a>
+<ul>
+<li><a href="#331-%E4%BE%9B%E7%BB%99%E8%A1%A8">3.3.1 供给表</a></li>
+<li><a href="#332-%E4%BE%9B%E7%BB%99%E6%9B%B2%E7%BA%BF">3.3.2 供给曲线</a></li>
+<li><a href="#333-%E4%BE%9B%E7%BB%99%E7%9A%84%E5%8F%98%E5%8C%96">3.3.3 供给的变化</a></li>
+<li><a href="#334-%E4%BE%9B%E7%BB%99%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A7%BB%E5%8A%A8">3.3.4 供给曲线的移动</a></li>
+<li><a href="#335-%E7%A7%BB%E5%8A%A8-vs-%E6%B2%BF%E7%9D%80%E6%9B%B2%E7%BA%BF%E7%9A%84%E7%A7%BB%E5%8A%A8">3.3.5 移动 vs. 沿着曲线的移动</a></li>
+</ul>
+</li>
+<li><a href="#34-%E5%B8%82%E5%9C%BA%E5%9D%87%E8%A1%A1">3.4 市场均衡</a>
+<ul>
+<li><a href="#341-%E4%BE%9B%E7%BB%99%E8%BF%87%E5%89%A9">3.4.1 供给过剩</a></li>
+<li><a href="#342-%E9%9C%80%E6%B1%82%E4%B8%8D%E8%B6%B3">3.4.2 需求不足</a></li>
+<li><a href="#343-%E5%B8%82%E5%9C%BA%E5%9D%87%E8%A1%A1%E7%9A%84%E5%8F%98%E5%8C%96">3.4.3 市场均衡的变化</a></li>
+<li><a href="#344-%E9%9C%80%E6%B1%82%E5%92%8C%E4%BE%9B%E7%BB%99%E7%9A%84%E5%8F%98%E5%8C%96">3.4.4 需求和供给的变化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E5%BC%B9%E6%80%A7">第四章：弹性</a>
+<ul>
+<li><a href="#41-%E5%BC%B9%E6%80%A7%E7%9A%84%E5%AE%9A%E4%B9%89">4.1 弹性的定义</a></li>
+<li><a href="#42-%E9%9C%80%E6%B1%82%E7%9A%84%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7">4.2 需求的价格弹性</a>
+<ul>
+<li><a href="#422-%E8%AE%A1%E7%AE%97%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7">4.2.2 计算价格弹性</a></li>
+<li><a href="#423-%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7%E7%9A%84%E5%88%86%E7%B1%BB">4.2.3 价格弹性的分类</a></li>
+<li><a href="#424-%E9%9C%80%E6%B1%82%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7%E7%9A%84%E7%94%A8%E5%A4%84">4.2.4 需求价格弹性的用处</a></li>
+<li><a href="#425-%E9%9C%80%E6%B1%82%E5%BC%B9%E6%80%A7%E5%92%8C%E6%80%BB%E6%94%B6%E5%85%A5">4.2.5 需求弹性和总收入</a></li>
+</ul>
+</li>
+<li><a href="#43-%E4%BE%9B%E7%BB%99%E7%9A%84%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7">4.3 供给的价格弹性</a></li>
+<li><a href="#44-%E9%9C%80%E6%B1%82%E7%9A%84%E4%BA%A4%E5%8F%89%E4%BB%B7%E6%A0%BC%E5%BC%B9%E6%80%A7">4.4 需求的交叉价格弹性</a></li>
+<li><a href="#45-%E9%9C%80%E6%B1%82%E7%9A%84%E6%94%B6%E5%85%A5%E5%BC%B9%E6%80%A7">4.5 需求的收入弹性</a></li>
+<li><a href="#46-%E5%9B%9B%E7%A7%8D%E5%BC%B9%E6%80%A7%E7%9A%84%E6%80%BB%E7%BB%93">4.6 四种弹性的总结</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%E6%95%88%E7%8E%87">第五章：效率</a>
+<ul>
+<li><a href="#51-%E6%94%AF%E4%BB%98%E5%92%8C%E9%94%80%E5%94%AE%E6%84%8F%E6%84%BF">5.1 支付和销售意愿</a></li>
+<li><a href="#52-%E8%AE%A1%E7%AE%97%E8%BF%87%E5%89%A9">5.2 计算过剩</a>
+<ul>
+<li><a href="#521-%E8%AE%A1%E7%AE%97%E6%B6%88%E8%B4%B9%E8%80%85%E8%BF%87%E5%89%A9">5.2.1 计算消费者过剩</a></li>
+<li><a href="#522-%E8%AE%A1%E7%AE%97%E7%94%9F%E4%BA%A7%E8%80%85%E8%BF%87%E5%89%A9">5.2.2 计算生产者过剩</a></li>
+<li><a href="#523-%E8%AE%A1%E7%AE%97%E6%80%BB%E8%BF%87%E5%89%A9">5.2.3 计算总过剩</a></li>
+</ul>
+</li>
+<li><a href="#53-%E5%B8%82%E5%9C%BA%E5%9D%87%E8%A1%A1%E5%92%8C%E6%95%88%E7%8E%87">5.3 市场均衡和效率</a></li>
+<li><a href="#54-%E6%97%A0%E8%B0%93%E6%8D%9F%E5%A4%B1">5.4 无谓损失</a></li>
+<li><a href="#55-%E4%B8%A2%E5%A4%B1%E7%9A%84%E5%B8%82%E5%9C%BA">5.5 丢失的市场</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%E6%94%BF%E5%BA%9C%E5%B9%B2%E9%A2%84">第六章：政府干预</a>
+<ul>
+<li><a href="#61-%E4%BB%B7%E6%A0%BC%E6%8E%A7%E5%88%B6">6.1 价格控制</a></li>
+<li><a href="#62-%E4%BB%B7%E6%A0%BC%E4%B8%8A%E9%99%90">6.2 价格上限</a>
+<ul>
+<li><a href="#621-%E4%BB%B7%E6%A0%BC%E4%B8%8A%E9%99%90%E5%AF%B9%E7%A6%8F%E5%88%A9%E7%9A%84%E5%BD%B1%E5%93%8D">6.2.1 价格上限对福利的影响</a></li>
+<li><a href="#622-%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E4%BB%B7%E6%A0%BC%E4%B8%8A%E9%99%90">6.2.2 非约束性价格上限</a></li>
+</ul>
+</li>
+<li><a href="#63-%E4%BB%B7%E6%A0%BC%E4%B8%8B%E9%99%90">6.3 价格下限</a>
+<ul>
+<li><a href="#631-%E4%BB%B7%E6%A0%BC%E4%B8%8B%E9%99%90%E5%AF%B9%E7%A6%8F%E5%88%A9%E7%9A%84%E5%BD%B1%E5%93%8D">6.3.1 价格下限对福利的影响</a></li>
+<li><a href="#632-%E6%97%A0%E6%95%88%E7%9A%84%E4%BB%B7%E6%A0%BC%E4%B8%8B%E9%99%90">6.3.2 无效的价格下限</a></li>
+</ul>
+</li>
+<li><a href="#64-%E7%A8%8E%E6%94%B6%E5%92%8C%E8%A1%A5%E8%B4%B4">6.4 税收和补贴</a></li>
+<li><a href="#65-%E7%A8%8E%E6%94%B6">6.5 税收</a>
+<ul>
+<li><a href="#651-%E5%8D%96%E6%96%B9%E7%BA%B3%E7%A8%8E%E7%9A%84%E5%BD%B1%E5%93%8D">6.5.1 卖方纳税的影响</a></li>
+<li><a href="#652-%E4%B9%B0%E6%96%B9%E7%BA%B3%E7%A8%8E%E7%9A%84%E5%BD%B1%E5%93%8D">6.5.2 买方纳税的影响</a></li>
+<li><a href="#653-%E7%A8%8E%E6%94%B6%E5%AF%B9%E4%B9%B0%E5%8D%96%E5%8F%8C%E6%96%B9%E7%9A%84%E5%BD%B1%E5%93%8D">6.5.3 税收对买卖双方的影响</a></li>
+<li><a href="#654-%E7%A8%8E%E6%94%B6%E5%8F%91%E7%94%9F%E7%8E%87">6.5.4 税收发生率</a></li>
+</ul>
+</li>
+<li><a href="#66-%E8%A1%A5%E8%B4%B4">6.6 补贴</a>
+<ul>
+<li><a href="#661-%E8%A1%A5%E8%B4%B4%E9%80%A0%E6%88%90%E7%9A%84%E6%8D%9F%E5%A4%B1">6.6.1 补贴造成的损失</a></li>
+<li><a href="#662-%E6%94%BF%E5%BA%9C%E8%A1%A5%E8%B4%B4%E6%94%AF%E5%87%BA">6.6.2 政府补贴支出</a></li>
+<li><a href="#663-%E8%A1%A5%E8%B4%B4%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%B6%88%E8%B4%B9%E8%80%85%E7%94%9F%E4%BA%A7%E8%80%85%E8%BF%87%E5%89%A9">6.6.3 补贴带来的消费者 / 生产者过剩</a></li>
+</ul>
+</li>
+<li><a href="#67-%E7%A8%8E%E6%94%B6%E6%88%96%E8%A1%A5%E8%B4%B4%E7%9A%84%E5%BD%B1%E5%93%8D">6.7 税收或补贴的影响</a></li>
+<li><a href="#68-%E9%95%BF%E6%9C%9F%E5%BD%B1%E5%93%8D%E4%B8%8E%E7%9F%AD%E6%9C%9F%E5%BD%B1%E5%93%8D">6.8 长期影响与短期影响</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%E6%B6%88%E8%B4%B9%E8%80%85%E8%A1%8C%E4%B8%BA">第七章：消费者行为</a>
+<ul>
+<li><a href="#71-%E6%95%88%E7%94%A8%E5%9F%BA%E7%A1%80">7.1 效用基础</a>
+<ul>
+<li><a href="#711-%E6%95%88%E7%94%A8%E5%87%BD%E6%95%B0">7.1.1 效用函数</a></li>
+<li><a href="#712-%E8%BE%B9%E9%99%85%E6%95%88%E7%94%A8">7.1.2 边际效用</a></li>
+<li><a href="#713-%E6%95%88%E7%94%A8">7.1.3 效用</a></li>
+<li><a href="#714-%E8%BE%B9%E9%99%85%E6%95%88%E7%94%A8%E9%80%92%E5%87%8F">7.1.4 边际效用递减</a></li>
+</ul>
+</li>
+<li><a href="#72-%E5%B8%A6%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%95%88%E7%94%A8%E6%9C%80%E5%A4%A7%E5%8C%96">7.2 带约束条件的效用最大化</a>
+<ul>
+<li><a href="#721-%E9%A2%84%E7%AE%97%E7%BA%A6%E6%9D%9F">7.2.1 预算约束</a></li>
+<li><a href="#722-%E6%80%BB%E6%95%88%E7%94%A8%E6%9C%80%E5%A4%A7%E5%8C%96">7.2.2 总效用最大化</a></li>
+<li><a href="#723-%E5%BA%94%E5%AF%B9%E6%94%B6%E5%85%A5%E5%8F%98%E5%8C%96">7.2.3 应对收入变化</a></li>
+<li><a href="#724-%E5%BA%94%E5%AF%B9%E4%BB%B7%E6%A0%BC%E5%8F%98%E5%8C%96">7.2.4 应对价格变化</a></li>
+</ul>
+</li>
+<li><a href="#73-%E6%95%88%E7%94%A8%E5%92%8C%E7%A4%BE%E4%BC%9A">7.3 效用和社会</a></li>
+<li><a href="#74-%E6%95%88%E7%94%A8%E5%88%A9%E4%BB%96%E4%B8%BB%E4%B9%89%E5%92%8C%E4%BA%92%E6%83%A0">7.4 效用、利他主义和互惠</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E7%94%9F%E4%BA%A7%E6%88%90%E6%9C%AC">第十二章：生产成本</a>
+<ul>
+<li><a href="#121-%E6%94%B6%E5%85%A5%E6%88%90%E6%9C%AC%E5%92%8C%E5%88%A9%E6%B6%A6">12.1 收入、成本和利润</a>
+<ul>
+<li><a href="#1211-%E5%9B%BA%E5%AE%9A%E6%88%90%E6%9C%AC%E5%92%8C%E5%8F%AF%E5%8F%98%E6%88%90%E6%9C%AC">12.1.1 固定成本和可变成本</a></li>
+<li><a href="#1212-%E6%98%BE%E6%80%A7%E5%92%8C%E9%9A%90%E6%80%A7%E6%88%90%E6%9C%AC">12.1.2 显性和隐性成本</a></li>
+<li><a href="#1213-%E7%BB%8F%E6%B5%8E%E5%92%8C%E4%BC%9A%E8%AE%A1%E5%88%A9%E6%B6%A6">12.1.3 经济和会计利润</a></li>
+</ul>
+</li>
+<li><a href="#122-%E6%80%BB%E4%BA%A7%E9%87%8F%E8%BE%B9%E9%99%85%E4%BA%A7%E5%93%81%E5%92%8C%E5%B9%B3%E5%9D%87%E4%BA%A7%E5%93%81">12.2 总产量、边际产品和平均产品</a>
+<ul>
+<li><a href="#1221-%E7%94%9F%E4%BA%A7%E5%87%BD%E6%95%B0">12.2.1 生产函数</a></li>
+<li><a href="#1222-%E5%B9%B3%E5%9D%87%E5%92%8C%E8%BE%B9%E9%99%85%E4%BA%A7%E5%93%81">12.2.2 平均和边际产品</a></li>
+</ul>
+</li>
+<li><a href="#123-%E7%94%9F%E4%BA%A7%E6%88%90%E6%9C%AC">12.3 生产成本</a>
+<ul>
+<li><a href="#1231-%E6%88%90%E6%9C%AC%E6%9B%B2%E7%BA%BF">12.3.1 成本曲线</a></li>
+<li><a href="#1232-%E8%BE%B9%E9%99%85%E6%88%90%E6%9C%AC%E6%9B%B2%E7%BA%BF%E5%92%8C%E5%B9%B3%E5%9D%87%E6%88%90%E6%9C%AC%E6%9B%B2%E7%BA%BF">12.3.2 边际成本曲线和平均成本曲线</a></li>
+</ul>
+</li>
+<li><a href="#124-%E9%95%BF%E6%9C%9F%E6%88%90%E6%9C%AC">12.4 长期成本</a></li>
+<li><a href="#125-%E8%A7%84%E6%A8%A1%E6%8A%A5%E9%85%AC">12.5 规模报酬</a></li>
+<li><a href="#126-%E9%95%BF%E6%9C%9F%E5%B9%B3%E5%9D%87%E6%80%BB%E6%88%90%E6%9C%AC">12.6 长期平均总成本</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0%E5%AE%8C%E5%85%A8%E7%AB%9E%E4%BA%89">第十三章：完全竞争</a>
+<ul>
+<li><a href="#131-%E5%AE%8C%E5%85%A8%E7%AB%9E%E4%BA%89%E5%B8%82%E5%9C%BA">13.1 完全竞争市场</a>
+<ul>
+<li><a href="#1311-%E5%B8%82%E5%9C%BA%E5%8A%9B%E9%87%8F">13.1.1 市场力量</a></li>
+<li><a href="#1312-%E5%AE%8C%E5%85%A8%E7%AB%9E%E4%BA%89%E5%B8%82%E5%9C%BA%E7%9A%84%E6%94%B6%E5%85%A5">13.1.2 完全竞争市场的收入</a></li>
+</ul>
+</li>
+<li><a href="#132-%E5%88%A9%E6%B6%A6%E5%92%8C%E7%94%9F%E4%BA%A7%E5%86%B3%E7%AD%96">13.2 利润和生产决策</a>
+<ul>
+<li><a href="#1321-%E5%88%A9%E6%B6%A6">13.2.1 利润</a></li>
+<li><a href="#1322-%E5%86%B3%E5%AE%9A%E4%BD%95%E6%97%B6%E6%93%8D%E4%BD%9C">13.2.2 决定何时操作</a></li>
+<li><a href="#1323-%E7%9F%AD%E6%9C%9F%E4%BE%9B%E7%BB%99%E6%9B%B2%E7%BA%BF%E5%92%8C%E5%81%9C%E4%BA%A7%E8%A7%84%E5%88%99">13.2.3 短期供给曲线和停产规则</a></li>
+<li><a href="#1324-%E9%95%BF%E6%9C%9F%E4%BE%9B%E7%BB%99%E6%9B%B2%E7%BA%BF%E5%92%8C%E5%81%9C%E4%BA%A7%E8%A7%84%E5%88%99">13.2.4 长期供给曲线和停产规则</a></li>
+</ul>
+</li>
+<li><a href="#133-%E4%BC%81%E4%B8%9A%E5%92%8C%E5%B8%82%E5%9C%BA%E4%BE%9B%E5%BA%94%E6%9B%B2%E7%BA%BF">13.3 企业和市场供应曲线</a>
+<ul>
+<li><a href="#1331-%E9%95%BF%E6%9C%9F%E4%BE%9B%E5%BA%94">13.3.1 长期供应</a></li>
+<li><a href="#1332-%E9%95%BF%E6%9C%9F%E7%BB%8F%E6%B5%8E%E5%88%A9%E6%B6%A6">13.3.2 长期经济利润</a></li>
+<li><a href="#1333-%E5%9B%A0%E7%94%9F%E4%BA%A7%E6%88%90%E6%9C%AC%E5%8F%98%E5%8C%96%E8%80%8C%E8%BF%9B%E5%85%A5%E5%B8%82%E5%9C%BA">13.3.3 因生产成本变化而进入市场</a></li>
+<li><a href="#1334-%E5%BA%94%E5%AF%B9%E9%9C%80%E6%B1%82%E7%9A%84%E5%8F%98%E5%8C%96">13.3.4 应对需求的变化</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#chapter-14-monopoly">Chapter 14: Monopoly</a>
+<ul>
+<li><a href="#141-monopolists-and-demand-curve">14.1 Monopolists and Demand Curve</a></li>
+<li><a href="#142-monopoly-revenue">14.2 Monopoly Revenue</a></li>
+<li><a href="#143-monopoly-profit-maximizing-quantity">14.3 Monopoly Profit-maximizing Quantity</a></li>
+<li><a href="#144-problems-with-monopoly">14.4 Problems with Monopoly</a></li>
+<li><a href="#145-comparing-market-characteristics">14.5 Comparing Market Characteristics</a></li>
+</ul>
+</li>
+<li><a href="#chapter-17-international-trade">Chapter 17: International Trade</a>
+<ul>
+<li><a href="#171-roots-of-comparative-advantage">17.1 Roots of Comparative Advantage</a></li>
+<li><a href="#172-from-autarky-to-free-trade">17.2 From Autarky to Free Trade</a>
+<ul>
+<li><a href="#1721-net-importer-or-net-exporter">17.2.1 Net-Importer or Net-Exporter</a></li>
+<li><a href="#1722-big-economy-small-economy">17.2.2 Big Economy, Small Economy</a></li>
+</ul>
+</li>
+<li><a href="#173-restrictions-on-trade">17.3 Restrictions on Trade</a></li>
+<li><a href="#174-tariffs">17.4 Tariffs</a>
+<ul>
+<li><a href="#1741-domestic-welfare-effects-of-a-tariff">17.4.1 Domestic Welfare Effects of a Tariff</a></li>
+</ul>
+</li>
+<li><a href="#175-quotas">17.5 Quotas</a></li>
+<li><a href="#176-international-labor-and-capital">17.6 International Labor and Capital</a></li>
+</ul>
+</li></ul></details>
+
+
+<center>-----</center>
+<h1 id="第三章市场"><a class="markdownIt-Anchor" href="#第三章市场"></a> 第三章：市场</h1>
+<h2 id="31-市场的定义"><a class="markdownIt-Anchor" href="#31-市场的定义"></a> 3.1 市场的定义</h2>
+<p>市场是指买卖某种特定商品或服务的买家和卖家。</p>
+<p>其中一种特殊的市场是竞争市场，它有以下特征：</p>
+<ul>
+<li>标准化商品 / Standardized goods</li>
+<li>无成本交易 / No transaction costs</li>
+<li>充分信息 / Full information</li>
+<li>参与者是价格接受者 / Participants are price takers</li>
+</ul>
+<h2 id="32-市场需求"><a class="markdownIt-Anchor" href="#32-市场需求"></a> 3.2 市场需求</h2>
+<p>消费者决定了市场需求，市场需求是所有消费者需求的总和。</p>
+<p>需求量（Quantity demand）是指消费者愿意购买的某种商品的数量。</p>
+<p>需求定律（Law of demand）：需求量随价格的上升而下降，随价格的下降而上升。</p>
+<h4 id="321-需求表"><a class="markdownIt-Anchor" href="#321-需求表"></a> 3.2.1 需求表</h4>
+<p>需求表（Demand schedule）：描述了在不同价格下，消费者愿意购买的商品数量。</p>
+<p><img src="/posts/9e+71/Demand_Schedule.png" alt=""></p>
+<h4 id="322-需求曲线"><a class="markdownIt-Anchor" href="#322-需求曲线"></a> 3.2.2 需求曲线</h4>
+<p>需求曲线（Demand curve）：描述了在不同价格下，消费者愿意购买的商品数量。</p>
+<p><img src="/posts/9e+71/Demand_Curve.png" alt=""></p>
+<p>在需求曲线上，所有的其他非价格因素都保持不变。</p>
+<h4 id="323-需求的变化"><a class="markdownIt-Anchor" href="#323-需求的变化"></a> 3.2.3 需求的变化</h4>
+<p>五大非价格因素分别是：</p>
+<ul>
+<li>收入 / Income</li>
+<li>相关商品的价格 / Price of related goods</li>
+<li>消费者偏好 / Consumer preferences</li>
+<li>买家数量 / Number of buyers</li>
+<li>预期 / Expectations</li>
+</ul>
+<p>当这些非价格因素发生变化时：</p>
+<ul>
+<li>如果是正面变化，需求曲线向右移动，需求增加</li>
+<li>如果是负面变化，需求曲线向左移动，需求减少</li>
+</ul>
+<h4 id="324-需求曲线的移动"><a class="markdownIt-Anchor" href="#324-需求曲线的移动"></a> 3.2.4 需求曲线的移动</h4>
+<p>当需求增加时，需求曲线向右移动；当需求减少时，需求曲线向左移动。</p>
+<p><img src="/posts/9e+71/Shifting_The_Demand_Curve.png" alt=""></p>
+<h4 id="325-移动-vs-沿着曲线的移动"><a class="markdownIt-Anchor" href="#325-移动-vs-沿着曲线的移动"></a> 3.2.5 移动 vs. 沿着曲线的移动</h4>
+<p>需求曲线的移动和沿着曲线的移动是不同的。</p>
+<p>当非价格因素发生变化时，需求曲线会移动，而当价格发生变化时，需求曲线沿着曲线移动。</p>
+<p><img src="/posts/9e+71/Shift_Versus_Movements_Demand.png" alt=""></p>
+<h2 id="33-市场供给"><a class="markdownIt-Anchor" href="#33-市场供给"></a> 3.3 市场供给</h2>
+<p>生产者决定了市场供给，市场供给是所有生产者供给的总和。</p>
+<p>供给量（Quantity supplied）是指生产者愿意出售的某种商品的数量。</p>
+<p>供给定律（Law of supply）：供给量随价格的上升而上升，随价格的下降而下降。</p>
+<h4 id="331-供给表"><a class="markdownIt-Anchor" href="#331-供给表"></a> 3.3.1 供给表</h4>
+<p>供给表（Supply schedule）：描述了在不同价格下，生产者愿意出售的商品数量。</p>
+<h4 id="332-供给曲线"><a class="markdownIt-Anchor" href="#332-供给曲线"></a> 3.3.2 供给曲线</h4>
+<p>供给曲线（Supply curve）：描述了在不同价格下，生产者愿意出售的商品数量。</p>
+<p><img src="/posts/9e+71/Supply_Curve.png" alt=""></p>
+<p>在供给曲线上，所有的其他非价格因素都保持不变。</p>
+<h4 id="333-供给的变化"><a class="markdownIt-Anchor" href="#333-供给的变化"></a> 3.3.3 供给的变化</h4>
+<p>五大非价格因素分别是：</p>
+<ul>
+<li>生产要素价格 / Prices of inputs</li>
+<li>生产技术 / Technology</li>
+<li>生产者的数量 / Number of producers</li>
+<li>相关商品的价格 / Price of related goods</li>
+<li>预期 / Expectations</li>
+</ul>
+<p>当这些非价格因素发生变化时：</p>
+<ul>
+<li>如果是正面变化，供给曲线向右移动，供给增加</li>
+<li>如果是负面变化，供给曲线向左移动，供给减少</li>
+</ul>
+<h4 id="334-供给曲线的移动"><a class="markdownIt-Anchor" href="#334-供给曲线的移动"></a> 3.3.4 供给曲线的移动</h4>
+<p>当供给增加时，供给曲线向右移动；当供给减少时，供给曲线向左移动。</p>
+<h4 id="335-移动-vs-沿着曲线的移动"><a class="markdownIt-Anchor" href="#335-移动-vs-沿着曲线的移动"></a> 3.3.5 移动 vs. 沿着曲线的移动</h4>
+<p>供给曲线的移动和沿着曲线的移动是不同的。</p>
+<p>当非价格因素发生变化时，供给曲线会移动，而当价格发生变化时，供给曲线沿着曲线移动。</p>
+<h2 id="34-市场均衡"><a class="markdownIt-Anchor" href="#34-市场均衡"></a> 3.4 市场均衡</h2>
+<p>市场均衡（Market equilibrium）：市场需求和市场供给相等的价格。在市场均衡下，需求量等于供给量、消费者愿意购买的商品数量等于生产者愿意出售的商品数量。</p>
+<p><img src="/posts/9e+71/Market_Equilibrium.png" alt=""></p>
+<p>如果市场并不在均衡状态，那么需求量和供给量就不相等，价格就会发生变化，直到市场达到均衡状态。</p>
+<p>假设价格高于均衡价格，那么就会发生供给过剩（Surplus）；假设价格低于均衡价格，那么就会发生需求不足（Shortage）。</p>
+<h4 id="341-供给过剩"><a class="markdownIt-Anchor" href="#341-供给过剩"></a> 3.4.1 供给过剩</h4>
+<p>供给过剩（Surplus）：价格高于均衡价格，供给量大于需求量。</p>
+<p><img src="/posts/9e+71/Surplus.png" alt=""></p>
+<p>当价格减少时，供给量减少，需求量增加。</p>
+<p>价格会持续下降，直到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>S</mi></msub><mo>=</mo><msub><mi>Q</mi><mi>D</mi></msub><mo>=</mo><msup><mi>Q</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">Q_S=Q_D=Q^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8831359999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<h4 id="342-需求不足"><a class="markdownIt-Anchor" href="#342-需求不足"></a> 3.4.2 需求不足</h4>
+<p>需求不足（Shortage）：价格低于均衡价格，需求量大于供给量。</p>
+<p><img src="/posts/9e+71/Shortage.png" alt=""></p>
+<p>当价格增加时，供给量增加，需求量减少。</p>
+<p>价格会持续上升，直到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Q</mi><mi>S</mi></msub><mo>=</mo><msub><mi>Q</mi><mi>D</mi></msub><mo>=</mo><msup><mi>Q</mi><mo>∗</mo></msup></mrow><annotation encoding="application/x-tex">Q_S=Q_D=Q^*</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05764em;">S</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8831359999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.688696em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<h4 id="343-市场均衡的变化"><a class="markdownIt-Anchor" href="#343-市场均衡的变化"></a> 3.4.3 市场均衡的变化</h4>
+<p>均衡价格和数量会随着需求和供给的变化而变化。</p>
+<p>如果有一个非价格因素发生变化，那这就会影响到市场均衡。</p>
+<h4 id="344-需求和供给的变化"><a class="markdownIt-Anchor" href="#344-需求和供给的变化"></a> 3.4.4 需求和供给的变化</h4>
+<p>无论是需求还是供给发生变化，都会对均衡价格和数量产生明确的影响。</p>
+<table>
+<thead>
+<tr>
+<th>曲线</th>
+<th>变化</th>
+<th>价格变化</th>
+<th>数量变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>供给</td>
+<td>减少</td>
+<td>上升</td>
+<td>下降</td>
+</tr>
+<tr>
+<td>供给</td>
+<td>增加</td>
+<td>下降</td>
+<td>上升</td>
+</tr>
+<tr>
+<td>需求</td>
+<td>减少</td>
+<td>下降</td>
+<td>下降</td>
+</tr>
+<tr>
+<td>需求</td>
+<td>增加</td>
+<td>上升</td>
+<td>上升</td>
+</tr>
+</tbody>
+</table>
+<p>非价格因素是有可能同时影响到需求和供给的：</p>
+<ul>
+<li>需求和供给同时变化、曲线移动</li>
+<li>全新的均衡点会出现</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>供给变化</th>
+<th>需求变化</th>
+<th>价格变化</th>
+<th>数量变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>减少</td>
+<td>减少</td>
+<td>？</td>
+<td>下降</td>
+</tr>
+<tr>
+<td>减少</td>
+<td>增加</td>
+<td>上升</td>
+<td>？</td>
+</tr>
+<tr>
+<td>增加</td>
+<td>增加</td>
+<td>？</td>
+<td>上升</td>
+</tr>
+<tr>
+<td>增加</td>
+<td>减少</td>
+<td>下降</td>
+<td>？</td>
+</tr>
+</tbody>
+</table>
+<center>-------</center>
+<h1 id="第四章弹性"><a class="markdownIt-Anchor" href="#第四章弹性"></a> 第四章：弹性</h1>
+<h2 id="41-弹性的定义"><a class="markdownIt-Anchor" href="#41-弹性的定义"></a> 4.1 弹性的定义</h2>
+<p>弹性（Elasticity）：描述了需求或供给对价格变化的敏感程度。</p>
+<p>该概念衡量了对以下变化的响应：</p>
+<ul>
+<li>商品价格</li>
+<li>相关商品的价格</li>
+<li>收入</li>
+</ul>
+<h2 id="42-需求的价格弹性"><a class="markdownIt-Anchor" href="#42-需求的价格弹性"></a> 4.2 需求的价格弹性</h2>
+<p>需求价格弹性（Price elasticity of demand）：需求对价格变化的敏感程度。</p>
+<p>需求价格弹性介绍了需求量随价格的变化而变化的程度。</p>
+<p>消费者对价格变化的敏感程度取决于：</p>
+<ul>
+<li>商品是否是必需品</li>
+<li>商品是否有替代品</li>
+<li>商品占消费者预算的比例</li>
+<li>时间</li>
+<li>市场范围</li>
+</ul>
+<h4 id="422-计算价格弹性"><a class="markdownIt-Anchor" href="#422-计算价格弹性"></a> 4.2.2 计算价格弹性</h4>
+<p>中点法（Midpoint method）：计算价格弹性的方法。</p>
+<p>中点弹性（Midpoint elasticity）：任意两个数的差除以它们的平均值。</p>
+<h4 id="423-价格弹性的分类"><a class="markdownIt-Anchor" href="#423-价格弹性的分类"></a> 4.2.3 价格弹性的分类</h4>
+<p>价格弹性的分类：</p>
+<ul>
+<li>弹性（Elastic）：价格的变化会导致需求量相对较大百分比的变化</li>
+<li>非弹性（Inelastic）：价格的变化会导致需求量相对较小百分比的变化</li>
+</ul>
+<p>在极端情况下，需求可以是完全弹性（Perfectly elastic）或完全非弹性（Perfectly inelastic）。</p>
+<p><img src="/posts/9e+71/Perfectly_Elastic_And_Perfectly_Inelastic.png" alt=""></p>
+<p>在这两个极端情况之间，弹性还可以分为：</p>
+<ul>
+<li>弹性（Elastic）：价格弹性大于 1</li>
+<li>单位弹性（Unit elastic）：价格弹性等于 1</li>
+<li>非弹性（Inelastic）：价格弹性小于 1</li>
+</ul>
+<p><img src="/posts/9e+71/Other_Elasticities.png" alt=""></p>
+<h4 id="424-需求价格弹性的用处"><a class="markdownIt-Anchor" href="#424-需求价格弹性的用处"></a> 4.2.4 需求价格弹性的用处</h4>
+<p>在知道一个商品的需求是否是弹性的情况下，可以：</p>
+<ul>
+<li>允许管理者确定价格上涨是否会导致总收入（Total revenue）上升或下降</li>
+<li>总收入是一家公司从销售商品和服务中获得的金额</li>
+<li>总收入 = 价格 × 需求量</li>
+</ul>
+<p><img src="/posts/9e+71/Using_Price_Elasticity_Of_Demand.png" alt=""></p>
+<p><img src="/posts/9e+71/Using_Price_Elasticity_Of_Demand_1.png" alt=""></p>
+<h4 id="425-需求弹性和总收入"><a class="markdownIt-Anchor" href="#425-需求弹性和总收入"></a> 4.2.5 需求弹性和总收入</h4>
+<p>需求弹性和总收入的关系：</p>
+<p><img src="/posts/9e+71/Elasticity_Of_Demand_And_Total_Revenue.png" alt=""></p>
+<h2 id="43-供给的价格弹性"><a class="markdownIt-Anchor" href="#43-供给的价格弹性"></a> 4.3 供给的价格弹性</h2>
+<p>供给价格弹性（Price elasticity of supply）：供给对价格变化的敏感程度。</p>
+<p>供给价格弹性永远是正数，因为供给量和价格总是正相关的。</p>
+<p>生产者对价格变化的敏感程度取决于：</p>
+<ul>
+<li>生产者是否能够轻易地改变生产量</li>
+<li>时间</li>
+<li>生产要素的可用性</li>
+</ul>
+<h2 id="44-需求的交叉价格弹性"><a class="markdownIt-Anchor" href="#44-需求的交叉价格弹性"></a> 4.4 需求的交叉价格弹性</h2>
+<p>需求交叉价格弹性（Cross-price elasticity of demand）：当一个商品的价格发生变化时，另一个商品的需求量发生变化的程度。</p>
+<p>中点法可以计算商品 A 的需求量和商品 B 的价格之间的弹性：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>交叉价格弹性</mtext><mo> =</mo><mfrac><mtext> 商品&nbsp;A&nbsp;的需求量变化的百分比</mtext><mtext>商品&nbsp;B&nbsp;的价格变化的百分比</mtext></mfrac><mo> =</mo><mfrac><mrow><mo stretchy="false">(</mo><msub><mi>Q</mi><mrow><mi>A</mi><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>Q</mi><mrow><mi>A</mi><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mo stretchy="false">[</mo><mo stretchy="false">(</mo><msub><mi>Q</mi><mrow><mi>A</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>Q</mi><mrow><mi>A</mi><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">]</mo></mrow><mrow><mo stretchy="false">(</mo><msub><mi>P</mi><mrow><mi>B</mi><mn>2</mn></mrow></msub><mo>−</mo><msub><mi>P</mi><mrow><mi>B</mi><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mo stretchy="false">[</mo><mo stretchy="false">(</mo><msub><mi>P</mi><mrow><mi>B</mi><mn>2</mn></mrow></msub><mo>+</mo><msub><mi>P</mi><mrow><mi>B</mi><mn>1</mn></mrow></msub><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn><mo stretchy="false">]</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\text {交叉价格弹性}=\frac {\text {商品 A 的需求量变化的百分比}}{\text {商品 B 的价格变化的百分比}}=\frac {(Q_{A2}-Q_{A1})/[(Q_{A2}+Q_{A1})/2]}{(P_{B2}-P_{B1})/[(P_{B2}+P_{B1})/2]}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">交叉价格弹性</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 商品</span><span class="mord">&nbsp;B&nbsp;</span><span class="mord cjk_fallback">的价格变化的百分比</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">商品</span><span class="mord">&nbsp;A&nbsp;</span><span class="mord cjk_fallback">的需求量变化的百分比</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mopen">[</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">]</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mopen">[</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">Q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">A</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord">/</span><span class="mord">2</span><span class="mclose">]</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>需求交叉价格弹性可以是正数或负数。如果大于 0，那么两个商品是替代品；如果小于 0，那么两个商品是互补品</p>
+<p>需求收入弹性可以是正数或负数。如果大于 0，那么商品是正常品；如果大于 1，那么商品是奢侈品；如果小于 0，那么商品是劣等品。</p>
+<h2 id="46-四种弹性的总结"><a class="markdownIt-Anchor" href="#46-四种弹性的总结"></a> 4.6 四种弹性的总结</h2>
+<table>
+<thead>
+<tr>
+<th>弹性</th>
+<th>公式</th>
+<th>负数</th>
+<th>正数</th>
+<th>更弹性</th>
+<th>更不弹性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求价格弹性</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>需求量百分比变化</mtext><mtext>价格百分比变化</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \frac {\text {需求量百分比变化}}{\text {价格百分比变化}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight"> 价格百分比变化</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">需求量百分比变化</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></td>
+<td>永远</td>
+<td>从不</td>
+<td>替代品和奢侈品</td>
+<td>必需品和劣等品</td>
+</tr>
+<tr>
+<td>供给价格弹性</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>供给量百分比变化</mtext><mtext>价格百分比变化</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \frac {\text {供给量百分比变化}}{\text {价格百分比变化}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight"> 价格百分比变化</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">供给量百分比变化</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></td>
+<td>从不</td>
+<td>永远</td>
+<td>短期</td>
+<td>长期</td>
+</tr>
+<tr>
+<td>需求交叉价格弹性</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>商品&nbsp;A&nbsp;的需求量百分比变化</mtext><mtext>商品&nbsp;B&nbsp;的价格百分比变化</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \frac {\text {商品 A 的需求量百分比变化}}{\text {商品 B 的价格百分比变化}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight"> 商品</span><span class="mord mtight">&nbsp;B&nbsp;</span><span class="mord cjk_fallback mtight">的价格百分比变化</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">商品</span><span class="mord mtight">&nbsp;A&nbsp;</span><span class="mord cjk_fallback mtight">的需求量百分比变化</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></td>
+<td>互补品</td>
+<td>替代品</td>
+<td>近乎完全的替代品以及强的互补品</td>
+<td>无关商品</td>
+</tr>
+<tr>
+<td>收入弹性</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>商品的需求量百分比变化</mtext><mtext>消费者的收入百分比变化</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \frac {\text {商品的需求量百分比变化}}{\text {消费者的收入百分比变化}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight"> 消费者的收入百分比变化</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord cjk_fallback mtight">商品的需求量百分比变化</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></td>
+<td>劣等品</td>
+<td>正常品</td>
+<td>奢侈品</td>
+<td>必需品</td>
+</tr>
+</tbody>
+</table>
+<center>-------</center>
+<h1 id="第五章效率"><a class="markdownIt-Anchor" href="#第五章效率"></a> 第五章：效率</h1>
+<h2 id="51-支付和销售意愿"><a class="markdownIt-Anchor" href="#51-支付和销售意愿"></a> 5.1 支付和销售意愿</h2>
+<p>消费者往往愿意支付比市场价格更高的价格，如果价格低于他们的最大支付意愿（Willingness to pay）。</p>
+<p><img src="/posts/9e+71/Willingness_To_Pay_And_The_Demand_Curve.png" alt=""></p>
+<p>生产者同样愿意以低于市场价的价格出售，如果价格高于他们的最小销售意愿（Willingness to sell）。</p>
+<p><img src="/posts/9e+71/Willingness_To_Sell_And_The_Supply_Curve.png" alt=""></p>
+<p>自愿交换能创造价值，并能使参与其中的每个人过得更好。</p>
+<h2 id="52-计算过剩"><a class="markdownIt-Anchor" href="#52-计算过剩"></a> 5.2 计算过剩</h2>
+<p>当消费者在低于市场价格的价格下购买商品时，就会发生消费者过剩。</p>
+<ul>
+<li>消费者过剩（Consumer surplus）：消费者从购买中获益的衡量标准。</li>
+</ul>
+<p>当生产者在高于市场价格的价格下销售商品时，就会发生生产者过剩。</p>
+<ul>
+<li>生产者过剩（Producer surplus）：生产者从销售中获益的衡量标准。</li>
+</ul>
+<p>过剩（Surplus）： 买家或卖家愿意交易的价格与实际价格之间的差异。</p>
+<h4 id="521-计算消费者过剩"><a class="markdownIt-Anchor" href="#521-计算消费者过剩"></a> 5.2.1 计算消费者过剩</h4>
+<p>消费者过剩可以通过求个人的消费者过剩的和来计算。</p>
+<p><img src="/posts/9e+71/Consumer_Surplus.png" alt=""></p>
+<h4 id="522-计算生产者过剩"><a class="markdownIt-Anchor" href="#522-计算生产者过剩"></a> 5.2.2 计算生产者过剩</h4>
+<p>生产者过剩可以通过求个人的生产者过剩的和来计算。</p>
+<p><img src="/posts/9e+71/Producer_Surplus.png" alt=""></p>
+<h4 id="523-计算总过剩"><a class="markdownIt-Anchor" href="#523-计算总过剩"></a> 5.2.3 计算总过剩</h4>
+<p>总过剩（Total surplus）：每个人从参与商品或服务交换中获得的综合利益。</p>
+<p><img src="/posts/9e+71/Total_Surplus.png" alt=""></p>
+<p><img src="/posts/9e+71/Total_Surplus_1.png" alt=""></p>
+<h2 id="53-市场均衡和效率"><a class="markdownIt-Anchor" href="#53-市场均衡和效率"></a> 5.3 市场均衡和效率</h2>
+<p>市场均衡是当总过剩最大化时的均衡。</p>
+<p><img src="/posts/9e+71/Market_Equilibrium_And_Efficiency.png" alt=""></p>
+<h2 id="54-无谓损失"><a class="markdownIt-Anchor" href="#54-无谓损失"></a> 5.4 无谓损失</h2>
+<p>无谓损失（Deadweight loss）：当市场不在均衡状态时，会发生的损失。</p>
+<p>无谓损失被定义为当商品的购买量和销售量低于市场均衡量时、会导致的总过剩损失。</p>
+<p><img src="/posts/9e+71/Deadweight_Loss.png" alt=""></p>
+<h2 id="55-丢失的市场"><a class="markdownIt-Anchor" href="#55-丢失的市场"></a> 5.5 丢失的市场</h2>
+<p>当潜在买家和卖家想要进行的一些交易没有发生时，市场就会丢失。</p>
+<p>这会因为以下原因发生：</p>
+<ul>
+<li>公共政策</li>
+<li>税收</li>
+<li>准确信息或沟通的缺乏</li>
+<li>促进交换的技术的缺乏</li>
+</ul>
+<center>-----</center>
+<h1 id="第六章政府干预"><a class="markdownIt-Anchor" href="#第六章政府干预"></a> 第六章：政府干预</h1>
+<h2 id="61-价格控制"><a class="markdownIt-Anchor" href="#61-价格控制"></a> 6.1 价格控制</h2>
+<p>价格控制（Price control）：政府对价格的干预。</p>
+<p>价格控制可以被划分为两种类型：</p>
+<ul>
+<li>价格上限</li>
+<li>价格下限</li>
+</ul>
+<h2 id="62-价格上限"><a class="markdownIt-Anchor" href="#62-价格上限"></a> 6.2 价格上限</h2>
+<p>价格上限（Price ceiling）：政府规定的商品的最高价格。</p>
+<p>假设价格上限低于市场均衡价格，那么就会发生供给不足。</p>
+<p><img src="/posts/9e+71/Price_Ceiling.png" alt=""></p>
+<h4 id="621-价格上限对福利的影响"><a class="markdownIt-Anchor" href="#621-价格上限对福利的影响"></a> 6.2.1 价格上限对福利的影响</h4>
+<p>价格上限会造成死重损失，并将生产者的福利转移给消费者。</p>
+<p><img src="/posts/9e+71/Welfare_Effects_Of_A_Price_Ceiling.png" alt=""></p>
+<p>因为价格上限会导致供给不足，所以政府会采取以下措施：</p>
+<ul>
+<li>平等分配商品</li>
+<li>先到先得</li>
+<li>分配给政府优先考虑的人或者卖方的亲朋好友</li>
+</ul>
+<p>短缺会导致人们采取寻租行为（Rent-seeking），例如贿赂分配商品的人。</p>
+<h4 id="622-非约束性价格上限"><a class="markdownIt-Anchor" href="#622-非约束性价格上限"></a> 6.2.2 非约束性价格上限</h4>
+<p>价格上限不一定会导致供给不足。有时候，价格上限会高于市场均衡价格。</p>
+<h2 id="63-价格下限"><a class="markdownIt-Anchor" href="#63-价格下限"></a> 6.3 价格下限</h2>
+<p>价格下限（Price floor）：政府规定的商品的最低价格。</p>
+<p>假设价格下限高于市场均衡价格，那么就会发生供给过剩。</p>
+<h4 id="631-价格下限对福利的影响"><a class="markdownIt-Anchor" href="#631-价格下限对福利的影响"></a> 6.3.1 价格下限对福利的影响</h4>
+<p>价格下限会造成死重损失，并将消费者的福利转移给生产者。</p>
+<p><img src="/posts/9e+71/Welfare_Effects_Of_A_Price_Floor.png" alt=""></p>
+<h4 id="632-无效的价格下限"><a class="markdownIt-Anchor" href="#632-无效的价格下限"></a> 6.3.2 无效的价格下限</h4>
+<p>价格下限不一定会导致供给过剩。有时候，价格下限会低于市场均衡价格。</p>
+<h2 id="64-税收和补贴"><a class="markdownIt-Anchor" href="#64-税收和补贴"></a> 6.4 税收和补贴</h2>
+<p>税收（Taxes）：政府对商品或服务的销售征收的费用。</p>
+<p>补贴（Subsidies）：政府对商品或服务的销售提供的补助。</p>
+<p>税收和补贴可用于纠正市场失灵，并提供激励或抑制措施，使生产量高于或低于均衡生产量。</p>
+<h2 id="65-税收"><a class="markdownIt-Anchor" href="#65-税收"></a> 6.5 税收</h2>
+<p>税收有着两大影响：</p>
+<ul>
+<li>抑制被征税商品的生产和消费</li>
+<li>通过继续买卖商品者支付的费用增加政府收入</li>
+</ul>
+<p>征税将减少消费，提供新的公共收入来源。</p>
+<h4 id="651-卖方纳税的影响"><a class="markdownIt-Anchor" href="#651-卖方纳税的影响"></a> 6.5.1 卖方纳税的影响</h4>
+<p>假设政府对每售出一个单位征收 0.20 美元的税，卖方必须支付。这会对市场产生什么影响？</p>
+<p><img src="/posts/9e+71/Effects_Of_A_Tax_Paid_By_The_Seller.png" alt=""></p>
+<ul>
+<li>新的供给曲线会在所有价格上增加 0.20 美元，即税额</li>
+<li>税收在买方价格和卖方价格之间制造了一个楔子</li>
+<li>均衡数量从 3000 万减少到 2500 万</li>
+</ul>
+<p>可以计算出对卖方征税的税收收入和无谓损失：</p>
+<p><img src="/posts/9e+71/Effects_Of_A_Tax_Paid_By_The_Seller_1.png" alt=""></p>
+<ul>
+<li>产生的税收为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>税收收入</mtext><mo> =</mo><mtext> 税收</mtext><mo> ×</mo><mtext> 数量</mtext></mrow><annotation encoding="application/x-tex"> \text {税收收入}=\text {税收} \times \text {数量}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 税收收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 税收</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"> ×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 数量</span></span></span></span></span></li>
+<li>税收收入是消费者和生产者向政府的转移</li>
+<li>无谓损失来自销售数量的损失</li>
+</ul>
+<h4 id="652-买方纳税的影响"><a class="markdownIt-Anchor" href="#652-买方纳税的影响"></a> 6.5.2 买方纳税的影响</h4>
+<p>假设政府对售出的每件产品征收 0.20 美元的税，买方必须支付。这会对市场产生什么影响？</p>
+<p><img src="/posts/9e+71/Effects_Of_A_Tax_Paid_By_The_Buyer.png" alt=""></p>
+<ul>
+<li>新的需求曲线降低了 0.20 美元，也就是税额</li>
+<li>税收在买方价格和卖方价格之间制造楔子</li>
+<li>均衡数量从 3000 万减少到 2500 万</li>
+</ul>
+<h4 id="653-税收对买卖双方的影响"><a class="markdownIt-Anchor" href="#653-税收对买卖双方的影响"></a> 6.5.3 税收对买卖双方的影响</h4>
+<p>无论对买方还是卖方征税，税收都会产生四种相同的影响：</p>
+<ul>
+<li>均衡数量减少</li>
+<li>买方为每个购买单位支付更多，而卖方获得更少
+<ul>
+<li>税楔（Tax wedge）形成，相当于买方支付的价格与卖方收到的价格之间的差额</li>
+</ul>
+</li>
+<li>政府获得的收入等于税额乘以新的均衡数量</li>
+<li>税收造成无谓损失</li>
+</ul>
+<h4 id="654-税收发生率"><a class="markdownIt-Anchor" href="#654-税收发生率"></a> 6.5.4 税收发生率</h4>
+<p>假设政府对售出的每件产品征收 0.20 美元的税，卖方必须支付。谁来承担税收负担或税收发生率？</p>
+<ul>
+<li>税收发生率（Tax incidence）等于消费者和生产者盈余中用于税收的损失</li>
+<li>哪一方市场的价格弹性更大，哪一方就会承担更少的负担</li>
+</ul>
+<p><img src="/posts/9e+71/Tax_Incidence.png" alt=""></p>
+<h2 id="66-补贴"><a class="markdownIt-Anchor" href="#66-补贴"></a> 6.6 补贴</h2>
+<p>补贴有着两大主要影响：</p>
+<ul>
+<li>鼓励受补贴物品的生产和消费</li>
+<li>政府通过补贴向继续销售商品的生产者提供资金</li>
+</ul>
+<p>补贴会增加商品的消费。</p>
+<h4 id="661-补贴造成的损失"><a class="markdownIt-Anchor" href="#661-补贴造成的损失"></a> 6.6.1 补贴造成的损失</h4>
+<p>假设政府对每售出一件产品补贴 0.35 美元，卖方也获得了补贴。这会对市场产生什么影响？</p>
+<p><img src="/posts/9e+71/Deadweight_Loss_From_Subsidy.png" alt=""></p>
+<ul>
+<li>补贴导致生产过剩</li>
+<li>生产过剩造成福利损失</li>
+<li>按无谓损失计算</li>
+</ul>
+<h4 id="662-政府补贴支出"><a class="markdownIt-Anchor" href="#662-政府补贴支出"></a> 6.6.2 政府补贴支出</h4>
+<p>对卖方征税造成的自重损失可计算如下：</p>
+<p><img src="/posts/9e+71/Government_Expenditures_From_Subsidy.png" alt=""></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>政府补贴支出</mtext><mo> =</mo><mtext> 补贴</mtext><mo> ×</mo><mtext> 数量</mtext></mrow><annotation encoding="application/x-tex"> \text {政府补贴支出}=\text {补贴} \times \text {数量}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">政府补贴支出</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 补贴</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"> ×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 数量</span></span></span></span></span></span></p>
+<h4 id="663-补贴带来的消费者生产者过剩"><a class="markdownIt-Anchor" href="#663-补贴带来的消费者生产者过剩"></a> 6.6.3 补贴带来的消费者 / 生产者过剩</h4>
+<p>消费者和生产者过剩都会增加，但不足以抵消补贴成本和无谓损失。</p>
+<p><img src="/posts/9e+71/Changes_In_CS_And_PS_From_Subsidy.png" alt=""></p>
+<h2 id="67-税收或补贴的影响"><a class="markdownIt-Anchor" href="#67-税收或补贴的影响"></a> 6.7 税收或补贴的影响</h2>
+<p>能否提前预测税收或补贴对均衡数量的影响？答案是可以的，只要供求的价格弹性已知。</p>
+<h2 id="68-长期影响与短期影响"><a class="markdownIt-Anchor" href="#68-长期影响与短期影响"></a> 6.8 长期影响与短期影响</h2>
+<p>政府的税收和补贴政策会对市场产生长期影响和短期影响。</p>
+<p>汽油和其价格控制就是一个例子。</p>
+<p><img src="/posts/9e+71/Long_Run_Versus_Short_Run_Impact.png" alt=""></p>
+<blockquote>
+<p>在短期内，驾驶习惯很难改变，生产商需要时间来提高产量，因此对数量的影响很小</p>
+<p>而从长远来看，驾驶习惯可以改变，生产者可以提高产量。 因此对数量的影响很大。</p>
+</blockquote>
+<p>由于买方和卖方需要时间对价格变化做出反应，有时价格控制的全部效果只有在长期内才能显现出来。</p>
+<center>-----</center>
+<h1 id="第七章消费者行为"><a class="markdownIt-Anchor" href="#第七章消费者行为"></a> 第七章：消费者行为</h1>
+<h2 id="71-效用基础"><a class="markdownIt-Anchor" href="#71-效用基础"></a> 7.1 效用基础</h2>
+<p>效用（Utility）：消费者从消费中获得的满足程度。</p>
+<p>理性个体在做出选择时会让效用最大化。例如，如果在接下来的一个小时里踢足球比打棒球产生的效用更大，那么理性的人会选择去踢足球。</p>
+<h4 id="711-效用函数"><a class="markdownIt-Anchor" href="#711-效用函数"></a> 7.1.1 效用函数</h4>
+<p>效用是难以衡量的。但是，可以通过观察消费者的选择来揭示他们的喜好。</p>
+<p>然而，揭示喜好原则在分析他人会如何作出选择时并不总是有效。相反，需要一种更正式的方法。</p>
+<p>效用函数（Utility functions）有助于系统分析选择。它用于计算某个人从消费某种商品和服务组合中获得的总效用。</p>
+<p>效用函数会量化偏好，效用测量是相对的而不是绝对的。例如，假设莎拉每吃一份奶酪通心粉就会得到 3 个效用值，西兰花得到 2 个效用值，冰淇淋得到 8 个效用值，那么如果她吃了一份通心粉、两份西兰花和两份冰淇淋，她的总效用就是 23。</p>
+<h4 id="712-边际效用"><a class="markdownIt-Anchor" href="#712-边际效用"></a> 7.1.2 边际效用</h4>
+<p>边际效用（Marginal utility）：消费一件商品或服务会增加的效用。</p>
+<p>当个人继续从事某项活动或消费更多某种商品或服务时，下一个单位的效用将会不如上一个单位的大。</p>
+<p>边际效用递减（Diminish marginal utility）原理：连续消费一个单位的商品或服务所获得的额外效用，往往小于消费前一个单位或服务所获得的效用。</p>
+<h4 id="713-效用"><a class="markdownIt-Anchor" href="#713-效用"></a> 7.1.3 效用</h4>
+<p>每多消费一个单位的商品所带来的效用可以用一个数字来表示。</p>
+<p><img src="/posts/9e+71/Utility.png" alt=""></p>
+<ul>
+<li>在吃完第 8 勺冰淇淋之前，每增加一勺冰淇淋都能提供效用</li>
+<li>在吃第 8 勺时，边际效用转为负值</li>
+<li>总效用是该勺之前的边际效用之和</li>
+</ul>
+<h4 id="714-边际效用递减"><a class="markdownIt-Anchor" href="#714-边际效用递减"></a> 7.1.4 边际效用递减</h4>
+<p>可以绘制出效用函数和边际效用。当总效用最大或边际效用为零时，个人的效用最大化。</p>
+<p><img src="/posts/9e+71/Diminishing_Marginal_Utility.png" alt=""></p>
+<h2 id="72-带约束条件的效用最大化"><a class="markdownIt-Anchor" href="#72-带约束条件的效用最大化"></a> 7.2 带约束条件的效用最大化</h2>
+<p>人们有很多需求，但会受到时间和金钱的限制。理性的个体在这些约束条件下通过将资源用于产生最高可能总效用的组合来实现效用最大化。</p>
+<p>预算约束（Budget constraint）提供了消费者在收入一定的情况下可以购买的商品和服务的所有可能组合。</p>
+<h4 id="721-预算约束"><a class="markdownIt-Anchor" href="#721-预算约束"></a> 7.2.1 预算约束</h4>
+<p>以电影票价 15 美元、音乐会票价 30 美元和收入 120 美元来显示两种商品的预算约束。</p>
+<p><img src="/posts/9e+71/The_Budget_Constraint.png" alt=""></p>
+<ul>
+<li>A 点：所有收入都花在电影上（8 张电影票）</li>
+<li>B 点：收入用于购买两种商品（4 张电影票和 2 张音乐会门票）</li>
+<li>C 点：用于音乐会的所有收入（4 张音乐会门票）</li>
+</ul>
+<h4 id="722-总效用最大化"><a class="markdownIt-Anchor" href="#722-总效用最大化"></a> 7.2.2 总效用最大化</h4>
+<p>以下是消费一定数量的音乐会和电影票所产生的相关效用：</p>
+<p><img src="/posts/9e+71/Maximizing_Total_Utility.png" alt=""></p>
+<p>为了使总效用最大化，需要确定每个可行捆绑的总效用，然后相互比较。</p>
+<p><img src="/posts/9e+71/Maximizing_Total_Utility_1.png" alt=""></p>
+<ul>
+<li>包含 1 张音乐会门票和 6 张电影票的捆绑包 B 的总效用最高，是首选捆绑包</li>
+<li>在此预算下，理性的消费者会将所有收入用于购买电影票和音乐会门票的组合，从而使效用最大化</li>
+</ul>
+<h4 id="723-应对收入变化"><a class="markdownIt-Anchor" href="#723-应对收入变化"></a> 7.2.3 应对收入变化</h4>
+<p>当一个人的收入增加时，就会有更多的商品和服务可以负担得起。自然，当收入减少时，能买得起的捆绑商品就会减少，消费者就有可能需要不得不减少某些商品的消费。</p>
+<p>收入变化表现为整个预算线向外移动。</p>
+<p>假设某人的收入从 120 美元增至 180 美元。</p>
+<p><img src="/posts/9e+71/The_Effect_Of_An_Increase_In_Income.png" alt=""></p>
+<ul>
+<li>收入增加使个人能够购买更多商品</li>
+<li>整条预算线向外转移</li>
+</ul>
+<h4 id="724-应对价格变化"><a class="markdownIt-Anchor" href="#724-应对价格变化"></a> 7.2.4 应对价格变化</h4>
+<p>当价格发生变化时，个人的预算约束会受到两方面的影响：</p>
+<ul>
+<li>由于价格下降导致有效财富增加、消费发生变化，从而产生收入效应（Income effect）</li>
+<li>替代效应（Substitution effect）是指商品相对价格的变化导致的消费变化
+<ul>
+<li>消费某种商品的机会成本随价格变化而变化</li>
+</ul>
+</li>
+</ul>
+<p>假设电影票的价格从 15 美元降至 10 美元。</p>
+<p><img src="/posts/9e+71/The_Effect_Of_A_Price_Change.png" alt=""></p>
+<ul>
+<li>当一种商品的价格发生变化时，预算约束向外旋转</li>
+<li>新的预算线展示了现在可用的新捆绑包</li>
+<li>预算线斜率的变化反映了两种商品相对价格的变化</li>
+</ul>
+<h2 id="73-效用和社会"><a class="markdownIt-Anchor" href="#73-效用和社会"></a> 7.3 效用和社会</h2>
+<p>人们从各种来源获得效用：</p>
+<ul>
+<li>外部感知：他人对你购物的看法、他人有多少……</li>
+<li>内部偏好：你喜欢如何花钱……</li>
+</ul>
+<p>外部感知和内部偏好都有助于决策。</p>
+<h2 id="74-效用-利他主义和互惠"><a class="markdownIt-Anchor" href="#74-效用-利他主义和互惠"></a> 7.4 效用、利他主义和互惠</h2>
+<p>效用最大化包括个人给予他人。利他主义（Altruism）是一种行动动机，在这种动机下，一个人的效用增加，仅仅是因为其他人的效用增加了。</p>
+<blockquote>
+<p>利他和自私或注重形象的动机完全可以共存。</p>
+</blockquote>
+<p>效用最大化建议人们通过惩罚不良行为和奖励良好行为来获得效用。</p>
+<ul>
+<li>互惠（Reciprocity）是以类似的行动回应他人的行动</li>
+</ul>
+<center>-----</center>
+<h1 id="第十二章生产成本"><a class="markdownIt-Anchor" href="#第十二章生产成本"></a> 第十二章：生产成本</h1>
+<h2 id="121-收入-成本和利润"><a class="markdownIt-Anchor" href="#121-收入-成本和利润"></a> 12.1 收入、成本和利润</h2>
+<p>一所公司的目标是实现利润最大化：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mtext> 总收入</mtext><mo>−</mo><mtext>总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} = \text {总收入} - \text {总成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 总收入</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">总成本</span></span></span></span></span></span></p>
+<ul>
+<li>
+<p>总收入（Total revenue）是企业从销售商品和服务中获得的金额，计算方法是销售数量乘以为每个单位支付的价格：</p>
+<ul>
+<li>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>总收入</mtext><mo> =</mo><mtext> 价格</mtext><mo> ×</mo><mtext> 销售数量</mtext></mrow><annotation encoding="application/x-tex"> \text {总收入} = \text {价格} \times \text {销售数量}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">总收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 价格</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"> ×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 销售数量</span></span></span></span></span></span></p>
+</li>
+</ul>
+</li>
+<li>
+<p>总成本（Total cost）是企业为生产商品或服务所投入的成本</p>
+</li>
+</ul>
+<p>总收入的计算很简单，而成本则更为复杂和难以计算。</p>
+<h4 id="1211-固定成本和可变成本"><a class="markdownIt-Anchor" href="#1211-固定成本和可变成本"></a> 12.1.1 固定成本和可变成本</h4>
+<p>企业的总成本定义为：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>总成本</mtext><mo> =</mo><mtext> 固定成本</mtext><mo> +</mo><mtext> 可变成本</mtext></mrow><annotation encoding="application/x-tex"> \text {总成本} = \text {固定成本} + \text {可变成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">总成本</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 固定成本</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"> +</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 可变成本</span></span></span></span></span></span></p>
+<p>固定成本（Fixed costs）是不取决于产出数量的成本。</p>
+<ul>
+<li>生产开始前的一次性预付款，如购买设备</li>
+</ul>
+<p>可变成本（Variable costs）是指取决于产出数量的成本。</p>
+<ul>
+<li>包括原材料和劳动力成本</li>
+</ul>
+<h4 id="1212-显性和隐性成本"><a class="markdownIt-Anchor" href="#1212-显性和隐性成本"></a> 12.1.2 显性和隐性成本</h4>
+<p>企业经营的机会成本由两部分组成：</p>
+<ul>
+<li>显性成本（Explicit costs）是企业为生产商品或服务而支付的现金支出，由固定成本和可变成本组成</li>
+<li>隐形成本（Implicit costs）是企业为生产商品或服务而支付的非现金支出</li>
+</ul>
+<h4 id="1213-经济和会计利润"><a class="markdownIt-Anchor" href="#1213-经济和会计利润"></a> 12.1.3 经济和会计利润</h4>
+<p>公司报告利润时，提供的是会计利润（Accounting profits）：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>会计利润</mtext><mo> =</mo><mtext> 总收入</mtext><mo>−</mo><mtext>显性成本</mtext></mrow><annotation encoding="application/x-tex"> \text {会计利润} = \text {总收入} - \text {显性成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">会计利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 总收入</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">显性成本</span></span></span></span></span></span></p>
+<p>会计利润可能会误导企业的真实经营状况。</p>
+<p>为了考虑隐性成本，经济利润（Economic profit）进一步减去了隐性成本：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>经济利润</mtext><mo> =</mo><mtext> 会计利润</mtext><mo>−</mo><mtext>隐性成本</mtext></mrow><annotation encoding="application/x-tex"> \text {经济利润} = \text {会计利润} - \text {隐性成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">经济利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 会计利润</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">隐性成本</span></span></span></span></span></span></p>
+<h2 id="122-总产量-边际产品和平均产品"><a class="markdownIt-Anchor" href="#122-总产量-边际产品和平均产品"></a> 12.2 总产量、边际产品和平均产品</h2>
+<p>企业创造价值的方式是将不同的成分组合在一起，创造出消费者需要的商品或服务。</p>
+<p>生产函数（Production function）：投入量与产出量之间的关系。</p>
+<p>边际产品（Marginal product）：增加一单位投入量所产生的额外产出。</p>
+<ul>
+<li>边际产品递减（Diminishing marginal product）原理指出，投入品的边际产品随着投入品数量的增加而减少</li>
+</ul>
+<p>平均产品是总产量除以工人人数。</p>
+<h4 id="1221-生产函数"><a class="markdownIt-Anchor" href="#1221-生产函数"></a> 12.2.1 生产函数</h4>
+<p>生产函数可以直观地表示出来。同时，边际产品是总产量曲线的斜率。</p>
+<p><img src="/posts/9e+71/Production_Function.png" alt=""></p>
+<ul>
+<li>当产出很低时，每个新增工人的边际产品都高于前一个工人</li>
+<li>随着工人的增加，边际产品开始减少</li>
+</ul>
+<h4 id="1222-平均和边际产品"><a class="markdownIt-Anchor" href="#1222-平均和边际产品"></a> 12.2.2 平均和边际产品</h4>
+<p>边际产品递减原则和平均产品递减原则都可以直观地表示出来。这会确定边际产品和平均产品之间的关系。</p>
+<p><img src="/posts/9e+71/Average_And_Marginal_Product.png" alt=""></p>
+<ul>
+<li>当新增工人的边际产品大于现有平均产品时，平均产品就会增加</li>
+<li>当边际产品曲线与平均产品曲线交叉时，平均产品也开始减少</li>
+<li>当新增工人的边际产品少于现有平均产品时，平均产品就会减少</li>
+</ul>
+<h2 id="123-生产成本"><a class="markdownIt-Anchor" href="#123-生产成本"></a> 12.3 生产成本</h2>
+<p>当企业通过调整投入品的使用来增加产出时，就会产生与这一决策相关的成本。</p>
+<p>产出与成本之间的关系是：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>平均固定成本</mtext><mo> =</mo><mfrac><mtext> 固定成本</mtext><mtext>产出</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \text {平均固定成本} = \frac {\text {固定成本}}{\text {产出}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">平均固定成本</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 产出</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">固定成本</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>平均可变成本</mtext><mo> =</mo><mfrac><mtext> 可变成本</mtext><mtext>产出</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \text {平均可变成本} = \frac {\text {可变成本}}{\text {产出}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">平均可变成本</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 产出</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">可变成本</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>平均总成本</mtext><mo> =</mo><mtext> 平均固定成本</mtext><mo> +</mo><mtext> 平均可变成本</mtext></mrow><annotation encoding="application/x-tex"> \text {平均总成本} = \text {平均固定成本} + \text {平均可变成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">平均总成本</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均固定成本</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"> +</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均可变成本</span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>边际成本</mtext><mo> =</mo><mfrac><mtext> 变化的总成本</mtext><mtext>变化的产出</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \text {边际成本} = \frac {\text {变化的总成本}}{\text {变化的产出}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">边际成本</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 变化的产出</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">变化的总成本</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>下表提供了一家披萨店的生产情况和成本，该披萨店需要租赁 300 美元的店面， 工人工资为每人 200 美元。</p>
+<p><img src="/posts/9e+71/Costs_Of_Production.png" alt=""></p>
+<h4 id="1231-成本曲线"><a class="markdownIt-Anchor" href="#1231-成本曲线"></a> 12.3.1 成本曲线</h4>
+<p>成本函数可以直观表示：</p>
+<p><img src="/posts/9e+71/Cost_Curves.png" alt=""></p>
+<ul>
+<li>可变成本（VC）曲线最初变得不那么陡峭，反映出前几名员工的边际产品不断增加</li>
+<li>由于边际产品递减原则的作用，可变成本曲线逐渐变得陡峭</li>
+</ul>
+<p>平均成本也可以直观地表现出来：</p>
+<p><img src="/posts/9e+71/Cost_Curves_1.png" alt=""></p>
+<ul>
+<li>
+<p>平均固定成本（AFC）呈下降趋势</p>
+<ul>
+<li>相同成本分摊到更多产出单位</li>
+</ul>
+</li>
+<li>
+<p>平均可变成本（AVC）呈 U 型</p>
+<ul>
+<li>先减后增，反映投入的边际产品</li>
+</ul>
+</li>
+<li>
+<p>平均总成本（ATC）曲线呈 U 形</p>
+<ul>
+<li>平均固定成本下降，平均可变成本上升</li>
+</ul>
+</li>
+</ul>
+<p>边际成本也可以直观地表示出来：</p>
+<p><img src="/posts/9e+71/Cost_Curves_2.png" alt=""></p>
+<ul>
+<li>边际成本（MC）曲线呈 U 型，是边际产品曲线的反形状
+<ul>
+<li>每增加一个投入单位，无论其对生产的贡献如何，成本都是一样的</li>
+<li>随着劳动边际产品最初的增加，边际成本会下降</li>
+<li>随着边际产品的减少，边际成本也会增加</li>
+</ul>
+</li>
+</ul>
+<h4 id="1232-边际成本曲线和平均成本曲线"><a class="markdownIt-Anchor" href="#1232-边际成本曲线和平均成本曲线"></a> 12.3.2 边际成本曲线和平均成本曲线</h4>
+<p>边际成本和平均总成本之间的关系可以直观地建立起来：</p>
+<p><img src="/posts/9e+71/Marginal_And_Average_Cost_Curves.png" alt=""></p>
+<ul>
+<li>当生产另一个单位的边际成本小于平均总成本时，多生产一个单位都会减少平均总成本</li>
+<li>当生产另一个单位的边际成本高于平均总成本时，多生产一个单位将增加平均总成本</li>
+<li>边际成本曲线在最低点与平均总成本曲线相交</li>
+</ul>
+<h2 id="124-长期成本"><a class="markdownIt-Anchor" href="#124-长期成本"></a> 12.4 长期成本</h2>
+<p>长期成本（Long-run costs）是企业在所有投入品都是可变的情况下的成本。例如，可以调整工厂尺寸以增加或减少产能。</p>
+<blockquote>
+<p>在短期内，固定投入无法调整。</p>
+</blockquote>
+<p>当企业调整其中一项长期成本时，整个固定成本曲线都会移动，因为企业的效率更高，可以生产更高的产出。</p>
+<h2 id="125-规模报酬"><a class="markdownIt-Anchor" href="#125-规模报酬"></a> 12.5 规模报酬</h2>
+<p>成本与产出之间的关系取决于生产规模。</p>
+<p>如果扩大生产规模以获得更高的产量，可以降低平均总成本的最低值，那么就会产生规模经济（Economies of scale）。</p>
+<p>如果扩大生产规模以获得更高的产量，会提高平均总成本的最低值，那么就会出现规模不经济（Diseconomies of scale）。</p>
+<p>当平均总成本的最小值不取决于产出量时，规模收益不变（Constant returns to scale）。</p>
+<ul>
+<li>当平均总成本达到最小值时，就实现了有效规模（Efficient scale）</li>
+</ul>
+<h2 id="126-长期平均总成本"><a class="markdownIt-Anchor" href="#126-长期平均总成本"></a> 12.6 长期平均总成本</h2>
+<p>长期平均总成本曲线由所有可能的短期平均总成本曲线组合而成，而短期平均总成本曲线由更改生产规模而产生。</p>
+<p><img src="/posts/9e+71/Long_Run_ATC.png" alt=""></p>
+<ul>
+<li>不同规模的企业会面临的短期平均总成本</li>
+<li>通过扩大或缩小生产规模，企业可以沿着长期平均总成本曲线从一条短期平均总成本曲线移动到另一条短期平均总成本曲线</li>
+</ul>
+<center>-----</center>
+<h1 id="第十三章完全竞争"><a class="markdownIt-Anchor" href="#第十三章完全竞争"></a> 第十三章：完全竞争</h1>
+<h2 id="131-完全竞争市场"><a class="markdownIt-Anchor" href="#131-完全竞争市场"></a> 13.1 完全竞争市场</h2>
+<p>The characteristics of a perfectly competitve market:</p>
+<p>完全竞争市场（Perfectly competitive market）：市场中有许多买家和卖家，每个人都是价格接受者（price taker）。</p>
+<p>完全竞争市场的特征：</p>
+<ul>
+<li>买方和卖方都是价格接受者</li>
+<li>商品是标准化的</li>
+<li>买方和卖方都有充分的信息</li>
+<li>不存在交易成本</li>
+</ul>
+<h4 id="1311-市场力量"><a class="markdownIt-Anchor" href="#1311-市场力量"></a> 13.1.1 市场力量</h4>
+<p>市场力量（Market power）：影响价格的能力。</p>
+<p>大多数卖家和买家都无法自行定价，尽管他们可能有一定的定价能力。</p>
+<h4 id="1312-完全竞争市场的收入"><a class="markdownIt-Anchor" href="#1312-完全竞争市场的收入"></a> 13.1.2 完全竞争市场的收入</h4>
+<p>在完全竞争的市场中，生产者可以在不影响市场价格的情况下，想卖多少就卖多少。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>总收入</mtext><mo> =</mo><mtext> 价格</mtext><mo>−</mo><mtext>卖出的数量</mtext></mrow><annotation encoding="application/x-tex"> \text {总收入} = \text {价格} - \text {卖出的数量}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">总收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 价格</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">卖出的数量</span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>平均收入</mtext><mo> =</mo><mfrac><mtext> 总收入</mtext><mtext>卖出的数量</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \text {平均收入} = \frac {\text {总收入}}{\text {卖出的数量}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">平均收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 卖出的数量</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">总收入</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>边际收入</mtext><mo> =</mo><mfrac><mtext> 总收入的变化</mtext><mtext>卖出数量的变化</mtext></mfrac></mrow><annotation encoding="application/x-tex"> \text {边际收入} = \frac {\text {总收入的变化}}{\text {卖出数量的变化}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">边际收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback"> 卖出数量的变化</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord cjk_fallback">总收入的变化</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<blockquote>
+<p>因此：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>价格</mtext><mo> =</mo><mtext> 平均收入</mtext><mo> =</mo><mtext> 边际收入</mtext></mrow><annotation encoding="application/x-tex"> \text {价格} = \text {平均收入} = \text {边际收入}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">价格</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际收入</span></span></span></span></span></span></p>
+</blockquote>
+<h2 id="132-利润和生产决策"><a class="markdownIt-Anchor" href="#132-利润和生产决策"></a> 13.2 利润和生产决策</h2>
+<h4 id="1321-利润"><a class="markdownIt-Anchor" href="#1321-利润"></a> 13.2.1 利润</h4>
+<p>企业追求利润最大化。在竞争激烈的市场中，定价企业影响利润的唯一选择就是生产数量。</p>
+<p>竞争性企业的利润最大化规则是生产出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>边际收入</mtext><mo> =</mo><mtext> 边际成本</mtext></mrow><annotation encoding="application/x-tex"> \text {边际收入} = \text {边际成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际成本</span></span></span></span></span> 的产出量。</p>
+<p><img src="/posts/9e+71/Profits_And_Production_Decisions.png" alt=""></p>
+<h4 id="1322-决定何时操作"><a class="markdownIt-Anchor" href="#1322-决定何时操作"></a> 13.2.2 决定何时操作</h4>
+<p>在决定生产数量时，企业还必须决定是否：</p>
+<ul>
+<li>继续生产</li>
+<li>暂时关闭</li>
+<li>完全退出市场</li>
+</ul>
+<p>而这一切都是根据利润来决定的：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mtext> 总收入</mtext><mo>−</mo><mtext>总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} = \text {总收入} - \text {总成本}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback"> 总收入</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">总成本</span></span></span></span></span></span></p>
+<p>当企业停产时，就可以避免产生可变成本：</p>
+<ul>
+<li>固定成本是不可避免的，因此在决定是否停产时不考虑这些成本</li>
+</ul>
+<p>生产的短期决策取决于可变成本，而生产的长期决策取决于总成本。</p>
+<p>假设价格跌至 400。生产 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>边际收入</mtext><mo> =</mo><mtext> 边际成本</mtext></mrow><annotation encoding="application/x-tex"> \text {边际收入} = \text {边际成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际成本</span></span></span></span></span> 的数量可能会使损失最小化。</p>
+<p><img src="/posts/9e+71/Deciding_When_To_Operate.png" alt=""></p>
+<h4 id="1323-短期供给曲线和停产规则"><a class="markdownIt-Anchor" href="#1323-短期供给曲线和停产规则"></a> 13.2.3 短期供给曲线和停产规则</h4>
+<p>短期停产规则：如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> &lt;</mo><mtext> 平均可变成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} &lt; \text {平均可变成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> &lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均可变成本</span></span></span></span></span> 那就不生产。</p>
+<h4 id="1324-长期供给曲线和停产规则"><a class="markdownIt-Anchor" href="#1324-长期供给曲线和停产规则"></a> 13.2.4 长期供给曲线和停产规则</h4>
+<p>由于所有成本在长期内都是可变的，因此，如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> &gt;</mo><mtext> 平均总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} &gt; \text {平均总成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> &gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均总成本</span></span></span></span></span>，长期停产规则就是退出市场。</p>
+<h2 id="133-企业和市场供应曲线"><a class="markdownIt-Anchor" href="#133-企业和市场供应曲线"></a> 13.3 企业和市场供应曲线</h2>
+<p>企业的供给曲线就是其边际成本。市场供给曲线就是各公司供给曲线的总和。</p>
+<p><img src="/posts/9e+71/Firm_And_Market_Supply_Curves.png" alt=""></p>
+<h4 id="1331-长期供应"><a class="markdownIt-Anchor" href="#1331-长期供应"></a> 13.3.1 长期供应</h4>
+<p>短期供应与长期供应的主要区别在于：企业在长期内可以进入和退出市场。</p>
+<p>如果存在正经济利润：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> &gt;</mo><mtext> 平均总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} &gt; \text {平均总成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> &gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均总成本</span></span></span></span></span></li>
+<li>新公司进入以获取利润</li>
+<li>市场供应曲线向外移动，直至 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mtext> 平均总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} = \text {平均总成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均总成本</span></span></span></span></span></li>
+<li>所有企业的经济利润为零</li>
+</ul>
+<p>而如果存在负经济利润：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> &lt;</mo><mtext> 平均总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} &lt; \text {平均总成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> &lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均总成本</span></span></span></span></span></li>
+<li>部分企业退出以避免损失</li>
+<li>市场供应曲线向内移动，直至 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mtext> 平均总成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} = \text {平均总成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 平均总成本</span></span></span></span></span></li>
+<li>所有企业的经济利润为零</li>
+</ul>
+<p>市场进入和退出过程导致了完全竞争市场中的企业长期经济利润为零。</p>
+<ul>
+<li>长期中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mi>min</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mtext>平均总成本</mtext><mo stretchy="false">)</mo></mrow><mo>=</mo><mtext> 边际收入</mtext><mo> =</mo><mtext> 边际成本</mtext></mrow><annotation encoding="application/x-tex"> \text {利润} = \min {(\text {平均总成本})} = \text {边际收入} = \text {边际成本}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">平均总成本</span></span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际收入</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 边际成本</span></span></span></span></span></li>
+<li>会计利润长期为正数</li>
+<li>企业赚取会计利润，以补偿其机会成本</li>
+</ul>
+<p>由于所有企业都在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mi>min</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mtext>平均总成本</mtext><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text {利润} = \min {(\text {平均总成本})}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">平均总成本</span></span><span class="mclose">)</span></span></span></span></span> 这一点上运营，因此竞争市场中的企业都以有效规模运营。</p>
+<p><img src="/posts/9e+71/Long_Run_Supply.png" alt=""></p>
+<p>鉴于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>利润</mtext><mo> =</mo><mi>min</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mtext>平均总成本</mtext><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text {利润} = \min {(\text {平均总成本})}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 利润</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">平均总成本</span></span><span class="mclose">)</span></span></span></span></span>，在长期内，任何数量的价格都是相同的。</p>
+<p><img src="/posts/9e+71/Long_Run_Supply_1.png" alt=""></p>
+<ul>
+<li>如果有任何因素导致市场平衡偏离这一价格，那么由此产生的正或负利润都会导致企业进入或退出市场，直到恢复零经济利润为止</li>
+</ul>
+<blockquote>
+<p>为什么长期市场供给曲线不应该向上倾斜，但却向上倾斜了？</p>
+<p>竞争性市场理论认为，市场供应曲线应始终保持完全弹性。</p>
+<p>大多数长期市场供给曲线（Long-run market supply curves）都是向上倾斜的。这是由于假设所有公司都具有相同的成本结构。</p>
+<p>如果新进入者的成本高于现有企业，则价格必须上涨到足以吸引新企业进入市场的程度。</p>
+</blockquote>
+<h4 id="1332-长期经济利润"><a class="markdownIt-Anchor" href="#1332-长期经济利润"></a> 13.3.2 长期经济利润</h4>
+<p>竞争性市场理论认为，从长远来看，所有企业的经济利润都应为零。</p>
+<p>实际上，只有市场上效率最低的企业的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>价格</mtext><mo> =</mo><mi>min</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mtext>平均总成本</mtext><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\text {价格} = \min {(\text {平均总成本})}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback"> 价格</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel"> =</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">min</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen">(</span><span class="mord text"><span class="mord cjk_fallback">平均总成本</span></span><span class="mclose">)</span></span></span></span></span>。</p>
+<ul>
+<li>通常而言，这是最后进入市场的公司</li>
+<li>平均总成本较低的企业效率较高，从长期来看可获得正经济利润</li>
+</ul>
+<h4 id="1333-因生产成本变化而进入市场"><a class="markdownIt-Anchor" href="#1333-因生产成本变化而进入市场"></a> 13.3.3 因生产成本变化而进入市场</h4>
+<p>技术和生产能力的提高降低了边际成本和平均总成本。</p>
+<p><img src="/posts/9e+71/Market_Entry_Due_To_Changing_Production_Costs.png" alt=""></p>
+<ul>
+<li>创新型企业寻求更好的生产工艺和新技术，从而以更低的成本生产商品</li>
+<li>正利润会吸引投资者</li>
+<li>价格随生产成本下降</li>
+</ul>
+<h4 id="1334-应对需求的变化"><a class="markdownIt-Anchor" href="#1334-应对需求的变化"></a> 13.3.4 应对需求的变化</h4>
+<p>假设对完全竞争商品的需求增加，短期和长期会发生什么情况？</p>
+<p><img src="/posts/9e+71/Responding_To_Shifts_In_Demand.png" alt=""></p>
+<center>-----</center>
+<h1 id="chapter-14-monopoly"><a class="markdownIt-Anchor" href="#chapter-14-monopoly"></a> Chapter 14: Monopoly</h1>
+<p>Monopoly: a firm that is the only producer of a good or service with no close substitutes.</p>
+<ul>
+<li>a firm is a perfect monopoly if it controls the entire market</li>
+<li>a firm has monopoly power if it can manipulate the price</li>
+</ul>
+<p>Monopolies exist because of barriers to entry that prevent other firms from entering the market.</p>
+<table>
+<thead>
+<tr>
+<th>Scarce resources</th>
+<th>Economies of scale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Governmental intervention</td>
+<td>Aggressive business tactics</td>
+</tr>
+</tbody>
+</table>
+<p>Natural monopoly: a market where a single firm can produce the entire market quantity demanded at a lower cost than multiple firms.</p>
+<h2 id="141-monopolists-and-demand-curve"><a class="markdownIt-Anchor" href="#141-monopolists-and-demand-curve"></a> 14.1 Monopolists and Demand Curve</h2>
+<p>Monopolies differ from perfectly competitive firms with regard to their demand curves.</p>
+<p><img src="/posts/9e+71/Monopolists_And_Demand_Curve.png" alt=""></p>
+<h2 id="142-monopoly-revenue"><a class="markdownIt-Anchor" href="#142-monopoly-revenue"></a> 14.2 Monopoly Revenue</h2>
+<p>Monopolist produces more of a good -&gt; market price is driven down. Therefore, producing an additional unit of output has two effects on revenue:</p>
+<ol>
+<li>Quantity effect: total revenue increases</li>
+<li>Price effect: total revenue decreases</li>
+</ol>
+<p>In monopoly markets, a firm is the only producer and faces a downward-sloping demand curve.</p>
+<h2 id="143-monopoly-profit-maximizing-quantity"><a class="markdownIt-Anchor" href="#143-monopoly-profit-maximizing-quantity"></a> 14.3 Monopoly Profit-maximizing Quantity</h2>
+<p>Monopolist maximizes profit by producing the quantity where marginal revenue equals marginal cost.</p>
+<h2 id="144-problems-with-monopoly"><a class="markdownIt-Anchor" href="#144-problems-with-monopoly"></a> 14.4 Problems with Monopoly</h2>
+<p>Monopoly power benefits monopolists but causes social welfare losses.</p>
+<p>Monopolists produce at a lower quantity than the efficient level.</p>
+<ul>
+<li>total surplus is not maximized</li>
+<li>producer surplus increases</li>
+<li>consumer surplus decreases</li>
+<li>the loss of total surplus is a deadweight loss equal to the total surplus under perfect competition minus the total surplus under monopoly</li>
+</ul>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Deadweight&nbsp;loss</mtext><mo>=</mo><mtext>Total&nbsp;surplus&nbsp;under&nbsp;perfect&nbsp;competition</mtext><mo>−</mo><mtext>Total&nbsp;surplus&nbsp;under&nbsp;monopoly</mtext></mrow><annotation encoding="application/x-tex">\text{Deadweight loss} = \text{Total surplus under perfect competition} - \text{Total surplus under monopoly}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Deadweight&nbsp;loss</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Total&nbsp;surplus&nbsp;under&nbsp;perfect&nbsp;competition</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord text"><span class="mord">Total&nbsp;surplus&nbsp;under&nbsp;monopoly</span></span></span></span></span></span></p>
+<h2 id="145-comparing-market-characteristics"><a class="markdownIt-Anchor" href="#145-comparing-market-characteristics"></a> 14.5 Comparing Market Characteristics</h2>
+<table>
+<thead>
+<tr>
+<th>Characteristic</th>
+<th>Perfect competition</th>
+<th>Monopoly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of firms</td>
+<td>Many</td>
+<td>One</td>
+</tr>
+<tr>
+<td>Price taker or maker</td>
+<td>Price taker</td>
+<td>Price maker</td>
+</tr>
+<tr>
+<td>Marginal revenue</td>
+<td>Equal to price</td>
+<td>Less than price</td>
+</tr>
+</tbody>
+</table>
+<center>-----</center>
+<h1 id="chapter-17-international-trade"><a class="markdownIt-Anchor" href="#chapter-17-international-trade"></a> Chapter 17: International Trade</h1>
+<p>A country has an absolute advantage if it can produce more of a good or service than other countries.</p>
+<p>A country has a comparative advantage if it can produce a good or service at a lower opportunity cost than other countries.</p>
+<blockquote>
+<p>Example:<br>
+U.S. and Bangladeshi produce wheat and T-shirts.<br>
+<img src="/posts/9e+71/Why_Trade.png" alt=""></p>
+<ul>
+<li>without specialization and trade -&gt; able to produce on their PPF -&gt; still inefficient.</li>
+<li>with specialization and trade -&gt; coordinate their production and produce more goods.</li>
+</ul>
+</blockquote>
+<h2 id="171-roots-of-comparative-advantage"><a class="markdownIt-Anchor" href="#171-roots-of-comparative-advantage"></a> 17.1 Roots of Comparative Advantage</h2>
+<p>Comparative advantage: the ability to produce a good or service at a lower opportunity cost than other producers.</p>
+<p>Characteristics that affect the costs of production:</p>
+<ol>
+<li>Technology</li>
+<li>Factor endowment</li>
+<li>Natural resources and climate</li>
+</ol>
+<h2 id="172-from-autarky-to-free-trade"><a class="markdownIt-Anchor" href="#172-from-autarky-to-free-trade"></a> 17.2 From Autarky to Free Trade</h2>
+<p>Autarky economy: an economy that is self-contained and does not engage in trade with outsiders.</p>
+<ul>
+<li>does not export or import any goods or services
+<ul>
+<li>imports: goods and services that are produced in other countries and consumed domestically</li>
+<li>exports: goods and services that are produced domestically and consumed in other countries</li>
+</ul>
+</li>
+<li>the domestic price and quantity is determined by the intersection of the domestic supply and domestic demand curves</li>
+</ul>
+<p><img src="/posts/9e+71/From_Autarky_To_Free_Trade.png" alt=""></p>
+<p>When an economy decides to engage in trade, the domestic price and quantity change.</p>
+<ul>
+<li>if the world price is less than autarky domestic price:
+<ul>
+<li>domestic price decreases to equal the world price</li>
+<li>excess demand occurs</li>
+</ul>
+</li>
+<li>imports make up the difference between domestic supply and demand, eliminating the shortage</li>
+</ul>
+<p><img src="/posts/9e+71/From_Autarky_To_Free_Trade_1.png" alt=""></p>
+<p>Consumer and producer surpluses are affected.</p>
+<p><img src="/posts/9e+71/From_Autarky_To_Free_Trade_2.png" alt=""></p>
+<h4 id="1721-net-importer-or-net-exporter"><a class="markdownIt-Anchor" href="#1721-net-importer-or-net-exporter"></a> 17.2.1 Net-Importer or Net-Exporter</h4>
+<p><img src="/posts/9e+71/Net_Importer_Or_Net_Exporter.png" alt=""></p>
+<ul>
+<li>the world price is greater than autarky domestic price</li>
+<li>domestic producers can earn higher profits by exporting their goods abroad</li>
+<li>the country is a net-exporter of airplanes</li>
+</ul>
+<h4 id="1722-big-economy-small-economy"><a class="markdownIt-Anchor" href="#1722-big-economy-small-economy"></a> 17.2.2 Big Economy, Small Economy</h4>
+<p><img src="/posts/9e+71/Big_Economy_Small_Economy.png" alt=""></p>
+<ul>
+<li>if a country is relatively "big", then it can influence the world price</li>
+<li>when the U.S. moves from autarky to free trade, the world demand curve shifts to the right because U.S. consumers have entered the market
+<ul>
+<li>world demand shifts right</li>
+<li>world supply shifts right</li>
+</ul>
+</li>
+<li>on net, because world demand shifted more than world supply, the world price increases</li>
+</ul>
+<p>For many goods, the price goes down, and the country as a whole is better off, but producers lose out.</p>
+<p><img src="/posts/9e+71/Big_Economy_Small_Economy_1.png" alt=""></p>
+<h2 id="173-restrictions-on-trade"><a class="markdownIt-Anchor" href="#173-restrictions-on-trade"></a> 17.3 Restrictions on Trade</h2>
+<p>Laws limiting trade are referred to as trade protection:</p>
+<ul>
+<li>protectionism: a preference for policies that limit trade</li>
+<li>trade liberalization: policies and actions that reduce trade restrictions</li>
+</ul>
+<h2 id="174-tariffs"><a class="markdownIt-Anchor" href="#174-tariffs"></a> 17.4 Tariffs</h2>
+<p>Tariff: a tax targeted at certain imports.</p>
+<ul>
+<li>its purpose is to reduce the quantity of imports to protect domestic producers</li>
+<li>tariff increases the world price for domestic consumers</li>
+<li>tariff decreases the amount of shortage made up by imports</li>
+</ul>
+<p><img src="/posts/9e+71/Tariffs.png" alt=""></p>
+<h4 id="1741-domestic-welfare-effects-of-a-tariff"><a class="markdownIt-Anchor" href="#1741-domestic-welfare-effects-of-a-tariff"></a> 17.4.1 Domestic Welfare Effects of a Tariff</h4>
+<p><img src="/posts/9e+71/Domestic_Welfare_Effects_Of_A_Tariff.png" alt=""></p>
+<blockquote>
+<p>Example:<br>
+A tariff of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">$</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\$t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">$</span><span class="mord mathnormal">t</span></span></span></span> per unit is imposed on foreign copper.<br>
+<img src="/posts/9e+71/Domestic_Welfare_Effects_Of_A_Tariff_1.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Before</th>
+<th>After</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CS</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mo>+</mo><mi>C</mi><mo>+</mo><mi>D</mi><mo>+</mo><mi>E</mi><mo>+</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">A + B + C + D + E + F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A + B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mo stretchy="false">(</mo><mi>C</mi><mo>+</mo><mi>D</mi><mo>+</mo><mi>E</mi><mo>+</mo><mi>F</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">-(C+D+E+F)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>PS</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">G</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">G+C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">G</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">+C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></td>
+</tr>
+<tr>
+<td>Gov't Rev</td>
+<td></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">+E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></td>
+</tr>
+<tr>
+<td>DWL</td>
+<td></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>+</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">D+F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo><mo stretchy="false">(</mo><mi>D</mi><mo>+</mo><mi>F</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">+(D+F)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">+</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<h2 id="175-quotas"><a class="markdownIt-Anchor" href="#175-quotas"></a> 17.5 Quotas</h2>
+<p>Quota: a limit on the amount of a particular good that can be imported.</p>
+<p>Quota rents: profits earned by foreign firms or governments under a quota.</p>
+<p><img src="/posts/9e+71/Quotas.png" alt=""></p>
+<p>A quota has the following effects:</p>
+<ul>
+<li>decreases imports</li>
+<li>increases import price</li>
+<li>increases producer surplus by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></li>
+<li>decreases consumer surplus by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>+</mo><mi>D</mi><mo>+</mo><mi>E</mi><mo>+</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">C + D + E + F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span></li>
+<li>foreign companies earn quota rents of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></li>
+<li>deadweight loss of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>+</mo><mi>F</mi></mrow><annotation encoding="application/x-tex">D + F</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span></span></span></span> occurs</li>
+</ul>
+<h2 id="176-international-labor-and-capital"><a class="markdownIt-Anchor" href="#176-international-labor-and-capital"></a> 17.6 International Labor and Capital</h2>
+<p>Although countries gain from trade liberalization, certain segments of the population lose out.</p>
+<p>Free trade increases demand for factors of production that are domestically abundant, and it increases the supply of factors that are domestically scarce.</p>
+<ul>
+<li>causes factor prices to converge across countries</li>
+<li>owners of domestically scarce factors of production lose due to increased competition, and owners of domestically abundant factors gain from increased demand</li>
+</ul>
+<blockquote>
+<p>Each country has its own set of laws and policies governing the economy.<br>
+The World Trade Organization is an international organization designed to monitor and enforce trade agreements while also promoting free trade</p>
+<ul>
+<li>import standards and the fair trade movement are ways in which countries</li>
+</ul>
+</blockquote>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="875a.html">上一篇</a><a class="next" href="d235.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/9e+71.html" data-full-url="https://cytrogen.icu/posts/9e+71.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

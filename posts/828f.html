@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>代码、哲学与混乱的 Discord 服务器 · Cytrogen 的个人博客</title><meta name="description" content="该文章记录了作者在大学初期参与的一次AI创业经历，通过复盘一个从想法到执行全面失控的项目，讲述了与一位充满“哲学”却不切实际的创始人的协作故事。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/828f.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">代码、哲学与混乱的 Discord 服务器</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-09-29T14:52:46.000Z">9/29/2025</time></div><div class="post-content"><html><head></head><body><p>讲讲我刚入大学时参与的一次 AI 创业经历。一位校友看到了我的博客后，将我介绍给他的一个朋友（以下便称之为项目创始人）。后者对 AI 很感兴趣，想做 AI 项目、询问我是否想要帮忙。彼时的我因一些私事、正处于极度自卑的状态，急需要一件事来证明和安抚自己，同时也是为了学习如何协同开发，便一口答应了下来。殊不知，我一脚踏入的，正是一个名副其实的空中楼阁。</p>
+<span id="more"></span>
+<h2 id="空中楼阁的想法"><a class="markdownIt-Anchor" href="#空中楼阁的想法"></a> 空中楼阁的想法</h2>
+<p>项目创始人认为，大学是没有用的、只是在盲目要求学生去追求更高的 GPA（绩点），并将 Reddit（红迪）上询问哪节课好拿分的学生称之为「GPA 奴隶」。</p>
+<blockquote>
+<p>我不反对他的观点。我也认为当下的大学对我而言用途不大（学历还是重要的）：</p>
+<ul>
+<li>我的 GPA 很低，但并不妨碍我去做我喜欢的事情、并在这些领域上变得擅长</li>
+<li>我很讨厌那些要求高 GPA 才能递交申请的实习：<em>你这份实习又不需要用到这些必修课教的知识</em>（我大三的时候才开始修专业课，因为进学院就要上一定数量的必修课）</li>
+<li>我认为维持高 GPA 需要我花费更多精力在大学课程上，但它们很无聊、只会让我感觉浪费时间</li>
+</ul>
+<p>但我认为将追求高 GPA 的学生群体简单地称呼为「GPA 奴隶」，属实有点过了。</p>
+<p>这种行为与其说是「奴隶式」的盲从，不如说是在现有教育体制下的一种理性策略。</p>
+<p>首先，当大学的课程设置充斥着大量与专业无关、却又必须完成的必修课时，「如何以最小的时间成本，换取最高的 GPA 收益」就成了一个非常现实的议题。学生们主动去寻找「水课」，恰恰是他们认识到自己时间宝贵、不愿将其浪费在低价值课程上的体现。这是一种主动的资源管理，而非被动的思想禁锢。</p>
+<p>其次，这种行为也是被「唯 GPA 论」的外部环境（如某些实习和研究生申请）所逼迫的一种无奈之举。当系统用单一的标准来衡量你时，学生们自然会想办法在系统规则内最大化自己的优势。这种情况下，他们又一定是「奴隶」吗？</p>
+</blockquote>
+<p>他当时说的是：「<em>现在的大学不会教你你工作上需要的知识，也缺少这方面的指导。</em>」我认为他这句话说的没问题，一开始认为他是一个印象不错的人。他也是个「怪人」，他喜欢抨击手机对人们的危害、喜欢宣传自己的哲学、喜欢用折叠手机（不是折叠屏手机，而是几十年前的折叠手机）、因为过往经历的霸凌而坚持健身数年…… 这些「怪」不会让人觉得必须去远离他才行，只会觉得他是一个颇有想法的人、对他产生兴趣（至少我当时是这样的）。</p>
+<p>正是他这套基于对大学教育的批判，使他想去做 <strong>AI 学习辅导</strong> 项目。问题在于，他选择了让 AI 去辅导数学。</p>
+<p>这个想法从一开始就存在致命的技术缺陷。首先，让 AI 去做严谨的逻辑工作在技术上极为困难，更何况团队里压根就 <strong>没有</strong> AI 领域的专家。他本人虽是数学专业，但机器学习项目经验都在视觉方面。其次，他所谓的项目实现，也只是在简单调取 GPT API（顺便还把 API Key 上传到云端的 <code>.env</code> 文件里了），完全谈不上核心技术。</p>
+<p>结果就是，我这边的客户端网站都做好了 MVP，他的模型也无法处理一些「理应可以处理」的数学问题。</p>
+<p>再之后，他声称「赞助商不满意该结果」，决定转型。虽然做的还是 AI 相关，但这次他想要彻底贯穿自己的哲学：<em>人们要少用电子设备、多花时间在现实中培养出好习惯</em>。他决定做一个「习惯培养和管理」App，然后在里面添加类似宝可梦养成的游戏元素。也就是说，他希望用户多花时间在使用这个 App 上，又希望用户可以少使用电子产品。很明显的左右脑互搏。在他提出这个想法之后，我们就否决了这个方案、把他赶到了角落里去反省。</p>
+<p>其实你可以略微看出来，他其实是一个做事容易 <strong>想一出是一出</strong> 的人。如果你是一个员工，你绝对不想要遇到这样的上司。而我作为他的「员工」，很快便遇到了我的「苦果」。</p>
+<h2 id="不专业的代码管理"><a class="markdownIt-Anchor" href="#不专业的代码管理"></a> 不专业的代码管理</h2>
+<p>在我加入团队的第一天，便发现了该项目的「不对劲」。项目的维护糟糕透顶，它甚至跑不起来，理由很傻：服务端的代码被导入了一堆既不会被用到、也早就过时的依赖包。这群人只是在自己的本地环境里删去了这些导入代码，却没有任何人将这个变更 push 到云端仓库。我那时候检查客户端代码发现了一个 bug，提出后还有人问我是不是服务端导入依赖的 bug。<em><strong>合着你们都心知肚明啊！</strong></em></p>
+<p>不仅如此，项目创始人对着工具也有着离谱的执着。当时我们在讨论如何统一代码风格、编写两端的 README。我提出「客户端和服务端的代码都可以使用 lint 检查代码格式」，他却拒绝了，理由照样很傻：<em>人类不能依赖工具</em>。我事后将此事告诉了我的朋友，他回复「猜猜人类和动物的最大区别是什么」，引得我哈哈大笑。</p>
+<blockquote>
+<p>我理解他那种希望回归「纯粹」编程的理想主义情怀，但在一个需要多人协作的现代化项目中，这种情怀不仅不切实际，而且是对团队成员时间的不尊重。作为团队中负责前端实现的核心成员，当我看到这些业余的管理方式时，我的心情也从最初的期待跌入了谷底。</p>
+</blockquote>
+<p>尽管他的哲学是「不依赖工具」，但是他花费了大量时间在 Obsidian 上写服务端每个文件的作用和依赖链。他不仅自己在写，还要求我们前端组也写组件之间的联系，美其名曰：帮助新人加入团队后快速了解项目结构（记住这个「新人」）。可是我们的项目本来就没多大，并且这个的优先度也不高，<em>明明还有更重要的事情要做吧！</em> 要记住这个时候，项目的核心服务功能是 <strong>完全不合格</strong> 的。</p>
+<p>除此之外，我在客户端的代码里添加过一个新的依赖项。他虽然拉取了最新版本的代码，但是没有运行下载所有依赖项的命令，导致客户端没有运行成功。他认为这是我们前端组写的 bug，擅自在代码里加了奇怪的字符（我事后才意识到他把 GitHub 显示冲突用的字符添加进来了，原因不明且很迷），还发了个自信满满的「<em>fixed</em>」。这么做怎么可能跑得动呢？这次他把错误日志直接贴到了 bug 频道里，便再也不管了（可恶的是那个 bug 频道仅他可发送消息，我每次都只能复制消息链接然后在 general 频道里回复）。</p>
+<h2 id="有名无实的团队"><a class="markdownIt-Anchor" href="#有名无实的团队"></a> 有名无实的团队</h2>
+<p>最后便要讲讲该项目极其糟糕的人员管理。这样一个 AI 项目，Discord 服务器里名义上足足有近二十个人，但实际的构成却一言难尽。具体来说：</p>
+<ul>
+<li>前端组（4 人）：除开我，有一个只在频道里聊天、从未贡献过代码的；一个留下一堆 bug 后就因学术繁忙消失的；以及一个热衷于「闭门造车」、拒绝任何建议的</li>
+<li>其他职能组：所谓的 UI / UX 组和市场营销组，从我加入到离开，从未在公开频道里发过一次言，形同虚设</li>
+<li>项目创始人的朋友们：不参与开发，日常就是帮他找资料、写论文</li>
+</ul>
+<p>这个团队为什么会变成这样？根源在于项目创始人极其随意的招聘和完全缺失的管理。讽刺的是，至于他心心念念的那些「新人」，招来的方式更是随意得令人震惊。他习惯在 LinkedIn（领英）上刷到一个看着顺眼的个人资料，便立刻发出邀请，既不审核对方的真实能力，也不考虑项目是否真的需要这个岗位。</p>
+<p>人员臃肿的直接后果就是管理成本剧增。然而这个团队根本没有项目管理（创始人自己就是所谓的 PM），导致大部分人进团队后完全不知道该做什么，最终变成了列表里「挂机」的成员。</p>
+<p>这种管理的恶果，在一次线下会议中暴露无遗：一个近二十人的线上团队，最终到场的，只有五六个人。</p>
+<h4 id="糟糕-git-协作的另一个精彩故事"><a class="markdownIt-Anchor" href="#糟糕-git-协作的另一个精彩故事"></a> 糟糕 Git 协作的另一个精彩故事</h4>
+<p>以下是我个人的观点。</p>
+<p>我由衷地建议参与项目开发的学生们去花时间学习 Git。并不是会用 <code>git pull</code>、<code>git push</code> 就行了，而是能够理解在一个多人协作的情况下，你要如何拉取、推送代码变更的同时，又不会影响到别人。</p>
+<p>我先前说过，我在的那个前端组有四人，有两人后续不参与实际开发，所以就只有我和另一个哥们。他对 Git 的理解简直差到离谱，经常不更新本地环境的代码便去写一大堆新代码，接着闭眼 force push 到 main 分支。</p>
+<blockquote>
+<p>是的，该项目的团队当然是 <strong>没有</strong> 审查代码的环节。项目创始人最初就要我不用 fork 再提 PR，而是直接对着 main 分支推送就好了。</p>
+</blockquote>
+<p>当时项目创始人要求我写一个谷歌登录，我写了足足三次，每次 push 上去后就又会被他用新写的、用不了的代码覆盖。</p>
+<blockquote>
+<p>这一点也槽点满满。同我协作的哥们本来已经用 firebase 做好了登录注册功能，但是项目创始人觉得他「没做完」，认为用谷歌登录更快。</p>
+<blockquote>
+<p>不知道为什么，很多刚开始写项目的人都喜欢先钻研怎么登陆注册（我也是这样）。实际上不先写登陆也没关系，因为用户本身就稀少得可怜，重点应当是实现核心技术。</p>
+</blockquote>
+</blockquote>
+<h2 id="结尾"><a class="markdownIt-Anchor" href="#结尾"></a> 结尾</h2>
+<p>说了这么多，该项目又怎么样了呢？答案是在线下会议结束的一个月后，我发现 Discord 服务器被删除了，问了其他组员才知道项目创始人 <strong>直接放弃</strong> 了该项目。</p>
+<blockquote>
+<p>这不是他第一次「没有告知所有人便擅自决定某事」了。例如在某个频道进行了讨论后，他会在晚上或者次日直接将该频道删除，不留任何记录。这些讨论包含了争论、转型等各大重要的事件。如果你不是第一时间在现场，那你就完全不知道项目发生了什么改动，因为他是绝对不会写通告的。</p>
+</blockquote>
+<blockquote>
+<p>题外话，项目的半年后他突然找到我，问我近期过得如何，还做出老前辈的样子劝我转行干别的。那个时候的他已经因为「大学无用论」带着另一个朋友辍学了。<em>真是让人感到恼火</em>。</p>
+</blockquote>
+<p>经历了这场混乱，我对创业之路有了几点清晰的思考：</p>
+<ul>
+<li>关于团队：人员规划必须精准。团队的每一个岗位都应该与实际需求对应。作为创始人，你必须清楚地知道你需要什么样的人才，以及需要多少人来完成任务</li>
+<li>关于创始人：自我认知至关重要。创始人不仅是想法的源头，更是项目的核心管理者。你必须对自己的能力边界有清晰的认识，你的资历能否支撑你的野心？</li>
+<li>关于想法：拒绝异想天开。任何一个好的想法，都必须经得起现实和市场的考验。一拍脑袋就往前冲，往往是悲剧的开始</li>
+</ul>
+<p><strong>一个好的想法，需要一个同样好的团队来实现。否则，它永远只能是一座空中楼阁。</strong></p>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="dc84.html">上一篇</a><a class="next" href="522e.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/828f.html" data-full-url="https://cytrogen.icu/posts/828f.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

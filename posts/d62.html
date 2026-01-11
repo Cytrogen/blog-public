@@ -1,0 +1,652 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【3】：云原生 + 开发运维 + Agile + NoSQL · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全串开发课程的第三篇学习笔记，集中梳理了现代软件开发的四大关键领域：云原生、DevOps、敏捷开发和NoSQL数据库。内容涵盖云原生的核心理念与技术栈，DevOps的文化精髓与CI/CD自动化流程，敏捷开发中的Scrum框架、用户故事和Sprint迭代，以及以MongoDB为例的NoSQL数据库模型与操作。这篇笔记为理解当今主流的软件开发与运维模式提供了高度浓缩的知识框架。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/d62.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">IBM 全栈开发【3】：云原生 + 开发运维 + Agile + NoSQL</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-01-10T16:22:41.000Z">1/10/2024</time></div><div class="post-content"><html><head></head><body><p>近期在学习 IBM 全栈应用开发微学士课程，故此记录学习笔记。</p>
+<span id="more"></span>
+<h1 id="1-云原生入门"><a class="markdownIt-Anchor" href="#1-云原生入门"></a> 1. 云原生入门</h1>
+<p>云原生应用是一种构建和运行在云上的应用程序。云原生应用由协同工作的微服务组成，以充分利用云计算的优势。</p>
+<p>云计算，简称「云」，是一种基于互联网的计算方式，通过这种方式，共享的软硬件资源和信息可以按需求提供给计算机各种终端和其他设备。</p>
+<ul>
+<li>NIST 将其定义为：一种实现对可配置计算资源的共享池进行便捷、按需网络访问的模式，这些资源可快速调配和释放，只需极少的管理工作或服务提供商的互动</li>
+<li>计算资源包括网络、服务器、存储、应用程序和服务</li>
+</ul>
+<p>云模式由五个基本特征、四种部署模式和三种服务模式组成：</p>
+<ul>
+<li>五个基本特征：按需自助服务、广泛网络访问、资源池共享、快速弹性伸缩、可度量服务</li>
+<li>四种部署模式：私有云、社区云、公有云、混合云</li>
+<li>三种服务模式：基础设施即服务（IaaS）、平台即服务（PaaS）、软件即服务（SaaS）</li>
+</ul>
+<h2 id="11-现代软件开发"><a class="markdownIt-Anchor" href="#11-现代软件开发"></a> 1.1. 现代软件开发</h2>
+<ul>
+<li>以服务形式交付</li>
+<li>集中托管并通过互联网访问</li>
+<li>网络应用程序、SaaS</li>
+</ul>
+<h2 id="12-云原生堆栈"><a class="markdownIt-Anchor" href="#12-云原生堆栈"></a> 1.2. 云原生堆栈</h2>
+<ol>
+<li>应用程序代码：持有云原生应用程序</li>
+<li>应用程序运行时：中间件</li>
+<li>应用程序和数据服务：数据库、消息队列、缓存</li>
+<li>调度和协调：控制面板，比如 Kubernetes</li>
+<li>云基础设施：定义环境</li>
+</ol>
+<h2 id="13-使用案例"><a class="markdownIt-Anchor" href="#13-使用案例"></a> 1.3. 使用案例</h2>
+<p>云中的一切都应采用云原生方法构建，以充分利用云的优势。</p>
+<p>应用代码需要使用以下工具：</p>
+<ul>
+<li>标准化的日志</li>
+<li>标准化的事件</li>
+<li>多个微服务和云原生应用程序可使用的标准目录</li>
+<li>微服务的标准化跟踪</li>
+</ul>
+<h2 id="14-cncf"><a class="markdownIt-Anchor" href="#14-cncf"></a> 1.4. CNCF</h2>
+<p>云原生计算基金会（CNCF）是一个非营利性组织，致力于促进云原生计算的采用和技术进步。CNCF 的使命是通过开源、中立和可持续的项目来推动云原生计算的采用。</p>
+<p>CNCF 通过为参与公司的项目提供营销和支持来帮助他们。CNCF 还通过培训和认证来支持开发人员。</p>
+<h2 id="15-混合云"><a class="markdownIt-Anchor" href="#15-混合云"></a> 1.5. 混合云</h2>
+<p>混合云是指在私有云和公有云之间创建连接的计算环境。 混合云允许应用程序和数据在私有云和公有云之间移动。</p>
+<p>公共云由外部提供商管理，在一个硬件平台上有多个租户，可包括多个地点的服务器；私有云由企业管理，通常在企业的数据中心中，由企业拥有和使用。</p>
+<p>内部部署的私有云属于单个组织，由其托管和管理自己的云空间。</p>
+<h2 id="16-实践与方法"><a class="markdownIt-Anchor" href="#16-实践与方法"></a> 1.6. 实践与方法</h2>
+<ul>
+<li>测试驱动开发（TDD）：在编写代码之前编写测试</li>
+<li>行为驱动开发（BDD）：关注从外部看到的系统行为，而非系统内部的工作方式</li>
+<li>持续集成/持续交付（CI/CD）：一种软件开发方式；你可以构建和部署软件，以便随时将其发布到生产中</li>
+<li>敏捷开发（Agile）：一种迭代的项目管理方法，可帮助团队快速响应并向客户交付价值</li>
+<li>Scrum：一种进行增量产品开发的管理框架</li>
+<li>微服务架构：一种单一应用程序由多个松散且可独立部署的小型服务组成的方法，每个服务通过 API 进行通信</li>
+<li>容器（Container）：独立的、包罗万象的可执行软件单元</li>
+</ul>
+<h1 id="2-开发运维和cicd"><a class="markdownIt-Anchor" href="#2-开发运维和cicd"></a> 2. 开发运维和 CI / CD</h1>
+<h2 id="21-开发运维devops"><a class="markdownIt-Anchor" href="#21-开发运维devops"></a> 2.1. 开发运维（DevOps）</h2>
+<p>DevOps 是一种软件开发方法，旨在通过自动化软件交付流程来加快软件交付速度。DevOps 是开发（Dev）和运维（Ops）的组合。</p>
+<blockquote>
+<p>Patrick Debois 是 DevOps 的创始人。<br>
+他如此形容 DevOps：「敏捷开发环境的延伸，旨在加强整个软件交付的过程。「</p>
+</blockquote>
+<p>DevOps 推动文化和技术变革，促进开发和运维团队之间的协作，简化流程，自动化任务，并持续交付高质量的软件。</p>
+<p>DevOps 提高了效率和客户价值，要求组织学习和文化转型。</p>
+<p>其核心目标是自动化软件交付。</p>
+<p>DevOps 诞生前，开发和运维团队之间的沟通和协作很少。开发团队开发软件，然后将其交付给运维团队，运维团队负责部署和维护软件。这种模式导致了开发和运维团队之间的隔阂，从而导致了低效率、低质量的软件交付。</p>
+<p>各自为政行不通，因此 DevOps 的目标是将开发和运维团队合并为一个团队，并遵循敏捷开发原则，以便更快地交付更高质量的软件。</p>
+<h4 id="211-devops的要求"><a class="markdownIt-Anchor" href="#211-devops的要求"></a> 2.1.1. DevOps 的要求</h4>
+<ul>
+<li>改变文化：重视开放、信任和透明度</li>
+<li>新的应用设计：无需为增加一项功能而重新部署整个系统</li>
+<li>利用自动化：加快并提高应用交付的一致性</li>
+<li>可编程平台：持续部署</li>
+</ul>
+<h4 id="212-这些不是devops"><a class="markdownIt-Anchor" href="#212-这些不是devops"></a> 2.1.2. 这些不是 DevOps！</h4>
+<ul>
+<li>DevOps 不单单是简单地将开发和运营结合起来</li>
+<li>DevOps 不是一种工具或技术</li>
+<li>DevOps 不是一个独立的团队</li>
+<li>DevOps 不是一刀切的解决方案</li>
+<li>DevOps 不只是自动化</li>
+</ul>
+<h4 id="213-工具"><a class="markdownIt-Anchor" href="#213-工具"></a> 2.1.3. 工具</h4>
+<ul>
+<li>
+<p>版本控制</p>
+<ul>
+<li>管理和跟踪更改</li>
+<li>实现团队协作</li>
+<li>维护记录</li>
+<li>Git 实现了无缝代码管理</li>
+<li>GitLab 和 GitHub 是两个流行的 Git 托管服务</li>
+</ul>
+</li>
+<li>
+<p>CI/CD</p>
+<ul>
+<li>自动构建、测试和部署流程</li>
+<li>整合变更并自动发布</li>
+<li>CI 工具：构建和测试
+<ul>
+<li>Concourse CI</li>
+<li>Circle CI</li>
+<li>Travis CI</li>
+</ul>
+</li>
+<li>CD 工具：自动化应用发布
+<ul>
+<li>Spinnaker</li>
+<li>Go CD</li>
+<li>Argo CD</li>
+</ul>
+</li>
+<li>CI / CD 工具
+<ul>
+<li>Jenkins</li>
+<li>Tekton</li>
+<li>GitLab CI/CD</li>
+<li>GitHub Actions</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>配置管理</p>
+<ul>
+<li>自动配置软件和基础设施，确保一致性并简化环境管理</li>
+<li>Ansible</li>
+<li>Chef</li>
+<li>Puppet</li>
+<li>SaltStack</li>
+</ul>
+</li>
+<li>
+<p>容器化和容器协调</p>
+<ul>
+<li>可在容器中打包和部署应用程序，从而实现轻松扩展和高效资源管理</li>
+<li>Docker</li>
+<li>Kubernetes</li>
+</ul>
+</li>
+<li>
+<p>监控和日志记录</p>
+<ul>
+<li>监视应用程序性能、健康状况并分析日志</li>
+<li>Prometheus</li>
+<li>Grafana</li>
+<li>ELK Stack</li>
+<li>Mesmo</li>
+<li>New Relic</li>
+</ul>
+</li>
+<li>
+<p>合作和交流</p>
+<ul>
+<li>促进团队成员之间有效的团队合作、知识共享和协调</li>
+<li>Slack</li>
+<li>Microsoft Teams</li>
+<li>Atlassian Jira</li>
+<li>Trello</li>
+<li>Asana</li>
+</ul>
+</li>
+</ul>
+<h2 id="22-cicd"><a class="markdownIt-Anchor" href="#22-cicd"></a> 2.2. CI/CD</h2>
+<p>持续集成（CI）确保变更通过必要的测试；将测试变更集成到主分支中。</p>
+<p>持续交付（CD）确保快速安全的部署；将变更交付到类似生产的环境中。</p>
+<p>CI / CD 不是一个过程，而是两个不同的过程：CI 不断将代码整合回 <code>main/master/trunk</code> 分支，CD 将整合后的代码部署到生产环境。</p>
+<ul>
+<li>CI 包括计划、编码、构建和测试阶段</li>
+<li>CD 包括发布、部署和运行阶段</li>
+</ul>
+<blockquote>
+<p>持续部署（Continuous Deployment）是生产自动化，专门用于实际持续推送到生产环境的情况。<br>
+它与持续交付不同，后者是将代码部署到类似生产的环境中，比如开发服务器，但不会自动部署到生产环境。</p>
+</blockquote>
+<h4 id="221-ci的优势"><a class="markdownIt-Anchor" href="#221-ci的优势"></a> 2.2.1. CI 的优势</h4>
+<ul>
+<li>更快的代码更改反应时间
+<ol>
+<li>更改代码</li>
+<li>测试代码</li>
+<li>构建变更</li>
+<li>快速向客户交付解决方案</li>
+</ol>
+</li>
+<li>降低代码集成风险
+<ul>
+<li>集成小的内容</li>
+<li>无需在代码库中集成大量代码</li>
+<li>只需集成 10-50 行代码</li>
+</ul>
+</li>
+<li>更高的代码质量
+<ul>
+<li>PR（Pull Request）：开发人员将代码更改推送到代码库中的分支，然后请求其他开发人员审查和合并代码更改</li>
+<li>当有人提出 PR 时，就可以对代码进行审查</li>
+</ul>
+</li>
+<li>版本控制中的代码工作</li>
+</ul>
+<h2 id="23-tdd"><a class="markdownIt-Anchor" href="#23-tdd"></a> 2.3. TDD</h2>
+<p>测试驱动开发（TDD）是一种软件开发方法，它要求在编写代码之前编写测试。</p>
+<ol>
+<li>编写失败的测试用例</li>
+<li>编写足够的代码使测试通过</li>
+<li>重构代码</li>
+<li>重复</li>
+</ol>
+<p>TDD 意味着测试用例驱动代码的设计和开发，使开发人员能够更快地编写代码。</p>
+<h2 id="24-bdd"><a class="markdownIt-Anchor" href="#24-bdd"></a> 2.4. BDD</h2>
+<p>行为驱动开发（BDD）是一种软件开发方法，它关注从外部看到的系统行为，而非系统内部的工作方式。</p>
+<p>在软件测试中执行 BDD 的适当级别是集中测试、系统测试和验收测试。</p>
+<h1 id="3-agile"><a class="markdownIt-Anchor" href="#3-agile"></a> 3. Agile</h1>
+<p>敏捷开发是一种迭代的项目管理方法，可帮助团队快速响应并向客户交付价值。</p>
+<p>Agile 强调了：</p>
+<ul>
+<li>适应性规划</li>
+<li>渐进式发展</li>
+<li>早期交付</li>
+<li>持续改进</li>
+</ul>
+<p>敏捷开发宣言：</p>
+<ul>
+<li>个人和互动高于流程和工具</li>
+<li>可以工作的软件高于详尽的文档</li>
+<li>客户合作高于合同谈判</li>
+<li>响应变化高于遵循计划</li>
+</ul>
+<p>符合敏捷开发宣言的迭代式软件开发方法强调灵活性、互动性和高透明度，使用小型、同地办公、跨职能、自组织的团队。</p>
+<blockquote>
+<p>主要启示：按需建设，而非按计划建设。</p>
+</blockquote>
+<h2 id="31-scrum"><a class="markdownIt-Anchor" href="#31-scrum"></a> 3.1. Scrum</h2>
+<div class="danger">
+<p>Agile 和 Scrum 不是同一个东西！</p>
+<p>两者的区别为：</p>
+<ul>
+<li>Agile 是一种工作哲学（非规范性的）</li>
+<li>Scrum 是一种工作方法（增加流程）</li>
+</ul>
+</div>
+<p>Scrum 是一种渐进式产品开发的管理框架。</p>
+<ul>
+<li>规定了小型、跨职能、自我组织的团队</li>
+<li>提供角色、会议、规则和工件的结构</li>
+<li>使用固定长度的迭代，称为 Sprint</li>
+<li>目标是在每次迭代中构建一个可交付的产品增量</li>
+</ul>
+<h4 id="311-sprint"><a class="markdownIt-Anchor" href="#311-sprint"></a> 3.1.1. Sprint</h4>
+<p>Sprint 是设计、代码、测试和部署周期中的一次迭代。</p>
+<p>每个 Sprint 都应有一个目标，且通常持续两周。</p>
+<h4 id="312-scrum流程"><a class="markdownIt-Anchor" href="#312-scrum流程"></a> 3.1.2. Scrum 流程</h4>
+<ol>
+<li>产品积压（Product Backlog）：产品所有者（Product Owner）创建产品积压，其中包含想在产品中实现且未在 Sprint 中实施的所有功能
+<ul>
+<li>按重要性和业务价值排序，最上方的功能最详细</li>
+</ul>
+</li>
+<li>积压工作细化（Backlog Refinement）：团队和产品所有者一起讨论产品积压中的功能，以便团队了解功能的细节</li>
+<li>Sprint 计划：定义在 Sprint 阶段可以交付的工作以及如何完成这些工作
+<ul>
+<li>产品所有者、Scrum 主管（Scrum Master）和开发团队参与</li>
+<li>目标在于定义每个 Sprint 的明确业务目标</li>
+</ul>
+</li>
+<li>Sprint 积压（Sprint Backlog）：要比产品积压小得多，仅包含团队在下个 Sprint 中（未来两周内）要完成的功能</li>
+<li>每日 Scrum：每个人都应回答三个问题
+<ul>
+<li>昨天做了什么？</li>
+<li>今天要做什么？</li>
+<li>遇到了什么问题？</li>
+</ul>
+</li>
+<li>有价值的产品</li>
+</ol>
+<h4 id="313-团队"><a class="markdownIt-Anchor" href="#313-团队"></a> 3.1.3. 团队</h4>
+<p>适当的组织是成功的关键，这往往意味着现有团队可能需要重组。</p>
+<p>团队应当是松散耦合、又紧密配合的。这代表着每个团队都有着自己的任务，同时还要与业务保持一致。</p>
+<p>Scrum 强调自主权，这同时是一种鼓励团队成员自我管理的方法，也是速度和质量的保证。</p>
+<p>决策在团队中就地做出，同时还让团队成员为自己构建的产品承担完全的责任。</p>
+<p>自主权最大限度地减少了交接和等待，让团队成员能够快速做出决策并采取行动。</p>
+<h2 id="32-agile不是"><a class="markdownIt-Anchor" href="#32-agile不是"></a> 3.2. Agile 不是……</h2>
+<p>Agile 不仅仅只是迭代。在每次迭代的最后，团队都必须在部署应用程序后从客户那里收到反馈。</p>
+<p>Agile 不是瀑布式软件开发生命周期的新版本。每次 Sprint 阶段都不应当是采取传统的开发方法，并且不能只有开发人员参与，它涉及一个跨职能的团队。</p>
+<h2 id="33-鸡汤"><a class="markdownIt-Anchor" href="#33-鸡汤"></a> 3.3. 鸡汤</h2>
+<p>不要在最不了解的时候决定一切，应当根据所了解的情况制定计划。 随着了解的增多而调整计划，你的估计会更加准确。</p>
+<p>如何失败：不对员工进行培训就安排他们担任新职务。</p>
+<h4 id="331-职务之间的区别"><a class="markdownIt-Anchor" href="#331-职务之间的区别"></a> 3.3.1. 职务之间的区别</h4>
+<p>产品经理（Product Manager）：管理预算的业务人员，主要负责业务运营方面。</p>
+<p>产品所有者（Product Owner）：项目中有远见的人，带领团队进行一系列旨在实现 Sprint 目标的实验。</p>
+<p>项目经理（Project Manager）：让每个人都按照固定计划行事的任务负责人。</p>
+<p>Scrum 主管（Scrum Master）：让团队专注于当前 Sprint 的教练，帮助团队解决问题、消除障碍并保持团队的高效率。</p>
+<p>开发团队（Development Team）：仅由开发人员组成的团队。</p>
+<p>Scrum 团队（Scrum Team）：跨职能团队，包括开发人员、测试人员、安全人员、业务分析师、运营人员等。</p>
+<h2 id="34-用户故事"><a class="markdownIt-Anchor" href="#34-用户故事"></a> 3.4. 用户故事</h2>
+<p>用户故事（User Story）是一种简短的、简单的描述，代表团队在一次迭代中可以交付的一小部分业务价值。</p>
+<p>用户故事往往包含了以下几个部分：</p>
+<ul>
+<li>为谁而设？</li>
+<li>他们需要什么？</li>
+<li>为什么他们需要？</li>
+<li>他们从中获得的商业价值是什么？</li>
+</ul>
+<p>用户故事的内容应是需求和业务价值的简要说明，包含了所有的假设和细节，即「完成」的定义。</p>
+<p>用户故事记录了一个角色为实现目标而提出的功能要求，即：作为一个【角色】我需要【功能】以便【目标】。</p>
+<h4 id="341-验收标准"><a class="markdownIt-Anchor" href="#341-验收标准"></a> 3.4.1. 验收标准</h4>
+<p>记录「完成」的定义至关重要，要让利益相关者、客户和开发人员都能轻松描述「完成」的定义。</p>
+<p>也就是：给定【条件】，当【事件】发生时，我希望【结果】。</p>
+<h4 id="342-invest原则"><a class="markdownIt-Anchor" href="#342-invest原则"></a> 3.4.2. INVEST 原则</h4>
+<ul>
+<li>独立性（Independent）：用户故事应该是独立的，这样就可以按照任何顺序进行开发</li>
+<li>可协商性（Negotiable）：用户故事应该是可协商的，这样就可以在开发过程中进行更改</li>
+<li>有价值（Valuable）：用户故事应该是有价值的，这样就可以在每次迭代中交付价值</li>
+<li>可估算（Estimable）：用户故事应该是可估算的，这样就可以在每次迭代中估算工作量</li>
+<li>小型（Small）：用户故事应该是小型的，这样就可以在每次迭代中交付</li>
+<li>可测试（Testable）：用户故事应该是可测试的，这样就可以在每次迭代中测试</li>
+</ul>
+<h4 id="343-epic"><a class="markdownIt-Anchor" href="#343-epic"></a> 3.4.3. Epic</h4>
+<p>Epic 是一种大型用户故事，它可以进一步分解为较小的用户故事。</p>
+<p>当一个用户故事的范围过大时，就会被称为 Epic。当优先级较低、定义较少时，积压项目往往会以 Epic 的形式存在。</p>
+<h4 id="344-故事点"><a class="markdownIt-Anchor" href="#344-故事点"></a> 3.4.4. 故事点</h4>
+<p>故事点（Story Points）是一种估算工作量、估算特定用户故事实施难度的指标。它是总体工作量的抽象度量，而非时间单位。</p>
+<p>我们需要承认人类非常不善于估算时间，因此要使用相对估算。许多工具采取了 Fibonacci 数列，因为它们是一种指数级增长的数列。用更抽象的概念来比喻的话，就是衣服的尺码。</p>
+<p>例如，在第一个 Sprint 中，团队估算一个用户故事的故事点为 M 尺码，这可能会花费两天时间，也可能会花费一周时间。在第二个 Sprint 中，团队对故事点的估算有了更精准的认知，因此在估算另一个用户故事时，会根据花费在第一个用户故事上的时间，以及第二个用户故事的复杂程度，来估算第二个用户故事的故事点。</p>
+<p>切记，绝对不要将故事点与时间混淆。</p>
+<h1 id="4-nosql"><a class="markdownIt-Anchor" href="#4-nosql"></a> 4. NoSQL</h1>
+<p>NoSQL 这个概念在一次关于分布式数据库的开源活动中被提出。全称是 Not Only SQL，意思是「不仅仅是 SQL」。</p>
+<p>NoSQL 是一种非关系型数据库，它不使用 SQL 作为查询语言，而是使用其他语言。没有了标准的行和列，NoSQL 数据库可以存储各种类型的数据，且在存储和查询数据的方式上更加灵活。</p>
+<p>NoSQL 设计用于大型数据集的高性能和灵活性，它们通常用于 Web 应用程序和大数据应用程序。</p>
+<h2 id="41-mongodb"><a class="markdownIt-Anchor" href="#41-mongodb"></a> 4.1. MongoDB</h2>
+<p>MongoDB 是一种开源的文档和 NoSQL 数据库，它使用类似于 JSON 对象和 Python 字典的文档来存储数据。</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"firstName"</span><span class="punctuation">:</span> <span class="string">"John"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"lastName"</span><span class="punctuation">:</span> <span class="string">"Doe"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"email"</span><span class="punctuation">:</span> <span class="string">"john.doe@email.com"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"studentId"</span><span class="punctuation">:</span> <span class="number">20217484</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+<p>集合（Collection）是一组文档，类似于关系数据库中的表。比方说，你可以创建一个名为 <code>students</code> 的集合，其中包含所有学生的文档。</p>
+<p>数据库（Database）是一组集合，类似于关系数据库中的数据库。比方说，你可以创建一个名为 <code>school</code> 的数据库，其中包含所有学生的集合。</p>
+<h4 id="411-mongodb的优势"><a class="markdownIt-Anchor" href="#411-mongodb的优势"></a> 4.1.1. MongoDB 的优势</h4>
+<ul>
+<li>在读取和写入数据时建立数据模型，而非传统的先创建模式、再创建表格</li>
+<li>让用户能够引入任何结构化或非结构化数据</li>
+<li>通过保存多份数据副本，提高数据的可用性</li>
+</ul>
+<p>MongoDB 适合用于大型和非结构化、复杂、灵活、高度可扩展的应用程序。</p>
+<p>在传统的关系数据库中，你需要先设计，再写代码。例如：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE Students (</span><br><span class="line">	FirstName varchar(255),</span><br><span class="line">    LastName varchar(255),</span><br><span class="line">    Email varchar(255),</span><br><span class="line">    StudentId int);</span><br><span class="line"></span><br><span class="line">INSERT INTO Students</span><br><span class="line">VALUES (<span class="string">"John"</span>,</span><br><span class="line">        <span class="string">"Doe"</span>,</span><br><span class="line">       	<span class="string">"john.doe@email.com"</span>,</span><br><span class="line">        20217484);</span><br></pre></td></tr></tbody></table></figure>
+<p>而在 MongoDB 中，你可以直接写代码，无需设计复杂的表格定义。例如：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.persons.insertOne({</span><br><span class="line">	<span class="string">"firstName"</span>: <span class="string">"John"</span>,</span><br><span class="line">    <span class="string">"lastName"</span>: <span class="string">"Doe"</span>,</span><br><span class="line">    <span class="string">"email"</span>: <span class="string">"john.doe@email.com"</span>,</span><br><span class="line">    <span class="string">"studentId"</span>: 20217484</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="412-案例"><a class="markdownIt-Anchor" href="#412-案例"></a> 4.1.2. 案例</h4>
+<p>假设你正经营一家快递公司，因此需要存储送货地址。随着 2020 年送货流程的巨大变化，你需要存储更多的数据，比如该客户是否选用了无接触送货。</p>
+<p>使用 MongoDB 可以轻松存储这些数据；如果使用的是关系数据库，你可能需要重新设计表格，以便存储新的数据。</p>
+<h4 id="413-查询和分析"><a class="markdownIt-Anchor" href="#413-查询和分析"></a> 4.1.3. 查询和分析</h4>
+<p>MongoDB 提供了一种查询语言，称为 MongoDB 查询语言（MQL）。MQL 拥有多种操作符，可用于查询和分析数据。</p>
+<p>如果查询还要更复杂，你可以使用 MongoDB 聚合管道（Aggregation Pipeline）。</p>
+<p>以下是一些实践练习：</p>
+<ol>
+<li>
+<p>启动 MongoDB Shell</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>连接到 MongoDB 服务器</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongosh -u root -p xxx --authenticationDatabase admin <span class="built_in">local</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>列出所有数据库</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show dbs</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>创建一个名为 <code>school</code> 的数据库</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use school</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>创建一个名为 <code>students</code> 的集合</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(<span class="string">"students"</span>)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>列出所有集合</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show collections</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>向 <code>students</code> 集合中插入一条文档</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.students.insertOne({</span><br><span class="line">	<span class="string">"firstName"</span>: <span class="string">"John"</span>,</span><br><span class="line">     <span class="string">"lastName"</span>: <span class="string">"Doe"</span></span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>数插入了多少条文档</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.count()</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>列出所有文档</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find()</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>更新一条文档</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.students.updateOne(</span><br><span class="line">	{<span class="string">"firstName"</span>: <span class="string">"John"</span>},</span><br><span class="line">    {<span class="variable">$set</span>: {<span class="string">"lastName"</span>: <span class="string">"Smith"</span>}}</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>删除一条文档</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.deleteOne({<span class="string">"firstName"</span>: <span class="string">"John"</span>})</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>从服务器断开连接</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="414-mongo-shell"><a class="markdownIt-Anchor" href="#414-mongo-shell"></a> 4.1.4. Mongo Shell</h4>
+<p>Mongo Shell 是 MongoDB 的命令行接口，它允许你与 MongoDB 服务器进行交互。</p>
+<p>Mongo Shell 也是一种 JavaScript 解释器，它允许你在 MongoDB 服务器上运行 JavaScript 代码。</p>
+<p>连接到集群：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongosh <span class="string">"mongodb://USER:PASSWORD@url/test"</span></span><br></pre></td></tr></tbody></table></figure>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="d011.html">上一篇</a><a class="next" href="3571.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/d62.html" data-full-url="https://cytrogen.icu/posts/d62.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

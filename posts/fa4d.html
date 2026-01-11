@@ -1,0 +1,841 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【11】：全栈应用程序开发项目 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的最终篇学习笔记，通过一个完整的“Best Cars”汽车经销商项目，将课程所学技能融会贯通。文章详细记录了从零构建一个全栈应用的完整流程：首先使用 Django 搭建基础网站并实现用户管理；接着，开发独立的 Node.js/MongoDB 后端服务和 AI 情感分析微服务；然后，创建动态的 React 前端来消费这些服务。最后，教程还演示了如何配置 GitHub Actions 实现 CI/CD，并将主应用容器化（Docker），最终部署到 Kubernetes (K8s) 集群。这篇笔记是对现代全栈开发、微服务和 DevOps 实践的一次全面实战演练。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/fa4d.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">IBM 全栈开发【11】：全栈应用程序开发项目</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-06-27T20:41:00.000Z">6/27/2024</time></div><div class="post-content"><html><head></head><body><p>近期在学习 IBM 全栈应用开发微学士课程，故此记录学习笔记。</p>
+<span id="more"></span>
+<h1 id="1-应用程序静态页面"><a class="markdownIt-Anchor" href="#1-应用程序静态页面"></a> 1. 应用程序：静态页面</h1>
+<p>恭喜您成为「Best Cars」汽车经销商的首席云应用程序开发员。作为热身任务，您需要运行并测试其主要 Django 应用程序。</p>
+<p>Django 应用程序将主要用于用户管理和身份验证、管理汽车型号和品牌，以及路由其他 MongoDB 服务以获取经销商和客户评论。您将在毕业设计课程中分阶段构建此 Django 应用程序和相关服务。</p>
+<blockquote>
+<p>将更改推送到 Git 仓库的步骤：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email <span class="string">"yourgithub@email.com"</span></span><br><span class="line">git config --global user.name <span class="string">"name"</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m<span class="string">"Adding temporary changes to Github"</span></span><br><span class="line">git push</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/ibm-developer-skills-network/xrwvm-fullstack_developer_capstone"><img src="https://gh-card.dev/repos/ibm-developer-skills-network/xrwvm-fullstack_developer_capstone.svg" alt="ibm-developer-skills-network/xrwvm-fullstack_developer_capstone - GitHub"></a></p>
+<p>导航至此仓库，并创建一个包含本项目所需的基本启动代码的版本库分叉（fork）。</p>
+<h2 id="11-在开发服务器上运行-django-应用程序"><a class="markdownIt-Anchor" href="#11-在开发服务器上运行-django-应用程序"></a> 1.1. 在开发服务器上运行 Django 应用程序</h2>
+<p>观察 Django 应用程序骨架结构的文件夹结构。您会看到服务器文件夹下有三个子文件夹：</p>
+<ul>
+<li><code>djangoapp</code>：包含 Django 应用程序。</li>
+<li><code>djangoproj</code>：包含项目配置。</li>
+<li><code>frontend</code>：HTML 和 CSS 以及 React 前端。</li>
+</ul>
+<p>接下来，让我们设置 Python 运行时并测试应用程序。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> xrwvm-fullstack_developer_capstone/server</span><br><span class="line">pip install virtualenv</span><br><span class="line">virtualenv djangoenv</span><br><span class="line"><span class="built_in">source</span> djangoenv/bin/activate</span><br></pre></td></tr></tbody></table></figure>
+<p>在虚拟环境中安装必要的 Python 软件包。软件包名称已在 <code>requirements.txt</code> 中提供。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip install -U -r requirements.txt</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>server/djangoproj/settings.py</code> 的 <code>TEMPLATES</code> 下，您会发现 <code>DIRS</code> 是一个空列表。在列表中添加 <code>os.path.join(BASE_DIR,'frontend/static')</code>，以便 Django 应用程序识别前端静态文件。设置如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'DIRS'</span>: [</span><br><span class="line">    os.path.join(BASE_DIR,<span class="string">'frontend/static'</span>)</span><br><span class="line">],</span><br></pre></td></tr></tbody></table></figure>
+<p>在同一文件 <code>server/djangoproj/settings.py</code> 中，在文件底部添加 Django 应用程序查找静态文件的目录。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR,<span class="string">'frontend/static'</span>)</span><br><span class="line">]</span><br></pre></td></tr></tbody></table></figure>
+<p>执行迁移，创建必要的表格。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py makemigrations</span><br></pre></td></tr></tbody></table></figure>
+<p>运行迁移以激活应用程序的模型。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py migrate</span><br></pre></td></tr></tbody></table></figure>
+<p>启动本地开发服务器。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 manage.py runserver</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>在文件编辑器中打开 <code>server/djangoproj/settings.py</code>，设置 <code>ALLOWED_HOSTS</code> 和 <code>CSRF_TRUSTED_ORIGINS</code> 以反映 Django 应用程序的根 URL。</p>
+<p>请不要在末尾添加 /。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALLOWED_HOSTS=[<span class="string">'localhost'</span>,<span class="string">'&lt;your application URL here&gt;'</span>]</span><br><span class="line">CSRF_TRUSTED_ORIGINS=[<span class="string">'&lt;your application URL here&gt;'</span>]</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<h2 id="12-添加-about-us-页面"><a class="markdownIt-Anchor" href="#12-添加-about-us-页面"></a> 1.2. 添加「About Us」页面</h2>
+<p>在编辑器中打开 <code>server/frontend/static/About.html</code>。同一文件夹中还有样式表 <code>style.css</code>。在 <code>About.html</code> 中的 <code>&lt;head&gt;</code> 标签中链接样式表，以便在 HTML 文件中使用。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/style.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/bootstrap.min.css"</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>在名为 <code>about-header</code> 的 <code>&lt;div&gt;</code> 标记中粘贴以下内容。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>About Us<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">Welcome to Best Cars dealership, home to the best cars in North America. We deal in sale of domestic and imported cars at reasonable prices.</span><br></pre></td></tr></tbody></table></figure>
+<p>将图片 <code>person.png</code> 改为真人图片，并修改 <code>About.html</code> 中的所有文字，使其看起来更真实。根据您的喜好更改样式。</p>
+<p>转到 <code>djangoproj/urls.py</code>，在 <code>urlpatterns</code> 中添加以下内容：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'about/'</span>, TemplateView.as_view(template_name=<span class="string">"About.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="13-添加-contact-us-页面"><a class="markdownIt-Anchor" href="#13-添加-contact-us-页面"></a> 1.3. 添加「Contact Us」页面</h2>
+<p>在 <code>server/frontend/static</code> 文件夹下添加一个名为 <code>Contact.html</code> 的新文件。</p>
+<p>添加样式表链接。</p>
+<p>添加标题导航栏，将 <code>Contact Us</code> 作为活动链接。</p>
+<p>在文件中写入联系信息内容。您可以发挥创意，编写自己的信息。使用 CSS 创建样式。</p>
+<p>将 <code>contact</code> 路径添加到 <code>djangproj/urls.py</code>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'contact/'</span>, TemplateView.as_view(template_name=<span class="string">"Contact.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<p>Django 服务器会自动重启。</p>
+<h1 id="2-应用程序用户管理"><a class="markdownIt-Anchor" href="#2-应用程序用户管理"></a> 2. 应用程序：用户管理</h1>
+<p>现在，您已经构建并部署了最初的 Django 应用程序。下一步，经销商的管理员将查看应用程序，以识别用户并根据角色（如匿名用户或注册用户）管理其访问权限。为此，您需要在应用程序中添加身份验证和授权，即用户管理。在本课中，您需要执行以下任务来添加用户管理功能：</p>
+<ul>
+<li>为应用程序创建超级用户。</li>
+<li>构建客户端并进行配置。</li>
+<li>检查客户端配置。</li>
+<li>添加登录视图以处理登录请求。</li>
+<li>添加注销视图以处理注销请求。</li>
+<li>添加注册视图来处理注册请求。</li>
+</ul>
+<h2 id="21-为您的应用创建超级用户"><a class="markdownIt-Anchor" href="#21-为您的应用创建超级用户"></a> 2.1. 为您的应用创建超级用户</h2>
+<p>运行以下命令创建超级用户：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br></pre></td></tr></tbody></table></figure>
+<p>输入用户名、电子邮件和密码后，您应该会看到 <code>Superuser created successfully</code> 的信息，表明超级用户已创建。执行以下命令运行服务器：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></tbody></table></figure>
+<p>请在端口 <code>8000</code> 上启动应用程序，并在 URL 末尾添加 <code>/admin</code>，以进入 Django 管理用户界面。使用刚刚为超级用户创建的凭据登录管理员站点。单击 <code>AUTHENTICATION AND AUTHORIZATION</code> 部分下的 <code>Users</code>。您应该可以查看刚刚创建的超级用户。</p>
+<h2 id="22-构建客户端并进行配置"><a class="markdownIt-Anchor" href="#22-构建客户端并进行配置"></a> 2.2. 构建客户端并进行配置</h2>
+<p>打开新终端，切换到客户端目录：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/frontend</span><br></pre></td></tr></tbody></table></figure>
+<p>安装所有必需的软件包：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></tbody></table></figure>
+<p>运行以下命令构建客户端：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></tbody></table></figure>
+<p>在编辑器中打开 <code>server/djangoproj/settings.py</code>。在 <code>TEMPLATES</code> 下可以找到 <code>DIRS</code>。在列表中添加 <code>os.path.join(BASE_DIR,'frontend/build')</code>，以便 Django 应用程序识别前端。设置如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'DIRS'</span>: [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/static'</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/build'</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/build/static'</span>),</span><br><span class="line">],</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>server/djangoproj/settings.py</code> 中，将 Django 应用程序查找静态文件的目录添加到名为 <code>STATICFILES_DIRS</code> 的列表中。设置如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS = [</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/static'</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/build'</span>),</span><br><span class="line">    os.path.join(BASE_DIR, <span class="string">'frontend/build/static'</span>),</span><br><span class="line">]</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="23-添加新的登录视图"><a class="markdownIt-Anchor" href="#23-添加新的登录视图"></a> 2.3. 添加新的登录视图</h2>
+<p>接下来，您需要创建一个新的登录 Django 视图来处理登录请求。打开 <code>djangoapp/views.py</code>，取消顶部的导入语句。观察登录视图以验证用户身份。用户登录后，视图会返回一个包含用户名和状态的 JSON 对象。</p>
+<p>打开 <code>server/djangoapp/urls.py</code>，取消注释顶部的导入语句：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.conf.urls.static <span class="keyword">import</span> static</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br></pre></td></tr></tbody></table></figure>
+<p>通过取消对 <code>server/djangoapp/urls.py</code> 中路径条目的注释，为登录视图配置路由，如下所示：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'login'</span>, view=views.login_user, name=<span class="string">'login'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>如下所示，在 <code>server/djangoproj/urls.py</code> 中添加路径条目，为登录页面配置路由。登录页面是通过 <code>/server/frontend/src/App.js</code> 中配置的路由呈现的 React 页面。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'login/'</span>, TemplateView.as_view(template_name=<span class="string">"index.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="24-添加注销功能"><a class="markdownIt-Anchor" href="#24-添加注销功能"></a> 2.4. 添加注销功能</h2>
+<p>您需要创建一个新的注销 Django 视图来处理注销请求。</p>
+<p>打开 <code>djangoapp/views.py</code>，添加一个新的注销视图来处理注销请求。用户注销后，视图应返回一个包含用户名的 JSON 对象。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">logout_request</span>(<span class="params">request</span>):</span><br><span class="line">    logout(request)</span><br><span class="line">    data = {<span class="string">"userName"</span>: <span class="string">""</span>}</span><br><span class="line">    <span class="keyword">return</span> JsonResponse(data)</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>djangoapp/urls.py</code> 中添加路径条目，为注销视图配置路由：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'logout'</span>, view=views.logout_request, name=<span class="string">'logout'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>server/frontend/static/Home.html</code> 中的空白处加入以下代码，以处理用户退出登录：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const logout = <span class="keyword">async</span> (e) =&gt; {</span><br><span class="line">  let logout_url = window.location.origin+<span class="string">"/djangoapp/logout"</span>;</span><br><span class="line">  const res = <span class="keyword">await</span> fetch(logout_url, {</span><br><span class="line">    method: <span class="string">"GET"</span>,</span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  const json = <span class="keyword">await</span> res.json();</span><br><span class="line">  <span class="keyword">if</span> (json) {</span><br><span class="line">    let username = sessionStorage.getItem(<span class="string">'username'</span>);</span><br><span class="line">    sessionStorage.removeItem(<span class="string">'username'</span>);</span><br><span class="line">    window.location.href = window.location.origin;</span><br><span class="line">    window.location.reload();</span><br><span class="line">    alert(<span class="string">"Logging out "</span>+username+<span class="string">"..."</span>)</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">else</span> {</span><br><span class="line">    alert(<span class="string">"The user could not be logged out."</span>)</span><br><span class="line">  }</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<p>打开一个新的终端，运行以下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/frontend</span><br><span class="line">npm run build</span><br></pre></td></tr></tbody></table></figure>
+<p>如果会话没有过期，您将从上一步登录。如果没有，请登录，然后单击 <code>Logout</code>。</p>
+<h2 id="25-添加注册功能"><a class="markdownIt-Anchor" href="#25-添加注册功能"></a> 2.5. 添加注册功能</h2>
+<p>您需要创建一个新的注册 Django 视图来处理注册请求。</p>
+<p>打开 <code>djangoapp/views.py</code>，添加一个新的注册视图来处理注册请求。用户注册时，应创建一个用户对象，并登录该用户。它应返回一个包含用户名的 JSON 对象。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@csrf_exempt</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">registration</span>(<span class="params">request</span>):</span><br><span class="line">    context = {}</span><br><span class="line"></span><br><span class="line">    data = json.loads(request.body)</span><br><span class="line">    username = data[<span class="string">'userName'</span>]</span><br><span class="line">    password = data[<span class="string">'password'</span>]</span><br><span class="line">    first_name = data[<span class="string">'firstName'</span>]</span><br><span class="line">    last_name = data[<span class="string">'lastName'</span>]</span><br><span class="line">    email = data[<span class="string">'email'</span>]</span><br><span class="line">    username_exist = <span class="literal">False</span></span><br><span class="line">    email_exist = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Check if user already exists</span></span><br><span class="line">        User.objects.get(username=username)</span><br><span class="line">        username_exist = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="comment"># If not, simply log this is a new user</span></span><br><span class="line">        logger.debug(<span class="string">"{} is new user"</span>.<span class="built_in">format</span>(username))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If it is a new user</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> username_exist:</span><br><span class="line">        <span class="comment"># Create user in auth_user table</span></span><br><span class="line">        user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password, email=email)</span><br><span class="line">        <span class="comment"># Login the user and redirect to list page</span></span><br><span class="line">        login(request, user)</span><br><span class="line">        data = {<span class="string">"userName"</span>:username,<span class="string">"status"</span>:<span class="string">"Authenticated"</span>}</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(data)</span><br><span class="line">    <span class="keyword">else</span> :</span><br><span class="line">        data = {<span class="string">"userName"</span>:username,<span class="string">"error"</span>:<span class="string">"Already Registered"</span>}</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(data)</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>djangoapp/urls.py</code> 中添加路径条目，为注册视图配置路由：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'register'</span>, view=views.registration, name=<span class="string">'register'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>frontend/src/components/Register</code> 中创建一个名为 <code>Register.jsx</code> 的文件。我们已经提供了该页面要使用的 CSS。在 <code>Register.jsx</code> 中添加以下代码：</p>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, { useState } <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">"./Register.css"</span>;</span><br><span class="line"><span class="keyword">import</span> user_icon <span class="keyword">from</span> <span class="string">"../assets/person.png"</span></span><br><span class="line"><span class="keyword">import</span> email_icon <span class="keyword">from</span> <span class="string">"../assets/email.png"</span></span><br><span class="line"><span class="keyword">import</span> password_icon <span class="keyword">from</span> <span class="string">"../assets/password.png"</span></span><br><span class="line"><span class="keyword">import</span> close_icon <span class="keyword">from</span> <span class="string">"../assets/close.png"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Register</span> = (<span class="params"></span>) =&gt; {</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [userName, setUserName] = <span class="title function_">useState</span>(<span class="string">""</span>);</span><br><span class="line">  <span class="keyword">const</span> [password, setPassword] = <span class="title function_">useState</span>(<span class="string">""</span>);</span><br><span class="line">  <span class="keyword">const</span> [email, setEmail] = <span class="title function_">useState</span>(<span class="string">""</span>);</span><br><span class="line">  <span class="keyword">const</span> [firstName, setFirstName] = <span class="title function_">useState</span>(<span class="string">""</span>);</span><br><span class="line">  <span class="keyword">const</span> [lastName, setlastName] = <span class="title function_">useState</span>(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">gohome</span> = (<span class="params"></span>)=&gt; {</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">register</span> = <span class="keyword">async</span> (<span class="params">e</span>) =&gt; {</span><br><span class="line">    e.<span class="title function_">preventDefault</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> register_url = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>+<span class="string">"/djangoapp/register"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(register_url, {</span><br><span class="line">        <span class="attr">method</span>: <span class="string">"POST"</span>,</span><br><span class="line">        <span class="attr">headers</span>: {</span><br><span class="line">            <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span>,</span><br><span class="line">        },</span><br><span class="line">        <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>({</span><br><span class="line">            <span class="string">"userName"</span>: userName,</span><br><span class="line">            <span class="string">"password"</span>: password,</span><br><span class="line">            <span class="string">"firstName"</span>:firstName,</span><br><span class="line">            <span class="string">"lastName"</span>:lastName,</span><br><span class="line">            <span class="string">"email"</span>:email</span><br><span class="line">        }),</span><br><span class="line">    });</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> json = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span><br><span class="line">    <span class="keyword">if</span> (json.<span class="property">status</span>) {</span><br><span class="line">        <span class="variable language_">sessionStorage</span>.<span class="title function_">setItem</span>(<span class="string">'username'</span>, json.<span class="property">userName</span>);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (json.<span class="property">error</span> === <span class="string">"Already Registered"</span>) {</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">"The user with same username is already registered"</span>);</span><br><span class="line">      <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">origin</span>;</span><br><span class="line">    }</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"register_container"</span> <span class="attr">style</span>=<span class="string">{{width:</span> "<span class="attr">50</span>%"}}&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"header"</span> <span class="attr">style</span>=<span class="string">{{display:</span> "<span class="attr">flex</span>",<span class="attr">flexDirection:</span> "<span class="attr">row</span>", <span class="attr">justifyContent:</span> "<span class="attr">space-between</span>"}}&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">span</span> <span class="attr">className</span>=<span class="string">"text"</span> <span class="attr">style</span>=<span class="string">{{flexGrow:</span>"<span class="attr">1</span>"}}&gt;</span>SignUp<span class="tag">&lt;/<span class="name">span</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">{{display:</span> "<span class="attr">flex</span>",<span class="attr">flexDirection:</span> "<span class="attr">row</span>", <span class="attr">justifySelf:</span> "<span class="attr">end</span>", <span class="attr">alignSelf:</span> "<span class="attr">start</span>" }}&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span> <span class="attr">onClick</span>=<span class="string">{()</span>=&gt;</span>{gohome()}} style={{justifyContent: "space-between", alignItems:"flex-end"}}&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">style</span>=<span class="string">{{width:</span>"<span class="attr">1cm</span>"}} <span class="attr">src</span>=<span class="string">{close_icon}</span> <span class="attr">alt</span>=<span class="string">"X"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">hr</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">onSubmit</span>=<span class="string">{register}</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"inputs"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"input"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">{user_icon}</span> <span class="attr">className</span>=<span class="string">"img_icon"</span> <span class="attr">alt</span>=<span class="string">'Username'</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">placeholder</span>=<span class="string">"Username"</span> <span class="attr">className</span>=<span class="string">"input_field"</span> <span class="attr">onChange</span>=<span class="string">{(e)</span> =&gt;</span> setUserName(e.target.value)}/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">{user_icon}</span> <span class="attr">className</span>=<span class="string">"img_icon"</span> <span class="attr">alt</span>=<span class="string">'First Name'</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"first_name"</span> <span class="attr">placeholder</span>=<span class="string">"First Name"</span> <span class="attr">className</span>=<span class="string">"input_field"</span> <span class="attr">onChange</span>=<span class="string">{(e)</span> =&gt;</span> setFirstName(e.target.value)}/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">{user_icon}</span> <span class="attr">className</span>=<span class="string">"img_icon"</span> <span class="attr">alt</span>=<span class="string">'Last Name'</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"last_name"</span> <span class="attr">placeholder</span>=<span class="string">"Last Name"</span> <span class="attr">className</span>=<span class="string">"input_field"</span> <span class="attr">onChange</span>=<span class="string">{(e)</span> =&gt;</span> setlastName(e.target.value)}/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">{email_icon}</span> <span class="attr">className</span>=<span class="string">"img_icon"</span> <span class="attr">alt</span>=<span class="string">'Email'</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"email"</span>  <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">placeholder</span>=<span class="string">"email"</span> <span class="attr">className</span>=<span class="string">"input_field"</span> <span class="attr">onChange</span>=<span class="string">{(e)</span> =&gt;</span> setEmail(e.target.value)}/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"input"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">{password_icon}</span> <span class="attr">className</span>=<span class="string">"img_icon"</span> <span class="attr">alt</span>=<span class="string">'password'</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"psw"</span> <span class="attr">type</span>=<span class="string">"password"</span>  <span class="attr">placeholder</span>=<span class="string">"Password"</span> <span class="attr">className</span>=<span class="string">"input_field"</span> <span class="attr">onChange</span>=<span class="string">{(e)</span> =&gt;</span> setPassword(e.target.value)}/&gt;</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"submit_panel"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">"submit"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Register"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Register</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>frontend/src/App.js</code> 中配置路由：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">"/register"</span> element={<span class="language-xml"><span class="tag">&lt;<span class="name">Register</span> /&gt;</span></span>} /&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>在之前用于运行 <code>npm run build</code> 的终端中，再次运行以反映最新更改。</p>
+<p>在编辑器中打开 <code>server/djangoproj/urls.py</code>，在 <code>urlpatterns</code> 中添加以下路径。路由已在 <code>App.js</code> 中配置：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'register/'</span>, TemplateView.as_view(template_name=<span class="string">"index.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<p>如果已登录，请注销，然后点击 <code>Register</code> 链接。您将看到如下所示的注册页面。</p>
+<h1 id="3-后端服务"><a class="markdownIt-Anchor" href="#3-后端服务"></a> 3. 后端服务</h1>
+<p>在本模块中，您将在 Express 应用程序中实现一些与 MongoDB 进行交易的端点。然后使用 Docker 将 Mongo 和 Express 服务器容器化并运行。此外，您还将使用 Django 模型设置 <code>CarMake</code> 和 <code>CarModel</code>，并填充数据库。然后，将情感分析器部署到 IBM 代码引擎。最后，您将创建代理服务来访问这些外部服务。</p>
+<p>您在上一个模块中创建的 Django 应用程序需要与数据库通信。在本模块中，您将创建一个容器化的 Node.JS 应用程序，使用 MongoDB 作为后端为 API 端点提供服务。</p>
+<p>您将在 Express 应用程序中编写这些后端服务，并使用 Docker 将其容器化。</p>
+<p>您将查看和测试以下端点：</p>
+<ul>
+<li><code>/fetchReviews/dealer/29</code></li>
+<li><code>/fetchDealers</code></li>
+<li><code>/fetchDealer/3</code></li>
+<li><code>/fetchDealers/Kansas</code></li>
+</ul>
+<h2 id="31-使用-express-mongo-实现应用程序接口端点"><a class="markdownIt-Anchor" href="#31-使用-express-mongo-实现应用程序接口端点"></a> 3.1. 使用 <code>Express-Mongo</code> 实现应用程序接口端点</h2>
+<p>切换到包含数据文件的目录：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /server/database</span><br></pre></td></tr></tbody></table></figure>
+<p>在在线课程实验项目中，我们为您提供了两个用于 <code>Reviews</code> 和 <code>Dealerships</code> 实体的模式文件，以及包含要加载到 MongoDB 并通过端点提供的经销商和评论数据的 JSON 文件。</p>
+<ul>
+<li><code>server/database/data/dealerships.json</code></li>
+<li><code>server/database/data/reviews.json</code></li>
+</ul>
+<p>Node 应用程序将使用 <code>mongoose</code> 与 MongoDB 交互。评论和经销商的模式分别在 <code>review.js</code> 和 <code>dealership.js</code> 中定义。</p>
+<p>查看 <code>server/database/app.js</code> 中的内容。它将提供以下端点：</p>
+<ul>
+<li><code>fetchReviews</code>（用于获取所有评论）</li>
+<li><code>fetchReviews/dealer/:id</code>（用于获取特定经销商的评论）</li>
+<li><code>fetchDealers</code>（用于获取所有经销商的评论）</li>
+<li><code>fetchDealers/:state</code>（用于获取某一州的所有经销商信息）</li>
+<li><code>fetchDealer/:id</code>（按 ID 查找经销商）</li>
+<li><code>insert_review</code>（用于插入评论）</li>
+</ul>
+<p>有些端点已经为您实施。请利用这些想法和先前的学习成果，实施尚未实施的端点。</p>
+<h4 id="311-与-mongoose-合作提供-api-端点"><a class="markdownIt-Anchor" href="#311-与-mongoose-合作提供-api-端点"></a> 3.1.1. 与 Mongoose 合作提供 API 端点</h4>
+<p>运行以下命令来构建 Docker 应用程序。记住，每次更改 <code>app.js</code> 时都要这样做。</p>
+<div class="danger">
+<p>请确保你的计算机里有安装 Docker。</p>
+<p>运行 Docker 还需要开启 Hyper-V，可以上网找教程。</p>
+</div>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t nodeapp</span><br></pre></td></tr></tbody></table></figure>
+<p>我们创建了用于运行两个容器的 <code>docker-compose.yml</code>，一个用于 Mongo，另一个用于 Node 应用程序。运行以下命令来运行服务器：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="312-创建应用程序接口端点-url"><a class="markdownIt-Anchor" href="#312-创建应用程序接口端点-url"></a> 3.1.2. 创建应用程序接口端点 URL</h4>
+<p>实现 <code>server/database/app.js</code> 中尚未实施的以下端点（可以直接参考已经被实现的端点写法）：</p>
+<ul>
+<li>
+<p><code>fetchDealers</code>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">'/fetchDealers'</span>, <span class="title function_">async</span> (req, res) =&gt; {</span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>();</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  } <span class="keyword">catch</span> (error) {</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>({ <span class="attr">error</span>: <span class="string">'Error fetching documents'</span> });</span><br><span class="line">  }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>fetchDealers/:state</code>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">'/fetchDealers/:state'</span>, <span class="title function_">async</span> (req, res) =&gt; {</span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>({<span class="attr">state</span>: req.<span class="property">params</span>.<span class="property">state</span>});</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  } <span class="keyword">catch</span> (error) {</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>({ <span class="attr">error</span>: <span class="string">'Error fetching documents'</span> });</span><br><span class="line">  }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>fetchDealer/:id</code>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">'/fetchDealer/:id'</span>, <span class="title function_">async</span> (req, res) =&gt; {</span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">const</span> documents = <span class="keyword">await</span> <span class="title class_">Dealerships</span>.<span class="title function_">find</span>({<span class="attr">id</span>: req.<span class="property">params</span>.<span class="property">id</span>});</span><br><span class="line">    res.<span class="title function_">json</span>(documents);</span><br><span class="line">  } <span class="keyword">catch</span> (error) {</span><br><span class="line">    res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">json</span>({ <span class="attr">error</span>: <span class="string">'Error fetching documents'</span> });</span><br><span class="line">  }</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<p>写完后，停止上一个任务中启动的 Docker 应用程序，接着再次执行 <code>docker build</code> 和 <code>docker-compose</code> 命令。</p>
+<p>在 <code>3030</code> 端口中测试以下端点：</p>
+<ul>
+<li><code>/fetchReviews/dealer/29</code></li>
+<li><code>/fetchDealers</code></li>
+<li><code>/fetchDealer/3</code></li>
+<li><code>/fetchDealers/Kansas</code></li>
+</ul>
+<h2 id="32-构建-carmodel-和-carmake-django-模型"><a class="markdownIt-Anchor" href="#32-构建-carmodel-和-carmake-django-模型"></a> 3.2. 构建 <code>CarModel</code> 和 <code>CarMake</code> Django 模型</h2>
+<p>您已经创建了一个经销商和与 CRUD API 相关的评论。接下来，您需要为经销商的库存创建数据模型和服务。</p>
+<p>每个经销商都管理着不同车型和品牌的汽车库存，这些都是相对静态的数据，因此适合本地存储在 Django 中。要集成外部经销商和审查数据，您需要从 Django 应用程序调用 API，并在 Django 视图中处理 API 结果，然后通过 React 页面呈现。此类 Django 视图使用代理服务根据用户请求从外部资源获取数据，并使用 React 组件进行渲染。</p>
+<p>在本课中，您需要执行以下任务来添加汽车模型、与汽车相关的模型和视图以及代理服务：</p>
+<ul>
+<li>创建 <code>CarModel</code> 和 <code>CarMake</code> Django 模型</li>
+<li>在管理网站注册 <code>CarModel</code> 和 <code>CarMake</code> 模型</li>
+<li>创建带有相关汽车品牌和经销商的新汽车模型对象</li>
+</ul>
+<h4 id="321-建立-carmodel-和-carmake-模型的步骤"><a class="markdownIt-Anchor" href="#321-建立-carmodel-和-carmake-模型的步骤"></a> 3.2.1. 建立 <code>CarModel</code> 和 <code>CarMake</code> 模型的步骤</h4>
+<p>您需要在 <code>server/djangoapp/models.py</code> 中创建两个新模型：</p>
+<ul>
+<li>一个 <code>CarMake</code> 模型，用于保存汽车品牌的一些数据。</li>
+<li>一个 <code>CarModel</code> 模型，用于保存汽车模型的一些数据。</li>
+</ul>
+<p>创建汽车制造商 Django 模型 <code>class CarMake(models.Model)</code>：</p>
+<ul>
+<li>名称</li>
+<li>描述</li>
+<li>你想包含在汽车品牌中的任何其他字段</li>
+<li>打印汽车品牌对象的 <code>__str__</code> 方法</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CarMake</span>(models.Model):</span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    description = models.TextField()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.name</span><br></pre></td></tr></tbody></table></figure>
+<p>创建汽车模型 Django 模型 <code>class CarModel(models.Model)</code>：</p>
+<ul>
+<li>与 <code>CarMake</code> 模型的多对一关系（使用外键字段，一个汽车品牌可以有多个汽车型号）</li>
+<li>经销商 ID（整数字段）指 Cloudant 数据库中创建的经销商</li>
+<li>名称</li>
+<li>类型（带选择参数的 <code>CharField</code>，用于提供有限的选择，如轿车、SUV 和旅行车）</li>
+<li>年份（日期字段）</li>
+<li>您希望包含在汽车模型中的任何其他字段</li>
+<li>打印汽车品牌和车型对象的 <code>__str__</code> 方法</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CarModel</span>(models.Model):</span><br><span class="line">    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  <span class="comment"># Many-to-One relationship</span></span><br><span class="line">    name = models.CharField(max_length=<span class="number">100</span>)</span><br><span class="line">    CAR_TYPES = [</span><br><span class="line">        (<span class="string">'SEDAN'</span>, <span class="string">'Sedan'</span>),</span><br><span class="line">        (<span class="string">'SUV'</span>, <span class="string">'SUV'</span>),</span><br><span class="line">        (<span class="string">'WAGON'</span>, <span class="string">'Wagon'</span>),</span><br><span class="line">        <span class="comment"># Add more choices as required</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="built_in">type</span> = models.CharField(max_length=<span class="number">10</span>, choices=CAR_TYPES, default=<span class="string">'SUV'</span>)</span><br><span class="line">    year = models.IntegerField(default=<span class="number">2023</span>,</span><br><span class="line">        validators=[</span><br><span class="line">            MaxValueValidator(<span class="number">2023</span>),</span><br><span class="line">            MinValueValidator(<span class="number">2015</span>)</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.name</span><br></pre></td></tr></tbody></table></figure>
+<p>您需要在管理网站上注册 <code>CarMake</code> 和 <code>CarModel</code>，这样就可以方便地管理它们的内容（即执行 CRUD 操作）：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># djangoapp/admin.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line">admin.site.register(CarMake)</span><br><span class="line">admin.site.register(CarModel)</span><br></pre></td></tr></tbody></table></figure>
+<p>为模型运行迁移：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate --run-syncdb</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><code>--run-syncdb</code> 允许在不迁移的情况下为应用程序创建表格。</p>
+</blockquote>
+<h4 id="322-在管理网站注册-carmake-和-carmodel-模型的步骤"><a class="markdownIt-Anchor" href="#322-在管理网站注册-carmake-和-carmodel-模型的步骤"></a> 3.2.2. 在管理网站注册 <code>CarMake</code> 和 <code>CarModel</code> 模型的步骤</h4>
+<p>打开 <code>djangoapp/views.py</code>，在文件开头的其他导入语句之后导入 <code>CarMake</code> 和 <code>CarModel</code>，然后添加一个方法来获取汽车列表，方法中包含以下代码：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_cars</span>(<span class="params">request</span>):</span><br><span class="line">    count = CarMake.objects.<span class="built_in">filter</span>().count()</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    <span class="keyword">if</span>(count == <span class="number">0</span>):</span><br><span class="line">        initiate()</span><br><span class="line">    car_models = CarModel.objects.select_related(<span class="string">'car_make'</span>)</span><br><span class="line">    cars = []</span><br><span class="line">    <span class="keyword">for</span> car_model <span class="keyword">in</span> car_models:</span><br><span class="line">        cars.append({<span class="string">"CarModel"</span>: car_model.name, <span class="string">"CarMake"</span>: car_model.car_make.name})</span><br><span class="line">    <span class="keyword">return</span> JsonResponse({<span class="string">"CarModels"</span>:cars})</span><br></pre></td></tr></tbody></table></figure>
+<p>打开 <code>server/djangoapp/urls.py</code>，在其中添加 <code>get_cars</code> 的路径：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'get_cars'</span>, view=views.get_cars, name =<span class="string">'getcars'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>打开 <code>server/djangoapp/populate.py</code>，然后粘贴以下代码，以便在数据库中填充数据。如果 <code>CarModel</code> 为空，则在第一次调用 <code>get_cars</code> 时填充数据。如果您想手动添加数据，请跳过此步骤。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> CarMake, CarModel</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initiate</span>():</span><br><span class="line">    car_make_data = [</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"NISSAN"</span>, <span class="string">"description"</span>:<span class="string">"Great cars. Japanese technology"</span>},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Mercedes"</span>, <span class="string">"description"</span>:<span class="string">"Great cars. German technology"</span>},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Audi"</span>, <span class="string">"description"</span>:<span class="string">"Great cars. German technology"</span>},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Kia"</span>, <span class="string">"description"</span>:<span class="string">"Great cars. Korean technology"</span>},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Toyota"</span>, <span class="string">"description"</span>:<span class="string">"Great cars. Japanese technology"</span>},</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    car_make_instances = []</span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> car_make_data:</span><br><span class="line">        car_make_instances.append(CarMake.objects.create(name=data[<span class="string">'name'</span>], description=data[<span class="string">'description'</span>]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Create CarModel instances with the corresponding CarMake instances</span></span><br><span class="line">    car_model_data = [</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Pathfinder"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">0</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Qashqai"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">0</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"XTRAIL"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">0</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"A-Class"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">1</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"C-Class"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">1</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"E-Class"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">1</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"A4"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">2</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"A5"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">2</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"A6"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">2</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Sorrento"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">3</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Carnival"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">3</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Cerato"</span>, <span class="string">"type"</span>:<span class="string">"Sedan"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">3</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Corolla"</span>, <span class="string">"type"</span>:<span class="string">"Sedan"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">4</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Camry"</span>, <span class="string">"type"</span>:<span class="string">"Sedan"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">4</span>]},</span><br><span class="line">        {<span class="string">"name"</span>:<span class="string">"Kluger"</span>, <span class="string">"type"</span>:<span class="string">"SUV"</span>, <span class="string">"year"</span>: <span class="number">2023</span>, <span class="string">"car_make"</span>:car_make_instances[<span class="number">4</span>]},</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> car_model_data:</span><br><span class="line">        CarModel.objects.create(name=data[<span class="string">'name'</span>], car_make=data[<span class="string">'car_make'</span>], <span class="built_in">type</span>=data[<span class="string">'type'</span>], year=data[<span class="string">'year'</span>])</span><br></pre></td></tr></tbody></table></figure>
+<p>如果您想手动添加汽车品牌和型号，也可以进入管理页面，根据自己的意愿添加。请注意，在项目后期，您只能从这些表格中选择一个品牌和车型发表评论。</p>
+<p>进入 <code>127.0.0.1:8000/djangoapp/get_cars</code> 来查看已添加的汽车列表。</p>
+<h2 id="33-创建后台-api-的-django-代理服务"><a class="markdownIt-Anchor" href="#33-创建后台-api-的-django-代理服务"></a> 3.3. 创建后台 API 的 Django 代理服务</h2>
+<p>在之前的实验中，您创建了 <code>CarModel</code> 和 <code>CarMake</code> 的 Django 模型，这些模型驻留在本地 SQLite 存储库中。您还获得了由 Express API 端点提供服务的经销商和评论模型 Mongo DB。</p>
+<p>现在，您需要集成这些模型和服务，以管理经销商和评论等所有实体。</p>
+<p>要集成外部经销商和评论数据，您需要从 Django 应用程序调用 API 端点，并在 Django 视图中处理 API 结果。这些 Django 视图可以看作是终端用户的代理服务，因为它们会根据用户的请求从外部资源获取数据。</p>
+<p>在本实验中，您将创建此类 Django 视图作为代理服务。</p>
+<h4 id="331-运行-mongo-服务器"><a class="markdownIt-Anchor" href="#331-运行-mongo-服务器"></a> 3.3.1. 运行 Mongo 服务器</h4>
+<p>后端 Mongo Express 服务器需要在实验室环境中的一个终端启动并运行。在这一阶段，服务器代码已经实现了所有的终端点。运行 <code>docker-compose up</code> 来启动服务器（端口 <code>3030</code>）。</p>
+<p>打开 <code>djangoapp/.env</code>，将您的后台网址替换为上一步在记事本中复制的后台网址：</p>
+<blockquote>
+<p>确保末尾的 <code>/</code> 没有被复制。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">backend_url=your backend url</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="332-创建与后端交互的函数"><a class="markdownIt-Anchor" href="#332-创建与后端交互的函数"></a> 3.3.2. 创建与后端交互的函数</h4>
+<p>在之前的实验中，您已经创建了用于 <code>fetchReviews</code> 和 <code>fetchDealers</code> 的 API 端点。现在实现一个方法来从 Django 应用程序访问这些端点。</p>
+<p>在 Django 中，有许多方法可以进行 HTTP 请求。这里我们使用一个非常流行且易于使用的 Python 库，名为 <code>requests</code>。</p>
+<p>打开 <code>djangoapp/restapis.py</code>，添加 <code>get_request</code> 方法，如下所示：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_request</span>(<span class="params">endpoint, **kwargs</span>):</span><br><span class="line">    params = <span class="string">""</span></span><br><span class="line">    <span class="keyword">if</span>(kwargs):</span><br><span class="line">        <span class="keyword">for</span> key,value <span class="keyword">in</span> kwargs.items():</span><br><span class="line">            params=params+key+<span class="string">"="</span>+value+<span class="string">"&amp;"</span></span><br><span class="line"></span><br><span class="line">    request_url = backend_url+endpoint+<span class="string">"?"</span>+params</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"GET from {} "</span>.<span class="built_in">format</span>(request_url))</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Call get method of requests library with URL and parameters</span></span><br><span class="line">        response = requests.get(request_url)</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="comment"># If any error occurs</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Network exception occurred"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="333-启动-code-engine"><a class="markdownIt-Anchor" href="#333-启动-code-engine"></a> 3.3.3. 启动 Code Engine</h4>
+<blockquote>
+<p>以下为 Code Engine 相关。该课程采用的是 IBM 的 Skills Network 实验环境，Code Engine 被直接嵌入在这个实验环境中。</p>
+</blockquote>
+<p>创建一个项目，启动 Code Engine。Code Engine 环境需要一段时间来准备。您将在设置面板中看到进度状态。</p>
+<p>Code Engine 设置完成后，您可以看到它已激活。单击 <code>Code Engine CLI</code>，在下面的终端中开始预配置的 CLI。</p>
+<h4 id="334-将情感分析作为微服务部署在-code-engine-上"><a class="markdownIt-Anchor" href="#334-将情感分析作为微服务部署在-code-engine-上"></a> 3.3.4. 将情感分析作为微服务部署在 Code Engine 上</h4>
+<p>在 Code Engine CLI 中，更改为 <code>server/djangoapp/microservices</code> 目录：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> xrwvm-fullstack_developer_capstone/server/djangoapp/microservices</span><br></pre></td></tr></tbody></table></figure>
+<p>我们为您提供了使用 NLTK 进行情感分析的 <code>sentiment_analyzer.py</code>。我们还为您提供了一个 Dockerfile，您将使用它在代码引擎中部署此服务，并将其作为微服务使用。</p>
+<p>运行以下命令，用 Docker 构建情感分析应用程序（请注意，代码引擎实例是瞬时的，并附在你的实验室空间用户名上）：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t us.icr.io/<span class="variable">${SN_ICR_NAMESPACE}</span>/senti_analyzer</span><br></pre></td></tr></tbody></table></figure>
+<p>运行以下命令推送 Docker 镜像：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push us.icr.io/<span class="variable">${SN_ICR_NAMESPACE}</span>/senti_analyzer</span><br></pre></td></tr></tbody></table></figure>
+<p>在 Code Engine 上部署 <code>senti_analyzer</code> 应用程序：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud ce application create --name sentianalyzer --image us.icr.io/<span class="variable">${SN_ICR_NAMESPACE}</span>/senti_analyzer --registry-secret icr-secret --port 5000</span><br></pre></td></tr></tbody></table></figure>
+<p>连接到生成的 URL 以访问微服务，并检查部署是否成功。如果应用程序部署验证成功，请在浏览器中将 <code>/analyze/Fantastic</code> 服务附加到 URL，查看是否返回正值。</p>
+<p>打开 <code>djangoapp/.env</code>，将 Code Engine 部署 URL 替换为上文获得的部署 URL：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sentiment_analyzer_url=your code engine deployment url</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>URL 最后的 <code>/</code> 要去掉。</p>
+</blockquote>
+<blockquote>
+<p>如果想要在本地环境中部署该微服务，可以进入 <code>/server/djangoapp/microservices</code> 目录，启动 Docker：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -t sentiment_app .</span><br><span class="line">docker run -p 5050:5050 my_microservice</span><br></pre></td></tr></tbody></table></figure>
+<p>然后要在 <code>.env</code> 文件中注释掉 <code>sentiment_analyzer_url</code> 一行。</p>
+</blockquote>
+<p>更新 <code>djangoapp/restapis.py</code>，并在其中添加以下函数，以使用微服务分析情感：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">analyze_review_sentiments</span>(<span class="params">text</span>):</span><br><span class="line">    request_url = sentiment_analyzer_url+<span class="string">"/analyze/"</span>+text</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment"># Call get method of requests library with URL and parameters</span></span><br><span class="line">        response = requests.get(request_url)</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f"Unexpected <span class="subst">{err=}</span>, <span class="subst">{<span class="built_in">type</span>(err)=}</span>"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Network exception occurred"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="335-创建-django-视图以获取经销商"><a class="markdownIt-Anchor" href="#335-创建-django-视图以获取经销商"></a> 3.3.5. 创建 Django 视图以获取经销商</h4>
+<p>使用以下代码更新 <code>djangoapp/views.py</code> 中的 <code>get_dealerships</code> 视图方法。它将使用您在 <code>restapis.py</code> 中通过 <code>/fetchDealers</code> 端点实现的 <code>get_request</code>。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealerships</span>(<span class="params">request, state=<span class="string">"All"</span></span>):</span><br><span class="line">    <span class="keyword">if</span>(state == <span class="string">"All"</span>):</span><br><span class="line">        endpoint = <span class="string">"/fetchDealers"</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        endpoint = <span class="string">"/fetchDealers/"</span>+state</span><br><span class="line">    dealerships = get_request(endpoint)</span><br><span class="line">    <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">200</span>,<span class="string">"dealers"</span>:dealerships})</span><br></pre></td></tr></tbody></table></figure>
+<p>为 <code>url.py</code> 中的 <code>get_dealerships</code> 视图方法配置路由：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'get_dealers'</span>, view=views.get_dealerships, name=<span class="string">'get_dealers'</span>),</span><br><span class="line">path(route=<span class="string">'get_dealers/&lt;str:state&gt;'</span>, view=views.get_dealerships, name=<span class="string">'get_dealers_by_state'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>views.py</code> 中创建一个以 <code>dealer_id</code> 为参数的 <code>get_dealer_details</code> 方法，并添加一个映射 <code>urls.py</code>。它将使用你在 <code>restapis.py</code> 中实现的 <code>get_request</code>，并传递 <code>/fetchDealer/&lt;dealer id&gt;</code> 端点。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealer_details</span>(<span class="params">request, dealer_id</span>):</span><br><span class="line">    <span class="keyword">if</span>(dealer_id):</span><br><span class="line">        endpoint = <span class="string">"/fetchDealer/"</span>+<span class="built_in">str</span>(dealer_id)</span><br><span class="line">        dealership = get_request(endpoint)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">200</span>,<span class="string">"dealer"</span>:dealership})</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">400</span>,<span class="string">"message"</span>:<span class="string">"Bad Request"</span>})</span><br></pre></td></tr></tbody></table></figure>
+<p>同样配置路由：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'dealer/&lt;int:dealer_id&gt;'</span>, view=views.get_dealer_details, name=<span class="string">'dealer_details'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>在 <code>views.py</code> 中创建以 <code>dealer_id</code> 为参数的 <code>get_dealer_reviews</code> 方法，并添加 <code>urls.py</code> 映射。它将使用在 <code>restapis.py</code> 中实现的 <code>get_request</code>，并传递 <code>/fetchReviews/dealer/&lt;dealer id&gt;</code> 端点。它还将调用 <code>restapis.py</code> 中的 <code>analyze_review_sentiments</code>，以消费微服务并确定每条评论的情感，然后在 <code>review_detail</code> 字典中设置值，并作为 <code>JsonResponse</code> 返回。</p>
+<p>情感属性的值将由情感分析微服务决定。它可以是正面的、中性的或负面的。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_dealer_reviews</span>(<span class="params">request, dealer_id</span>):</span><br><span class="line">    <span class="comment"># if dealer id has been provided</span></span><br><span class="line">    <span class="keyword">if</span>(dealer_id):</span><br><span class="line">        endpoint = <span class="string">"/fetchReviews/dealer/"</span>+<span class="built_in">str</span>(dealer_id)</span><br><span class="line">        reviews = get_request(endpoint)</span><br><span class="line">        <span class="keyword">for</span> review_detail <span class="keyword">in</span> reviews:</span><br><span class="line">            response = analyze_review_sentiments(review_detail[<span class="string">'review'</span>])</span><br><span class="line">            <span class="built_in">print</span>(response)</span><br><span class="line">            review_detail[<span class="string">'sentiment'</span>] = response[<span class="string">'sentiment'</span>]</span><br><span class="line">        <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">200</span>,<span class="string">"reviews"</span>:reviews})</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">400</span>,<span class="string">"message"</span>:<span class="string">"Bad Request"</span>})</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'reviews/dealer/&lt;int:dealer_id&gt;'</span>, view=views.get_dealer_reviews, name=<span class="string">'dealer_details'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="336-创建-django-视图以发布经销商评论"><a class="markdownIt-Anchor" href="#336-创建-django-视图以发布经销商评论"></a> 3.3.6. 创建 Django 视图以发布经销商评论</h4>
+<p>你已经学会了如何进行各种 <code>GET</code> 调用，现在来创建 Django 视图以发布经销商评论：打开 <code>restapis.py</code>，添加一个 <code>post_review</code> 方法，该方法将接收一个数据字典，并在后台调用 <code>add_review</code>。字典将以键值对的形式接收经销商评论所需的所有值。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">post_review</span>(<span class="params">data_dict</span>):</span><br><span class="line">    request_url = backend_url+<span class="string">"/insert_review"</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.post(request_url,json=data_dict)</span><br><span class="line">        <span class="built_in">print</span>(response.json())</span><br><span class="line">        <span class="keyword">return</span> response.json()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Network exception occurred"</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>打开 <code>views.py</code>，创建一个新的 <code>def add_review(request)：</code> 方法来处理评论文章请求。在 <code>add_review</code> 视图方法中：</p>
+<ul>
+<li>首先检查用户是否通过身份验证，因为只有通过身份验证的用户才能为经销商发布评论。</li>
+<li>使用字典调用 <code>post_request</code> 方法。</li>
+<li>将 <code>post_request</code> 的结果返回 <code>add_review</code> 视图方法。您可以打印帖子响应。</li>
+<li>以 JSON 格式返回成功状态和信息。</li>
+<li>在 <code>url.py</code> 中为 <code>add_review</code> 视图配置路由。</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_review</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">if</span>(request.user.is_anonymous == <span class="literal">False</span>):</span><br><span class="line">        data = json.loads(request.body)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = post_review(data)</span><br><span class="line">            <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">200</span>})</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">401</span>,<span class="string">"message"</span>:<span class="string">"Error in posting review"</span>})</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> JsonResponse({<span class="string">"status"</span>:<span class="number">403</span>,<span class="string">"message"</span>:<span class="string">"Unauthorized"</span>})</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(route=<span class="string">'add_review'</span>, view=views.add_review, name=<span class="string">'add_review'</span>),</span><br></pre></td></tr></tbody></table></figure>
+<p>从 <code>restapis.py</code> 导入方法，以便在 <code>views.py</code> 中使用：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .restapis <span class="keyword">import</span> get_request, analyze_review_sentiments, post_review</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="4-应用程序动态页面"><a class="markdownIt-Anchor" href="#4-应用程序动态页面"></a> 4. 应用程序：动态页面</h1>
+<p>在本模块中，您将使用 React 组件添加动态页面，以列出经销商、按州过滤经销商、查看经销商详细信息并添加经销商评论。</p>
+<ul>
+<li>创建前台页面，向终端用户展示后台服务。</li>
+<li>创建一个组件来列出经销商。</li>
+<li>开发一个经销商详情和评论组件。</li>
+<li>创建评论提交页面。</li>
+</ul>
+<p>您在上一个模块中创建了所有必要的后台服务（Django 视图和 API 端点），用于管理经销商、评论和汽车。接下来，是时候创建一些风格化的前端 React 页面来向终端用户展示这些服务结果了。在本学习模块中，您需要执行以下任务将前端添加到应用程序中：</p>
+<ul>
+<li>创建一个经销商组件，列出所有经销商</li>
+<li>创建一个经销商详细信息组件，显示特定经销商的评论</li>
+<li>创建评论提交页面</li>
+</ul>
+<h2 id="41-为经销商页面添加和设置-react-组件"><a class="markdownIt-Anchor" href="#41-为经销商页面添加和设置-react-组件"></a> 4.1. 为经销商页面添加和设置 React 组件</h2>
+<p>打开 <code>frontend/src/App.js</code>，导入 <code>Dealer</code> 组件并将其与其他组件一起添加到顶部。该组件已为您创建，并使用表格元素列出经销商。您可以随意更改外观和感觉。</p>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Dealers</span> <span class="keyword">from</span> <span class="string">'./components/Dealers/Dealers'</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>为 <code>/dealers</code> 添加路由，以呈现 <code>Dealers</code> 组件：</p>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">"/dealers"</span> element={<span class="language-xml"><span class="tag">&lt;<span class="name">Dealers</span>/&gt;</span></span>} /&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>打开 <code>server/djangoproj/urls.py</code>，在其中添加 <code>Dealers</code> 和 <code>Dealer</code> 的路由：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'dealers/'</span>, TemplateView.as_view(template_name=<span class="string">"index.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<p>打开一个新终端，像以前一样创建前端。进入 <code>127.0.0.1:8000/dealers</code> 测试 <code>get_dealers</code> 视图。</p>
+<h2 id="42-添加-react-组件-dealer-显示评论"><a class="markdownIt-Anchor" href="#42-添加-react-组件-dealer-显示评论"></a> 4.2. 添加 React 组件 <code>Dealer</code> 显示评论</h2>
+<p>打开 <code>frontend/src/App.js</code>，导入 <code>Dealer</code> React 组件的路由并将其添加到其他路由中。这样，当您点击经销商表上的链接时，就会呈现一个经销商特定的 React 页面以及评论。</p>
+<blockquote>
+<p>该页面还有一个链接，可以让已登录的用户发表评论。您将在下一个任务中添加发布评论页面。</p>
+</blockquote>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Dealer</span> <span class="keyword">from</span> <span class="string">"./components/Dealers/Dealer"</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">"/dealer/:id"</span> element={<span class="language-xml"><span class="tag">&lt;<span class="name">Dealer</span>/&gt;</span></span>} /&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>在之前创建前端的同一终端再次创建前端。</p>
+<p>打开 <code>server/djangoproj/urls.py</code>，加入以下代码，添加显示经销商页面的路径：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'dealer/&lt;int:dealer_id&gt;'</span>,TemplateView.as_view(template_name=<span class="string">"index.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<p>刷新应用程序，进入 <code>View Reviews</code> 页面，点击任何经销商的名称链接，查看其评论。</p>
+<h2 id="43-创建经销商详情或评论页面"><a class="markdownIt-Anchor" href="#43-创建经销商详情或评论页面"></a> 4.3. 创建经销商详情或评论页面</h2>
+<p>通过身份验证的用户应能点击该链接并为经销商添加评论。我们将添加一个评论提交页面。</p>
+<p>打开并查看 <code>frontend/src/components/Dealers/PostReview.jsx</code>。根据需要对外观和感觉进行修改。</p>
+<p>导入 <code>PostReview</code> 组件，并在 <code>frontend/src/App.js</code> 中添加 <code>postreview/&lt;dealer id&gt;</code> 路由。</p>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">PostReview</span> <span class="keyword">from</span> <span class="string">"./components/Dealers/PostReview"</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight jsx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">"/postreview/:id"</span> element={<span class="language-xml"><span class="tag">&lt;<span class="name">PostReview</span>/&gt;</span></span>} /&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>转到构建前端的终端，再次运行构建。</p>
+<p>打开 <code>server/djangoprojs/urls.py</code>，在其中加入以下代码，以添加审阅后页面的路径：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path(<span class="string">'postreview/&lt;int:dealer_id&gt;'</span>,TemplateView.as_view(template_name=<span class="string">"index.html"</span>)),</span><br></pre></td></tr></tbody></table></figure>
+<p>使用已注册的用户名和密码登录。您将看到 <code>Post Review</code> 链接。向经销商添加评论，测试该链接。</p>
+<h1 id="5-cicd-容器化和部署到-kubernetes"><a class="markdownIt-Anchor" href="#5-cicd-容器化和部署到-kubernetes"></a> 5. CI / CD、容器化和部署到 Kubernetes</h1>
+<p>在本模块中，您将为您创建的所有 JavaScript 和 Python 文件设置一个 CI / CD 操作流程。然后，您将运行所有服务器端组件，包括 Docker 容器中的 Express-Mongo 服务器和代码引擎上的情感分析器无服务器部署。最后，您将构建前端 React 应用程序，并在 Kubernetes 上部署 Django 应用程序。</p>
+<ul>
+<li>配置 Django 应用程序并将其部署到 Kubernetes。</li>
+</ul>
+<p>恭喜您在添加静态页面和用户管理后测试了应用程序。下一步是为源代码设置持续集成和持续交付（CI / CD）。如果有多人参与项目，这一点尤为重要。持续集成（CI）为开发人员提供了一种协作方式，而持续交付（CD）则提供了一种不间断地向客户交付变更的方式。在本模块中，您将：</p>
+<ul>
+<li>了解所提供的 GitHub 工作流程（workflow）模板中的工作流程</li>
+<li>了解所提供的 GitHub 工作流程模板中的 Linting 作业</li>
+<li>启用 GitHub Actions 并运行 Linting 工作流</li>
+</ul>
+<blockquote>
+<p>Linting 是一种自动检查源代码中是否存在编程和样式错误的方法，通常通过使用 Lint 工具（也称为 Linter）来实现。Lint 工具是一种基础的静态代码分析器。</p>
+</blockquote>
+<h2 id="51-添加持续集成和持续部署功能"><a class="markdownIt-Anchor" href="#51-添加持续集成和持续部署功能"></a> 5.1. 添加持续集成和持续部署功能</h2>
+<p>您的团队正在壮大！管理层决定招聘前端和后端工程师，以确保路线图上的功能能在未来版本中及时开发出来。然而，这意味着多名工程师需要在版本库上并行工作。您的任务是确保推送到主分支的代码符合团队的编码风格，并且没有语法错误。</p>
+<p>在本实验中，你将为版本库添加语法检查功能，在开发人员创建拉取请求或将分支合并到默认主分支时自动检查语法错误。在开始实验之前，我们先来了解一下 GitHub Actions。</p>
+<h4 id="511-github-actions"><a class="markdownIt-Anchor" href="#511-github-actions"></a> 5.1.1. GitHub Actions</h4>
+<p>GitHub Actions 提供了一种事件驱动的方式来自动执行项目中的任务。您可以监听多种事件。下面是几个例子：</p>
+<ul>
+<li><code>push</code>：当有人向版本库分支（branch）推送时运行任务。</li>
+<li><code>pull_request</code>：当有人创建拉取请求（PR）时运行任务。您还可以在某些活动发生时启动任务，例如：
+<ul>
+<li>PR 已打开</li>
+<li>PR 已关闭</li>
+<li>PR 被重新打开</li>
+</ul>
+</li>
+<li><code>create</code>：当有人创建分支或标记时运行任务。</li>
+<li><code>delete</code>：当有人删除分支或标记时运行任务。</li>
+<li><code>manually</code>：手动启动任务。</li>
+</ul>
+<p>在本实验中，您将使用以下一个或多个组件：</p>
+<ul>
+<li>Workflows（工作流）：您可以添加到存储库的作业集合。</li>
+<li>Events：启动工作流的活动。</li>
+<li>Jobs（作业）：一个或多个步骤的序列。作业默认并行运行。</li>
+<li>Steps：可在作业中运行的单个任务。一个步骤可以是一个操作或命令。</li>
+<li>Actions：工作流的最小模块。</li>
+</ul>
+<p>下面为您提供了一个工作流程模板。让我们来研究一下：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">'Lint Code'</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">lint_python:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">Lint</span> <span class="string">Python</span> <span class="string">Files</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">Repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Python</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-python@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">python-version:</span> <span class="number">3.12</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          python -m pip install --upgrade pip</span></span><br><span class="line"><span class="string">          pip install flake8</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Print</span> <span class="string">working</span> <span class="string">directory</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">pwd</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">Linter</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          pwd</span></span><br><span class="line"><span class="string">          # This command finds all Python files recursively and runs flake8 on them</span></span><br><span class="line"><span class="string">          find . -name "*.py" -exec flake8 {} +</span></span><br><span class="line"><span class="string">          echo "Linted all the python files successfully"</span></span><br><span class="line"><span class="string"></span>  <span class="attr">lint_js:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">Lint</span> <span class="string">JavaScript</span> <span class="string">Files</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">Repository</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Node.js</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">14</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">JSHint</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">jshint</span> <span class="string">--global</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Run</span> <span class="string">Linter</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          # This command finds all JavaScript files recursively and runs JSHint on them</span></span><br><span class="line"><span class="string">          find ./server/database -name "*.js" -exec jshint {} +</span></span><br><span class="line"><span class="string">          echo "Linted all the js files successfully"</span></span><br></pre></td></tr></tbody></table></figure>
+<ol>
+<li>第一行命名工作流程。</li>
+<li>下一行定义了工作流的运行时间。工作流应在开发人员向主分支推送变更或创建 PR 时运行。这两种方式的捕获方式如下：
+<ul>
+<li>推送到主分支（主分支或主分支）时运行：<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">push:</span></span><br><span class="line">  <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>在主分支（主分支或主分支）上创建 PR 时运行：<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pull_request:</span></span><br><span class="line">  <span class="attr">branches:</span> [<span class="string">master</span>, <span class="string">main</span>]</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+</li>
+<li>然后，您将定义所有工作。本工作流程中有两个任务：
+<ul>
+<li><code>lint_python</code>： 检查 Python 函数</li>
+<li><code>lint_js</code>： 检查 JavaScript 函数</li>
+</ul>
+</li>
+</ol>
+<h4 id="512-github-jobs"><a class="markdownIt-Anchor" href="#512-github-jobs"></a> 5.1.2. GitHub Jobs</h4>
+<p>让我们逐一看看这些作业：</p>
+<ol>
+<li>
+<p><code>lint_python</code>：</p>
+<ul>
+<li>使用 <code>actions/setup-python@v4</code> 操作设置该操作的 Python 运行时。</li>
+<li>使用 <code>pip install</code> 安装所有依赖项。</li>
+<li>在服务器目录下的所有文件中递归运行 Linting 命令 <code>flake8 *.py</code>。</li>
+<li>打印一条提示信息，说明 Linting 已成功完成。</li>
+</ul>
+</li>
+<li>
+<p><code>lint_function_js</code>：</p>
+<ul>
+<li>使用 <code>actions/setup-node@v3</code> 操作设置要运行的 Node.JS 运行时。</li>
+<li>安装所有 JSHint 内核 <code>npm install jshint</code>。</li>
+<li>在数据库目录中的所有 <code>.js</code> 文件上递归运行 Linting 命令。</li>
+<li>打印一条提示信息，说明 Linting 已成功完成。</li>
+</ul>
+</li>
+</ol>
+<h4 id="513-启动-github-actions"><a class="markdownIt-Anchor" href="#513-启动-github-actions"></a> 5.1.3. 启动 GitHub Actions</h4>
+<p>要启用 GitHub Actions，请登录 GitHub 并打开已 Fork 的仓库。然后，转到 <code>Actions</code> 选项卡，点击 <code>Set up a workflow yourself</code>。将上述 Lint 代码粘贴到 <code>main.yml</code> 中并提交。再次打开 <code>Actions</code> 选项卡，就会看到提交已自动启动了检查工作流程。</p>
+<p>您可以单击工作流程运行，查看单个作业和每个作业的日志。工作流程成功完成后，你会看到绿色的 <code>√</code>，表示工作顺利。红叉表示在检查代码时发现了错误。</p>
+<p>查看这些提示，解决你可能遇到的常见 Linting 错误。</p>
+<ol>
+<li>
+<p><code>Flake-8 Lint</code>（Python）Linting 错误：</p>
+<ol>
+<li>
+<p>如果收到下列一个或多个错误：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E117 over-indented</span><br><span class="line">E128 continuation line under-indented for visual indent</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>确认所有代码都保持适当的缩进 —— 既不会缩进过小，也不会缩进过大。</li>
+<li>注意：使用文本编辑器确保准确执行。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E501 line too long (xxx &gt; 79 characters)</span><br></pre></td></tr></tbody></table></figure>
+<p>解决办法：</p>
+<ul>
+<li>将代码分成多行，确保每行最多不超过 79 个字符。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F401 'xxx' imported but unused</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>核实后续代码段中是否使用了提及的实体或变量（<code>xxx</code>）。如果未使用实体或变量，则删除包含该实体或变量的行。</li>
+</ul>
+<blockquote>
+<p>这里有个小坑，<code>djangoapp/views.py</code> 文件中每个函数中的 <code>request</code> 参数绝对不能删除，建议在当前函数内 <code>print</code> 一下 <code>request</code> 参数来回避该错误。部分不能被删除但同时也没被用到的变量同理。</p>
+</blockquote>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W292 no newline at end of file</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>在文件的最终代码后插入新行，并将光标置于垂直窗格的最左侧（不向右缩进）。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E302 expected 2 blank lines, found 1</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方案：</p>
+<ul>
+<li>确保每对相邻函数之间正好有两行空行（不能多也不能少）。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E231 missing whitespace after ':'</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>确保在所有字典键值对中的分号后留一个空格。</li>
+<li>例如，如果现有代码为 <code>"a":"b"</code>，请将其更改为 <code>"a": "b"</code>。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E275 missing whitespace after keyword</span><br></pre></td></tr></tbody></table></figure>
+<p>解决办法：</p>
+<ul>
+<li>确保每个关键字后都有一个空格。</li>
+<li>例如，如果您的现有代码是 <code>if("condition"):</code>，请将其改为 <code>if ("condition"):</code>。</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E722 do not use bare 'except'</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>使用 <code>except Exception:</code> 而不是 <code>except</code> 作为捕获异常和全面处理异常的最佳实践。</li>
+<li>例如，如果现有代码是：<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Error"</span>)</span><br></pre></td></tr></tbody></table></figure>
+您可以将其改为：<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f"Error: <span class="subst">{e}</span>"</span>)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><code>JS Hint</code>（JavaScript）Linting 错误：</p>
+<ol>
+<li>
+<p>如果收到下列一个或多个错误：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">'const' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).</span><br><span class="line">'arrow function syntax (=&gt;)' is only available in ES6 (use 'esversion: 6').</span><br><span class="line">'async functions' is only available in ES8 (use 'esversion: 8').</span><br><span class="line">'let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).</span><br><span class="line">'template literal syntax' is only available in ES6 (use 'esversion: 6').</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>在报告此错误的文件开头添加以下一行：<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*jshint esversion: 8 */</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">['xxxxxx'] is better written in dot notation.</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<ul>
+<li>当字典或 JSON 键值对的格式为 <code>key[value]</code> 时，就会出现这个问题。要解决这个问题，请将格式切换为 <code>key.value</code>。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="52-容器化并部署到-kubernetes"><a class="markdownIt-Anchor" href="#52-容器化并部署到-kubernetes"></a> 5.2. 容器化并部署到 Kubernetes</h2>
+<p>根据最新的技术发展趋势，并为了避免供应商锁定，贵公司的管理团队希望将经销商应用程序部署到多个云中。该应用程序目前在 Code Engine 上运行，但您被告知并非所有云提供商都提供托管 Code Engine 服务。所有大型云提供商都有托管和管理容器的方法，因此您被要求将容器作为缓解这一问题的可能方法。在对应用程序进行容器化时，过程包括将应用程序与其相关的环境变量、配置文件、库和软件依赖关系打包。其结果是一个容器映像，可以在容器平台上运行。您还需要使用 Kubernetes 来管理容器化部署。</p>
+<blockquote>
+<p>Kubernetes 是一个开源容器编排平台，可以自动部署、管理和扩展应用程序。</p>
+</blockquote>
+<p>在本模块中，您将：</p>
+<ul>
+<li>为应用程序添加在容器中运行的功能</li>
+<li>为应用程序添加部署工件，以便 Kubernetes 对其进行管理</li>
+</ul>
+<blockquote>
+<p>注意：在开始实验之前，请按照步骤检查和删除以前持续存在的会话，以避免在运行实验时出现任何问题。</p>
+<p>请运行以下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deployments</span><br></pre></td></tr></tbody></table></figure>
+<p>如果您发现经部署 <code>dealership</code> 已经存在，请删除它：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete deployment dealership</span><br></pre></td></tr></tbody></table></figure>
+<p>请运行以下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud cr images</span><br></pre></td></tr></tbody></table></figure>
+<p>如果有任何 <code>dealership</code> 镜像，请使用删除它：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ibmcloud cr image-rm us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest &amp;&amp; docker rmi us.icr.io/&lt;your sn labs namespace&gt;/dealership:latest</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>请输入您的 SN Labs 命名空间，以代替 <code>&lt;your sn labs namespace&gt;</code>。（SN Labs 命名空间是 IBM Skills Network 内置的）</p>
+<p>如果您不记得自己的命名空间，可以使用以下任一命令获取：</p>
+<ul>
+<li>oc 项目</li>
+<li>ibmcloud cr 命名空间（请使用格式为 <code>sn-labs-$USERNAME</code> 的命名空间）</li>
+</ul>
+</blockquote>
+<ul>
+<li>请退出 SN Labs 并清除浏览器缓存和 cookie。</li>
+<li>请重新启动实验室并按以下步骤操作。</li>
+</ul>
+</blockquote>
+<h4 id="521-设置环境"><a class="markdownIt-Anchor" href="#521-设置环境"></a> 5.2.1. 设置环境</h4>
+<ol>
+<li>如果实验室环境已重置，请克隆您的 Git 仓库。</li>
+<li>打开一个新终端，切换到 <code>server/database</code> 目录，然后按照之前的操作运行 Mongo Express 服务器。</li>
+<li>如果部署在 Code Engine 上的情感分析器微服务不可用，请重新部署并更新所需的 URL。</li>
+<li>打开另一个新终端。切换到 <code>server/frontend</code> 目录。运行以下命令创建前端：<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run build</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="522-添加-dockerfile"><a class="markdownIt-Anchor" href="#522-添加-dockerfile"></a> 5.2.2. 添加 Dockerfile</h4>
+<p>在 <code>server</code> 目录下创建一个 <code>Dockerfile</code>。文件中应列出以下步骤：</p>
+<ol>
+<li>添加基础镜像。</li>
+<li>添加 <code>requirements.txt</code> 文件。</li>
+<li>安装并更新 Python。</li>
+<li>更改工作目录。</li>
+<li>公开端口。</li>
+<li>运行命令启动应用程序。</li>
+</ol>
+<p>下面是一个示例文件，供您开始使用：</p>
+<figure class="highlight dockerfile"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.12</span>.<span class="number">0</span>-slim-bookworm</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> PYTHONBUFFERED <span class="number">1</span></span><br><span class="line"><span class="keyword">ENV</span> PYTHONWRITEBYTECODE <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> APP=/app</span><br><span class="line"></span><br><span class="line"><span class="comment"># Change the workdir.</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install the requirements</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip3 install -r requirements.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the rest of the files</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . <span class="variable">$APP</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">chmod</span> +x /app/entrypoint.sh</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">"/bin/bash"</span>,<span class="string">"/app/entrypoint.sh"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">"gunicorn"</span>, <span class="string">"--bind"</span>, <span class="string">":8000"</span>, <span class="string">"--workers"</span>, <span class="string">"3"</span>, <span class="string">"djangoproj.wsgi"</span>]</span></span><br></pre></td></tr></tbody></table></figure>
+<p>请注意，<code>Dockerfile</code> 中倒数第二个命令指的是 <code>entrypoint.sh</code>。在 <code>server</code> 目录中创建该文件。该文件应包含以下内容：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Make migrations and migrate the database.</span></span><br><span class="line">echo "Making migrations and migrating the database. "</span><br><span class="line">python manage.py makemigrations --noinput</span><br><span class="line">python manage.py migrate --run-syncdb --noinput</span><br><span class="line">python manage.py collectstatic --noinput</span><br><span class="line">exec "$@"</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="523-构建镜像并将其推送到容器注册表"><a class="markdownIt-Anchor" href="#523-构建镜像并将其推送到容器注册表"></a> 5.2.3. 构建镜像并将其推送到容器注册表</h4>
+<p>您必须记住如何构建镜像并将其推送到 IBM Cloud Image Registry (ICR)。您需要在这里执行相同的操作，然后在 Kubernetes 部署文件中引用该镜像。</p>
+<p>请导出 SN Labs 命名空间，并在控制台中打印出来，如下所示：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MY_NAMESPACE=$(ibmcloud cr namespaces | grep sn-labs-)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$MY_NAMESPACE</span></span><br></pre></td></tr></tbody></table></figure>
+<p>使用当前目录下的 <code>Dockerfile</code> 执行 docker 构建：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t us.icr.io/<span class="variable">$MY_NAMESPACE</span>/dealership .</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来，将镜像推送到容器注册表：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push us.icr.io/<span class="variable">$MY_NAMESPACE</span>/dealership</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="524-添加部署工件"><a class="markdownIt-Anchor" href="#524-添加部署工件"></a> 5.2.4. 添加部署工件</h4>
+<p>在 <code>server</code> 目录下创建 <code>deployment.yaml</code> 文件，以创建部署和服务。文件应如下所示：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">dealership</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">  <span class="attr">strategy:</span></span><br><span class="line">    <span class="attr">rollingUpdate:</span></span><br><span class="line">      <span class="attr">maxSurge:</span> <span class="number">25</span><span class="string">%</span></span><br><span class="line">      <span class="attr">maxUnavailable:</span> <span class="number">25</span><span class="string">%</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">RollingUpdate</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">dealership</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">us.icr.io/your-name-space/dealership:latest</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">dealership</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8000</span></span><br><span class="line">          <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br></pre></td></tr></tbody></table></figure>
+<p>请在上述文件中输入您的 SN Labs 命名空间，以代替 <code>your-name-space</code>。</p>
+<h4 id="525-部署应用程序"><a class="markdownIt-Anchor" href="#525-部署应用程序"></a> 5.2.5. 部署应用程序</h4>
+<p>使用以下命令和部署文件创建部署：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f deployment.yaml</span><br></pre></td></tr></tbody></table></figure>
+<p>通常，我们会在部署中添加一个服务；不过，我们将在此环境中使用端口转发功能来查看正在运行的应用程序：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl port-forward deployment.apps/dealership 8000:8000</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>注意：如果出现任何错误，请稍等片刻，然后重新运行该命令。</p>
+</blockquote>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="369.html">上一篇</a><a class="next" href="d601.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/fa4d.html" data-full-url="https://cytrogen.icu/posts/fa4d.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

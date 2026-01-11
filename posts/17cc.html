@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hexo 配置 i18n · Cytrogen 的个人博客</title><meta name="description" content="本文是一篇详细的 Hexo 博客国际化（i18n）配置教程，介绍了如何使用 hexo-generator-plus 插件为网站添加多语言支持。内容涵盖从基础的 Hexo 配置、目录结构规划、语言文件创建，到具体的 Pug 模板修改，全面讲解了首页、归档、分类和标签页面的改造过程，并提供了一个实用的导航栏语言切换方案。跟随本教程，你可以一步步为你的博客实现中英双语或更多语言功能。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/17cc.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"><a class="language-option" href="../posts/567.html">English</a></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Hexo 配置 i18n</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-12-02T02:20:17.000Z">12/1/2024</time></div><div class="post-content"><html><head></head><body><p>运营个人博客时，可能会遇到这样的需求：希望网站能够支持多语言，让来自不同地区的读者都能便捷地阅读我们的内容。</p>
+<p>这就需要用到网站的国际化（也就是 i18n）功能。</p>
+<p>对于使用 Hexo 搭建的博客而言，实现国际化不仅需要考虑内容的翻译，还要处理模板渲染等问题。</p>
+<span id="more"></span>
+<div class="danger">
+<ul>
+<li>
+<p>本文使用的主要插件是 <code>hexo-generator-plus</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kiwirafe/hexo-generator-plus"><img src="https://gh-card.dev/repos/kiwirafe/hexo-generator-plus.svg?fullname=" alt="kiwirafe/hexo-generator-plus - GitHub"></a></p>
+<p>在开始配置之前，请确保已经卸载以下插件以避免冲突：</p>
+<ul>
+<li><code>hexo-generator-archive</code></li>
+<li><code>hexo-generator-category</code></li>
+<li><code>hexo-generator-index</code></li>
+<li><code>hexo-generator-tag</code></li>
+</ul>
+</li>
+<li>
+<p>本文使用的模板语言是 Pug 语言。</p>
+</li>
+<li>
+<p>对于导航栏中切换语言的方案，我只实现了双语言的逻辑。</p>
+</li>
+</ul>
+</div>
+<h2 id="基础配置"><a class="markdownIt-Anchor" href="#基础配置"></a> 基础配置</h2>
+<blockquote>
+<p>为了避免困扰：</p>
+<ol>
+<li>Hexo 根目录下的 <code>_config.yml</code> 将被称呼为 <strong>Hexo 配置项</strong></li>
+<li><code>themes/**/_config.yml</code> 将被称呼为 <strong>主题配置项</strong></li>
+</ol>
+</blockquote>
+<p>首先，我们需要在 Hexo 的配置文件中进行一些基本设置。这些设置将决定网站的语言选项和 URL 结构。</p>
+<figure class="highlight yaml"><figcaption><span>_config.yml</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># 支持的语言列表，第一个为默认语言</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span>  <span class="comment"># 新文章的命名方式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果你安装了 hexo-abbrlink</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink.html</span>  <span class="comment"># 文章的永久链接格式</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">hex</span>  <span class="comment"># 使用十六进制作为文章的唯一标识</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hexo-generator-plus 的配置项</span></span><br><span class="line"><span class="attr">generator_plus:</span></span><br><span class="line">  <span class="attr">language:</span> [<span class="string">zh</span>, <span class="string">en</span>]  <span class="comment"># 生成器支持的语言列表</span></span><br><span class="line">  <span class="attr">pagination_dir:</span> <span class="string">'page'</span>  <span class="comment"># 分页目录</span></span><br><span class="line">  <span class="attr">generator:</span> [<span class="string">"index"</span>, <span class="string">"archive"</span>, <span class="string">"category"</span>, <span class="string">"tag"</span>]  <span class="comment"># 需要生成的页面类型</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 首页生成器配置</span></span><br><span class="line">  <span class="attr">index_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">10</span>  <span class="comment"># 这些数字和顺序可以自定义</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 归档页面配置</span></span><br><span class="line">  <span class="attr">archive_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 分类页面配置</span></span><br><span class="line">  <span class="attr">category_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">-date</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># 如果你想要分类列表页的话</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 标签页面配置</span></span><br><span class="line">  <span class="attr">tag_generator:</span></span><br><span class="line">    <span class="attr">per_page:</span> <span class="number">25</span></span><br><span class="line">    <span class="attr">order_by:</span> <span class="string">name</span></span><br><span class="line">    <span class="attr">enable_index_page:</span> <span class="literal">true</span>  <span class="comment"># 如果你想要标签列表页的话</span></span><br></pre></td></tr></tbody></table></figure>
+<p>接着在主题配置项里配置想要的菜单链接：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> </span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> </span><br><span class="line">  <span class="attr">archive:</span> <span class="string">/archives</span> </span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories</span> </span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags</span> </span><br><span class="line">  <span class="attr">about:</span> <span class="string">/about</span> </span><br><span class="line">  <span class="attr">GitHub:</span> <span class="string">https://github.com/cytrogen</span> </span><br><span class="line">  <span class="attr">RSS:</span> <span class="string">/atom.xml</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构</h2>
+<p>以下是必需的目录结构：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">source/</span><br><span class="line">├── _posts/                     # 默认语言的所有博文</span><br><span class="line">│   └── *.md                    # 不能有子目录</span><br><span class="line">├── en/                         # 英文版特定内容</span><br><span class="line">│   └── 与 source 目录结构相同</span><br><span class="line">├── archives/                   # 归档页面</span><br><span class="line">│   └── index.md                # layout: archive</span><br><span class="line">├── categories/                 # 分类页面</span><br><span class="line">│   └── index.md                # layout: category-index</span><br><span class="line">└── tags/                       # 标签页面</span><br><span class="line">    └── index.md                # layout: tag-index</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>当然，你也可以选择其他语言，但其他语言的目录需要和对应的 <code>themes/**/languages/*.yml</code> 的名称相同。</p>
+</blockquote>
+<p>请确保每个 <code>*.md</code> 的 Front-Matter 中都有 <code>lang: **</code>。</p>
+<h2 id="语言文件配置"><a class="markdownIt-Anchor" href="#语言文件配置"></a> 语言文件配置</h2>
+<p>网站的固定文本（如导航菜单、按钮文字等）需要通过语言文件来实现国际化。这些文件需要放在 <code>themes/**/languages/</code> 目录下。</p>
+<p>这是我的例子：</p>
+<ol>
+<li>
+<p><code>zh.yml</code>：</p>
+ <figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">首页</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">关于</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">友情链接</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">归档</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">标签</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">分类</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">上一页</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">下一页</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">上一篇</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">下一篇</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...阅读全文</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">翻译</span> <span class="string">·</span> <span class="string">原文地址</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>en.yml</code>：</p>
+ <figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">HOME</span></span><br><span class="line"><span class="attr">archive:</span> <span class="string">ARC</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">TAGS</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">CATE</span></span><br><span class="line"><span class="attr">about:</span> <span class="string">ABOUT</span></span><br><span class="line"><span class="attr">friendlinks:</span> <span class="string">Friend</span> <span class="string">Links</span></span><br><span class="line"><span class="attr">archive_title:</span> <span class="string">Archive</span></span><br><span class="line"><span class="attr">tags_title:</span> <span class="string">Tags</span></span><br><span class="line"><span class="attr">categories_title:</span> <span class="string">Categories</span></span><br><span class="line"><span class="attr">prev:</span> <span class="string">PREV</span></span><br><span class="line"><span class="attr">next:</span> <span class="string">NEXT</span></span><br><span class="line"><span class="attr">prev_post:</span> <span class="string">PREV</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">next_post:</span> <span class="string">NEXT</span> <span class="string">POST</span></span><br><span class="line"><span class="attr">more:</span> <span class="string">...MORE</span></span><br><span class="line"><span class="attr">translated:</span> <span class="string">Translate</span> <span class="string">·</span> <span class="string">Original</span> <span class="string">Link</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h2 id="模板文件实现"><a class="markdownIt-Anchor" href="#模板文件实现"></a> 模板文件实现</h2>
+<p>从这里开始，只写关于我的博客网站所用的方案。</p>
+<p><strong>请按照自己的主题，自行进行修改。</strong></p>
+<h4 id="分类页面模板"><a class="markdownIt-Anchor" href="#分类页面模板"></a> 分类页面模板</h4>
+<p>分类页面需要两个模板：分类列表页面和具体分类页面。</p>
+<ol>
+<li>
+<p>分类列表页面（<code>category-index.pug</code>）：</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    .archive</span><br><span class="line">        // 标题内容优先使用 page.title</span><br><span class="line">        // 如果不存在则使用国际化函数 __() 获取 categories_title 的翻译</span><br><span class="line">        h2.archive-title= page.title || __('categories_title')</span><br><span class="line">        .category-list</span><br><span class="line">            // 获取所有分类数据</span><br><span class="line">            each category in get_categories().data</span><br><span class="line">                // 对每个分类计算符合当前语言的文章数量</span><br><span class="line">                - var postCount = category.posts.data ? category.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .category-item</span><br><span class="line">                        // 每个分类显示为一个链接，包含分类名称、文章数量计数</span><br><span class="line">                        // url_for_lang() 生成多语言支持的 URL</span><br><span class="line">                        - var categoryPath = category.slug || category.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, 'categories/' + categoryPath))</span><br><span class="line">                            = category.name</span><br><span class="line">                            span.category-count= ` (${postCount})`</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>具体分类页面（<code>category.pug</code>）：</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.category</span><br><span class="line">        +postList()</span><br></pre></td></tr></tbody></table></figure>
+<p>这里文章显示相关的功能被封装成了一系列混入（mixins），方便在不同页面重用（<code>mixins/post.pug</code>）：</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mixin postInfo(item)</span><br><span class="line">    .post-info</span><br><span class="line">        != full_date(item.date, 'l')</span><br><span class="line">        // 如果文章有 from 属性且当前页面是首页或者文章页</span><br><span class="line">        if item.from &amp;&amp; (is_home() || is_post())</span><br><span class="line">            // 显示一个表示文章翻译来源的链接</span><br><span class="line">            a.post-from(href=item.from target="_blank" title=item.from)!= __('translated')</span><br><span class="line"></span><br><span class="line">mixin posts()</span><br><span class="line">    ul.home.post-list</span><br><span class="line">        // 遍历所有的文章</span><br><span class="line">        - for (var post of page.posts.data || [])</span><br><span class="line">            // 只显示与当前页面语言匹配的文章</span><br><span class="line">            - if (post.lang == page.lang)</span><br><span class="line">                li.post-list-item</span><br><span class="line">                    article.post-block</span><br><span class="line">                        h2.post-title</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                        +postInfo(post)</span><br><span class="line">                        // 如果有摘要，就显示摘要和“阅读全文”链接</span><br><span class="line">                        if post.excerpt</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.excerpt</span><br><span class="line">                            a.read-more(href= url_for(post.path))!= __('more')</span><br><span class="line">                        else</span><br><span class="line">                            .post-content</span><br><span class="line">                                != post.content</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="标签页面模板"><a class="markdownIt-Anchor" href="#标签页面模板"></a> 标签页面模板</h4>
+<p>和分类页面模板近乎一致：</p>
+<ol>
+<li>
+<p><code>tag-index.pug</code>：</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.title || __('tags_title')</span><br><span class="line">        .tag-list</span><br><span class="line">            each tag in get_tags().data</span><br><span class="line">                - var postCount = tag.posts.data ? tag.posts.data.filter(post =&gt; post.lang === page.lang).length : 0</span><br><span class="line">                if postCount &gt; 0</span><br><span class="line">                    .tag-item</span><br><span class="line">                        - var tagPath = tag.slug || tag.name</span><br><span class="line">                        a.post-title-link(href=url_for_lang(page.lang, 'tags/' + tagPath))</span><br><span class="line">                            = tag.name</span><br><span class="line">                            span.tag-count= ` (${postCount})`</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p><code>tag.pug</code>：</p>
+ <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    .archive</span><br><span class="line">        h2.archive-title= page.tag</span><br><span class="line">        +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h4 id="归档页面模板"><a class="markdownIt-Anchor" href="#归档页面模板"></a> 归档页面模板</h4>
+<p>归档页面只需要一个 <code>archive.pug</code>：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extends partial/layout</span><br><span class="line"></span><br><span class="line">block container</span><br><span class="line">    include mixins/post</span><br><span class="line">    +postList()</span><br><span class="line"></span><br><span class="line">block pagination</span><br><span class="line">    include mixins/paginator</span><br><span class="line">    +home()</span><br><span class="line"></span><br><span class="line">block copyright</span><br><span class="line">    include partial/copyright</span><br></pre></td></tr></tbody></table></figure>
+<p>它调用的混入：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mixin postList()</span><br><span class="line">    .archive</span><br><span class="line">        // 是否有文章数据</span><br><span class="line">        if page.posts</span><br><span class="line">            // 确保文章列表存在且不为空</span><br><span class="line">            - var posts = page.posts.data || page.posts</span><br><span class="line">            if posts &amp;&amp; posts.length</span><br><span class="line">                // 创建一个年份对象用于存储分组</span><br><span class="line">                // 只处理与当前页面语言相匹配的文章</span><br><span class="line">                // 使用文章日期获取年份</span><br><span class="line">                // 将文章添加到对应年份的数组中</span><br><span class="line">                - var years = {}</span><br><span class="line">                - for (var post of posts)</span><br><span class="line">                    - if (post.lang == page.lang)</span><br><span class="line">                        - var year = new Date(post.date).getFullYear()</span><br><span class="line">                        - if (!years[year]) years[year] = []</span><br><span class="line">                        - years[year].push(post)</span><br><span class="line">                // 将年份按降序排列（先显示年份最大的）</span><br><span class="line">                - Object.keys(years).sort((a, b) =&gt; b - a).forEach(function(year) {</span><br><span class="line">                    h2.archive-year!= year</span><br><span class="line">                    - years[year].forEach(function(post) {</span><br><span class="line">                        .post-item</span><br><span class="line">                            +postInfo(post)</span><br><span class="line">                            a.post-title-link(href= url_for(post.path))</span><br><span class="line">                                != post.title</span><br><span class="line">                    - })</span><br><span class="line">                - })</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="导航栏实现"><a class="markdownIt-Anchor" href="#导航栏实现"></a> 导航栏实现</h4>
+<p>导航栏是实现语言切换的关键接口（<code>nav.pug</code>）。</p>
+<p>由于我的博客主题中，导航栏并不宽，因此我写了顶底部来区分开部分链接：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ul.nav.nav-list</span><br><span class="line">    // 顶层</span><br><span class="line">    div.nav-list-top</span><br><span class="line">        // 遍历主题配置项中 menu 的所有键值</span><br><span class="line">        each path, key in theme.menu</span><br><span class="line">            // 排除掉想要放在底部的链接，我这里写的 GitHub 和 RSS</span><br><span class="line">            if key !== 'GitHub' &amp;&amp; key !== 'RSS'</span><br><span class="line">                li.nav-list-item</span><br><span class="line">                    // 检测是否是外部链接</span><br><span class="line">                    // 如果是，就在新标签页打开</span><br><span class="line">                    // 英文页面的路径前添加 /en 前缀</span><br><span class="line">                    // 判断当前页面是否激活（用于高亮显示）</span><br><span class="line">                    - var re = /^(http|https):\/\/*/gi;</span><br><span class="line">                    - var tar = re.test(path) ? "_blank" : "_self"</span><br><span class="line">                    - var fullPath = page.lang === 'en' ? '/en' + path : path</span><br><span class="line">                    - var act = !re.test(path) &amp;&amp; "/" + page.current_url === fullPath</span><br><span class="line">                    a.nav-list-link(class={active: act} href=url_for(fullPath) target=tar)</span><br><span class="line">                        != __(('menu.' + key))</span><br><span class="line">    // 底部</span><br><span class="line">    div.nav-list-bottom</span><br><span class="line">        // 语言切换按钮</span><br><span class="line">        li.nav-list-item.lang-switch</span><br><span class="line">            if page.lang == 'en'</span><br><span class="line">                a.nav-list-link(href=url_for('/')) 中文</span><br><span class="line">            else</span><br><span class="line">                a.nav-list-link(href=url_for('/en')) ENGLISH</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="使用方法"><a class="markdownIt-Anchor" href="#使用方法"></a> 使用方法</h2>
+<p>完成上述配置后，创建新文章时需要在 Front-Matter 中指定语言：</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章标题</span><br><span class="line">date: 2024-01-01</span><br><span class="line"><span class="section">lang: zh</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果想创建同一篇文章的其他语言版本，只需要创建一个新的 Markdown 文件，指定相应的 <code>lang</code>，并在 Front-Matter 中通过 <code>from</code> 字段关联原文：</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Article Title</span><br><span class="line">date: 2024-01-01</span><br><span class="line">lang: en</span><br><span class="line"><span class="section">from: /posts/original-post.html</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></tbody></table></figure>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="567.html">上一篇</a><a class="next" href="8853.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/17cc.html" data-full-url="https://cytrogen.icu/posts/17cc.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

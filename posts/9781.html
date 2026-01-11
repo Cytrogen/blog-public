@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Raspberry Pi Pico Plays Music Via Active Buzzer · Cytrogen 的个人博客</title><meta name="description" content="This article is a tutorial that uses MicroPython to play music via the active buzzer on a Raspberry Pi Pico. Using the Super Mario theme song as an example, this tutorial guides you on how to parse a musical score from Online Sequencer into a data structure the program can use, and how to use MicroPython's PWM feature to precisely control the buzzer's frequency and duration. The content covers not only the code implementation but also explains basic music theory concepts (like notes and beats) for readers who might be unfamiliar with the subject. This makes the tutorial perfect for Pico beginners and anyone interested in hardware-based music projects."><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/9781.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../en/">HOME</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>English</span></button><div class="language-dropdown"><a class="language-option" href="/posts/ba6a.html">中文</a></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>MORE</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../en/archives/index.html">ARCHIVE</a></li><li class="dropdown-item"><a class="nav-link" href="../en/categories/index.html">CATEGORIES</a></li><li class="dropdown-item"><a class="nav-link" href="../en/tags/index.html">TAGS</a></li><li class="dropdown-item"><a class="nav-link" href="../en/about/index.html">ABOUT</a></li><li class="dropdown-item"><a class="nav-link" href="../en/friends/index.html">BLOGROLL</a></li><li class="dropdown-item"><a class="nav-link" href="../en/atom.xml">RSS</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GITHUB<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/">HOME</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/archives/index.html">ARCHIVE</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/categories/index.html">CATEGORIES</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/tags/index.html">TAGS</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/about/index.html">ABOUT</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/friends/index.html">BLOGROLL</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../en/atom.xml">RSS</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GITHUB<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">PORTFOLIO<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Raspberry Pi Pico Plays Music Via Active Buzzer</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-07-25T00:02:18.000Z">7/24/2025</time><a class="post-from" href="/posts/ba6a.html" target="_blank" title="/posts/ba6a.html">Translate · Original Link</a></div><div class="post-content"><p>How to use MicroPython to play music via the active buzzer on a Raspberry Pi Pico.</p>
+<span id="more"></span>
+<h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1>
+<p>I got my Raspberry Pi Pico earlier this year, but did not have the time to play with it, until recently I got this weird disease called senioritis.</p>
+<p>When I bought this Raspberry Pi Pico, I purchased the pre-soldered version because I'm lazy, shown as this image below:</p>
+<img src="/posts/9781/1.jpeg" alt="MAKEROBO PicoBlock expansion board, pre-soldered Raspberry Pi Pico Motherboard, breadboard, LED lights, arrow keys, active buzzer, sensors, etc.">
+<p>However, this article focuses on MicroPython, so it won't go into detail about the hardware. The same goes for basic topics like configuring the Raspberry Pi Pico or installing an IDE; you can search for that information online.</p>
+<div class="danger">
+<ul>
+<li>The IDE that this article is using is Thonny</li>
+<li>All the music scores are from <a target="_blank" rel="noopener" href="https://onlinesequencer.net/">Online Sequencer</a></li>
+</ul>
+</div>
+<h1 id="preparation"><a class="markdownIt-Anchor" href="#preparation"></a> Preparation</h1>
+<h2 id="importing-libraries"><a class="markdownIt-Anchor" href="#importing-libraries"></a> Importing Libraries</h2>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> machine <span class="keyword">import</span> PWM, Pin</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>The <code>time</code> library needs no introduction; it's used for creating delays</li>
+<li><code>machine</code> library contains methods related to the hardware on a specific board. For example, <code>PWM</code> and <code>Pin</code> that we just imported. For details you can check <a target="_blank" rel="noopener" href="https://docs.micropython.org/en/latest/library/machine.html">MicroPython's official documentation</a></li>
+</ul>
+<h2 id="notes-and-frequencies"><a class="markdownIt-Anchor" href="#notes-and-frequencies"></a> Notes and Frequencies</h2>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">tones = {</span><br><span class="line">    <span class="string">'C0'</span>: <span class="number">16</span>, <span class="string">'C#0'</span>: <span class="number">17</span>, <span class="string">'D0'</span>: <span class="number">18</span>, <span class="string">'D#0'</span>: <span class="number">19</span>, <span class="string">'E0'</span>: <span class="number">21</span>, <span class="string">'F0'</span>: <span class="number">22</span>,</span><br><span class="line">    <span class="string">'F#0'</span>: <span class="number">23</span>, <span class="string">'G0'</span>: <span class="number">24</span>, <span class="string">'G#0'</span>: <span class="number">26</span>, <span class="string">'A0'</span>: <span class="number">28</span>, <span class="string">'A#0'</span>: <span class="number">29</span>, <span class="string">'B0'</span>: <span class="number">31</span>,</span><br><span class="line">    <span class="string">'C1'</span>: <span class="number">33</span>, <span class="string">'C#1'</span>: <span class="number">35</span>, <span class="string">'D1'</span>: <span class="number">37</span>, <span class="string">'D#1'</span>: <span class="number">39</span>, <span class="string">'E1'</span>: <span class="number">41</span>, <span class="string">'F1'</span>: <span class="number">44</span>,</span><br><span class="line">    <span class="string">'F#1'</span>: <span class="number">46</span>, <span class="string">'G1'</span>: <span class="number">49</span>, <span class="string">'G#1'</span>: <span class="number">52</span>, <span class="string">'A1'</span>: <span class="number">55</span>, <span class="string">'A#1'</span>: <span class="number">58</span>, <span class="string">'B1'</span>: <span class="number">62</span>,</span><br><span class="line">    <span class="string">'C2'</span>: <span class="number">65</span>, <span class="string">'C#2'</span>: <span class="number">69</span>, <span class="string">'D2'</span>: <span class="number">73</span>, <span class="string">'D#2'</span>: <span class="number">78</span>, <span class="string">'E2'</span>: <span class="number">82</span>, <span class="string">'F2'</span>: <span class="number">87</span>,</span><br><span class="line">    <span class="string">'F#2'</span>: <span class="number">92</span>, <span class="string">'G2'</span>: <span class="number">98</span>, <span class="string">'G#2'</span>: <span class="number">104</span>, <span class="string">'A2'</span>: <span class="number">110</span>, <span class="string">'A#2'</span>: <span class="number">117</span>, <span class="string">'B2'</span>: <span class="number">123</span>,</span><br><span class="line">    <span class="string">'C3'</span>: <span class="number">131</span>, <span class="string">'C#3'</span>: <span class="number">139</span>, <span class="string">'D3'</span>: <span class="number">147</span>, <span class="string">'D#3'</span>: <span class="number">156</span>, <span class="string">'E3'</span>: <span class="number">165</span>, <span class="string">'F3'</span>: <span class="number">175</span>,</span><br><span class="line">    <span class="string">'F#3'</span>: <span class="number">185</span>, <span class="string">'G3'</span>: <span class="number">196</span>, <span class="string">'G#3'</span>: <span class="number">208</span>, <span class="string">'A3'</span>: <span class="number">220</span>, <span class="string">'A#3'</span>: <span class="number">233</span>, <span class="string">'B3'</span>: <span class="number">247</span>,</span><br><span class="line">    <span class="string">'C4'</span>: <span class="number">262</span>, <span class="string">'C#4'</span>: <span class="number">277</span>, <span class="string">'D4'</span>: <span class="number">294</span>, <span class="string">'D#4'</span>: <span class="number">311</span>, <span class="string">'E4'</span>: <span class="number">330</span>, <span class="string">'F4'</span>: <span class="number">349</span>,</span><br><span class="line">    <span class="string">'F#4'</span>: <span class="number">370</span>, <span class="string">'G4'</span>: <span class="number">392</span>, <span class="string">'G#4'</span>: <span class="number">415</span>, <span class="string">'A4'</span>: <span class="number">440</span>, <span class="string">'A#4'</span>: <span class="number">466</span>, <span class="string">'B4'</span>: <span class="number">494</span>,</span><br><span class="line">    <span class="string">'C5'</span>: <span class="number">523</span>, <span class="string">'C#5'</span>: <span class="number">554</span>, <span class="string">'D5'</span>: <span class="number">587</span>, <span class="string">'D#5'</span>: <span class="number">622</span>, <span class="string">'E5'</span>: <span class="number">659</span>, <span class="string">'F5'</span>: <span class="number">698</span>,</span><br><span class="line">    <span class="string">'F#5'</span>: <span class="number">740</span>, <span class="string">'G5'</span>: <span class="number">784</span>, <span class="string">'G#5'</span>: <span class="number">831</span>, <span class="string">'A5'</span>: <span class="number">880</span>, <span class="string">'A#5'</span>: <span class="number">932</span>, <span class="string">'B5'</span>: <span class="number">988</span>,</span><br><span class="line">    <span class="string">'C6'</span>: <span class="number">1047</span>, <span class="string">'C#6'</span>: <span class="number">1109</span>, <span class="string">'D6'</span>: <span class="number">1175</span>, <span class="string">'D#6'</span>: <span class="number">1245</span>, <span class="string">'E6'</span>: <span class="number">1319</span>, <span class="string">'F6'</span>: <span class="number">1397</span>,</span><br><span class="line">    <span class="string">'F#6'</span>: <span class="number">1480</span>, <span class="string">'G6'</span>: <span class="number">1568</span>, <span class="string">'G#6'</span>: <span class="number">1661</span>, <span class="string">'A6'</span>: <span class="number">1760</span>, <span class="string">'A#6'</span>: <span class="number">1865</span>, <span class="string">'B6'</span>: <span class="number">1976</span>,</span><br><span class="line">    <span class="string">'C7'</span>: <span class="number">2093</span>, <span class="string">'C#7'</span>: <span class="number">2217</span>, <span class="string">'D7'</span>: <span class="number">2349</span>, <span class="string">'D#7'</span>: <span class="number">2489</span>, <span class="string">'E7'</span>: <span class="number">2637</span>, <span class="string">'F7'</span>: <span class="number">2794</span>,</span><br><span class="line">    <span class="string">'F#7'</span>: <span class="number">2960</span>, <span class="string">'G7'</span>: <span class="number">3136</span>, <span class="string">'G#7'</span>: <span class="number">3322</span>, <span class="string">'A7'</span>: <span class="number">3520</span>, <span class="string">'A#7'</span>: <span class="number">3729</span>, <span class="string">'B7'</span>: <span class="number">3951</span>,</span><br><span class="line">    <span class="string">'C8'</span>: <span class="number">4186</span>, <span class="string">'C#8'</span>: <span class="number">4435</span>, <span class="string">'D8'</span>: <span class="number">4699</span>, <span class="string">'D#8'</span>: <span class="number">4978</span>, <span class="string">'E8'</span>: <span class="number">5274</span>, <span class="string">'F8'</span>: <span class="number">5588</span>,</span><br><span class="line">    <span class="string">'F#8'</span>: <span class="number">5920</span>, <span class="string">'G8'</span>: <span class="number">6272</span>, <span class="string">'G#8'</span>: <span class="number">6645</span>, <span class="string">'A8'</span>: <span class="number">7040</span>, <span class="string">'A#8'</span>: <span class="number">7459</span>, <span class="string">'B8'</span>: <span class="number">7902</span>,</span><br><span class="line">    <span class="string">'C9'</span>: <span class="number">8372</span>, <span class="string">'C#9'</span>: <span class="number">8870</span>, <span class="string">'D9'</span>: <span class="number">9397</span>, <span class="string">'D#9'</span>: <span class="number">9956</span>, <span class="string">'E9'</span>: <span class="number">10548</span>, <span class="string">'F9'</span>: <span class="number">11175</span>,</span><br><span class="line">    <span class="string">'F#9'</span>: <span class="number">11840</span>, <span class="string">'G9'</span>: <span class="number">12544</span>, <span class="string">'G#9'</span>: <span class="number">13290</span>, <span class="string">'A9'</span>: <span class="number">14080</span>, <span class="string">'A#9'</span>: <span class="number">14917</span>, <span class="string">'B9'</span>: <span class="number">15804</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>This dictionary contains all the notes' frequencies, from C0 to B9, in the unit of Hz. These frequencies will be used to set up the frequency of PWM.</p>
+<h4 id="aside"><a class="markdownIt-Anchor" href="#aside"></a> Aside</h4>
+<p>If you don't know notes, but still wish to play using the actual music score in reality, what should you do? (Of course, if you do know, you can jump to <a href="#setting-up-the-buzzer">this section</a>)</p>
+<p>Let's see what a simple music score looks like. Welcome to our guest -- <em>Twinkle Twinkle Little Star</em>:</p>
+<img src="/posts/9781/2.jpg" alt="Music Score of Twinkle Twinkle Little Star">
+<p>First, in a music score every line has multiple measures, separated by the vertical lines.</p>
+<p>At the beginning of the staff, there's a symbol representing the time signature. For instance, this music score has the time signature of <strong>4/4</strong>, which means every measure has 4 beats, every beat is one quarter note.</p>
+<p>What is a quarter note? We have to know the duration of notes.</p>
+<p>Notes' durations are divided into whole note, half note, quarter note, eighth note, sixteenth note, thirty-second note, etc. To make them easier to tell apart, take a look at this image:</p>
+<img src="/posts/9781/3.png" alt="A chart showing different musical notes and their durations: whole note (4 beats), half note (2 beats), quarter note (1 beat), eighth note (1/2 beat), and so on">
+<p>Now back to the music score of <em>Twinkle Twinkle Little Star</em>, we can tell the first measure has exactly 4 quarter notes, and the second measure has 2 quarter notes and 1 half note.</p>
+<img src="/posts/9781/4.jpg" alt="The first and second measure of the simplified notation of Twinkle Twinkle Little Star">
+<p>In the actual play, what is the difference between these two measures?</p>
+<p>4 quarter notes be like: <em>Ah</em> <em>Ah</em> <em>Ah</em> <em>Ah</em>;<br>
+2 quarter notes &amp; 1 half note be like: <em>Ah</em> <em>Ah</em> <em>Ah--</em>.</p>
+<p>That being said, in this score 1 half note is the same as combining two quarter notes, making one long sound.</p>
+<p>Now that we have covered duration, let's look at the position of the notes on the musical staff. You might have noticed, some notes are above the line, some are below the lines, some are in the middle, some are in between... why?</p>
+<p>This brings us to the pitch of notes. To be clear, <em>Twinkle Twinkle Little Star</em>'s music score has marked <code>1=C</code>, which is C major. C major is composed by C, D, E, F, G, A, B these 7 notes, also the only major that has neither sharp nor flat.</p>
+<blockquote>
+<p>If you ever know how a piano looks like, it has those white and black keys. White keys are typically divided into C, D, E, F, G, A, B 7 notes; black keys in general are divided into C#, D#, F#, G#, A# 5 notes.</p>
+<p>The # symbol represents a sharp, which raises a note's pitch by a half step. Examples, C# is a half step above C, also the note that is between C and D.<br>
+There is also a b symbol, representing a flat. Opposite to the # symbol, the b symbol lowers a note's pitch by a half step. Db is the half step below D, also the note between C and D, also C# itself.</p>
+</blockquote>
+<p>We have discussed so many about C, D, E, F, G, A, B, but in music score of <em>Twinkle Twinkle Little Star</em> above, we only saw numbers. This is because in simplified notation, Arabic numerals are used to represent the pitch of notes. 1 is the same as C, 2 is the same as D, and so on.</p>
+<blockquote>
+<p>While in reality, the most commonly used ones to represent the pitch of notes are solfège, which are do, re, mi, fa, so, la, si. do means C, re means D, and so on.</p>
+</blockquote>
+<img src="/posts/9781/6.jpg" alt="Chart comparing Arabic numerals, solfège names, and Chinese characters for musical notes">
+<p>We now know how to distinguish the pitch of notes using Arabic numbers, but this method only works in simplified notation. We still have to learn how to read the musical staff. C major's scale looks like this:</p>
+<img src="/posts/9781/7.png" alt="The C Major Scale">
+<p>Let's check the first measure of <em>Twinkle Twinkle Little Star</em>. You don't have to read the Arabic numbers, by referring to the image above, you can tell it's CCGG:</p>
+<img src="/posts/9781/5.jpg" alt="The first measure of Twinkle Twinkle Little Star (notes 1155)">
+<p>But in our previous <a href="#notes-and-frequencies">note-to-frequency-dictionary</a>, C, D, E, F, G, A, B are followed by other numbers. For instance, C4, C5, etc. these numbers are representing the frequency of the notes, which is also the pitch of the sound. C4 is normally known as the Middle C; C5 is the C that's one octave higher.</p>
+<blockquote>
+<p>An octave represents a doubling of frequency. For example, the frequency of C5 (523.25 Hz) is double the frequency of C4 (261.63 Hz).</p>
+<p>However, we don't need such precise decimals; we can just round them to the nearest integer.</p>
+</blockquote>
+<p>For convenience, we will use the Middle C (C4) as standard. This way, we can combine the music score and notes of <em>Twinkle Twinkle Little Star</em>:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4- </span><br><span class="line">G4 G4 F4 F4 E4 E4 D4- G4 G4 F4 F4 E4 E4 D4- </span><br><span class="line">C4 C4 G4 G4 A4 A4 G4- F4 F4 E4 E4 D4 D4 C4-</span><br></pre></td></tr></tbody></table></figure>
+<div class="danger">
+This is not the final version of music scores we will be using, it's for easier understanding.
+</div>
+<h2 id="setting-up-the-buzzer"><a class="markdownIt-Anchor" href="#setting-up-the-buzzer"></a> Setting Up the Buzzer</h2>
+<p>Let's set up the GPIO pin of the buzzer. I typically use GP15 (as shown in <a href="#introduction">the previous picture</a>, the GP15 pin is already connected to the buzzer). Of course, you can change the pin to suit your own needs:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">buzzer = PWM(Pin(<span class="number">15</span>))</span><br><span class="line">buzzer.freq(<span class="number">50000</span>)</span><br><span class="line">buzzer.duty_u16(<span class="built_in">int</span>(<span class="number">65536</span> * <span class="number">0.2</span>))</span><br></pre></td></tr></tbody></table></figure>
+<p>At first, we create a <code>PWM</code> object, set the PWM frequency to 50,000 Hz (meaning no sound at all), and set the duty cycle to 20%.</p>
+<h1 id="writing-the-code"><a class="markdownIt-Anchor" href="#writing-the-code"></a> Writing the Code</h1>
+<h2 id="getting-the-music-score"><a class="markdownIt-Anchor" href="#getting-the-music-score"></a> Getting the Music Score</h2>
+<p>I chose to use the <a target="_blank" rel="noopener" href="https://onlinesequencer.net/25966">classic music</a> from Super Mario for demonstration. Online Sequencer's music score can be copied and pasted, like below:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Online Sequencer:616413:0 F#5 1 7;0 E6 1 7;2 F#5 1 7;2 E6 1 7;6 F#5 1 7;6 E6 1 7;10 F#5 1 7;10 C6 1 7;12 F#5 1 7;12 E6 1 7;16 G5 1 7;16 B5 1 7;16 G6 1 7;24 G5 1 7;32 E5 1 7;32 C6 1 7;38 C5 1 7;38 G5 1 7;44 G4 1 7;44 E5 1 7;50 C5 1 7;50 A5 1 7;54 D5 1 7;54 B5 1 7;58 C#5 1 7;58 A#5 1 7;60 C5 1 7;60 A5 1 7;64 C5 1 7;64 G5 1 7;66 G5 1 7;66 E6 1 7;69 B5 1 7;69 G6 1 7;72 C6 1 7;72 A6 1 7;76 A5 1 7;76 F6 1 7;78 B5 1 7;78 G6 1 7;82 A5 1 7;82 E6 1 7;86 E5 1 7;86 C6 1 7;88 F5 1 7;88 D6 1 7;90 D5 1 7;90 B5 1 7;96 E5 1 7;96 C6 1 7;102 C5 1 7;102 G5 1 7;108 G4 1 7;108 E5 1 7;114 C5 1 7;114 A5 1 7;118 D5 1 7;118 B5 1 7;122 C#5 1 7;122 A#5 1 7;124 C5 1 7;124 A5 1 7;128 C5 1 7;128 G5 1 7;130 G5 1 7;130 E6 1 7;133 B5 1 7;133 G6 1 7;136 C6 1 7;136 A6 1 7;140 A5 1 7;140 F6 1 7;142 B5 1 7;142 G6 1 7;146 A5 1 7;146 E6 1 7;150 E5 1 7;150 C6 1 7;152 F5 1 7;152 D6 1 7;154 D5 1 7;154 B5 1 7;164 E6 1 7;164 G6 1 7;166 D#6 1 7;166 F#6 1 7;168 D6 1 7;168 F6 1 7;170 B5 1 7;170 D#6 1 7;174 C6 1 7;174 E6 1 7;178 E5 1 7;178 G#5 1 7;180 F5 1 7;180 A5 1 7;182 G5 1 7;182 C6 1 7;186 C5 1 7;186 A5 1 7;188 E5 1 7;188 C6 1 7;190 F5 1 7;190 D6 1 7;196 E6 1 7;196 G6 1 7;198 D#6 1 7;198 F#6 1 7;200 D6 1 7;200 F6 1 7;202 B5 1 7;202 D#6 1 7;206 C6 1 7;206 E6 1 7;210 F6 1 7;210 G6 1 7;210 C7 1 7;214 F6 1 7;214 G6 1 7;214 C7 1 7;216 F6 1 7;216 G6 1 7;216 C7 1 7;228 E6 1 7;228 G6 1 7;230 D#6 1 7;230 F#6 1 7;232 D6 1 7;232 F6 1 7;234 B5 1 7;234 D#6 1 7;238 C6 1 7;238 E6 1 7;242 E5 1 7;242 G#5 1 7;244 F5 1 7;244 A5 1 7;246 G5 1 7;246 C6 1 7;250 C5 1 7;250 A5 1 7;252 E5 1 7;252 C6 1 7;254 F5 1 7;254 D6 1 7;260 G#5 1 7;260 D#6 1 7;266 F5 1 7;266 D6 1 7;272 C5 1 7;272 E5 1 7;272 C6 1 7;292 E6 1 7;292 G6 1 7;294 D#6 1 7;294 F#6 1 7;296 D6 1 7;296 F6 1 7;298 B5 1 7;298 D#6 1 7;302 C6 1 7;302 E6 1 7;306 E5 1 7;306 G#5 1 7;308 F5 1 7;308 A5 1 7;310 G5 1 7;310 C6 1 7;314 C5 1 7;314 A5 1 7;316 E5 1 7;316 C6 1 7;318 F5 1 7;318 D6 1 7;324 E6 1 7;324 G6 1 7;326 D#6 1 7;326 F#6 1 7;328 D6 1 7;328 F6 1 7;330 B5 1 7;330 D#6 1 7;334 C6 1 7;334 E6 1 7;338 F6 1 7;338 G6 1 7;338 C7 1 7;342 F6 1 7;342 G6 1 7;342 C7 1 7;344 F6 1 7;344 G6 1 7;344 C7 1 7;356 E6 1 7;356 G6 1 7;358 D#6 1 7;358 F#6 1 7;360 D6 1 7;360 F6 1 7;362 B5 1 7;362 D#6 1 7;366 C6 1 7;366 E6 1 7;370 E5 1 7;370 G#5 1 7;372 F5 1 7;372 A5 1 7;374 G5 1 7;374 C6 1 7;378 C5 1 7;378 A5 1 7;380 E5 1 7;380 C6 1 7;382 F5 1 7;382 D6 1 7;388 G#5 1 7;388 D#6 1 7;394 F5 1 7;394 D6 1 7;400 E5 1 7;400 C6 1 7;416 G#5 1 7;416 C6 1 7;418 G#5 1 7;418 C6 1 7;422 G#5 1 7;422 C6 1 7;426 G#5 1 7;426 C6 1 7;428 A#5 1 7;428 D6 1 7;432 G5 1 7;432 E6 1 7;434 E5 1 7;434 C6 1 7;438 E5 1 7;438 A5 1 7;440 C5 1 7;440 G5 1 7;448 G#5 1 7;448 C6 1 7;450 G#5 1 7;450 C6 1 7;454 G#5 1 7;454 C6 1 7;458 G#5 1 7;458 C6 1 7;460 A#5 1 7;460 D6 1 7;462 G5 1 7;462 E6 1 7;480 G#5 1 7;480 C6 1 7;482 G#5 1 7;482 C6 1 7;486 G#5 1 7;486 C6 1 7;490 G#5 1 7;490 C6 1 7;492 A#5 1 7;492 D6 1 7;496 G5 1 7;496 E6 1 7;498 E5 1 7;498 C6 1 7;502 E5 1 7;502 A5 1 7;504 C5 1 7;504 G5 1 7;512 F#5 1 7;512 E6 1 7;514 F#5 1 7;514 E6 1 7;518 F#5 1 7;518 E6 1 7;522 F#5 1 7;522 C6 1 7;524 F#5 1 7;524 E6 1 7;528 G5 1 7;528 B5 1 7;528 G6 1 7;536 G5 1 7;544 E5 1 7;544 C6 1 7;550 C5 1 7;550 G5 1 7;556 G4 1 7;556 E5 1 7;562 C5 1 7;562 A5 1 7;566 D5 1 7;566 B5 1 7;570 C#5 1 7;570 A#5 1 7;572 C5 1 7;572 A5 1 7;576 C5 1 7;576 G5 1 7;578 G5 1 7;578 E6 1 7;581 B5 1 7;581 G6 1 7;584 C6 1 7;584 A6 1 7;588 A5 1 7;588 F6 1 7;590 B5 1 7;590 G6 1 7;594 A5 1 7;594 E6 1 7;598 E5 1 7;598 C6 1 7;600 F5 1 7;600 D6 1 7;602 D5 1 7;602 B5 1 7;608 E5 1 7;608 C6 1 7;614 C5 1 7;614 G5 1 7;620 G4 1 7;620 E5 1 7;626 C5 1 7;626 A5 1 7;630 D5 1 7;630 B5 1 7;634 C#5 1 7;634 A#5 1 7;636 C5 1 7;636 A5 1 7;640 C5 1 7;640 G5 1 7;642 G5 1 7;642 E6 1 7;645 B5 1 7;645 G6 1 7;648 C6 1 7;648 A6 1 7;652 A5 1 7;652 F6 1 7;654 B5 1 7;654 G6 1 7;658 A5 1 7;658 E6 1 7;662 E5 1 7;662 C6 1 7;664 F5 1 7;664 D6 1 7;666 D5 1 7;666 B5 1 7;672 C6 1 7;672 E6 1 7;674 A5 1 7;674 C6 1 7;678 E5 1 7;678 G5 1 7;684 E5 1 7;684 G#5 1 7;688 F5 1 7;688 A5 1 7;690 C6 1 7;690 F6 1 7;694 C6 1 7;694 F6 1 7;696 F5 1 7;696 A5 1 7;704 G5 1 7;704 B5 1 7;706 F6 1 7;706 A6 1 7;709 F6 1 7;709 A6 1 7;712 F6 1 7;712 A6 1 7;714 E6 1 7;714 G6 1 7;717 D6 1 7;717 F6 1 7;720 C6 1 7;720 E6 1 7;722 A5 1 7;722 C6 1 7;726 F5 1 7;726 A5 1 7;728 E5 1 7;728 G5 1 7;736 C6 1 7;736 E6 1 7;738 A5 1 7;738 C6 1 7;742 E5 1 7;742 G5 1 7;748 E5 1 7;748 G#5 1 7;752 F5 1 7;752 A5 1 7;754 C6 1 7;754 F6 1 7;758 C6 1 7;758 F6 1 7;760 F5 1 7;760 A5 1 7;768 G5 1 7;768 B5 1 7;770 D6 1 7;770 F6 1 7;774 D6 1 7;774 F6 1 7;776 D6 1 7;776 F6 1 7;778 C6 1 7;778 E6 1 7;781 B5 1 7;781 D6 1 7;784 G5 1 7;784 C6 1 7;786 E5 1 7;790 E5 1 7;792 C5 1 7;800 C6 1 7;800 E6 1 7;802 A5 1 7;802 C6 1 7;806 E5 1 7;806 G5 1 7;812 E5 1 7;812 G#5 1 7;816 F5 1 7;816 A5 1 7;818 C6 1 7;818 F6 1 7;822 C6 1 7;822 F6 1 7;824 F5 1 7;824 A5 1 7;832 G5 1 7;832 B5 1 7;834 F6 1 7;834 A6 1 7;837 F6 1 7;837 A6 1 7;840 F6 1 7;840 A6 1 7;842 E6 1 7;842 G6 1 7;845 D6 1 7;845 F6 1 7;848 C6 1 7;848 E6 1 7;850 A5 1 7;850 C6 1 7;854 F5 1 7;854 A5 1 7;856 E5 1 7;856 G5 1 7;864 C6 1 7;864 E6 1 7;866 A5 1 7;866 C6 1 7;870 E5 1 7;870 G5 1 7;876 E5 1 7;876 G#5 1 7;880 F5 1 7;880 A5 1 7;882 C6 1 7;882 F6 1 7;886 C6 1 7;886 F6 1 7;888 F5 1 7;888 A5 1 7;896 G5 1 7;896 B5 1 7;898 D6 1 7;898 F6 1 7;902 D6 1 7;902 F6 1 7;904 D6 1 7;904 F6 1 7;906 C6 1 7;906 E6 1 7;909 B5 1 7;909 D6 1 7;912 G5 1 7;912 C6 1 7;914 E5 1 7;918 E5 1 7;920 C5 1 7;928 G#5 1 7;928 C6 1 7;930 G#5 1 7;930 C6 1 7;934 G#5 1 7;934 C6 1 7;938 G#5 1 7;938 C6 1 7;940 A#5 1 7;940 D6 1 7;944 G5 1 7;944 E6 1 7;946 E5 1 7;946 C6 1 7;950 E5 1 7;950 A5 1 7;952 C5 1 7;952 G5 1 7;960 G#5 1 7;960 C6 1 7;962 G#5 1 7;962 C6 1 7;966 G#5 1 7;966 C6 1 7;970 G#5 1 7;970 C6 1 7;972 A#5 1 7;972 D6 1 7;974 G5 1 7;974 E6 1 7;992 G#5 1 7;992 C6 1 7;994 G#5 1 7;994 C6 1 7;998 G#5 1 7;998 C6 1 7;1002 G#5 1 7;1002 C6 1 7;1004 A#5 1 7;1004 D6 1 7;1008 G5 1 7;1008 E6 1 7;1010 E5 1 7;1010 C6 1 7;1014 E5 1 7;1014 A5 1 7;1016 C5 1 7;1016 G5 1 7;1024 F#5 1 7;1024 E6 1 7;1026 F#5 1 7;1026 E6 1 7;1030 F#5 1 7;1030 E6 1 7;1034 F#5 1 7;1034 C6 1 7;1036 F#5 1 7;1036 E6 1 7;1040 G5 1 7;1040 B5 1 7;1040 G6 1 7;1048 G5 1 7;1056 C6 1 7;1056 E6 1 7;1058 A5 1 7;1058 C6 1 7;1062 E5 1 7;1062 G5 1 7;1068 E5 1 7;1068 G#5 1 7;1072 F5 1 7;1072 A5 1 7;1074 C6 1 7;1074 F6 1 7;1078 C6 1 7;1078 F6 1 7;1080 F5 1 7;1080 A5 1 7;1088 G5 1 7;1088 B5 1 7;1090 F6 1 7;1090 A6 1 7;1093 F6 1 7;1093 A6 1 7;1096 F6 1 7;1096 A6 1 7;1098 E6 1 7;1098 G6 1 7;1101 D6 1 7;1101 F6 1 7;1104 C6 1 7;1104 E6 1 7;1106 A5 1 7;1106 C6 1 7;1110 F5 1 7;1110 A5 1 7;1112 E5 1 7;1112 G5 1 7;1120 C6 1 7;1120 E6 1 7;1122 A5 1 7;1122 C6 1 7;1126 E5 1 7;1126 G5 1 7;1132 E5 1 7;1132 G#5 1 7;1136 F5 1 7;1136 A5 1 7;1138 C6 1 7;1138 F6 1 7;1142 C6 1 7;1142 F6 1 7;1144 F5 1 7;1144 A5 1 7;1152 G5 1 7;1152 B5 1 7;1154 D6 1 7;1154 F6 1 7;1158 D6 1 7;1158 F6 1 7;1160 D6 1 7;1160 F6 1 7;1162 C6 1 7;1162 E6 1 7;1165 B5 1 7;1165 D6 1 7;1168 G5 1 7;1168 C6 1 7;1170 E5 1 7;1174 E5 1 7;1176 C5 1 7;0 D4 1 7;2 D4 1 7;6 D4 1 7;10 D4 1 7;12 D4 1 7;24 G4 1 7;32 G4 1 7;38 E4 1 7;44 C4 1 7;50 F4 1 7;54 G4 1 7;58 F#4 1 7;60 F4 1 7;64 E4 1 7;66 C5 1 7;69 E5 1 7;72 F5 1 7;76 D5 1 7;78 E5 1 7;82 C5 1 7;86 A4 1 7;88 B4 1 7;90 G4 1 7;96 G4 1 7;102 E4 1 7;108 C4 1 7;114 F4 1 7;118 G4 1 7;122 F#4 1 7;124 F4 1 7;128 E4 1 7;130 C5 1 7;133 E5 1 7;136 F5 1 7;140 D5 1 7;142 E5 1 7;146 C5 1 7;150 A4 1 7;152 B4 1 7;154 G4 1 7;160 C4 1 7;166 G4 1 7;172 C5 1 7;176 F4 1 7;182 C5 1 7;184 C5 1 7;188 F4 1 7;192 C4 1 7;198 E4 1 7;204 G4 1 7;206 C5 1 7;220 G4 1 7;224 C4 1 7;230 G4 1 7;236 C5 1 7;240 F4 1 7;246 C5 1 7;248 C5 1 7;252 F4 1 7;256 C4 1 7;260 G#4 1 7;266 A#4 1 7;278 G4 1 7;280 G4 1 7;284 C4 1 7;288 C4 1 7;294 G4 1 7;300 C5 1 7;304 F4 1 7;310 C5 1 7;312 C5 1 7;316 F4 1 7;320 C4 1 7;326 E4 1 7;332 G4 1 7;334 C5 1 7;348 G4 1 7;352 C4 1 7;358 G4 1 7;364 C5 1 7;368 F4 1 7;374 C5 1 7;376 C5 1 7;380 F4 1 7;384 C4 1 7;388 G#4 1 7;394 A#4 1 7;400 C5 1 7;406 G4 1 7;408 G4 1 7;412 C4 1 7;416 G#3 1 7;422 D#4 1 7;428 G#4 1 7;432 G4 1 7;438 C4 1 7;444 G3 1 7;448 G#3 1 7;454 D#4 1 7;460 G#4 1 7;464 G4 1 7;470 C4 1 7;476 G3 1 7;480 G#3 1 7;486 D#4 1 7;492 G#4 1 7;496 G4 1 7;502 C4 1 7;508 G3 1 7;512 D4 1 7;514 D4 1 7;518 D4 1 7;522 D4 1 7;524 D4 1 7;536 G4 1 7;544 G4 1 7;550 E4 1 7;556 C4 1 7;562 F4 1 7;566 G4 1 7;570 F#4 1 7;572 F4 1 7;576 E4 1 7;578 C5 1 7;581 E5 1 7;584 F5 1 7;588 D5 1 7;590 E5 1 7;594 C5 1 7;598 A4 1 7;600 B4 1 7;602 G4 1 7;608 G4 1 7;614 E4 1 7;620 C4 1 7;626 F4 1 7;630 G4 1 7;634 F#4 1 7;636 F4 1 7;640 E4 1 7;642 C5 1 7;645 E5 1 7;648 F5 1 7;652 D5 1 7;654 E5 1 7;658 C5 1 7;662 A4 1 7;664 B4 1 7;666 G4 1 7;672 C4 1 7;678 F#4 1 7;680 G4 1 7;684 C5 1 7;688 F4 1 7;692 F4 1 7;696 C5 1 7;698 C5 1 7;700 F4 1 7;704 D4 1 7;710 F4 1 7;712 G4 1 7;716 B4 1 7;720 G4 1 7;724 G4 1 7;728 C5 1 7;730 C5 1 7;732 G4 1 7;736 C4 1 7;742 F#4 1 7;744 G4 1 7;748 C5 1 7;752 F4 1 7;756 F4 1 7;760 C5 1 7;762 C5 1 7;764 F4 1 7;768 G4 1 7;774 G4 1 7;776 G4 1 7;778 A4 1 7;781 B4 1 7;784 C5 1 7;788 G4 1 7;792 C4 1 7;800 C4 1 7;806 F#4 1 7;808 G4 1 7;812 C5 1 7;816 F4 1 7;820 F4 1 7;824 C5 1 7;826 C5 1 7;828 F4 1 7;832 D4 1 7;838 F4 1 7;840 G4 1 7;844 B4 1 7;848 G4 1 7;852 G4 1 7;856 C5 1 7;858 C5 1 7;860 G4 1 7;864 C4 1 7;870 F#4 1 7;872 G4 1 7;876 C5 1 7;880 F4 1 7;884 F4 1 7;888 C5 1 7;890 C5 1 7;892 F4 1 7;896 G4 1 7;902 G4 1 7;904 G4 1 7;906 A4 1 7;909 B4 1 7;912 C5 1 7;916 G4 1 7;920 C4 1 7;928 G#3 1 7;934 D#4 1 7;940 G#4 1 7;944 G4 1 7;950 C4 1 7;956 G3 1 7;960 G#3 1 7;966 D#4 1 7;972 G#4 1 7;976 G4 1 7;982 C4 1 7;988 G3 1 7;992 G#3 1 7;998 D#4 1 7;1004 G#4 1 7;1008 G4 1 7;1014 C4 1 7;1020 G3 1 7;1024 D4 1 7;1026 D4 1 7;1030 D4 1 7;1034 D4 1 7;1036 D4 1 7;1048 G4 1 7;1056 C4 1 7;1062 F#4 1 7;1064 G4 1 7;1068 C5 1 7;1072 F4 1 7;1076 F4 1 7;1080 C5 1 7;1082 C5 1 7;1084 F4 1 7;1088 D4 1 7;1094 F4 1 7;1096 G4 1 7;1100 B4 1 7;1104 G4 1 7;1108 G4 1 7;1112 C5 1 7;1114 C5 1 7;1116 G4 1 7;1120 C4 1 7;1126 F#4 1 7;1128 G4 1 7;1132 C5 1 7;1136 F4 1 7;1140 F4 1 7;1144 C5 1 7;1146 C5 1 7;1148 F4 1 7;1152 G4 1 7;1158 G4 1 7;1160 G4 1 7;1162 A4 1 7;1165 B4 1 7;1168 C5 1 7;1172 G4 1 7;1176 C4 1 7;:</span><br></pre></td></tr></tbody></table></figure>
+<p>That's a lot~</p>
+<p>Let's break down the format of Online Sequencer music score:</p>
+<ul>
+<li><code>Online Sequencer:616413:</code> is useless in our situation, therefore should be removed</li>
+<li><code>0 F#5 1 7;</code> is the key. <code>0</code> means the time position, or the beat, of the note; <code>F#5</code> is the pitch of the note; <code>1</code> is the duration of the note; <code>7</code> is the type of instrument when playing. Every note in Online Sequencer's music score is in this format, separated by semicolon</li>
+<li>Also, note that there's one <code>:</code>, it should be removed as well</li>
+</ul>
+<p>Then let's write the code to convert the Online Sequencer music score to Python dictionary.</p>
+<p>We have to remove the beginning and the ending part from the Online Sequencer music score first, then split every note in the music score regarding to the <code>;</code>.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">song = song_file.split(<span class="string">":"</span>)[<span class="number">2</span>]</span><br><span class="line">notes_list = song.split(<span class="string">";"</span>)[:-<span class="number">1</span>]</span><br></pre></td></tr></tbody></table></figure>
+<p>Next, we extract the beat of the note, setting it to the key of the dictionary. Note's pitch, duration and instrument type will be set as the value:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">notes_dict = {}</span><br><span class="line"><span class="keyword">for</span> note <span class="keyword">in</span> notes_list:</span><br><span class="line">    note_parts = note.split()</span><br><span class="line">    beat = <span class="built_in">float</span>(note_parts[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># If the beat is added to the dictionary for the first time</span></span><br><span class="line">    <span class="keyword">if</span> beat <span class="keyword">not</span> <span class="keyword">in</span> notes_dict:</span><br><span class="line">        <span class="comment"># Add the note information to the dictionary</span></span><br><span class="line">        notes_dict[beat] = note_parts[<span class="number">1</span>:]</span><br><span class="line">    <span class="comment"># If the beat has already been added to the dictionary</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># If the current note's pitch is higher than the note's pitch in the dictionary</span></span><br><span class="line">        <span class="keyword">if</span> tones[note_parts[<span class="number">1</span>]] &gt; tones[notes_dict[beat][<span class="number">0</span>]]:</span><br><span class="line">            <span class="comment"># Replace the previous note by the current note</span></span><br><span class="line">            notes_dict[beat] = note_parts[<span class="number">1</span>:]</span><br></pre></td></tr></tbody></table></figure>
+<p>Since there is only one buzzer playing, it cannot play multiple notes at the same time. When there's more than one note at the same time position, we can only choose to play the note with the highest pitch.</p>
+<p>At this point, we have a Python dictionary as our music score.</p>
+<h2 id="playing-audio"><a class="markdownIt-Anchor" href="#playing-audio"></a> Playing Audio</h2>
+<p>Making the buzzer produce sound is simple. The code is as follows:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">buzzer.freq(tones[tone])</span><br><span class="line">time.sleep(duration)</span><br></pre></td></tr></tbody></table></figure>
+<p><code>buzzer.freq()</code> will set the frequency of the buzzer, and <code>time.sleep()</code> pauses the program for a moment (in our case, it's used to hold the note for its duration).</p>
+<h2 id="playing-the-score"><a class="markdownIt-Anchor" href="#playing-the-score"></a> Playing the Score</h2>
+<p>Combining the previous two points together, we can play the notes from the dictionary one by one. But before that, we have to set the playing speed of the music score.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bpm = <span class="number">199</span>  <span class="comment"># beat per minute</span></span><br><span class="line">time_signature = [<span class="number">4</span>, <span class="number">4</span>]</span><br><span class="line">beat_duration = (<span class="number">60</span> / bpm) / time_signature[<span class="number">0</span>]  <span class="comment"># duration per beat</span></span><br></pre></td></tr></tbody></table></figure>
+<p>As we discussed in the <a href="#aside">Aside on music theory</a>, the time signature determines how many beats are in each measure and which kind of note gets one beat. From the <a target="_blank" rel="noopener" href="https://onlinesequencer.net/25966">website</a> that we get Super Mario music, we can tell it have the bpm of 199 and time signature of 4/4.</p>
+<p>With a quick calculation, we can determine that each beat's duration is <code>(60 / 199) / 4</code>.</p>
+<p>Continuing with the code to play the score:</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Start playing from the 0th beat</span></span><br><span class="line">current_beat = <span class="built_in">float</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Play until the time position of the last note</span></span><br><span class="line"><span class="keyword">while</span> current_beat &lt;= <span class="built_in">max</span>(notes_dict.keys()):   </span><br><span class="line">    <span class="comment"># Extract the duration (of beats) of the current note, multiply it with the duration of every beat, get the duration (of seconds) of the current note</span></span><br><span class="line">    note_duration = <span class="built_in">float</span>(notes_dict[current_beat][<span class="number">1</span>]) * beat_duration</span><br><span class="line"> </span><br><span class="line">    <span class="comment"># If the current time position has a note, then play it</span></span><br><span class="line">    <span class="keyword">if</span> current_beat <span class="keyword">in</span> notes_dict:</span><br><span class="line">        note_name = notes_dict[current_beat][<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(current_beat) + <span class="string">"th beat: playing note "</span> + note_name + <span class="string">", duration is "</span> + <span class="built_in">str</span>(note_duration) + <span class="string">" seconds"</span>)</span><br><span class="line">        buzzer.freq(tones[note_name])</span><br><span class="line">        time.sleep(note_duration)</span><br><span class="line"></span><br><span class="line">        current_beat += <span class="built_in">float</span>(notes_dict[current_beat][<span class="number">1</span>])</span><br><span class="line">        buzzer.freq(<span class="number">50000</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># If the current time position has no note, then pause</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="built_in">str</span>(current_beat) + <span class="string">"th beat: pause, duration is "</span> + <span class="built_in">str</span>(note_duration) + <span class="string">" seconds"</span>)</span><br><span class="line">        buzzer.freq(<span class="number">50000</span>)</span><br><span class="line">        time.sleep(beat_duration)</span><br><span class="line">        current_beat += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Finished playing"</span>)</span><br><span class="line">buzzer.freq(<span class="number">50000</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>And with that, our simple program for playing a music score is complete.</p>
+<p>Final version of code can be found in <a target="_blank" rel="noopener" href="https://github.com/Cytrogen/Music_Player_Pico">this repo</a>.</p>
+</div></article></div></main><footer><div class="paginator"><a class="prev" href="369e.html">PREV POST</a><a class="next" href="d601.html">NEXT POST</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/9781.html" data-full-url="https://cytrogen.icu/posts/9781.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = 'Expand';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? 'Expand' : 'Fold';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = 'Copy';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = 'Copied';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = 'Copy failed';
+        
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

@@ -1,0 +1,8 @@
+# Allow all friendly crawlers
+User-agent: *
+Allow: /
+
+# Disallow specific directories
+
+# Point all crawlers to the sitemap
+Sitemap: https://cytrogen.icu/sitemap.xml

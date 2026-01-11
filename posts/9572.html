@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>尝试去中心化和去 App 化 · Cytrogen 的个人博客</title><meta name="description" content="如标题，我想要尝试慢慢地去中心化、去 App 化。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/9572.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">尝试去中心化和去 App 化</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-12-23T02:18:18.000Z">12/22/2025</time></div><div class="post-content"><html><head></head><body><p>如标题，我想要尝试慢慢地去中心化、去 App 化。</p>
+<span id="more"></span>
+<h2 id="去中心化"><a class="markdownIt-Anchor" href="#去中心化"></a> 去中心化</h2>
+<p>我尝试了一下使用 PixelFed 和 Mastodon 来代替 Instagram 和推特（我依然拒绝叫它 X）。</p>
+<p>PixelFed 给我整体的感觉是还未完善，可以发现整体设计有许多瑕疵。比如我最开始将自己的账户设置为私密账户，发的一些猫咪照片自然也是私密的，但是后续将账户放开、照片却无法再公开。</p>
+<p>Mastodon 我在上个学期其实就有用过。</p>
+<p>我校的日语部门和日本的信州大学有合作关系，有一些课需要让我们互相投递影像、彼此学习对方的语言。我不知道具体是哪一方搭建的服务器，但就是有人专门为此搭建了一个 Mastodon 服务器：学生创建自己的账户、在服务器内上传自己的视频，另一个学校的学生看到后就可以回复了。</p>
+<p>你可以用这些链接关注我：</p>
+<figure class="highlight plaintext"><figcaption><span>PixelFed</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://pxlmo.com/Cytrogen</span><br></pre></td></tr></tbody></table></figure>
+<div class="danger warning"><p>值得注意的是，我加入的这个 PixelFed 服务器因为不明原因将我的账户 unlisted 了，也就是不开放。我发布的许多照片目前看不到，但是月刊内嵌入的可以看到。</p>
+<p>暂且不知道什么时候会开放。</p>
+</div>
+<figure class="highlight plaintext"><figcaption><span>Mastodon</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://m.otter.homes/@Cytrogen</span><br></pre></td></tr></tbody></table></figure>
+<p>我最近看到许多博客站主使用 Telegram 发布短想法，然后抓取这些内容、生成一个索引网页供大家访问。其实 PixelFed 和 Mastodon 也可以做到这一点，甚至说更方便些。比方说 PixelFed 就可以直接生成一个自己账户的 feed 页面。</p>
+<p>既然这些去中心化平台本就支持开放的 Feed 协议，<strong>与其让内容分散在各个站点，不如将它们收纳回自己的「主阵地」</strong>。于是我打算在这个博客网站里嵌入一个自己的照片和短想法合集。</p>
+<p>我也考虑过重复性。现在的日记片段其实就有一点短想法合集的感觉。或许我可以全面迁移到 Mastodon，这也可以解决我先前提到的「外出时无法在博客里写日记」（见 <a href="/posts/31df.html#%E6%97%A5%E8%AE%B0%E7%89%87%E6%AE%B5">十一月二十九日</a>）的问题：日记不需要再写在 Google Keep 内，直接在 Mastodon 里写好，然后要部署新的月刊时直接在构建时拉取这个月的 Mastodon 内容、自动添加到页面内。</p>
+<p>我还在考虑在 PixelFed 和 Mastodon 上发什么类型的内容最好：</p>
+<ul>
+<li>
+<p>PixelFed 是专门发送图片的，如果我想要在博客网页上使用这个图片，是不是应该嵌入这个图片进来呢？因为我不想要在互联网上重复上传同一个图片。</p>
+</li>
+<li>
+<p>Mastodon 和博客网站上的「日记片段」是否会有冲突？现在的「日记片段」有些是短想法，有些是日常分享，我认为可以分成两类。那么在 Mastodon 上应该写短想法还是日常分享？</p>
+<p>这样一想又觉得，自己好像花在日常分享上的精力更多，那是不是自己的博客也可以分享日常？这样月刊的内容就不需要这么多这么长？</p>
+</li>
+</ul>
+<p>最后我的方案是，略微改动一下月刊内的「日记片段」板块。我决定尝试一个全新的写日记方式：</p>
+<ol>
+<li>
+<p>如果是很长的日记，例如一天的流水账、一些很长的想法，我会直接当做独立文章发布。</p>
+<p>如果只是想着去写高质量的博客，月刊的「日记片段」会被我的分享欲压垮的。直接当做文章发布，然后让月刊做链接的工作就好。这样我的标准也会降低许多，写博客也不需要考虑什么质不质量、高不高大上了……<em> 明明是我的博客！</em></p>
+</li>
+<li>
+<p>如果是短想法，我会发到 Mastodon 上，博客会自动抓取和嵌入这些嘟文。</p>
+<p>这是因为 Mastodon 与「日记片段」的定位有些冲突。我认为既然博客是合集，Mastodon 就可以只做素材库。基于此，我会将嘟文嵌入到 <code>details</code> 块内，并以发布的时间排序，因此它们的前面一定会有时间。</p>
+</li>
+<li>
+<p>如果是照片，我会发到 PixelFed 上。和 Mastodon 同样，博客也会自动嵌入这些照片、时间和 <code>figcaption</code>。</p>
+<p>因为我不想要在互联网上重复留下冗余的脚印，所以嵌入的照片不会是自部署的。意味着如果我加入的 PixelFed 服务器崩了，这些照片也会裂。</p>
+</li>
+</ol>
+<h4 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h4>
+<p>关于如何将这些内容嵌入 <code>details</code> 块，核心逻辑很简单：自动抓取并整合我在 Mastodon 和 PixelFed 上发布的特定标签的帖子，然后将它们按月和天组织成日记，并呈现在我的博客文章中。</p>
+<p>主要由四个部分协同工作：</p>
+<ul>
+<li>数据抓取</li>
+<li>智能渲染</li>
+<li>内容注入</li>
+<li>样式表现</li>
+</ul>
+<p>一听很唬人，实际上没有，我大概说说：</p>
+<ol>
+<li>
+<p>数据抓取是所有功能的起点。</p>
+<p>当 Hexo 在构建一篇含有 <code>{% diary_aggregator %}</code> 标签的文章时，脚本会被触发、读取我在 <code>_config.yml</code> 中配置的 Mastodon 和 PixelFed 的服务器地址、用户 ID 和访问令牌（它们俩使用的是同一套 API）。</p>
+<p>连接到这两个平台的 API 后，为了提高效率，脚本会通过 <code>since_id</code> 机制，只请求自上次成功抓取以来发布的新帖子。</p>
+<p>抓取到帖子后，脚本会检查每个帖子是否包含特定的日记标签。只有带这些标签的帖子才会被视为有效的日记条目。</p>
+<p>接着将这些新的、有效的日记条目，与一个位于 <code>source/_data/.diary-cache.json</code> 的缓存文件中的旧条目合并。</p>
+<p>合并后，所有条目会根据日期重新排序并去重，然后回写到缓存文件中，确保数据是最新的、完整的。</p>
+<p>这个步骤的核心职责是确保本地拥有所有日记条目的最新数据，它本身并不关心最终页面长什么样。</p>
+</li>
+<li>
+<p>在更新完缓存后，<code>diary_aggregator</code> 脚本会立刻读取当前正在处理的文章的原始内容。</p>
+<p>它会使用正则表达式查找所有我手动编写的日记占位符，例如 <code>{% details 十二月十八日 diary_sections %}</code>（我写了一个 <code>details</code> 标签，该标签会渲染 <code>&lt;details class="diary_section"&gt;&lt;summary&gt;十二月十八日&lt;/summary&gt;&lt;/details&gt;</code>）。</p>
+<p>脚本会从这些占位符中提取出日期标题（如「十二月十八日」），并将它们记录在一个集合中。这个集合代表了「所有已经由我手动安排好的日期」。</p>
+<p>接下来，脚本从缓存文件中读取当前月份的所有日记条目，并按天分组。然后它会进行一次对比：</p>
+<ul>
+<li>
+<p>如果某天的日记（比如「十二月十九日」）在缓存里存在，但在「手动日期集合」中不存在，脚本就认为这是一个「新」的、无人管理的日期。于是，它会为这一天自动生成一个完整、带内容的 <code>&lt;details&gt;</code> 折叠区块。</p>
+</li>
+<li>
+<p>如果某天的日记（比如「十二月十八日」）在缓存里存在，并且在「手动日期集合」中也存在，脚本就认为这个日期已经被我手动处理了，它就会跳过这个日期，不生成任何 HTML。</p>
+</li>
+</ul>
+<p>最后，<code>{% diary_aggregator %}</code> 标签只会输出那些无人管理的日期的 <code>&lt;details&gt;</code> 区块，或者在所有日期都已被手动管理的情况下输出一个空字符串。</p>
+</li>
+<li>
+<p>不过那些被我手动创建的，还没有被处理，所以还需要写一个注入器。</p>
+<p>在每篇文章即将被渲染成 HTML 之前（<code>before_post_render</code> 事件）运行。它只对 front-matter 中设置了 <code>diary_month</code> 的文章生效。</p>
+<p>注入器会扫描文章内容，寻找 <code>{% details ... diary_sections %}</code> 这样的结构。对于每一个找到的占位符，它会提取出日期标题（例如「十二月十八日」），然后去 <code>.diary-cache.json</code> 缓存文件中查找属于这一天的所有日记条目。</p>
+<p>接着将找到的条目格式化成 HTML（包括时间、文字内容、图片等），然后将这些 HTML 注入到 <code>details</code> 标签的内部。</p>
+</li>
+<li>
+<p>最后，所有这些 HTML 元素如何显示，是由主题的样式文件决定的。</p>
+</li>
+</ol>
+<p>实现讲完了，大家想要复现的话，需要根据自己使用的框架来调整。因为我还在各种调整，就先不把代码放上来了。</p>
+<p>总之，实际效果到这个月底大家就能看到啦（不过因为某些原因，可能有人已经看到了……）。虽然话是这么说的，但其实这些改动更多是只有我才能看到，因为实际效果和过去的「日记片段」区别并不大。</p>
+<h2 id="去-app-化"><a class="markdownIt-Anchor" href="#去-app-化"></a> 去 App 化</h2>
+<p>说完了「去中心化」，现在来说说「去 App 化」。因为 <a target="_blank" rel="noopener" href="https://blog.calebjay.com/posts/dont-download-apps/">这篇文章</a>，我想要慢慢卸载手机里的一些 App、使用它们的网页版本。</p>
+<p>我第一个下刀的就是 Instagram。我对这个 App 真是又爱又恨：我很喜欢它的 Story 功能，但是 App 内那群人给我带来的回忆实在是不欢快。当然，这个 App 本身也有很多问题。</p>
+<p>只需要在浏览器内打开该产品的网页版，然后在菜单里选择「安装为 App」即可。以后在手机首页上点击对应的图标就可以打开使用。</p>
+<p>接着我将推特、Facebook、Reddit、LinkedIn 等 App 都卸载，改用网页 App 了。有一些产品是必须使用 App 才行，例如 WhatsApp 这样依赖于手机系统底层的软件。</p>
+<p>本来想着先用个几天看看情况，结果实施的当天就出现了一个问题：室友在 Instagram 上发了一个投票，我也想参与其中，结果网页 App 可以看到这个投票栏，点击后却会显示说「需要下载 App 才可以使用」。</p>
+<p>更有甚者，移动端根本找不到网页 App，比如国内的许多产品 —— <em> 凭什么！</em></p>
+<p>PWA 一个特点是，通知没有那么简单发出来。我认为这是一个双刃剑：如果有急事找你，没有通知就会很麻烦，不过不想被通知轰炸的话，这又是一个好事。只是说，Instagram 和 Facebook 这样的产品本身就不是 IM 类 App，<strong>如果真有人很急找我，那还是乖乖给我发短信或者来电吧</strong>。</p>
+<p>还有一个问题是，我发现我的手机如果关机了或者开启了省电模式，放在桌面上的 PWA 都会被清除，很可能是因为 Edge 浏览器被 kill 了。目前我还不知道有什么办法可以解决这个问题。</p>
+<p>不过拜这所赐，我发现我的手机里根本不需要很多 App—— 每次桌面被清后，我会想要添加回来的才是那些对我来说重要的 App。</p>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="5097.html">上一篇</a><a class="next" href="d33e.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/9572.html" data-full-url="https://cytrogen.icu/posts/9572.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

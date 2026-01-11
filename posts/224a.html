@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【8】：用于人工智能和开发项目的 Python · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程的第八篇学习笔记，聚焦于将 Python 应用于人工智能和实际开发项目。笔记首先介绍了 Python 的编码规范（PEP8）、单元测试、包的创建等软件工程最佳实践。接着，文章讲解了如何使用 Flask 微框架来部署网络应用，涵盖了路由、请求处理和错误处理等核心功能。最后，通过一个完整的毕业项目案例，详细演示了如何利用 Watson NLP 库创建一个情感检测 AI 应用，并将其打包、测试，最终通过 Flask 部署为一个功能完善的网络服务。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/224a.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">IBM 全栈开发【8】：用于人工智能和开发项目的 Python</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-05-19T22:49:00.000Z">5/19/2024</time></div><div class="post-content"><html><head></head><body><p>近期在学习 IBM 全栈应用开发微学士课程，故此记录学习笔记。</p>
+<span id="more"></span>
+<h1 id="1-python编码实践和打包概念"><a class="markdownIt-Anchor" href="#1-python编码实践和打包概念"></a> 1. Python 编码实践和打包概念</h1>
+<h2 id="11-开发生命周期"><a class="markdownIt-Anchor" href="#11-开发生命周期"></a> 1.1. 开发生命周期</h2>
+<p>应用程序开发生命周期分为七个阶段，包括：</p>
+<ul>
+<li>收集需求： 收集应用程序的用户、业务和技术需求。</li>
+<li>分析： 分析需求。</li>
+<li>设计： 设计完整的解决方案。</li>
+<li>编码和测试： 构建和测试应用程序的不同组件。</li>
+<li>用户和系统测试： 用户测试应用程序的可用性，进行系统集成测试和性能测试。</li>
+<li>生产： 应用程序可供所有最终用户使用。</li>
+<li>维护： 升级或修复任何用户或系统问题。</li>
+</ul>
+<h2 id="12-pep8"><a class="markdownIt-Anchor" href="#12-pep8"></a> 1.2. PEP8</h2>
+<p>PEP8 关于代码可读性的指导原则包括以下内容：</p>
+<ul>
+<li>缩进四个空格。</li>
+<li>空行用于分隔函数和类。</li>
+<li>操作符周围和逗号后的空格。</li>
+</ul>
+<p>PEP8 的编码规范具有一致性和可管理性，其中包括：</p>
+<ul>
+<li>在函数内添加较大的代码块。</li>
+<li>使用带下划线的小写字母命名函数和文件。</li>
+<li>使用驼峰大写为类命名。</li>
+<li>用大写字母命名常量，单词之间用下划线分隔。</li>
+</ul>
+<h2 id="13-单元测试"><a class="markdownIt-Anchor" href="#13-单元测试"></a> 1.3. 单元测试</h2>
+<p>单元测试是一种验证代码单元是否按设计运行的方法。在与最终代码库集成之前，必须测试每个单元。</p>
+<h4 id="131-例子"><a class="markdownIt-Anchor" href="#131-例子"></a> 1.3.1. 例子</h4>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">substract</span>(<span class="params">a,b</span>):</span><br><span class="line">    <span class="keyword">return</span> a - b</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> add, substract</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestMain</span>(unittest.TestCase):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_add</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.assertEqual(add(<span class="number">6</span>,<span class="number">4</span>),<span class="number">10</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_substract</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.assertEqual(substract(<span class="number">6</span>,<span class="number">4</span>),<span class="number">3</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="14-创建包"><a class="markdownIt-Anchor" href="#14-创建包"></a> 1.4. 创建包</h2>
+<ol>
+<li>以软件包名称创建文件夹。</li>
+<li>创建一个空的 <code>__init__.py</code> 文件。</li>
+<li>创建所需的模块。</li>
+<li>在 <code>__init__.py</code> 文件中，添加代码以引用软件包中需要的模块。</li>
+</ol>
+<p>可以在 Python shell 中通过 bash 终端验证软件包。</p>
+<h2 id="15-其他"><a class="markdownIt-Anchor" href="#15-其他"></a> 1.5. 其他</h2>
+<p>关于网络应用程序，以下两种说法是正确的：</p>
+<blockquote>
+<p>所有网络应用程序都是 API。</p>
+<p>网络应用支持 CRUD 操作。</p>
+</blockquote>
+<p>在哪个测试阶段验证应用程序在更大框架内的功能？：</p>
+<blockquote>
+<p>集成测试。</p>
+</blockquote>
+<p>PyLint 是一款 Python 静态代码分析工具。</p>
+<p>在为一个管理活动的应用程序收集需求时，客户提到项目的目标是提高客户保留率。<br>
+<strong>业务需求</strong> 描述了上述情况。</p>
+<h1 id="2-使用flask部署网络应用程序"><a class="markdownIt-Anchor" href="#2-使用flask部署网络应用程序"></a> 2. 使用 Flask 部署网络应用程序</h1>
+<h2 id="21-flask"><a class="markdownIt-Anchor" href="#21-flask"></a> 2.1. Flask</h2>
+<p>Flask 是一个微型框架，只需最少的依赖即可运行。Flask 具有调试服务器、路由、模板和错误处理等功能，可用于构建网站。Flask 可以作为 python 软件包安装。与 Flask 相比，Django 是一个全栈框架。你可以通过实例化 Flask 类来创建服务器。</p>
+<p>Flask 为每次客户端调用提供一个请求和一个响应对象。可以从 Flask 请求中获取更多信息，如标题。您可以解析请求对象，获取查询参数、正文和其他参数。您甚至可以在将响应发送回客户端之前，在响应对象上设置状态。</p>
+<p>可以使用动态路由创建 RESTful 端点。</p>
+<p>HTTP 状态代码有多种类型，分别显示成功、用户错误或服务器错误。Flask 在响应时会隐式返回成功代码 200。您也可以明确提供状态代码。Flask 还提供应用程序级的错误处理程序。</p>
+<p>Flask 支持 CRUD。</p>
+<p>可以使用 Flask 渲染静态和动态模板。</p>
+<h4 id="211-代码案例"><a class="markdownIt-Anchor" href="#211-代码案例"></a> 2.1.1. 代码案例</h4>
+<p>实例化 Flask：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br></pre></td></tr></tbody></table></figure>
+<p><code>@app.route</code> 装饰器：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">'/'</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"&lt;b&gt;My first Flask application in action!&lt;/b&gt;"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>400 错误：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">'/'</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_response</span>():</span><br><span class="line">    query = request.args.get(<span class="string">'q'</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> query:</span><br><span class="line">        <span class="keyword">return</span> {<span class="string">"error_message"</span>: <span class="string">"Input parameter missing"</span>}, <span class="number">422</span></span><br><span class="line">    resource = fetch_from_database(query)</span><br><span class="line">    <span class="keyword">if</span> resource:</span><br><span class="line">        <span class="keyword">return</span> {<span class="string">"message"</span>: resource}</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> {<span class="string">"error_message"</span>: <span class="string">"Resource not found"</span>}, <span class="number">404</span></span><br></pre></td></tr></tbody></table></figure>
+<h1 id="3-使用flask创建人工智能应用并进行部署"><a class="markdownIt-Anchor" href="#3-使用flask创建人工智能应用并进行部署"></a> 3. 使用 Flask 创建人工智能应用并进行部署</h1>
+<div class="danger">
+<p><code>Watson NLP</code> 库被嵌入到实验网页中，外部工具无法访问。</p>
+</div>
+<h2 id="31-项目概述"><a class="markdownIt-Anchor" href="#31-项目概述"></a> 3.1. 项目概述</h2>
+<p>在这个同行评分的毕业设计中，你将扮演一名软件工程师，需要开发一款基于人工智能的网络应用程序。您将分析情景并执行以下任务：</p>
+<ol>
+<li>克隆项目资源库。</li>
+<li>使用 <code>Watson NLP</code> 库创建一个情绪检测应用程序。</li>
+<li>格式化应用程序的输出。</li>
+<li>打包应用程序。</li>
+<li>在应用程序上运行单元测试。</li>
+<li>使用 Flask 对应用程序进行网络部署。</li>
+<li>纳入错误处理。</li>
+<li>运行静态代码分析。</li>
+</ol>
+<div class="github-card" data-github="ibm-developer-skills-network/oaqjp-final-project-emb-ai" data-width="400" data-height="150" data-theme="default"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+<p>在这个项目中，您将开发一个集成了 Embeddable Watson 人工智能库的网络应用程序。然后，您将提交相关截图供同行评审。</p>
+<h2 id="32-情景"><a class="markdownIt-Anchor" href="#32-情景"></a> 3.2. 情景</h2>
+<p>你被一家电子商务公司聘为软件工程师，负责创建一个基于人工智能的网络应用程序，对其特色产品的客户反馈进行分析。为实现这一要求，您将创建一个情感检测系统，处理客户以文本格式提供的反馈，并解读相关的情感表达。</p>
+<blockquote>
+<p>情感检测扩展了情感分析的概念，从语句中提取更细微的情感，如喜悦、悲伤、愤怒等，而不是情感分析所提供的简单极性。这使得情感检测成为一个非常重要的研究分支，企业将此类系统广泛用于基于人工智能的推荐系统、自动聊天机器人等。</p>
+</blockquote>
+<h4 id="321-详情"><a class="markdownIt-Anchor" href="#321-详情"></a> 3.2.1. 详情</h4>
+<p><code>Watson NLP</code> 库是预装在 Cloud IDE 框架中的可嵌入库。因此，无需将它们导入到你的代码中。你只需向库中的正确函数发送 post 请求，然后接收输出。</p>
+<p>这些可嵌入的人工智能库基于流行的人工智能模型，提供了各种基于 NLP 和语音的功能。</p>
+<p>使用 <code>Watson NLP</code> 库的 <code>Emotion Predict</code> 方法。访问该功能的 URL、Headers 和 Input json 格式如下。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL: 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'</span><br><span class="line">Headers: {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}</span><br><span class="line">Input json: { "raw_document": { "text": text_to_analyse } }</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><code>text_to_analyze</code> 被用作一个变量，用于保存需要分析的实际书面文本。</p>
+</blockquote>
+<ol>
+<li>
+<p>在项目根目录创建 <code>emotion_detection.py</code> 文件。</p>
+</li>
+<li>
+<p>创建 <code>emotion_detector</code> 方法用于运行情感检测。</p>
+<ul>
+<li>用于分析的文本会被存储在 <code>text_to_analyze</code> 变量中，并会被作为参数传入该方法内。</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">emotion_detector</span>(<span class="params">text_to_analyse: <span class="built_in">str</span></span>):</span><br><span class="line">URL = <span class="string">'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'</span></span><br><span class="line">Headers = { <span class="string">"grpc-metadata-mm-model-id"</span>: <span class="string">"emotion_aggregated-workflow_lang_en_stock"</span> }</span><br><span class="line">Input_Json = { <span class="string">"raw_document"</span>: { <span class="string">"text"</span>: text_to_analyse } }</span><br><span class="line">response = requests.post(url=URL, json=Input_Json, headers=Headers)</span><br><span class="line"><span class="keyword">return</span> response.json()</span><br></pre></td></tr></tbody></table></figure>
+<p>返回的内容：</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"emotionPredictions"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">         <span class="punctuation">{</span></span><br><span class="line">             <span class="attr">"emotion"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                 <span class="attr">"anger"</span><span class="punctuation">:</span> <span class="number">0.0132405795</span><span class="punctuation">,</span></span><br><span class="line">                 <span class="attr">"disgust"</span><span class="punctuation">:</span> <span class="number">0.0020517302</span><span class="punctuation">,</span></span><br><span class="line">                 <span class="attr">"fear"</span><span class="punctuation">:</span> <span class="number">0.009090992</span><span class="punctuation">,</span></span><br><span class="line">                 <span class="attr">"joy"</span><span class="punctuation">:</span> <span class="number">0.9699522</span><span class="punctuation">,</span></span><br><span class="line">                 <span class="attr">"sadness"</span><span class="punctuation">:</span> <span class="number">0.054984167</span></span><br><span class="line">             <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">             <span class="attr">"target"</span><span class="punctuation">:</span> <span class="string">""</span><span class="punctuation">,</span></span><br><span class="line">             <span class="attr">"emotionMentions"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                 <span class="punctuation">{</span></span><br><span class="line">                     <span class="attr">"span"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                         <span class="attr">"begin"</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"end"</span><span class="punctuation">:</span> <span class="number">26</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"text"</span><span class="punctuation">:</span> <span class="string">"i love this new technology"</span></span><br><span class="line">                     <span class="punctuation">}</span><span class="punctuation">,</span></span><br><span class="line">                     <span class="attr">"emotion"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">                         <span class="attr">"anger"</span><span class="punctuation">:</span> <span class="number">0.0132405795</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"disgust"</span><span class="punctuation">:</span> <span class="number">0.0020517302</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"fear"</span><span class="punctuation">:</span> <span class="number">0.009090992</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"joy"</span><span class="punctuation">:</span> <span class="number">0.9699522</span><span class="punctuation">,</span></span><br><span class="line">                         <span class="attr">"sadness"</span><span class="punctuation">:</span> <span class="number">0.054984167</span></span><br><span class="line">                     <span class="punctuation">}</span></span><br><span class="line">                 <span class="punctuation">}</span></span><br><span class="line">             <span class="punctuation">]</span></span><br><span class="line">         <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"producerId"</span><span class="punctuation">:</span> <span class="punctuation">{</span></span><br><span class="line">        <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"Ensemble Aggregated Emotion Workflow"</span><span class="punctuation">,</span> </span><br><span class="line">        <span class="attr">"version"</span><span class="punctuation">:</span> <span class="string">"0.0.1"</span></span><br><span class="line">    <span class="punctuation">}</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>调整输出，使其返回以下格式的内容：</p>
+<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"anger"</span><span class="punctuation">:</span> anger_score<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"disgust"</span><span class="punctuation">:</span> disgust_score<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"fear"</span><span class="punctuation">:</span> fear_score<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"joy"</span><span class="punctuation">:</span> joy_score<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"sadness"</span><span class="punctuation">:</span> sadness_score<span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"dominant_emotion"</span><span class="punctuation">:</span> <span class="string">"&lt;name of dominant emotion&gt;"</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">emotion_detector</span>(<span class="params">text_to_analyse: <span class="built_in">str</span></span>):</span><br><span class="line">    URL = <span class="string">'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'</span></span><br><span class="line">    Headers = { <span class="string">"grpc-metadata-mm-model-id"</span>: <span class="string">"emotion_aggregated-workflow_lang_en_stock"</span> }</span><br><span class="line">    Input_Json = { <span class="string">"raw_document"</span>: { <span class="string">"text"</span>: text_to_analyse } }</span><br><span class="line">    response = requests.post(url=URL, json=Input_Json, headers=Headers)</span><br><span class="line">    emotions = response.json()[<span class="string">'emotionPredictions'</span>][<span class="number">0</span>][<span class="string">'emotion'</span>]</span><br><span class="line">    items = emotions.items()</span><br><span class="line">    max_item = <span class="built_in">max</span>(items, key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">    emotions[<span class="string">'dominant_emotion'</span>] = max_item[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> emotions</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>创建 <code>EmotionDetection</code> Python 包。</p>
+<ol>
+<li>创建文件夹，命名为 <code>EmotionDetection</code>。</li>
+<li>创建 <code>__init__.py</code> 文件。</li>
+<li>在包的根目录下创建 <code>emotion_detector.py</code> 文件，其中包含我们之前创建的 <code>emotion_detector</code> 函数。</li>
+</ol>
+</li>
+<li>
+<p>在应用程序上运行单元测试。</p>
+<ol>
+<li>创建新文件 <code>test_emotion_detection.py</code>，调用包中的函数，并针对以下语句和主要情绪进行测试：
+<table>
+<thead>
+<tr>
+<th>语句</th>
+<th>主要情绪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I am glad this happened</td>
+<td>joy</td>
+</tr>
+<tr>
+<td>I am really mad about this</td>
+<td>anger</td>
+</tr>
+<tr>
+<td>I feel disgusted just hearing about this</td>
+<td>disgust</td>
+</tr>
+<tr>
+<td>I am so sad about this</td>
+<td>sadness</td>
+</tr>
+<tr>
+<td>I am really afraid that this will happen</td>
+<td>fear</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pytest</span><br><span class="line"><span class="keyword">from</span> EmotionDetection <span class="keyword">import</span> emotion_detector</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_emotion_detector</span>():</span><br><span class="line">    test_cases = [</span><br><span class="line">        (<span class="string">"I am glad this happened"</span>, <span class="string">"joy"</span>),</span><br><span class="line">        (<span class="string">"I am really mad about this"</span>, <span class="string">"anger"</span>),</span><br><span class="line">        (<span class="string">"I feel disgusted just hearing about this"</span>, <span class="string">"disgust"</span>),</span><br><span class="line">        (<span class="string">"I am so sad about this"</span>, <span class="string">"sadness"</span>),</span><br><span class="line">        (<span class="string">"I am really afraid that this will happen"</span>, <span class="string">"fear"</span>),</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> text, expected_emotion <span class="keyword">in</span> test_cases:</span><br><span class="line">        result = emotion_detector(text)</span><br><span class="line">        <span class="keyword">assert</span> result[<span class="string">'dominant_emotion'</span>] == expected_emotion, <span class="string">f"For text: <span class="subst">{text}</span>, expected: <span class="subst">{expected_emotion}</span>, but got: <span class="subst">{result[<span class="string">'dominant_emotion'</span>]}</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    pytest.main()</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>检查单元测试输出，验证单元测试是否通过。<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3.11 test_emotion_detection.py</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<p>使用 Flask 进行应用程序的网络部署：</p>
+<div class="danger">
+<p>注意：模板文件夹中的 <code>index.html</code> 文件和静态文件夹中的 <code>mywebscript.js</code> 文件已作为仓库的一部分提供。本项目无需对这些文件进行改动。</p>
+</div>
+<ol>
+<li>在项目根目录下创建 <code>server.py</code>。确保应用程序调用函数的 Flask 装饰器是 <code>\emotionDetector</code>。客户要求以下面示例中的格式显示输出结果（假设是对 "I love my life" 这句话进行评价）：<figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="attr">"anger"</span><span class="punctuation">:</span> <span class="number">0.006274985</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"disgust"</span><span class="punctuation">:</span> <span class="number">0.0025598293</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"fear"</span><span class="punctuation">:</span> <span class="number">0.009251528</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"joy"</span><span class="punctuation">:</span> <span class="number">0.9680386</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"sadness"</span><span class="punctuation">:</span> <span class="number">0.049744144</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"dominant_emotion"</span><span class="punctuation">:</span><span class="string">"joy"</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></tbody></table></figure>
+响应应当被格式化为：<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">For the given statement, the system response is 'anger': 0.006274985, 'disgust': 0.0025598293, 'fear': 0.009251528, 'joy': 0.9680386 and 'sadness': 0.049744144. The dominant emotion is joy.</span><br></pre></td></tr></tbody></table></figure>
+应用程序需要部署在 <code>localhost:5000</code> 上。</li>
+<li>在函数 <code>emotion_detector</code> 中加入错误处理功能，以管理用户的空白条目，即在没有任何输入的情况下运行应用程序。
+<ul>
+<li>访问服务器响应的 <code>status_code</code> 属性，以正确显示空白条目的系统响应。</li>
+<li>对于 <code>status_code = 400</code>，函数将返回相同的字典，但所有键的值均为 <code>None</code>。</li>
+</ul>
+</li>
+<li>修改 <code>server.py</code>，在 <code>dominant_emotion</code> 为 <code>None</code> 时加入错误处理。在这种情况下，响应应显示 <code>Invalid text! Please try again!.</code>。</li>
+</ol>
+<p><code>EmotionDetection/__init__.py</code>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">emotion_detector</span>(<span class="params">text_to_analyse: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> text_to_analyse:</span><br><span class="line">        <span class="keyword">return</span> {<span class="string">'anger'</span>: <span class="literal">None</span>, <span class="string">'disgust'</span>: <span class="literal">None</span>, <span class="string">'fear'</span>: <span class="literal">None</span>, <span class="string">'joy'</span>: <span class="literal">None</span>, <span class="string">'sadness'</span>: <span class="literal">None</span>, <span class="string">'dominant_emotion'</span>: <span class="literal">None</span>}</span><br><span class="line">        </span><br><span class="line">    URL = <span class="string">'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'</span></span><br><span class="line">    Headers = { <span class="string">"grpc-metadata-mm-model-id"</span>: <span class="string">"emotion_aggregated-workflow_lang_en_stock"</span> }</span><br><span class="line">    Input_Json = { <span class="string">"raw_document"</span>: { <span class="string">"text"</span>: text_to_analyse } }</span><br><span class="line">    response = requests.post(url=URL, json=Input_Json, headers=Headers)</span><br><span class="line">    <span class="keyword">if</span> response.status_code == <span class="number">400</span>:</span><br><span class="line">        <span class="keyword">return</span> {<span class="string">'anger'</span>: <span class="literal">None</span>, <span class="string">'disgust'</span>: <span class="literal">None</span>, <span class="string">'fear'</span>: <span class="literal">None</span>, <span class="string">'joy'</span>: <span class="literal">None</span>, <span class="string">'sadness'</span>: <span class="literal">None</span>, <span class="string">'dominant_emotion'</span>: <span class="literal">None</span>}</span><br><span class="line"></span><br><span class="line">    emotions = response.json()[<span class="string">'emotionPredictions'</span>][<span class="number">0</span>][<span class="string">'emotion'</span>]</span><br><span class="line">    items = emotions.items()</span><br><span class="line">    max_item = <span class="built_in">max</span>(items, key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line">    emotions[<span class="string">'dominant_emotion'</span>] = max_item[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> emotions</span><br></pre></td></tr></tbody></table></figure>
+<p><code>server.py</code>：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">This module defines a Flask application that provides an emotion detection API.</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, request, render_template</span><br><span class="line"><span class="keyword">from</span> EmotionDetection <span class="keyword">import</span> emotion_detector</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">'/emotionDetector'</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle_emotion_detector</span>():</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function handles GET requests to the /emotionDetector route. It</span></span><br><span class="line"><span class="string">    expects a textToAnalyze arg that contains the text to analyze. It returns</span></span><br><span class="line"><span class="string">    a string with all predicted emotions.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    predicted_emotions = emotion_detector(request.args.get(<span class="string">'textToAnalyze'</span>))</span><br><span class="line">    <span class="keyword">if</span> predicted_emotions[<span class="string">'dominant_emotion'</span>] <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'Invalid text! Please try again!'</span></span><br><span class="line"></span><br><span class="line">    response_text = (<span class="string">"For the given statement, "</span> +</span><br><span class="line">                     <span class="string">f"the system response is 'anger': <span class="subst">{predicted_emotions[<span class="string">'anger'</span>]}</span>, "</span></span><br><span class="line">                     <span class="string">f"'disgust': <span class="subst">{predicted_emotions[<span class="string">'disgust'</span>]}</span>, "</span> +</span><br><span class="line">                     <span class="string">f"'fear': <span class="subst">{predicted_emotions[<span class="string">'fear'</span>]}</span>, "</span></span><br><span class="line">                     <span class="string">f"'joy': <span class="subst">{predicted_emotions[<span class="string">'joy'</span>]}</span> "</span> +</span><br><span class="line">                     <span class="string">f"and 'sadness': <span class="subst">{predicted_emotions[<span class="string">'sadness'</span>]}</span>. "</span></span><br><span class="line">                     <span class="string">f"The dominant emotion is <span class="subst">{predicted_emotions[<span class="string">'dominant_emotion'</span>]}</span>."</span>)</span><br><span class="line">    <span class="keyword">return</span> response_text</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">"/"</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">render_index_page</span>():</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    This function renders index.html to the / route.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">'index.html'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.run(host=<span class="string">'localhost'</span>, port=<span class="number">5000</span>)</span><br></pre></td></tr></tbody></table></figure>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="5d57.html">上一篇</a><a class="next" href="b1c6.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/224a.html" data-full-url="https://cytrogen.icu/posts/224a.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

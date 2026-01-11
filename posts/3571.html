@@ -1,0 +1,707 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>IBM 全栈开发【2】：网页三剑客 · Cytrogen 的个人博客</title><meta name="description" content="本文是 IBM 全栈开发课程系列的学习笔记第二篇，内容围绕构建现代网页应用的核心技术——HTML、CSS和JavaScript展开。笔记首先概述了云编程的生态环境，涵盖前端框架、CI/CD、构建工具等关键概念。随后，文章深入探讨了HTML5的语义化标签与DOM操作，CSS的布局模式与框架分类（如Bootstrap、Tailwind），以及JavaScript的核心语法、浏览器API和DOM编程。这篇笔记为Web开发初学者系统性地梳理了“网页三剑客”的知识体系。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/3571.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">IBM 全栈开发【2】：网页三剑客</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-01-09T21:32:04.000Z">1/9/2024</time></div><div class="post-content"><html><head></head><body><p>近期在学习 IBM 全栈应用开发微学士课程，故此记录学习笔记。</p>
+<span id="more"></span>
+<h1 id="1-云编程入门"><a class="markdownIt-Anchor" href="#1-云编程入门"></a> 1. 云编程入门</h1>
+<p>SASS：语法强大的样式表（Syntactically Awesome Style Sheets）。</p>
+<ul>
+<li>CSS 的扩展</li>
+<li>可以使用变量、嵌套规则、内联导入等方法来保持条理清晰</li>
+<li>更快、更轻松地创建样式表</li>
+</ul>
+<p>LESS：动态样式语言（Leaner Style Sheets）。</p>
+<ul>
+<li>增强 CSS</li>
+<li>向后兼容 CSS</li>
+<li><code>Less.js</code> 是一种 JavaScript 工具，可将 LESS 样式转换为 CSS 样式</li>
+</ul>
+<h2 id="11-javascript框架"><a class="markdownIt-Anchor" href="#11-javascript框架"></a> 1.1. JavaScript 框架</h2>
+<h4 id="111-angular"><a class="markdownIt-Anchor" href="#111-angular"></a> 1.1.1. Angular</h4>
+<ul>
+<li>开源</li>
+<li>由 Google 维护</li>
+<li>让网站快速高效地呈现 HTML 页面</li>
+<li>内置路由器、表单验证工具</li>
+</ul>
+<h4 id="112-react"><a class="markdownIt-Anchor" href="#112-react"></a> 1.1.2. React</h4>
+<ul>
+<li>由 Facebook 开发和维护</li>
+<li>用于构建和渲染网页组件的 JavaScript 库</li>
+</ul>
+<h4 id="113-vue"><a class="markdownIt-Anchor" href="#113-vue"></a> 1.1.3. Vue</h4>
+<ul>
+<li>由社区维护，其主要重要是视图层，包括用户界面、按钮和可视化组件</li>
+<li>灵活、可扩展，能与其他框架很好地集成</li>
+<li>适应性强</li>
+</ul>
+<h2 id="12-代码库"><a class="markdownIt-Anchor" href="#12-代码库"></a> 1.2. 代码库</h2>
+<ul>
+<li>jQuery：简化 DOM 操作的 JavaScript 库</li>
+<li>Email-validator：验证电子邮件地址的构造是否正确有效</li>
+<li>Apache Commons Proper：可重复使用的 Java 组件</li>
+</ul>
+<h2 id="13-cicd"><a class="markdownIt-Anchor" href="#13-cicd"></a> 1.3. CI/CD</h2>
+<p>CI 指的是「持续集成」，CD 指的是「持续交付」或「持续部署」。</p>
+<p>CI / CD 是开发团队的最佳实践，可帮助团队更快地交付高质量的软件。</p>
+<p>通过构建自动化服务器实施，CI 确保所有代码组件顺利协同工作，而 CD 则确保代码在构建后自动部署到生产环境。</p>
+<h2 id="14-构建工具"><a class="markdownIt-Anchor" href="#14-构建工具"></a> 1.4. 构建工具</h2>
+<p>构建工具是一种将源代码转换为二进制文件以便安装或部署的工具。</p>
+<p>它在有许多相互连接的项目的环境中非常有用，因为它可以自动化构建过程，从而减少了手动操作的数量。</p>
+<ol>
+<li>构建自动化实用程序：通过编译和链接源代码来生成可执行文件</li>
+<li>构建自动化服务器：按计划或触发式执行构建自动化实用程序</li>
+</ol>
+<blockquote>
+<ul>
+<li>Webpack：模块打包器，将应用程序的所有模块打包到一起</li>
+<li>Babel：JavaScript 编译器，将 ES6 + 代码转换为向后兼容的 JavaScript 代码</li>
+<li>Web Assembly：一种可移植、体积小、加载快的二进制格式，可在 Web 上运行</li>
+</ul>
+</blockquote>
+<h4 id="141-云应用程序软件包管理器"><a class="markdownIt-Anchor" href="#141-云应用程序软件包管理器"></a> 1.4.1. 云应用程序软件包管理器</h4>
+<ul>
+<li>npm：Node.JS 的包管理器</li>
+<li>Maven：Java 的包管理器</li>
+<li>Gradle：Java 的构建自动化工具</li>
+<li>RubyGems：Ruby 的包管理器</li>
+<li>Pip：Python 的包管理器</li>
+<li>Conda：Python 的包管理器</li>
+</ul>
+<h2 id="15-api-路由和端点"><a class="markdownIt-Anchor" href="#15-api-路由和端点"></a> 1.5. API、路由和端点</h2>
+<p>API（应用程序编程接口）是一组定义了应用程序如何与其他软件组件进行交互的规则。它处理数据的请求和响应。</p>
+<p>路由是一种将 URL 映射到应用程序中的特定端点的方法。它是通往网站的路径。</p>
+<p>端点可以是 API 也可以是路由。它是应用程序中的特定位置，用于处理特定的请求。</p>
+<h2 id="16-orm"><a class="markdownIt-Anchor" href="#16-orm"></a> 1.6. ORM</h2>
+<p>ORM（对象关系映射）是一种将对象模型映射到关系模型的技术。它可用于连接数据库和检索正确的数据，并可隐藏查询数据库的部分复杂性。</p>
+<h1 id="2-html概述"><a class="markdownIt-Anchor" href="#2-html概述"></a> 2. HTML 概述</h1>
+<h2 id="21-html5规范"><a class="markdownIt-Anchor" href="#21-html5规范"></a> 2.1. HTML5 规范</h2>
+<ul>
+<li>定义了 HTML5，可以用 HTML 或者 XML 编写</li>
+<li>定义了一种可与早期 HTML 实现互操作的模式</li>
+</ul>
+<h2 id="22-html5的新特性"><a class="markdownIt-Anchor" href="#22-html5的新特性"></a> 2.2. HTML5 的新特性</h2>
+<ul>
+<li>改进了语义元素</li>
+<li>包括了 API，如网络存储、地理定位、拖放和多媒体</li>
+<li>对网页进行了分类</li>
+<li>开发了跨浏览器和跨平台的应用程序</li>
+<li>创造了引人入胜的用户体验</li>
+</ul>
+<p>关键主题：</p>
+<ul>
+<li>语法与 HTML4 和 XHTML1 文档兼容</li>
+<li>将用户代理和作者的一致性要求分开
+<ul>
+<li>用户代理：支持早期用户代理规范的元素和属性</li>
+<li>作者：删除了一些元素和属性以简化语言</li>
+</ul>
+</li>
+</ul>
+<h2 id="23-元素"><a class="markdownIt-Anchor" href="#23-元素"></a> 2.3. 元素</h2>
+<p>元素是 HTML 文档的构建块，由开始标记、结束标记和内容组成。</p>
+<p>HTML5 新增了许多元素，如：</p>
+<ul>
+<li><code>&lt;section&gt;</code>：定义文档中的节</li>
+<li><code>&lt;article&gt;</code>：定义独立的内容</li>
+<li><code>&lt;aside&gt;</code>：定义页面内容之外的内容</li>
+<li>等等等等</li>
+</ul>
+<h2 id="24-dom"><a class="markdownIt-Anchor" href="#24-dom"></a> 2.4. DOM</h2>
+<p>DOM（文档对象模型）是一种将 HTML 文档表示为树结构的方法。它定义了访问和操作 HTML 文档的标准。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>head</code></td>
+<td>返回文档的 <code>&lt;head&gt;</code> 元素</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td>设置或返回文档的 <code>&lt;title&gt;</code> 元素</td>
+</tr>
+<tr>
+<td><code>images</code></td>
+<td>返回文档中的所有 <code>&lt;img&gt;</code> 元素</td>
+</tr>
+<tr>
+<td><code>lastModified</code></td>
+<td>返回文档最后修改的日期和时间</td>
+</tr>
+<tr>
+<td><code>scripts</code></td>
+<td>返回文档中的所有 <code>&lt;script&gt;</code> 元素</td>
+</tr>
+<tr>
+<td><code>getElementById()</code></td>
+<td>返回第一个具有指定 ID 的元素</td>
+</tr>
+<tr>
+<td><code>getElementByTagName()</code></td>
+<td>返回具有指定标签名称的所有元素的集合</td>
+</tr>
+<tr>
+<td><code>open()</code></td>
+<td>打开一个流，以收集来自任何 <code>write()</code> 或 <code>writeln()</code> 方法的输出</td>
+</tr>
+<tr>
+<td><code>write()</code></td>
+<td>向文档写入 HTML 表达式或 JavaScript 代码</td>
+</tr>
+<tr>
+<td><code>close()</code></td>
+<td>关闭由 <code>open()</code> 方法打开的输出流</td>
+</tr>
+</tbody>
+</table>
+<p>例子：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">textChecker</span>(<span class="params"></span>) {</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> textField1 = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'textField1'</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (textField1.<span class="property">value</span> === <span class="string">''</span>) {</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">'Please type in the field'</span>);</span></span><br><span class="line"><span class="language-javascript">        } <span class="keyword">else</span> {</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">'You entered: '</span> + textField1.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript">        }</span></span><br><span class="line"><span class="language-javascript">    }</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">'text'</span> <span class="attr">id</span>=<span class="string">'textField1'</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">'button'</span> <span class="attr">onClick</span>=<span class="string">'textChecker()'</span> <span class="attr">value</span>=<span class="string">'Submit'</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="241-dom树访问器"><a class="markdownIt-Anchor" href="#241-dom树访问器"></a> 2.4.1. DOM 树访问器</h4>
+<p>每个 HTML 和 XML 文档都由一个文档对象来表示，DOM 树访问器可用于访问和操作该文档对象。</p>
+<h2 id="25-xml"><a class="markdownIt-Anchor" href="#25-xml"></a> 2.5. XML</h2>
+<p>XML（可扩展标记语言）是一种用于定义其他标记语言的元语言。它是一种可扩展的标记语言，可用于定义其他标记语言。</p>
+<p>例子：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">"https://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"application/xhtml+xml; charset=ISO-8859-1"</span> /&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            Example paragraph.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>内容类型必须指定为 XML 媒体类型。</p>
+</blockquote>
+<p>那 HTML 和 XHTML 哪个更好呢？</p>
+<p>XHTML 中标签必须小写、代码必须格式正确；HTML 中标签可以大写，代码格式不重要、允许使用不匹配的引号、非结束元素和非包含元素。</p>
+<h2 id="26-脚本"><a class="markdownIt-Anchor" href="#26-脚本"></a> 2.6. 脚本</h2>
+<p>脚本是一种用于控制应用程序行为的编程语言。它可以嵌入到 HTML 中，也可以作为外部文件引用。</p>
+<p>脚本提供了交互式用户体验，用于各种用途，如表单验证、动画、游戏、动态更新等。</p>
+<p>开发者可以使用 <code>&lt;script&gt;</code> 元素将脚本嵌入到 HTML 中。</p>
+<h2 id="27-iframe"><a class="markdownIt-Anchor" href="#27-iframe"></a> 2.7. iframe</h2>
+<p>iframe 是一种 HTML 元素，用于在网页中嵌入另一个网页。它是一种内联框架，可用于在网页中显示其他网页。</p>
+<p>iframe 可以用于显示广告、嵌入视频、显示其他网站的内容等。</p>
+<p>例子：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>为了防止授予隐式权限，iframe 可以使用 <code>sandbox</code> 属性。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">sandbox</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="28-浏览器"><a class="markdownIt-Anchor" href="#28-浏览器"></a> 2.8. 浏览器</h2>
+<p>并非所有浏览器都完全支持 HTML5 和 CSS3。比方说 <code>&lt;input type="date"&gt;</code>，在不同浏览器中的显示效果是不一样的。</p>
+<p>可以使用 JavaScript 来检测浏览器是否支持某些功能。</p>
+<p>例子：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">'thisform'</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> datepicker = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">'input'</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> formelement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">'thisform'</span>);</span></span><br><span class="line"><span class="language-javascript">        datepicker.<span class="title function_">setAttribute</span>(<span class="string">'type'</span>, <span class="string">'date'</span>);</span></span><br><span class="line"><span class="language-javascript">        formelement.<span class="title function_">appendChild</span>(datepicker);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (datepicker.<span class="property">type</span> === <span class="string">'text'</span>) {</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">alert</span>(<span class="string">'Date input not supported'</span>);</span></span><br><span class="line"><span class="language-javascript">        }</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h1 id="3-css概述html5元素"><a class="markdownIt-Anchor" href="#3-css概述html5元素"></a> 3. CSS 概述 &amp; HTML5 元素</h1>
+<h2 id="31-html5结构元素"><a class="markdownIt-Anchor" href="#31-html5结构元素"></a> 3.1. HTML5 结构元素</h2>
+<ul>
+<li><code>&lt;article&gt;</code>：代表独立的内容，如博客文章、报纸文章、杂志文章或论坛帖子；和 <code>&lt;time pubdate ...&gt;</code> 属性一起使用可以表示发布日期</li>
+<li><code>&lt;section&gt;</code>：代表文档中的节或主题，如章节、页眉、页脚或文档中的其他部分；它可以包含标题</li>
+<li><code>&lt;header&gt;</code>：代表文档或节的标题；它可以包含标题</li>
+<li><code>&lt;footer&gt;</code>：代表文档或节的页脚；它可以包含页脚</li>
+</ul>
+<h4 id="311-内容分组"><a class="markdownIt-Anchor" href="#311-内容分组"></a> 3.1.1. 内容分组</h4>
+<ul>
+<li><code>&lt;div&gt;</code>：提供了灵活的控制，可将样式应用于文档的各个部分；除了对内容进行分组之外，它没有任何特定的含义</li>
+<li><code>&lt;aside&gt;</code>：代表页面内容之外的内容，如侧栏、广告、导航链接、引用或其他类似的内容</li>
+<li><code>&lt;nav&gt;</code>：代表导航链接的部分，如菜单、目录或索引</li>
+<li><code>&lt;figure&gt;</code>：代表独立的内容，如图表、图像、照片、代码清单、音频或视频</li>
+<li><code>&lt;figcaption&gt;</code>：代表 <code>&lt;figure&gt;</code> 元素的标题</li>
+</ul>
+<h2 id="32-css"><a class="markdownIt-Anchor" href="#32-css"></a> 3.2. CSS</h2>
+<p>CSS 设计了 HTML 文档的外观和样式。</p>
+<p>在 CSS 中，子元素通常继承了父元素的样式。</p>
+<p>CSS 可以作为 HTML 标签、文档标题、文档头部、文档内部或外部的样式表来实现。</p>
+<blockquote>
+<p>数据与设计分离，这意味着可以在不更改 HTML 的情况下更改样式。<br>
+使用 HTML 向浏览器发送数据，并使用 CSS 对数据进行设计，这允许在不进行设计的情况下根据特殊的无障碍需求呈现网页。</p>
+</blockquote>
+<p>将 CSS 应用于 HTML 文档有三个方法，它们的顺序决定了优先级：</p>
+<ol>
+<li>内联样式：将样式应用于单个元素</li>
+<li>内部样式表：将样式应用于整个文档</li>
+<li>外部样式表：将样式应用于多个文档</li>
+</ol>
+<h4 id="321-布局"><a class="markdownIt-Anchor" href="#321-布局"></a> 3.2.1. 布局</h4>
+<ol>
+<li>流式布局（Fluid Layout）：使用百分比来定义宽度，使网页能够适应不同的屏幕尺寸
+<ul>
+<li>元素的尺寸根据浏览器窗口的大小而变化</li>
+<li>优点：适应性强</li>
+<li>缺点：设计困难</li>
+</ul>
+</li>
+<li>固定布局（Fixed Layout）：使用像素来定义宽度，使网页在不同的屏幕尺寸下保持固定的宽度
+<ul>
+<li>元素的尺寸不会随着浏览器窗口的大小而变化</li>
+<li>优点：设计简单</li>
+<li>缺点：不适应不同的屏幕尺寸</li>
+</ul>
+</li>
+</ol>
+<h4 id="322-css框架"><a class="markdownIt-Anchor" href="#322-css框架"></a> 3.2.2. CSS 框架</h4>
+<p>CSS 框架是一种用于设计网页的 CSS 库。它们提供了一组可重复使用的 CSS 类，可用于设计网页。</p>
+<ol>
+<li>
+<p>不使用任何框架的情况下，开发者需要编写大量的 CSS 代码来设计网页。优点是可以完全控制网页的设计，缺点是需要花费大量的时间和精力</p>
+<p>例如：</p>
+ <figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> {</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">}</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> {</span><br><span class="line">    <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">185</span>, <span class="number">28</span>, <span class="number">28</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>实用优先的框架：Tailwind CSS，它提供了可以使用的 CSS 属性。优点是给予了开发者更多的控制权</p>
+<p>例如：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"underline text-red-500 hover:text-red-700"</span>&gt;</span>Dangerous Link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li>
+<p>组件框架：Bootstrap，它提供了一系列可重复使用的预定义组件。优点是可以快速设计网页，缺点是开发者无法完全控制网页的设计</p>
+<p>例如：</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"..."</span> <span class="attr">class</span>=<span class="string">"link-danger"</span>&gt;</span>Dangerous Link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<h1 id="4-网络应用程序的-javascript-编程"><a class="markdownIt-Anchor" href="#4-网络应用程序的-javascript-编程"></a> 4. 网络应用程序的 JavaScript 编程</h1>
+<h2 id="41-javascript的性质"><a class="markdownIt-Anchor" href="#41-javascript的性质"></a> 4.1. JavaScript 的性质</h2>
+<p>JavaScript 是一种脚本语言，用于控制应用程序的行为。它是一种解释性语言，不需要编译。</p>
+<ul>
+<li>源自 ECMAScript 标准</li>
+<li>最初设计用于在 NetScape Navigator 中使用</li>
+<li>与 Java 无关！</li>
+<li>JavaScript 解释器嵌入在浏览器中，为静态网页内容添加动态功能</li>
+<li>核心功能为异步 JavaScript 和 XML（AJAX）</li>
+</ul>
+<h2 id="42-变量作用域"><a class="markdownIt-Anchor" href="#42-变量作用域"></a> 4.2. 变量作用域</h2>
+<p>变量作用域是指变量在程序中可见的区域。在 JavaScript 中，变量可以是全局的或局部的。</p>
+<ul>
+<li>全局变量：在函数外部声明的变量</li>
+<li>局部变量：在函数内部声明的变量</li>
+</ul>
+<p>不使用 <code>var</code> 关键字声明的变量是全局变量，即使它们在函数内部声明。其值为 <code>undefined</code>。</p>
+<h2 id="43-函数"><a class="markdownIt-Anchor" href="#43-函数"></a> 4.3. 函数</h2>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">n, m</span>) {</span><br><span class="line">    <span class="keyword">return</span> n + m;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span> x = <span class="title function_">add</span>(<span class="number">1</span>,<span class="number">2</span>); <span class="comment">// returns 3</span></span><br><span class="line">x = <span class="title function_">add</span>(<span class="number">1.23</span>, <span class="number">3.45</span>); <span class="comment">// returns 4.68</span></span><br><span class="line">x = <span class="title function_">add</span>(<span class="string">"hello"</span>, <span class="string">"world"</span>); <span class="comment">// returns "helloworld"</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Car</span>(<span class="params">make, model, year</span>) {</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">make</span> = make;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">model</span> = model;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">year</span> = year;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">getName</span> = <span class="keyword">function</span> (<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">make</span> + <span class="string">' '</span> + <span class="variable language_">this</span>.<span class="property">model</span> + <span class="string">' '</span> + <span class="variable language_">this</span>.<span class="property">year</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> <span class="title class_">Car</span> (<span class="string">"Meridian"</span>, <span class="string">"Saber GT"</span>, <span class="number">2012</span>);</span><br><span class="line"><span class="title function_">alert</span>(c.<span class="title function_">getName</span>()); <span class="comment">// displays "Meridian Saber GT 2012"</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="44-api"><a class="markdownIt-Anchor" href="#44-api"></a> 4.4. API</h2>
+<p>常用的 API：</p>
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>元素</th>
+<th>Window</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>document.getElementById()</code></td>
+<td><code>element.innerHTML</code></td>
+<td><code>window.open</code></td>
+</tr>
+<tr>
+<td><code>document.getElementByTagName()</code></td>
+<td><code>element.style</code></td>
+<td><code>window.onload</code></td>
+</tr>
+<tr>
+<td><code>document.createElement()</code></td>
+<td><code>element.setAttribute</code></td>
+<td><code>window.scrollTo</code></td>
+</tr>
+<tr>
+<td><code>parentNode.appendChild()</code></td>
+<td><code>element.getAttribute</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// how to retrieve all the image elements from a web page</span></span><br><span class="line"><span class="keyword">var</span> imgSet = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">"img"</span>);</span><br><span class="line"><span class="keyword">var</span> output = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; imgSet.<span class="property">length</span>; i++) {</span><br><span class="line">    output += <span class="string">"&lt;p&gt;Source for image "</span>;</span><br><span class="line">    output += i;</span><br><span class="line">    output += <span class="string">": "</span>;</span><br><span class="line">    output += imgSet[i].<span class="property">src</span>;</span><br><span class="line">    output += <span class="string">"&lt;\/p&gt;"</span>;</span><br><span class="line">}</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">write</span>(output);</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- How to add a node to a document --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">addPara</span>(<span class="params"></span>) {</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> newPara = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">"p"</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> newText = <span class="variable language_">document</span>.<span class="title function_">createTextNode</span>(<span class="string">"Hello World!"</span>);</span></span><br><span class="line"><span class="language-javascript">            newPara.<span class="title function_">appendChild</span>(newText);</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(newPara);</span></span><br><span class="line"><span class="language-javascript">        }</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"addPara()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    onload = (<span class="keyword">function</span> (<span class="params"></span>) {</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">addPara</span>();</span></span><br><span class="line"><span class="language-javascript">    })();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">addPara</span>(<span class="params"></span>) {</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> newPara = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">"p"</span>);</span></span><br><span class="line"><span class="language-javascript">        newPara.<span class="property">innerHTML</span> = <span class="string">"Hello world!"</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(newPara);</span></span><br><span class="line"><span class="language-javascript">    }</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="45-html中的脚本"><a class="markdownIt-Anchor" href="#45-html中的脚本"></a> 4.5. HTML 中的脚本</h2>
+<p>脚本为作者提供了一种以高度交互方式扩展 HTML 文档的方法，例如：</p>
+<ul>
+<li>在加载 HTML 文档后运行</li>
+<li>验证表单并处理输入的内容</li>
+<li>由影响文档的事件触发</li>
+<li>在 HTML 页面中动态创建内容</li>
+</ul>
+<h4 id="451-脚本不可用时"><a class="markdownIt-Anchor" href="#451-脚本不可用时"></a> 4.5.1. 脚本不可用时</h4>
+<p>如果浏览器不支持脚本或者脚本被禁用，可以使用 <code>&lt;noscript&gt;</code> 元素来提供替代内容。</p>
+<figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>JavaScript is not enabled!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="46-dom"><a class="markdownIt-Anchor" href="#46-dom"></a> 4.6. DOM</h2>
+<p>万维网联盟（W3C）定义了 DOM（文档对象模型）标准，用于访问和操作 HTML 文档。DOM 规范有四级：</p>
+<ol start="0">
+<li>DOM Level 0：最初的 DOM 规范，定义了 HTML 和 JavaScript 之间的接口</li>
+<li>DOM Level 1：定义了 HTML 和 XML 文档的核心接口</li>
+<li>DOM Level 2：包括了样式表模型和用于操作附加到文档中的样式信息的接口</li>
+<li>DOM Level 3：指定了内容模型和文件验证</li>
+<li>DOM Level 4：添加了突变观察器，以替代突变事件</li>
+</ol>
+<h4 id="461-浏览器的基本dom模型"><a class="markdownIt-Anchor" href="#461-浏览器的基本dom模型"></a> 4.6.1. 浏览器的基本 DOM 模型</h4>
+<ul>
+<li><code>window</code> 对象：代表浏览器窗口
+<ul>
+<li>位于对象层级的顶端</li>
+<li>浏览器加载页面时自动创建</li>
+<li>可通过 JavaScript 代码访问属性和函数</li>
+<li>在客户端 JavaScript 中，<code>window</code> 对象是全局对象</li>
+</ul>
+</li>
+<li><code>history</code> 对象：允许模拟点击浏览器的前进和后退按钮</li>
+<li><code>location</code> 对象：代表当前加载的文档的 URL</li>
+<li><code>navigator</code> 对象：代表浏览器的信息</li>
+<li><code>screen</code> 对象：代表用户的屏幕信息</li>
+<li><code>document</code> 对象：代表当前加载的文档</li>
+</ul>
+<h4 id="462-dom第二级"><a class="markdownIt-Anchor" href="#462-dom第二级"></a> 4.6.2. DOM 第二级</h4>
+<p>DOM 第二级添加了回车、制表符和空格。</p>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>整数值</th>
+<th>节点名称</th>
+<th>节点值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>元素</td>
+<td>1</td>
+<td><code>Tag name</code></td>
+<td><code>null</code></td>
+<td>任意 HTML 标签</td>
+</tr>
+<tr>
+<td>属性</td>
+<td>2</td>
+<td><code>Attribute name</code></td>
+<td><code>Attribute value</code></td>
+<td>键值对</td>
+</tr>
+<tr>
+<td>文本</td>
+<td>3</td>
+<td><code>#text</code></td>
+<td><code>Text content</code></td>
+<td>元素包含的文本</td>
+</tr>
+<tr>
+<td>注释</td>
+<td>8</td>
+<td><code>#comment</code></td>
+<td><code>Text comment</code></td>
+<td>HTML 注释</td>
+</tr>
+<tr>
+<td>文档</td>
+<td>9</td>
+<td><code>#document</code></td>
+<td><code>null</code></td>
+<td>文档对象</td>
+</tr>
+<tr>
+<td>文档类型</td>
+<td>10</td>
+<td><code>DOCTYPE</code></td>
+<td><code>null</code></td>
+<td>DTD 规范</td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td>11</td>
+<td><code>#document fragment</code></td>
+<td><code>null</code></td>
+<td>文档外的节点</td>
+</tr>
+</tbody>
+</table>
+<p>DOM 二级节点对象属性和相应的数据类型：</p>
+<table>
+<thead>
+<tr>
+<th>对象属性</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nodeName</code></td>
+<td>字符串</td>
+<td>参考上表</td>
+</tr>
+<tr>
+<td><code>nodeValue</code></td>
+<td>字符串</td>
+<td>参考上表</td>
+</tr>
+<tr>
+<td><code>nodeType</code></td>
+<td>整数</td>
+<td>整数常数；参考上表</td>
+</tr>
+<tr>
+<td><code>parentNode</code></td>
+<td>对象</td>
+<td>最近的包含对象</td>
+</tr>
+<tr>
+<td><code>childNodes</code></td>
+<td>数组</td>
+<td>所有的子节点</td>
+</tr>
+<tr>
+<td><code>firstChild</code></td>
+<td>对象</td>
+<td>第一个子节点</td>
+</tr>
+<tr>
+<td><code>lastChild</code></td>
+<td>对象</td>
+<td>最后一个子节点</td>
+</tr>
+<tr>
+<td><code>Attributes</code></td>
+<td>NodeMap</td>
+<td>属性的数组</td>
+</tr>
+</tbody>
+</table>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="d62.html">上一篇</a><a class="next" href="2f6a.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/3571.html" data-full-url="https://cytrogen.icu/posts/3571.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

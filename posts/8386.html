@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MUS 1003 笔记 · Cytrogen 的个人博客</title><meta name="description" content="乐理笔记，仅作为个人学习记录，不保证正确性。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/8386.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">MUS 1003 笔记</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-09-29T08:00:48.000Z">9/29/2024</time></div><div class="post-content"><html><head></head><body><p>乐理笔记，仅作为个人学习记录，不保证正确性。</p>
+<span id="more"></span>
+<div class="danger">
+<p>采用的教科书是国外的，里面写的所有有关「我们」的字眼并非代表我本人！</p>
+</div>
+<h1 id="1-音乐基础"><a class="markdownIt-Anchor" href="#1-音乐基础"></a> 1. 音乐基础</h1>
+<h2 id="11-声音-音高-动态和音色"><a class="markdownIt-Anchor" href="#11-声音-音高-动态和音色"></a> 1.1. 声音、音高、动态和音色</h2>
+<p>声音（Sound）始于物体的振动，例如被敲击的桌子或者被拨动的琴弦。振动通过一种介质（通常是空气）传递到我们的耳朵。由于振动，我们的耳膜也开始振动，并将脉冲或信号传递到大脑。在那里，这些脉冲被选择、组织和解释。</p>
+<p>我们可以通过识别音乐声音的四个主要属性来区分音乐和其他声音：</p>
+<ul>
+<li>音高（Pitch）</li>
+<li>动态（响度或柔和度）（Dynamics）</li>
+<li>音色（Tone color）</li>
+<li>时长（Duration）</li>
+</ul>
+<h4 id="111-音高声音的高低"><a class="markdownIt-Anchor" href="#111-音高声音的高低"></a> 1.1.1. 音高：声音的高低</h4>
+<p>音高（Pitch）是我们在声音中听到的相对高低。</p>
+<blockquote>
+<p>打个比方，我们听一下经典的生日歌，能发现最高的音调出现在第三个【生日】上。</p>
+</blockquote>
+<p>声音的音高由其振动频率决定。振动越快，音高越高；振动越慢，音高越低。振动频率以每秒周期数来衡量。在钢琴上，最高频率的音调是每秒 4186 个周期，最低的是每秒约 27 个周期。</p>
+<p>一般来说，振动物体越小，振动越快，音高越高。在其他条件相同的情况下，拨动短弦会比拨动长弦产生出更高的音高。比方说小提琴，它的弦对比低音贝斯的弦更短、产生的音高自然也更高。</p>
+<p>在音乐中，具有明确音高的声音被称为音调（Tone）。它具有特定的频率，且振动是规则的、以相等的时间间隔到达耳朵。另一方面，噪音类的声音（比如说刹车声、碰撞的钹声）由于由不规则的振动产生，因此具有不确定的音高。</p>
+<p>当两个音调具有不同的音高时，它们会听起来不同。两个音调之间的「距离」被称为音程（Interval）。当音调被称为八度（Octave）的音程分隔时，它们听起来非常相似。</p>
+<blockquote>
+<p>八度指的是两个音之间的间隔、其中高音的频率是低音的两倍。</p>
+<p>唱或听《Over the Rainbow》这首歌的开头：「Somewhere over the rainbow」。</p>
+<p>注意，<em>-where</em> 上的音调听起来像 <em>Some-</em> 上的音调，尽管它更高。它们之间有一个八度。<em>Some-</em> 上的音调的振动频率正好是 <em>where</em> 上的音调的一半。如果 <em>Some-</em> 音调是每秒 440 个周期，那么 <em>where</em> 音调 —— 也就是高一个八度 —— 将是每秒 880 个周期。比 <em>Some-</em> 低一个八度的音调将是 440 的一半，即每秒 220 个周期。当同时发出时，相隔一个八度的两个音调融合得如此之好，以至于它们几乎似乎合并成一个音调。</p>
+</blockquote>
+<p>八度音程在音乐中很重要。它是熟悉的音阶中第一个音和最后一个音之间的音程。可以试试唱一下这个音阶：</p>
+<p><img src="/posts/8386/1.png" alt="do-re-mi-fa-sol-la-ti-do"></p>
+<p>注意，在到达高音 <em>do</em> 之前，八度音程由七个不同的音高填充，高音 <em>do</em>「复制」了低音 <em>do</em>。如果你从高音 <em>do</em> 开始并继续向上演奏音阶，你的每一个原始七个音调都会在高一个八度的地方被「复制」。几个世纪以来，这组七个音调一直是西方文明音乐的基础。这七个音调由钢琴键盘的白键产生：</p>
+<p><img src="/posts/8386/2.png" alt="钢琴白键上的do-re-mi-fa-sol-la-ti-do"></p>
+<p>随着时间的推移，原来的七个音高又增加了五个音高。这五个音高由键盘的黑键产生。所有十二个音调，像原来的七个音调一样，在高八度和低八度中被「复制」。每个音调都有「近亲」，相隔 1、2、3 或更多个八度。（在非西方音乐中，八度可能被分为不同数量的音调 —— 比如说，十七或二十二个。）</p>
+<p>一个声音或乐器可以产生的最低音和最高音之间的距离称为其音高范围（Pitch range），或简称为范围（Range）。普通未经训练的声音范围在 1 到 2 个八度之间；钢琴的范围超过 7 个八度。当男人和女人唱同一首旋律时，他们通常会相隔一个八度来唱。</p>
+<p>尽管我们所知道的大多数音乐都是基于明确的音高，但不确定音高（如低音鼓或钹发出的声音）也同样重要。一些打击乐器，如锣、牛铃和木块，有不同的尺寸，因此会产生更高或更低的不确定音高。高低不确定音高之间的对比在当代西方音乐和世界各地的音乐文化中起着至关重要的作用。</p>
+<h4 id="112-动态"><a class="markdownIt-Anchor" href="#112-动态"></a> 1.1.2. 动态</h4>
+<p>音乐中的响度或柔和度称为动态（Dynamics）—— 这是声音的第二个属性。响度与产生声音的振动幅度有关。吉他弦被拨动得越用力（离指板越远），声音就越响。当乐器演奏得更响或更柔和，或者听到的乐器数量发生变化时，就会产生动态变化；这种变化可以是突然的，也可以是逐渐的。响度的逐渐增加通常会产生兴奋感，特别是当音高也上升时。另一方面，响度的逐渐减小可以传达一种平静的感觉。</p>
+<p>演奏者可以通过比周围音调更响亮地演奏某个音调来强调它。这种强调被称为重音（Accent）。巧妙、微妙的动态变化为表演增添了活力和情感。有时这些变化会写在乐谱中；但通常，它们并没有写出来，而是由演奏者对音乐的感受所激发的。</p>
+<p>在记录音乐时，作曲家传统上使用意大利词语及其缩写来表示动态。最常见的术语是：</p>
+<p><img src="/posts/8386/3.png" alt="pianissimo-pp-very_soft;piano-p-soft;mezzo_piano-mp-moderately_soft;mezzo_forte-mf-moderately_loud;forte-f-loud;fortissimo-ff-very_loud"></p>
+<p>对于极端的柔和和响亮，作曲家使用 <em>ppp</em> 或 <em>pppp</em> 和 <em>fff</em> 或 <em>ffff</em>。以下符号表示动态的逐渐变化：</p>
+<p><img src="/posts/8386/4.png" alt="decrescendo/diminuedo-gradually_softer;crescendo-gradually_louder"></p>
+<p>像音乐的许多元素一样，动态指示并不是绝对精确的。一个音调的动态水平 —— 是柔和还是响亮 —— 是相对于周围的其他音调而言的。单把小提琴的最响亮声音与整个管弦乐队的最响亮声音相比是微不足道的，与扩音摇滚乐队相比则更微不足道。但在其自身的上下文中，它可以被认为是极强音（非常响亮）。</p>
+<h4 id="113-音色"><a class="markdownIt-Anchor" href="#113-音色"></a> 1.1.3. 音色</h4>
+<p>即使小号和长笛在相同的动态水平上演奏相同的音调，我们也能区分它们。区分它们的特质 —— 我们所说的音乐声音的第三个属性 —— 称为音色（也被称为 timbre，发音为 <em>tam′-ber</em>）。音色可以用明亮、暗淡、辉煌、柔和和丰富等词来描述。</p>
+<p>与动态变化一样，音色变化也创造了多样性和对比。当同一旋律由一种乐器演奏，然后由另一种乐器演奏时，由于每种乐器的音色不同，它会呈现出不同的表现效果。另一方面，音色的对比可以用来突出新的旋律：在小提琴演奏旋律之后，双簧管可能会呈现出对比鲜明的旋律。</p>
+<p>音色也建立了一种连续感；当每次都是相同的乐器演奏时，更容易识别旋律的回归。特定的乐器可以增强旋律的情感影响：小号的辉煌声音适合英雄或军队的曲调；长笛的舒缓音色适合平静的旋律。事实上，作曲家经常在创作旋律时考虑特定乐器的音色。</p>
+<p>作曲家可以使用几乎无限多样的音色。结合不同的乐器 —— 例如小提琴、单簧管和长号 —— 会产生新的音色，这是单个乐器无法独自产生的。而且，通过改变演奏旋律的乐器或声音的数量，可以改变音色。最后，近年来发展起来的电子技术使作曲家能够创造出完全不同于传统乐器的音色。</p>
+<h2 id="12-演奏媒介声音和乐器"><a class="markdownIt-Anchor" href="#12-演奏媒介声音和乐器"></a> 1.2. 演奏媒介：声音和乐器</h2>
+<h4 id="121-声音"><a class="markdownIt-Anchor" href="#121-声音"></a> 1.2.1. 声音</h4>
+<p>纵观历史，歌唱一直是最广泛和最熟悉的音乐形式。古希腊戏剧包括吟唱的合唱团，《圣经》记载摩西、米利暗和以色列人唱歌赞美主。歌手似乎总是具有磁性的吸引力，即使在今天，崇拜的观众也会模仿他们最喜欢的歌手的外貌和生活方式。</p>
+<p>歌手和观众之间的交流包含了一点魔力，一种直接而迷人的东西。可能是因为歌手成为了一种乐器，我们特别能与他或她产生共鸣 —— 一个像我们自己一样的人体通过声音和词语表达情感。</p>
+<p>声音具有将词语与音乐音调融合的独特能力，因此在许多文化中，诗歌和歌唱是不可分割的。歌唱可以使词语更容易记住，并能增强其情感效果。</p>
+<p>由于许多原因，唱好歌是困难的。在歌唱中，我们使用比说话更广泛的音高和音量范围，并且我们更长时间地保持元音。歌唱需要更大的呼吸供应和控制。来自肺部的空气由下腹肌和横膈膜控制。空气使声带振动，歌手的肺、喉咙、嘴巴和鼻子共同作用以产生所需的声音。音调的高低随着声带的紧张度而变化；它们越紧，音调越高。</p>
+<p>歌手的音域取决于训练和身体构造。专业歌手可以掌握 2 个八度甚至更多，而未经训练的声音通常限制在大约 1½ 个八度。男性的声带比女性的更长更厚，这种差异产生了较低的音高范围。以下是女性和男性的音域分类，从最高到最低排列（四个基本音域是女高音、女低音、男高音和男低音）：</p>
+<table>
+<thead>
+<tr>
+<th>女性</th>
+<th>男性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>女高音（soprano）</td>
+<td>男高音（tenor）</td>
+</tr>
+<tr>
+<td>次女高音（mezzo-soprano）</td>
+<td>男中音（baritone）</td>
+</tr>
+<tr>
+<td>女低音（alto）或女中音（contralto）</td>
+<td>男低音（bass）</td>
+</tr>
+</tbody>
+</table>
+<p>由于品味的不同，歌唱方法在不同文化中差异很大。例如，亚洲的歌唱比西方的更鼻音化。我们的文化中的古典歌手站立时姿势笔直，而西非的歌手则向前弯腰；印度的歌手则坐在地上。事实上，即使在西方，表演风格也有所不同：古典、流行、爵士、民间和摇滚音乐的演唱方式各不相同。例如，古典歌手通常不依赖麦克风，但摇滚音乐部分依靠扩音来传达其特点。</p>
+<p>直到 17 世纪末，大多数西方文化的音乐都是声乐。但到 17 世纪末，器乐音乐的重要性与声乐音乐不相上下。从那时起，作曲家们继续创作独唱和合唱声乐作品，有的带有器乐伴奏，有的没有。作品有为男声合唱团创作的；为女声合唱团创作的；以及为混声合唱团创作的，通常结合女高音、女低音、男高音和男低音。声乐作品的伴奏范围从单一乐器（如吉他或钢琴）到整个管弦乐队。</p>
+<h4 id="122-乐器"><a class="markdownIt-Anchor" href="#122-乐器"></a> 1.2.2. 乐器</h4>
+<p>世界各地的人们使用的乐器在结构和音色上有很大的不同。乐器可以定义为除人声以外的任何产生音乐声音的机制。西方音乐家通常将乐器分为六大类：弦乐器（如吉他和小提琴）；木管乐器（长笛、单簧管）；铜管乐器（小号、长号）；打击乐器（低音鼓、钹）；键盘乐器（风琴、钢琴）；和电子乐器（合成器）。</p>
+<p>一种乐器通常有不同的尺寸，产生不同的音域。例如，萨克斯管家族包括高音萨克斯管、中音萨克斯管、次中音萨克斯管、上低音萨克斯管和低音萨克斯管。乐器的音色可能会随着演奏的音区（总音域的一部分）而变化。单簧管在低音区听起来深沉而丰富，但在高音区则明亮而尖锐。</p>
+<p>器乐演奏者试图模仿歌手声音的美丽和灵活的音色。然而，大多数乐器的音域比人声更广。先前说过，受过训练的歌手的音域大约是 2 个八度，但许多乐器可以达到 3 或 4 个八度，有些甚至可以达到 6 或 7 个八度。此外，乐器通常比人声更快地产生音调。在为特定乐器写作音乐时，作曲家必须考虑其音域和动态以及它能多快地产生音调。</p>
+<h4 id="123-弦乐器"><a class="markdownIt-Anchor" href="#123-弦乐器"></a> 1.2.3. 弦乐器</h4>
+<p>小提琴（Violin）、中提琴（Viola）、大提琴（Cello，有时也被称为 Violoncello）和低音贝斯（Double bass，有时也被简称为 Bass）构成了交响乐团的弦乐（String）部分。它们在音色、大小和音域上各不相同：小提琴是最小的，音域最高；低音贝斯是最大的，音域最低。在交响乐中，弦乐器通常用弓（Bow）演奏，弓是一根稍微弯曲的棍子，上面紧紧地系着马鬃（见下图）。交响乐的弦乐器也可以用手指拨奏。</p>
+<p><img src="/posts/8386/5.png" alt="img.png"></p>
+<p>在所有的乐器组中，弦乐器具有最大的多功能性和表现力。它们能产生许多音色，并且具有广泛的音高和动态范围。弦乐演奏者可以产生明亮而快速的音调，也可以产生缓慢而颤动的音调；他们可以像歌手一样微妙地控制音色。交响乐作品往往更多地依赖弦乐器，而不是其他乐器组。即使音色不同，这四种弦乐器也能完美地融合在一起。在这里，考虑弦乐器的结构和音色产生方式是有帮助的；小提琴可以代表整个家族。</p>
+<p>小提琴的中空木质琴身支撑着四根通常由金属或合成材料制成的琴弦。（即使在今天，一些演奏者仍然偏爱由紧密缠绕的肠线制成的传统琴弦。）琴弦在张力下从一端的尾部穿过木桥延伸到另一端，在那里它们被固定在木钉上。琴桥将琴弦与指板分开，使其能够自由振动；琴桥还将琴弦的振动传递到琴身，从而放大和改变音色。每根琴弦通过拧紧或松开琴钉来调节不同的音高。（张力越大，音高越高。）</p>
+<p>演奏者用右手拉动弓使琴弦振动。弓的速度和压力控制着产生的声音的动态和音色。音高由演奏者的左手控制。通过将琴弦按在指板上，演奏者改变了其振动部分的长度，从而改变了音高。这被称为按弦（Stopping）（因为振动在琴弦长度的某个点被停止）。因此，每根琴弦都可以产生一系列的音高。</p>
+<p>基本上，中提琴、大提琴和低音贝斯的制作方式相同，发声方式也相似。弦乐器的演奏方式 —— 使用的弦乐演奏技巧 —— 决定了它们将产生的许多音乐效果。这里列出了最常用的技巧：</p>
+<ul>
+<li>拨弦（Pizzicato）：演奏者用右手的手指拨动琴弦。在爵士乐中，低音贝斯主要作为拨弦乐器演奏，而不是用弓拉奏。</li>
+<li>双音（Double stop，两个音同时发声）：通过将弓拉过两根琴弦，弦乐演奏者可以同时发出两个音。通过快速旋转弓跨过三根琴弦（三音，Triple stop）或四根琴弦（四音，Quadruple stop），可以几乎同时发出三或四个音。</li>
+<li>颤音（Vibrato）：弦乐演奏者可以通过在按下琴弦时摇动左手来产生颤动的、富有表现力的音调。这会引起小的音高波动，使音调更加温暖。</li>
+<li>弱音器（Mute）：演奏者可以通过在琴桥上安装一个夹子（弱音器）来遮蔽或减弱音调。</li>
+<li>颤音（Tremolo）：演奏者通过快速上下拉动弓来快速重复音调。当音量大时，这可以创造一种紧张感；当音量小时，可以产生一种闪烁的声音。</li>
+<li>泛音（Harmonics）：当演奏者轻轻触摸琴弦的某些点时，会产生非常高的音调，类似于哨声。</li>
+</ul>
+<p>尽管小提琴、中提琴、大提琴和低音提琴相似，但它们就像任何家庭的成员一样，各有不同。</p>
+<p>有些弦乐器不是用弓演奏的，而是用手指或拨片（Plectrum）拨奏的。其中最重要的是竖琴（Harp）和吉他（Guitar）。竖琴是唯一在交响乐团中获得广泛接受的拨弦乐器。</p>
+<h4 id="124-木管乐器"><a class="markdownIt-Anchor" href="#124-木管乐器"></a> 1.2.4. 木管乐器</h4>
+<p>木管乐器（Woodwind instruments）之所以得名，是因为它们在传统上是通过木制管内的空气振动来发声的。然而，在二十世纪期间，短笛（Piccolos）和长笛（Flutes）开始用金属制成。所有木管乐器沿其长度都有小孔，这些小孔可以用手指或由按键机制控制的垫片来开闭。通过开闭这些孔，木管乐器演奏者改变了振动空气柱的长度，从而改变音高。</p>
+<p>交响乐团的主要木管乐器如下，按音域从最高（短笛）到最低（低音大管）排列。（每个家族中仅列出最常用的两种乐器。）</p>
+<table>
+<thead>
+<tr>
+<th>长笛家族</th>
+<th>单簧管家族</th>
+<th>双簧管家族</th>
+<th>巴松管家族</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>短笛（Piccolo）</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>长笛（Flute）</td>
+<td>单簧管（Clarinet）</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>双簧管（Oboe）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>中音双簧管 / 英国管（English horn）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>低音单簧管（Bass clarinet）</td>
+<td></td>
+<td>巴松管（Bassoon）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td>倍低音管（Contrabassoon）</td>
+</tr>
+</tbody>
+</table>
+<p>木管乐器是伟大的个体主义者，其音色与各种弦乐器相比差异更大。长笛的银色音调与鼻音的双簧管相比，比小提琴与中提琴的差异更大。木管乐器独特的音色主要来自不同的振动方式。长笛和短笛演奏者通过吹过吹口边缘发声，就像吹空瓶口发声一样。（竖笛 Recorder 演奏者通过哨子吹口发声，竖笛是长笛的亲属。）其余的木管乐器依靠振动的簧片发声。簧片（Reed）是一块非常薄的芦苇片，约 2½ 英寸长，通过气流振动。</p>
+<p>单簧木管乐器（Single-reed woodwinds）的簧片固定在吹口的孔上，当演奏者吹入乐器时，簧片振动。单簧管和低音单簧管是单簧木管乐器。萨克斯管（Saxophone）也是一种主要用于乐队的单簧木管乐器。在双簧木管乐器（Double-reed woodwinds）中，两片窄窄的芦苇片夹在演奏者的嘴唇之间。双簧管、英国管、巴松管和低音巴松管是双簧木管乐器。</p>
+<p>单独听起来，簧片只会发出一种刺耳的声音。虽然簧片木管乐器的音色主要由乐器管的孔径决定，但簧片确实会对音色产生一定影响。专业的木管乐器演奏者花费大量时间浸泡和塑造他们的簧片，以确保获得最佳音色。</p>
+<p>每种木管乐器的不同音区的音色也有很大差异。一般来说，低音区往往气息浓重，而高音区则更为尖锐。与可以双音演奏的弦乐器不同，木管乐器一次只能发出一个音。在交响乐中，它们经常被赋予旋律独奏。木管乐器非常适合户外演奏（牧羊人几千年来一直在演奏简单的木管乐器）。因此，它们经常出现在唤起乡村氛围的音乐中。</p>
+<h4 id="125-铜管乐器"><a class="markdownIt-Anchor" href="#125-铜管乐器"></a> 1.2.5. 铜管乐器</h4>
+<p>从高音区到低音区，交响乐团铜管乐器（Brass instruments）的主要乐器有小号（Trumpet）、法国号（French horn，有时简称为号 Horn）、长号（Trombone）和大号（Tuba）。小号和长号经常用于爵士乐和摇滚乐队。</p>
+<p>铜管乐器的振动来自演奏者的嘴唇，当他或她吹入杯状或漏斗状的吹口（Mouthpiece）时产生振动。这些振动在一个盘绕的管子中被放大和改变音色（以便于携带和演奏）。管子的末端张开形成一个喇叭口（Bell）。现代铜管乐器实际上是由黄铜制成的，但它们的早期版本是由空心动物角、象牙、木头甚至玻璃制成的。</p>
+<p>一些铜管乐器，如短号、上低音号和次中音号，主要用于音乐会和行进乐队。短号的形状类似于小号，但音色更柔和。上低音号看起来像大号，音域与长号相同。次中音号是大号家族中的男高音乐器。</p>
+</body></html></div></article></div></main><footer><div class="paginator"><a class="prev" href="d730.html">上一篇</a><a class="next" href="ed32.html">下一篇</a></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/8386.html" data-full-url="https://cytrogen.icu/posts/8386.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>
