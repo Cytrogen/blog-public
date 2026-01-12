@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hexo 源代码分析【2】：了解扩展 · Cytrogen 的个人博客</title><meta name="robots" content="noindex"><meta name="description" content="使用 Hexo，痛骂 Hexo，理解 Hexo，成为 Hexo。 这篇文章是用来记录我阅读 Hexo 源代码的过程和分析。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/7c9a.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">Hexo 源代码分析【2】：了解扩展</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-06-25T05:00:00.000Z">6/25/2024</time></div><div class="post-content"><html><head></head><body><p>使用 Hexo，痛骂 Hexo，理解 Hexo，成为 Hexo。</p>
+<p>这篇文章是用来记录我阅读 Hexo 源代码的过程和分析。</p>
+<span id="more"></span>
+<p>在 <a href="/posts/5d57.html">上一篇文章</a> 中，我们了解了 Hexo 源代码中的入口文件，并且在没有讲太多细节的情况下过了一遍 Hexo 运行的流程。</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Hexo</span> <span class="keyword">extends</span> <span class="title class_ inherited__">events_1.EventEmitter</span> {</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">base = process.cwd(), args = {}</span>) { ... }</span><br><span class="line">  <span class="title function_">_bindLocals</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">init</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">call</span>(<span class="params">name, args, callback</span>) { ... }</span><br><span class="line">  <span class="title function_">model</span>(<span class="params">name, schema</span>) { ... }</span><br><span class="line">  <span class="title function_">resolvePlugin</span>(<span class="params">name, basedir</span>) { ... }</span><br><span class="line">  <span class="title function_">loadPlugin</span>(<span class="params">path, callback</span>) { ... }</span><br><span class="line">  <span class="title function_">_showDrafts</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">load</span>(<span class="params">callback</span>) { ... }</span><br><span class="line">  <span class="title function_">watch</span>(<span class="params">callback</span>) { ... }</span><br><span class="line">  <span class="title function_">unwatch</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">_generateLocals</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">_runGenerators</span>(<span class="params"></span>) { ... }</span><br><span class="line">  <span class="title function_">_routerRefresh</span>(<span class="params">runningGenerators, useCache</span>) { ... }</span><br><span class="line">  <span class="title function_">_generate</span>(<span class="params">options = {}</span>) { ... }</span><br><span class="line">  <span class="title function_">exit</span>(<span class="params">err</span>) { ... }</span><br><span class="line">  <span class="title function_">execFilter</span>(<span class="params">type, data, options</span>) { ... }</span><br><span class="line">  <span class="title function_">execFilterSync</span>(<span class="params">type, data, options</span>) { ... }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>简单来说是：</p>
+<ol>
+<li>初始化了各种目录路径、设置环境变量、初始化各种扩展，设置配置、日志、渲染器、路由等。</li>
+<li><code>_bindLocals</code> 方法将数据库中的数据绑定到 <code>locals</code> 对象上。</li>
+<li><code>init</code> 方法初始化 <code>Hexo</code>，加载插件和配置。</li>
+<li><code>call</code> 方法调用控制台命令。</li>
+<li><code>model</code> 方法创建或获取数据库模型。</li>
+<li><code>resolvePlugin</code> 和 <code>loadPlugin</code> 方法用于解析和加载插件。</li>
+<li><code>load</code> 和 <code>watch</code> 方法加载数据并处理源文件，<code>watch</code> 方法还会设置文件监听。</li>
+<li><code>_generate</code> 方法生成静态文件。</li>
+<li><code>exit</code> 方法退出程序，执行清理工作。</li>
+</ol>
+<p>这次，我们来了解一下扩展（<code>extend</code>）。请配合 <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/api/">官方文档</a> 食用。</p>
+<h1 id="扩展"><a class="markdownIt-Anchor" href="#扩展"></a> 扩展</h1>
+<p><code>extend\index.js</code>：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> __importDefault = (<span class="variable language_">this</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">__importDefault</span>) || <span class="keyword">function</span> (<span class="params">mod</span>) {</span><br><span class="line">    <span class="keyword">return</span> (mod &amp;&amp; mod.<span class="property">__esModule</span>) ? mod : { <span class="string">"default"</span>: mod };</span><br><span class="line">};</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"__esModule"</span>, { <span class="attr">value</span>: <span class="literal">true</span> });</span><br><span class="line"><span class="built_in">exports</span>.<span class="property">Tag</span> = <span class="built_in">exports</span>.<span class="property">Renderer</span> = <span class="built_in">exports</span>.<span class="property">Processor</span> = <span class="built_in">exports</span>.<span class="property">Migrator</span> = <span class="built_in">exports</span>.<span class="property">Injector</span> = <span class="built_in">exports</span>.<span class="property">Highlight</span> = <span class="built_in">exports</span>.<span class="property">Helper</span> = <span class="built_in">exports</span>.<span class="property">Generator</span> = <span class="built_in">exports</span>.<span class="property">Filter</span> = <span class="built_in">exports</span>.<span class="property">Deployer</span> = <span class="built_in">exports</span>.<span class="property">Console</span> = <span class="keyword">void</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> console_1 = <span class="built_in">require</span>(<span class="string">"./console"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Console"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(console_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> deployer_1 = <span class="built_in">require</span>(<span class="string">"./deployer"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Deployer"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(deployer_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> filter_1 = <span class="built_in">require</span>(<span class="string">"./filter"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Filter"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(filter_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> generator_1 = <span class="built_in">require</span>(<span class="string">"./generator"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Generator"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(generator_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> helper_1 = <span class="built_in">require</span>(<span class="string">"./helper"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Helper"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(helper_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> syntax_highlight_1 = <span class="built_in">require</span>(<span class="string">"./syntax_highlight"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Highlight"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(syntax_highlight_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> injector_1 = <span class="built_in">require</span>(<span class="string">"./injector"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Injector"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(injector_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> migrator_1 = <span class="built_in">require</span>(<span class="string">"./migrator"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Migrator"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(migrator_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> processor_1 = <span class="built_in">require</span>(<span class="string">"./processor"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Processor"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(processor_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> renderer_1 = <span class="built_in">require</span>(<span class="string">"./renderer"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Renderer"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(renderer_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="keyword">var</span> tag_1 = <span class="built_in">require</span>(<span class="string">"./tag"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Tag"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(tag_1).<span class="property">default</span>; } });</span><br><span class="line"><span class="comment">//# sourceMappingURL=index.js.map</span></span><br></pre></td></tr></tbody></table></figure>
+<p>这段代码需要在技术层面来讲解。它一个 TypeScript 编译后的 JavaScript 模块，主要用于导出多个类或函数。</p>
+<p>用于处理 ES 模块的默认导出的辅助函数：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __importDefault = (<span class="variable language_">this</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">__importDefault</span>) || <span class="keyword">function</span> (<span class="params">mod</span>) {</span><br><span class="line">    <span class="keyword">return</span> (mod &amp;&amp; mod.<span class="property">__esModule</span>) ? mod : { <span class="string">"default"</span>: mod };</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<p>这行代码将当前模块标记为 ES 模块：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"__esModule"</span>, { <span class="attr">value</span>: <span class="literal">true</span> });</span><br></pre></td></tr></tbody></table></figure>
+<p>预先声明了所有将要导出的属性：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.<span class="property">Tag</span> = <span class="built_in">exports</span>.<span class="property">Renderer</span> = <span class="built_in">exports</span>.<span class="property">Processor</span> = <span class="built_in">exports</span>.<span class="property">Migrator</span> = <span class="built_in">exports</span>.<span class="property">Injector</span> = <span class="built_in">exports</span>.<span class="property">Highlight</span> = <span class="built_in">exports</span>.<span class="property">Helper</span> = <span class="built_in">exports</span>.<span class="property">Generator</span> = <span class="built_in">exports</span>.<span class="property">Filter</span> = <span class="built_in">exports</span>.<span class="property">Deployer</span> = <span class="built_in">exports</span>.<span class="property">Console</span> = <span class="keyword">void</span> <span class="number">0</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来的代码块都遵循类似的模式，例如：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> console_1 = <span class="built_in">require</span>(<span class="string">"./console"</span>);</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="built_in">exports</span>, <span class="string">"Console"</span>, { <span class="attr">enumerable</span>: <span class="literal">true</span>, <span class="attr">get</span>: <span class="keyword">function</span> (<span class="params"></span>) { <span class="keyword">return</span> <span class="title function_">__importDefault</span>(console_1).<span class="property">default</span>; } });</span><br></pre></td></tr></tbody></table></figure>
+<p>这些代码从其他文件导入模块，然后将它们重新导出。使用 <code>Object.defineProperty</code> 来定义 <code>getter</code> 函数，这样可以实现延迟加载。</p>
+<p>简单而言，这段代码的主要目的是将多个相关的模块集中到一个文件中导出，方便其他部分的代码统一导入这些模块。这种模式在大型项目中很常见，可以简化导入语句并提高代码的组织性。</p>
+<h2 id="控制台-console"><a class="markdownIt-Anchor" href="#控制台-console"></a> 控制台 | Console</h2>
+<blockquote>
+<p>控制台是 Hexo 与开发者之间沟通的桥梁。它注册并描述了可用的控制台命令。</p>
+</blockquote>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> __importDefault = (<span class="variable language_">this</span> &amp;&amp; <span class="variable language_">this</span>.<span class="property">__importDefault</span>) || <span class="keyword">function</span> (<span class="params">mod</span>) {</span><br><span class="line">    <span class="keyword">return</span> (mod &amp;&amp; mod.<span class="property">__esModule</span>) ? mod : { <span class="string">"default"</span>: mod };</span><br><span class="line">};</span><br><span class="line"><span class="keyword">const</span> bluebird_1 = <span class="title function_">__importDefault</span>(<span class="built_in">require</span>(<span class="string">"bluebird"</span>));</span><br><span class="line"><span class="keyword">const</span> abbrev_1 = <span class="title function_">__importDefault</span>(<span class="built_in">require</span>(<span class="string">"abbrev"</span>));</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Console</span> {</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">store</span> = {};</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">alias</span> = {};</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Get a console plugin function by name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> {<span class="type">String</span>} <span class="variable">name</span> - The name of the console plugin</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@returns</span> {<span class="type">StoreFunction</span>} - The console plugin function</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="title function_">get</span>(<span class="params">name</span>) {</span><br><span class="line">        name = name.<span class="title function_">toLowerCase</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">store</span>[<span class="variable language_">this</span>.<span class="property">alias</span>[name]];</span><br><span class="line">    }</span><br><span class="line">    <span class="title function_">list</span>(<span class="params"></span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">store</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="title function_">register</span>(<span class="params">name, desc, options, fn</span>) {</span><br><span class="line">        <span class="keyword">if</span> (!name)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">'name is required'</span>);</span><br><span class="line">        <span class="keyword">if</span> (!fn) {</span><br><span class="line">            <span class="keyword">if</span> (options) {</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> options === <span class="string">'function'</span>) {</span><br><span class="line">                    fn = options;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="keyword">typeof</span> desc === <span class="string">'object'</span>) { <span class="comment">// name, options, fn</span></span><br><span class="line">                        options = desc;</span><br><span class="line">                        desc = <span class="string">''</span>;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">else</span> { <span class="comment">// name, desc, fn</span></span><br><span class="line">                        options = {};</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">'fn must be a function'</span>);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">else</span> {</span><br><span class="line">                <span class="comment">// name, fn</span></span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> desc === <span class="string">'function'</span>) {</span><br><span class="line">                    fn = desc;</span><br><span class="line">                    options = {};</span><br><span class="line">                    desc = <span class="string">''</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">'fn must be a function'</span>);</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (fn.<span class="property">length</span> &gt; <span class="number">1</span>) {</span><br><span class="line">            fn = bluebird_1.<span class="property">default</span>.<span class="title function_">promisify</span>(fn);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            fn = bluebird_1.<span class="property">default</span>.<span class="title function_">method</span>(fn);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">const</span> c = fn;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">store</span>[name.<span class="title function_">toLowerCase</span>()] = c;</span><br><span class="line">        c.<span class="property">options</span> = options;</span><br><span class="line">        c.<span class="property">desc</span> = desc;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">alias</span> = (<span class="number">0</span>, abbrev_1.<span class="property">default</span>)(<span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>.<span class="property">store</span>));</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">Console</span>;</span><br><span class="line"><span class="comment">//# sourceMappingURL=console.js.map</span></span><br></pre></td></tr></tbody></table></figure>
+<p><code>Console</code> 类是 Hexo 的控制台命令管理器。</p>
+<p>导入的依赖中，<code>bluebird</code> 已经在 <a href="/posts/5d57.html">上一篇文章</a> 中提过了；<code>abbrev</code> 是用于生成命令别名的包。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/npm/abbrev-js"><img src="https://gh-card.dev/repos/npm/abbrev-js.svg" alt="npm/abbrev-js - GitHub"></a></p>
+<p>在构造函数中，<code>store</code> 和 <code>alias</code> 对象被初始化，分别存储命令和别名。</p>
+<ul>
+<li><code>get</code> 方法通过名称获取控制台插件函数。它会将输入的名称转换为小写，并通过别名查找实际的命令。</li>
+<li><code>list</code> 方法返回所有存储的命令。</li>
+<li><code>register</code> 方法用于注册新的控制台命令。
+<ul>
+<li>参数包含：
+<ul>
+<li><code>name</code>：命令的名称，必须。</li>
+<li><code>desc</code>：命令的描述，可选。</li>
+<li><code>options</code>：命令的选项，可选。</li>
+<li><code>fn</code>：命令的函数，必须（也必须是一个函数）。</li>
+</ul>
+</li>
+<li>使用 <code>bluebird</code> 将命令函数 <code>fn</code> 转换为 Promise，接着将命令存储在 <code>store</code> 对象中，并更新别名。</li>
+</ul>
+</li>
+</ul>
+<p><code>Console</code> 类的主要作用是管理 Hexo 的控制台命令。它允许注册新命令，检索已存在的命令，并处理命令别名。</p>
+<p>根据官网文档的演示，可以这么用：</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo.<span class="property">extend</span>.<span class="property">console</span>.<span class="title function_">register</span>(name, desc, options, <span class="keyword">function</span>(<span class="params">args</span>){</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+<p>关于 <code>args</code> 参数，它是通过 <code>Minimist</code> 库解析命令行参数后得到的对象。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/minimistjs/minimist"><img src="https://gh-card.dev/repos/minimistjs/minimist.svg" alt="minimistjs/minimist - GitHub"></a></p>
+<!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/7c9a.html" data-full-url="https://cytrogen.icu/posts/7c9a.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

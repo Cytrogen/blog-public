@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>踩坑与总结：我的 React + NestJS + MongoDB 项目在 Cloudflare 和 AWS Staging 环境的部署经验分享 · Cytrogen 的个人博客</title><meta name="robots" content="noindex"><meta name="description" content="最近我加入了一个新的开发团队，项目中要求将使用了 React + NestJS + MongoDB 技术栈的应用部署到预发布环境（以下简称为 Staging 环境）。 同时我们的测试团队成员（兼职甲方、产品经理、老板…… 开玩笑）并非技术背景出身，因此一个稳定且易于访问的测试环境至关重要。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/8f1a.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">踩坑与总结：我的 React + NestJS + MongoDB 项目在 Cloudflare 和 AWS Staging 环境的部署经验分享</h1><div class="post-info"><time class="post-date dt-published" datetime="2025-05-17T04:00:00.000Z">5/17/2025</time></div><div class="post-content"><html><head></head><body><p>最近我加入了一个新的开发团队，项目中要求将使用了 React + NestJS + MongoDB 技术栈的应用部署到预发布环境（以下简称为 Staging 环境）。</p>
+<p>同时我们的测试团队成员（兼职甲方、产品经理、老板…… 开玩笑）并非技术背景出身，因此一个稳定且易于访问的测试环境至关重要。</p>
+<span id="more"></span>
+<div class="danger">
+<p>这篇文章只是记录了我当时是如何部署我的项目的，并不会给出全能的方案。实际的操作还需要根据你们自己的项目来进行修改。</p>
+<blockquote>
+<p>例如我的包管理器都是使用的 <code>yarn</code>。如果你偏向于使用 <code>npm</code>，那就要把文章中和 <code>yarn</code> 相关的命令改成用 <code>npm</code> 的。</p>
+</blockquote>
+<p>这篇文档也有可能因为时间而过时，所以请仔细查阅该文章的发布时期。</p>
+</div>
+<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<h2 id="什么是-staging-环境"><a class="markdownIt-Anchor" href="#什么是-staging-环境"></a> 什么是 Staging 环境？</h2>
+<p>在软件开发中，Staging 环境是模拟生产环境的一个重要环节。它通常是生产环境的一个精确副本，用于在将新功能或修复部署到最终用户可见的生产环境之前进行全面的测试。</p>
+<p>Staging 环境的主要目的很简单：在真实或接近真实的条件下测试应用、尽早发现潜在的 Bug、性能问题和配置错误。</p>
+<p>对于我们的项目而言，Staging 环境将是我向非技术背景的测试人员展示最新进展、收集反馈的关键桥梁。一个易于访问且稳定的 Staging 环境能够让他们更专注于应用的实际功能和用户体验，而无需关注底层的技术细节（主要他们也不懂啦）。</p>
+<h2 id="我的想法"><a class="markdownIt-Anchor" href="#我的想法"></a> 我的想法</h2>
+<p>为了更好地将我们的 React + NestJS + MongoDB 应用推送到这个测试环境，并确保开发流程的顺畅，我初步制定了一套以 Cloudflare Pages 和 AWS Elastic Beanstalk 为核心的部署方案：</p>
+<ul>
+<li>前端 React 应用将部署在 Cloudflare Pages 上，利用其快速的全球 CDN 和便捷的部署流程</li>
+<li>后端 NestJS 应用和 MongoDB 数据库，我计划使用 AWS Elastic Beanstalk 进行管理和部署，MongoDB 就用 MongoDB Atlas</li>
+<li>项目还有用到对象存储，开发环境里我使用的是 MinIO，不过在生产环境里我计划换成 AWS S3，因此 Staging 环境中也是如此</li>
+</ul>
+<p>在代码管理方面，我们团队选择了 Atlassian 的工具。我计划采用一套清晰且严格的 Git 分支策略，结合 Bitbucket Pipelines 的自动化部署能力，力求在每次功能开发完成后，能够快速、可靠地将变更推送到 Staging 环境。这不仅能提高我们的开发效率，也能让测试团队及时体验到最新的功能。</p>
+<p>接下来，我将详细记录我在搭建和使用这个 Staging 环境过程中遇到的挑战、采取的解决方案以及一些经验总结，希望能为自己和有类似需求的开发者提供一些参考。</p>
+<h1 id="客户端部署"><a class="markdownIt-Anchor" href="#客户端部署"></a> 客户端部署</h1>
+<p>Cloudflare Pages 非常适合部署静态站点和单页应用（我也常用 Netlify）。</p>
+<h2 id="创建-cloudflare-pages-应用"><a class="markdownIt-Anchor" href="#创建-cloudflare-pages-应用"></a> 创建 Cloudflare Pages 应用</h2>
+<ol>
+<li>
+<p>进入 Cloudflare 控制台，在左侧菜单栏中找到 <em>Compute (Workers)</em> 选项：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B201-Cloudflare%E7%82%B9%E5%87%BBCompute.png" alt="alt text"></p>
+</li>
+<li>
+<p>点击 <em>Create</em> 来创建 Pages 应用：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B202-Cloudflare%E7%82%B9%E5%87%BBCreate.png" alt="alt text"></p>
+</li>
+<li>
+<p>选择 <em>Pages</em> 标签后，这里可以选择 <strong>导入已存在的 Git 仓库</strong> 或者 <strong>直接上传构建后的客户端代码</strong>。</p>
+<p>因为决定使用 BitBucket Pipeline 和 Wrangler CLI，我就选择了后者：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B203-Cloudflare%E7%82%B9%E5%87%BBDirect-Upload.png" alt="alt text"></p>
+<blockquote>
+<h4 id="什么是-bitbucket-pipelines"><a class="markdownIt-Anchor" href="#什么是-bitbucket-pipelines"></a> 什么是 BitBucket Pipelines？</h4>
+<p>BitBucket Pipelines 是 Atlassian 提供的一项持续集成和持续交付（也就是 CI / CD）服务，直接集成在 BitBucket 代码托管平台中。</p>
+<p>它允许你使用 YAML 文件定义自动化工作流程，例如代码构建、测试、部署等。</p>
+<p>每当你向仓库推送代码、创建 Pull Request 或满足其他触发条件时，Pipelines 就会按照你的配置自动执行定义好的步骤。</p>
+</blockquote>
+</li>
+<li>
+<p>填写项目名称，之后会用到。</p>
+<p>创建项目后会要求上传一个项目的静态资源文件，最快的方案是下载 Cloudflare 提供的 Demo，然后直接上传这个：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B204-Cloudflare%E5%86%99%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%A7%B0.png" alt="alt text"></p>
+</li>
+<li>
+<p>为了让 BitBucket Pipelines 能够安全地与 Cloudflare API 交互，我们需要在 BitBucket 客户端仓库中添加两个敏感的环境变量：</p>
+<ul>
+<li><code>CLOUDFLARE_API_TOKEN</code>：用于认证 Cloudflare API 请求的令牌</li>
+<li><code>CLOUDFLARE_ACCOUNT_ID</code>：Cloudflare 账号 ID</li>
+</ul>
+<p>首先是令牌。点击右上角的小人图标、点击 <em>Profile</em>、点击左侧菜单栏的 <em>API Tokens</em> 选项、点击页面中的 <em>Create Token</em> 按钮：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B205-Cloudflare%E5%88%9B%E5%BB%BAAPI%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+</li>
+<li>
+<p>创建令牌的页面中，点击 <em>Create Custom Token</em> 一栏的 <em>Get started</em> 按钮：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B206-Cloudflare%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+</li>
+<li>
+<p>填写令牌名称；</p>
+<p>在权限中选择 <em>Cloudflare Pages</em> 和 <em>Edit</em>；</p>
+<p>在账号资源中选择你自己的邮箱：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B207-Cloudflare%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%A4%E7%89%8C.png" alt="alt text"></p>
+<p>创建完毕后记下该令牌（不要泄露给他人，务必保管好）。</p>
+</li>
+<li>
+<p>账号 ID 更好找。随便点击 Cloudflare 图标或者什么的返回到控制台，抬头看一下 URL 就能看到：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B208-Cloudflare%E6%9F%A5%E6%89%BE%E8%B4%A6%E5%8F%B7ID.png" alt="alt text"></p>
+</li>
+</ol>
+<h4 id="cloudflare-pages-的环境-url"><a class="markdownIt-Anchor" href="#cloudflare-pages-的环境-url"></a> Cloudflare Pages 的环境 URL</h4>
+<p>Cloudflare Pages 会根据你推送代码的分支自动创建不同的环境 URL：</p>
+<ul>
+<li>生产环境 URL：当你推送代码到你的生产分支时（Cloudflare 默认将 <code>main</code> 分支视为生产分支，但你可以在 Pages 应用的设置中更改），Cloudflare 会将该分支的最新部署发布到你的 自定义域名（如果你已经设置了）以及一个 Cloudflare 提供的 <code>.pages.dev</code> 子域名。这个 URL 通常是你的最终用户访问的地址</li>
+<li>预览环境 URL：对于所有其他的非生产分支（例如 <code>staging</code> 分支），Cloudflare Pages 会自动为每次推送创建一个唯一的预览 URL。这些 URL 的格式通常是 <code>[commit-hash]-[你的Pages应用名称].pages.dev</code></li>
+</ul>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B212-Cloudflare%E5%88%86%E8%BE%A8%E4%B8%8D%E5%90%8C%E7%8E%AF%E5%A2%83%E7%9A%84URL.png" alt="alt text"></p>
+<h4 id="env-变量的迁移"><a class="markdownIt-Anchor" href="#env-变量的迁移"></a> <code>.env</code> 变量的迁移</h4>
+<p>与传统的服务器端应用不同，前端应用通常在构建时就需要确定环境变量的值。Cloudflare Pages 提供了几种管理环境变量的方式：</p>
+<ol>
+<li>Cloudflare Pages 控制台：你可以在你的 Cloudflare Pages 应用的设置中，找到 <em>Environment variables</em> 选项，在这里你可以添加、编辑和删除环境变量。你在控制台中设置的环境变量会在你的应用构建时被注入</li>
+<li><code>_headers</code> 文件或 <code>wrangler.toml</code>：对于一些特定的配置，例如 HTTP headers，你可以通过在你的构建输出目录中添加 <code>_headers</code> 文件或在项目根目录下配置 <code>wrangler.toml</code> 文件来管理。但这通常不用于存储敏感的环境变量</li>
+</ol>
+<p>对于我的 Staging 环境，我得在 Cloudflare Pages 控制台中为我的应用配置相应的环境变量（比方说不同环境的服务端 API）。我们可以在设置里随意切换生产或者预览环境，然后添加变量或者密钥：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B213-Cloudflare%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+<h2 id="创建-bitbucket-pipelines"><a class="markdownIt-Anchor" href="#创建-bitbucket-pipelines"></a> 创建 BitBucket Pipelines</h2>
+<ol>
+<li>
+<p>来到客户端的 BitBucket 仓库，现在我们要添加这两个环境变量了。</p>
+<p>点击左侧菜单栏中的 <em>Repository settings</em>：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B209-BitBucket%E7%82%B9%E5%87%BB%E4%BB%93%E5%BA%93%E8%AE%BE%E7%BD%AE.png" alt="alt text"></p>
+</li>
+<li>
+<p>接着点击 <em>Repository variables</em>：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B210-BitBucket%E7%82%B9%E5%87%BB%E4%BB%93%E5%BA%93%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+</li>
+<li>
+<p>在环境变量页面中，填写以下内容：</p>
+<ul>
+<li><code>CLOUDFLARE_API_TOKEN</code></li>
+<li><code>CLOUDFLARE_ACCOUNT_ID</code></li>
+</ul>
+<p>两个值在被添加时都要确保勾选上 <em>Secured</em>：</p>
+<p><img src="/posts/8f1a/%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B211-BitBucket%E6%B7%BB%E5%8A%A0%E4%BB%93%E5%BA%93%E5%8F%98%E9%87%8F.png" alt="alt text"></p>
+<p>将这些敏感信息存储为 BitBucket 的仓库变量而不是直接写在 Pipeline 配置文件中，可以提高安全性。</p>
+</li>
+<li>
+<p>在仓库中创建一个 <code>bitbucket-pipelines.yml</code> 文件：</p>
+ <figure class="highlight yaml"><figcaption><span>bitbucket-pipelines.yml</span></figcaption><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pipelines:</span></span><br><span class="line">  <span class="attr">branches:</span></span><br><span class="line">    <span class="attr">staging:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">step:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span> <span class="string">Frontend</span> <span class="string">to</span> <span class="string">Staging</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">node:20.18.3</span></span><br><span class="line">          <span class="attr">script:</span></span><br><span class="line">            <span class="comment"># - npm install -g yarn</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">install</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">build</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">global</span> <span class="string">add</span> <span class="string">wrangler</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">export</span> <span class="string">CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">export</span> <span class="string">CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">wrangler</span> <span class="string">pages</span> <span class="string">publish</span> <span class="string">dist</span> <span class="string">--project-name</span> [<span class="string">cloudflare应用名称</span>] <span class="string">--branch</span> <span class="string">staging</span></span><br><span class="line">          <span class="attr">caches:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">node</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li><code>pipelines</code> 是定义了所有自动化流程的顶层键</li>
+<li><code>branches</code> 指定了哪些分支会触发特定的 Pipeline 流程</li>
+<li><code>staging</code> 表示只有当代码推送到 <code>staging</code> 分支时，才会执行以下定义的步骤</li>
+<li><code>- step</code> 定义了一个独立的构建和部署步骤。一个 Pipeline 可以包含多个 step，它们会按照顺序执行
+<ul>
+<li><code>name</code> 为该步骤指定了一个易于理解的名称，方便在 Bitbucket Pipelines 的界面上查看执行状态</li>
+<li><code>image</code> 指定了运行该步骤所使用的 Docker 镜像。这里我们选择了 <code>node:20.18.3</code>，因为我的本地 Node 版本就是这个，你也可以换成你自己的</li>
+<li><code>script</code> 定义了在该步骤中要执行的 Shell 命令：
+<ul>
+<li><code># - npm install -g yarn</code> 原本的意图是全局安装 <code>yarn</code> 包管理器，这是因为 <code>node:20.18.3</code> 的镜像里已经预先安装了 <code>yarn</code>、还会导致错误。如果你在后续的 Pipeline 执行中遇到了 <strong>没找到 <code>yarn</code></strong> 的错误，就取消注释这一行吧</li>
+<li><code>yarn install</code> 安装项目的所有依赖包</li>
+<li><code>yarn build</code> 执行 React 应用的构建脚本，这会生成用于部署的静态资源文件，默认情况下这些文件会输出到项目根目录下的 <code>dist</code> 或者 <code>build</code> 文件夹中</li>
+<li><code>yarn global add wrangler</code> 全局安装 Cloudflare 的命令行工具 <code>wrangler</code>。<code>wrangler</code> 用于与 Cloudflare API 进行交互，例如部署 Pages 应用</li>
+<li><code>export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN</code> 将 Bitbucket 仓库变量 <code>CLOUDFLARE_API_TOKEN</code> 导出为 Pipeline 运行环境中的环境变量。<code>$</code> 符号用于引用仓库变量</li>
+<li><code>export CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID</code> 同样地将 Bitbucket 仓库变量 <code>CLOUDFLARE_ACCOUNT_ID</code> 导出为环境变量</li>
+<li><code>wrangler pages publish dist --project-name [cloudflare应用名称] --branch staging</code> 是执行部署的关键命令。它使用 <code>wrangler pages publish</code> 命令将 <code>dist</code> 文件夹中的内容上传并部署到你的 Cloudflare Pages 应用。<code>--project-name</code> 后面需要替换成你在 Cloudflare 中创建的 Pages 应用的实际名称。<code>--branch staging</code> 告诉 Cloudflare 这是针对 <code>staging</code> 分支的部署</li>
+</ul>
+</li>
+<li><code>caches</code> 定义了需要缓存的目录，以便在后续的 Pipeline 执行中加快依赖安装速度。这里我们缓存了 <code>node_modules</code> 目录</li>
+</ul>
+</li>
+</ul>
+<p>现在每当我们向 <code>staging</code> 分支推送新的 commit 时，Bitbucket Pipelines 会自动构建我的前端应用，并使用 <code>wrangler</code> 将构建产物部署到 Cloudflare Pages。Cloudflare 会为这次特定的提交创建一个新的预览部署，并生成一个新的、唯一的预览 URL。这意味着我的测试人员可以同时访问到不同 commit 对应的不同预览版本，这在进行特定功能的测试或对比不同版本时非常有用。</p>
+</li>
+</ol>
+<h1 id="服务端部署"><a class="markdownIt-Anchor" href="#服务端部署"></a> 服务端部署</h1>
+<p>AWS Elastic Beanstalk (EB）正是为此而生的 PaaS 服务，它可以帮助我们轻松部署、管理和扩展 Web 应用程序和服务。</p>
+<!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/8f1a.html" data-full-url="https://cytrogen.icu/posts/8f1a.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>

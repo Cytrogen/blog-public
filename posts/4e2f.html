@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="zh" data-theme="dark"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AWS Educate · Cytrogen 的个人博客</title><meta name="robots" content="noindex"><meta name="description" content="参加学校内的 AWS YouthTech Bootcamp 时学习到的内容，故记录下来。"><link rel="icon" href="../favicon.png"><link rel="canonical" href="https://cytrogen.icu/posts/4e2f.html"><link rel="webmention" href="https://webmention.io/cytrogen.icu/webmention"><link rel="me" href="https://m.otter.homes/@Cytrogen"><meta name="fediverse:creator" content="@Cytrogen@m.otter.homes"><link rel="preload" href="../fonts/opensans-regular-latin.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  size-adjust: 107%;
+  ascent-override: 97%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+</style><script>(function() {
+  try {
+    // 优先级：用户选择 > 系统偏好 > 默认浅色
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+  } catch (error) {
+    // 失败时使用默认主题，不阻塞渲染
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script><link rel="stylesheet" href="../css/ares.css"><script data-netlify-skip-bundle="true">(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const theme = document.documentElement.getAttribute('data-theme');
+    const pageWrapper = document.getElementById('page-wrapper');
+    if (pageWrapper && theme) {
+      pageWrapper.setAttribute('data-theme', theme);
+    }
+  });
+})();
+
+</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="atom.xml" title="Cytrogen 的个人博客" type="application/atom+xml">
+</head><body><div id="page-wrapper"><a class="skip-link" href="#main-content">跳到主要内容</a><div class="wrap"><header><a class="logo-link" href="../index.html"><img src="../favicon.png" alt="logo"></a><nav class="site-nav"><div class="nav-main"><div class="nav-primary"><ul class="nav-list hidden-mobile"><li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li></ul><div class="nav-tools"><div class="language-menu"><button class="language-toggle" type="button"><svg class="icon icon-globe" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855A7.97 7.97 0 0 0 10.855 12H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"></path></svg><span>中文</span></button><div class="language-dropdown"></div></div></div><div class="nav-controls"><div class="more-menu hidden-mobile"><button class="more-toggle" type="button"><span>更多</span><svg class="icon icon-chevron-down" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 8.825c-.2 0-.4-.1-.5-.2l-3.3-3.3c-.3-.3-.3-.8 0-1.1s.8-.3 1.1 0l2.7 2.7 2.7-2.7c.3-.3.8-.3 1.1 0s.3.8 0 1.1l-3.3 3.3c-.1.1-.3.2-.5.2z"></path></svg></button><div class="more-dropdown"><ul class="dropdown-list"><li class="dropdown-item"><a class="nav-link" href="../archives/index.html">归档</a></li><li class="dropdown-item"><a class="nav-link" href="../categories/index.html">分类</a></li><li class="dropdown-item"><a class="nav-link" href="../tags/index.html">标签</a></li><li class="dropdown-item"><a class="nav-link" href="../about/index.html">关于</a></li><li class="dropdown-item"><a class="nav-link" href="../friends/index.html">友链</a></li><li class="dropdown-item"><a class="nav-link" href="../atom.xml">RSS订阅</a></li><li class="dropdown-item"><a class="dropdown-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="dropdown-item"><a class="dropdown-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></div><div class="theme-switcher"><button class="theme-toggle" type="button" role="switch" aria-pressed="false" aria-label="切换主题"><div class="theme-icon moon-icon"><svg class="icon icon-moon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"></path></svg></div><div class="theme-icon sun-icon"><svg class="icon icon-sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path></svg></div></button></div><details class="mobile-menu-details hidden-desktop"><summary class="hamburger-menu" aria-label="nav.menu"><svg class="icon icon-bars" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"></path></svg><span class="menu-text">nav.menu</span></summary><div class="mobile-menu-dropdown"><ul class="mobile-nav-list"><li class="mobile-nav-item"><a class="mobile-nav-link" href="../index.html">首页</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../archives/index.html">归档</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../categories/index.html">分类</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../tags/index.html">标签</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../about/index.html">关于</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../friends/index.html">友链</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="../atom.xml">RSS订阅</a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://github.com/cytrogen" target="_blank" rel="noopener noreferrer me">GitHub<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li><li class="mobile-nav-item"><a class="mobile-nav-link" href="https://portfolio.cytrogen.icu" target="_blank" rel="noopener noreferrer">作品集<svg class="icon icon-external-link" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8.636 2.364A1 1 0 0 1 10 1h3a1 1 0 0 1 1 1v3a1 1 0 0 1-2 0V3.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L10.586 2H9a1 1 0 0 1-1.364-1.636zM2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9a1 1 0 1 1 2 0v3a3 3 0 0 1-3 3H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3h3a1 1 0 1 1 0 2H2z"></path></svg></a></li></ul></div></details></div></div></div></nav></header><main class="container" id="main-content" tabindex="-1"><div class="post"><article class="post-block"><h1 class="post-title">AWS Educate</h1><div class="post-info"><time class="post-date dt-published" datetime="2024-10-18T17:33:50.000Z">10/18/2024</time></div><div class="post-content"><html><head></head><body><p>参加学校内的 AWS YouthTech Bootcamp 时学习到的内容，故记录下来。</p>
+<span id="more"></span>
+<div class="danger">
+<p>以下所有内容皆在 Amazon Educate 中进行。</p>
+</div>
+<h1 id="storage"><a class="markdownIt-Anchor" href="#storage"></a> Storage</h1>
+<h2 id="amazon-s3"><a class="markdownIt-Anchor" href="#amazon-s3"></a> Amazon S3</h2>
+<blockquote>
+<p>在本实验室中，您将使用刚刚学习的亚马逊简单存储服务（Amazon S3）的一些功能来创建静态网站。</p>
+<p>静态网站可以包含 HTML 页面、图像、样式表以及呈现网站所需的所有文件。</p>
+<p>静态网站不使用服务器端脚本或数据库。不过，它们可能包含在用户网络浏览器中运行的客户端脚本。</p>
+<p>您可以通过上传内容在 Amazon S3 上托管静态网站，并使其可供用户阅读。</p>
+<p>不需要服务器，您可以使用 Amazon S3 随时从网络上的任何地方存储和检索任意数量的数据。</p>
+</blockquote>
+<p>目标：</p>
+<ul>
+<li>在 Amazon S3 中创建一个存储桶。</li>
+<li>配置存储桶以托管静态网站。</li>
+<li>将内容上传到存储桶。</li>
+<li>打开对存储桶对象的公共访问。</li>
+<li>使用预指定 URL 安全地共享水桶对象。</li>
+<li>使用水桶策略保护水桶。</li>
+<li>更新网站。</li>
+<li>在 Amazon S3 控制台中查看对象版本。</li>
+</ul>
+<h4 id="creating-a-bucket-in-amazon-s3"><a class="markdownIt-Anchor" href="#creating-a-bucket-in-amazon-s3"></a> Creating a bucket in Amazon S3</h4>
+<ol>
+<li>
+<p>In the AWS Management Console, on the Services menu, choose S3.</p>
+</li>
+<li>
+<p>Choose Create bucket.</p>
+<p>An S3 bucket name is globally unique, and all AWS accounts share the namespace. After you create a bucket, no other AWS accounts in any AWS Regions can use the name of that bucket unless you delete the bucket.</p>
+<p>For this lab, you use a bucket name that includes a random number, such as website-123.</p>
+</li>
+<li>
+<p>For Bucket name, enter website-&lt;123&gt; and replace &lt;123&gt; with a random number.</p>
+</li>
+<li>
+<p>Public access to buckets is blocked by default. Because the files in your static website will need to be accessible through the internet, you must permit public access.</p>
+</li>
+<li>
+<p>For Object Ownership, choose ACLs enabled.</p>
+</li>
+<li>
+<p>Choose Bucket owner preferred.</p>
+</li>
+<li>
+<p>For Block Public Access settings for this bucket, clear the check box for Block all public access, and then select the box that states I acknowledge that the current settings might result in this bucket and the objects within becoming public.</p>
+</li>
+<li>
+<p>For Bucket Versioning, choose Enable.</p>
+<p>Note: Once you turn on (enable) bucket versioning, you can't turn it off.</p>
+</li>
+<li>
+<p>For Tags, choose Add tag, and enter the following:</p>
+<ul>
+<li>Key: Department</li>
+<li>Value: Marketing</li>
+</ul>
+<p>You can use tags to add additional information to a bucket, such as a project code, cost center, or owner.</p>
+</li>
+<li>
+<p>Choose Create bucket.</p>
+</li>
+<li>
+<p>In the Buckets section, choose the name of your new bucket.</p>
+</li>
+<li>
+<p>Choose the Properties tab.</p>
+</li>
+</ol>
+<h4 id="configuring-a-static-website-on-amazon-s3"><a class="markdownIt-Anchor" href="#configuring-a-static-website-on-amazon-s3"></a> Configuring a static website on Amazon S3</h4>
+<ol>
+<li>
+<p>Scroll to the Static website hosting panel.</p>
+</li>
+<li>
+<p>Choose Edit.</p>
+</li>
+<li>
+<p>Configure the following settings:</p>
+<ul>
+<li>Static web hosting: Choose Enable.</li>
+<li>Hosting type: Choose Host a static website.</li>
+<li>Index document: Enter index.HTML</li>
+<li>Error document: Enter error.HTML</li>
+</ul>
+<p>Note: You must enter index.HTML and error.HTML even though they are already displayed.</p>
+</li>
+<li>
+<p>Choose Save changes.</p>
+</li>
+<li>
+<p>In the Static website hosting panel under Bucket website endpoint, choose the link.</p>
+<p>You receive a 403 Forbidden message because you have not yet configured the bucket permissions. Keep this tab open in your web browser so that you can return to it later.</p>
+<p>You have configured your bucket to host a static website.</p>
+</li>
+</ol>
+<h4 id="uploading-content-to-your-bucket"><a class="markdownIt-Anchor" href="#uploading-content-to-your-bucket"></a> Uploading content to your bucket</h4>
+<ol>
+<li>
+<p>Choose (right-click) each of the following links, and download the files to your computer:<br>
+Ensure that each file keeps the same file name, including the extension.</p>
+<ul>
+<li>index.HTML</li>
+<li>script.JS</li>
+<li>style.CSS</li>
+</ul>
+</li>
+<li>
+<p>Return to the Amazon S3 console, and choose the Objects tab.</p>
+</li>
+<li>
+<p>Choose Upload</p>
+</li>
+<li>
+<p>Choose Add files</p>
+</li>
+<li>
+<p>Choose the three files that you downloaded.</p>
+</li>
+<li>
+<p>Choose Upload</p>
+</li>
+<li>
+<p>Your files are uploaded to the bucket.</p>
+</li>
+<li>
+<p>Choose Close</p>
+</li>
+</ol>
+<h4 id="turning-on-public-access-to-the-objects"><a class="markdownIt-Anchor" href="#turning-on-public-access-to-the-objects"></a> Turning on public access to the objects</h4>
+<p>Objects that are stored in Amazon S3 are private by default. This setting helps keep your organization's data secure.</p>
+<p>In this task, you make the uploaded objects publicly accessible so users can view your website.</p>
+<ol>
+<li>
+<p>First, confirm that the objects are currently private.</p>
+</li>
+<li>
+<p>Return to the browser tab that showed the 403 Forbidden message.</p>
+</li>
+<li>
+<p>Refresh the webpage.<br>
+If you accidentally closed this tab, go to the Properties tab, and in the Static website hosting panel, choose the Bucket website endpoint link again.</p>
+</li>
+</ol>
+<p>You should still see a 403 Forbidden message. This response is expected! This message indicates that your static website is being hosted by Amazon S3 but that the content is private.</p>
+<p>You can make Amazon S3 objects public through two different ways:</p>
+<p>To make either a whole bucket public or a specific directory in a bucket public, use a bucket policy.<br>
+To make individual objects in a bucket public, use an access control list (ACL).<br>
+It is normally safer to make individual objects public because doing so avoids accidentally making other objects public. However, if you know that the entire bucket contains no sensitive information, you can use a bucket policy.</p>
+<p>You now configure the individual objects to be publicly accessible.</p>
+<p>Keep the website tab open, and return to the web browser tab with the Amazon S3 console.<br>
+Choose all three objects.<br>
+In the Actions menu, choose Make public using ACL.<br>
+A list of the three objects is displayed.</p>
+<p>Choose Make public<br>
+Your static website is now publicly accessible.</p>
+<p>Choose Close<br>
+Return to the web browser tab that has the 403 Forbidden message.<br>
+Refresh the webpage.<br>
+You should now see the static website that is being hosted by Amazon S3.</p>
+<p>Now you know how to share objects with everyone by making them public. However, there may be times when you need to share an individual object for a limited amount of time. In the next task, you learn how to temporarily share an object.</p>
+<h4 id="securely-sharing-an-object-using-a-presigned-url"><a class="markdownIt-Anchor" href="#securely-sharing-an-object-using-a-presigned-url"></a> Securely sharing an object using a presigned URL</h4>
+<p>When you need to temporarily and securely share an object with a person or group of people, you can create a presigned URL. When you create the URL, you must configure how long the URL will be valid. Then, you can share this URL with the users who should have access to the object.</p>
+<p>As long as the presigned URL is valid, anyone who has it can get to the object. Avoid keeping the URL active longer than necessary, and only share the URL with people you trust.</p>
+<p>Choose (right-click) the following link, and download the file to your computer:<br>
+Ensure that the file keeps the same file name, including the extension.<br>
+new-report.png<br>
+Return to the Amazon S3 console, and choose the Objects tab.<br>
+Choose Upload<br>
+Choose Add files<br>
+Choose the file that you downloaded.<br>
+Choose Upload<br>
+You have uploaded your file to the bucket.</p>
+<p>Choose Close</p>
+<p>Like when you first uploaded the website files, the new-report.png file is private by default. This time, instead of making the object public, you create a presigned URL to access the file.</p>
+<p>In the Objects tab, choose new-report.png.</p>
+<p>From the Actions menu, select Share with a presigned URL</p>
+<p>In the pop-up window, configure the Time interval until the presigned URL expires:</p>
+<p>Choose Minutes<br>
+For Number of minutes, enter 2<br>
+Choose Create presigned URL</p>
+<p>From the banner at the top of the page, choose Copy presigned URL.</p>
+<p>Open a new browser tab, and paste the URL you copied into the address bar.</p>
+<p>A report is displayed in the web browser.</p>
+<p>If you wait 5 minutes and use the link again, you will find that the URL has expired and no longer works.</p>
+<h4 id="using-a-bucket-policy-to-secure-your-bucket"><a class="markdownIt-Anchor" href="#using-a-bucket-policy-to-secure-your-bucket"></a> Using a bucket policy to secure your bucket</h4>
+<p>You want to protect your website files and make sure that no one can delete them. To do this, you apply a bucket policy that denies delete privileges on your website files.</p>
+<p>Return to the Amazon S3 console, and choose the Permissions tab.<br>
+Under Bucket policy, choose Edit<br>
+Copy the following policy text. In the Policy text editor, replace the existing policy text with this text:<br>
+{<br>
+"Version": "2012-10-17",<br>
+"Id": "MyBucketPolicy",<br>
+"Statement": [<br>
+{<br>
+"Sid": "BucketPutDelete",<br>
+"Effect": "Deny",<br>
+"Principal": "*",<br>
+"Action": "s3:DeleteObject",<br>
+"Resource": [<br>
+"arn:aws:s3:::<bucket-name>/index.HTML",<br>
+"arn:aws:s3:::<bucket-name>/script.JS",<br>
+"arn:aws:s3:::<bucket-name>/style.CSS"<br>
+]<br>
+}<br>
+]<br>
+}<br>
+This policy prevents everyone from deleting the three files that make your website work.</bucket-name></bucket-name></bucket-name></p>
+<p>Next, you update the text in the policy editor. In the following lines of code in the policy editor, replace the placeholders with the name of your bucket.</p>
+<p>"arn:aws:s3:::<bucket-name>/index.HTML",<br>
+"arn:aws:s3:::<bucket-name>/script.JS",<br>
+"arn:aws:s3:::<bucket-name>/style.CSS"<br>
+Your updated code should look similar to the following:</bucket-name></bucket-name></bucket-name></p>
+<p>"arn:aws:s3:::website-1234/index.HTML",<br>
+"arn:aws:s3:::website-1234/script.JS",<br>
+"arn:aws:s3:::website-1234/style.CSS"<br>
+Note: Your bucket name will be different. Be sure to use the name of the bucket that you created.</p>
+<p>Choose Save changes</p>
+<p>Return to the the Object tab</p>
+<p>Select index.HTML.</p>
+<p>Choose Delete.</p>
+<p>In the Delete objects panel, enter delete to confirm that you want to remove this file.</p>
+<p>Choose Delete objects</p>
+<p>Notice that the index.HTML file is listed in the Failed to delete pane.</p>
+<p>This confirms that your policy is working and preventing the website's files from being deleted.</p>
+<p>Choose Close to return to the Objects tab.</p>
+<h4 id="updating-the-website"><a class="markdownIt-Anchor" href="#updating-the-website"></a> Updating the website</h4>
+<p>Although you have configured a policy to prevent deletion of website files, you can still update the website by editing the HTML file and uploading it to the S3 bucket again.</p>
+<p>Amazon S3 is an object storage service, so you must upload the whole file. This action replaces the existing object in your bucket. You cannot edit the contents of an object; instead, you must replace the whole object.</p>
+<p>On your computer, load the index.HTML file into a text editor (for example, Notepad or TextEdit).<br>
+Find the text Served from Amazon S3, and replace it with Created by <your-name>and substitute your name for (for example, Created by Jane).<br>
+Save the file.<br>
+Return to the Amazon S3 console, and upload the index.HTML file that you just edited.<br>
+Choose index.HTML, and in the Actions menu, choose the Make public using ACL option again.<br>
+Choose Make public.<br>
+Return to the web browser tab with the static website, and refresh the page.<br>
+Your name should now be on the page.</your-name></p>
+<p>Your static website is now accessible on the internet. Because it is hosted on Amazon S3, the website has high availability and can serve high volumes of traffic without using any servers.</p>
+<h4 id="exploring-file-versions"><a class="markdownIt-Anchor" href="#exploring-file-versions"></a> Exploring file versions</h4>
+<p>Bucket versioning is turned off by default. When versioning is turned off, changes to objects can't be undone. For example, if you upload a new version of a file, the old file is replaced with the new one. The original file is lost. If you delete a file, it is permanently deleted, and you can't get it back.</p>
+<p>However, when versioning is turned on, changed and deleted versions of files are saved. Previous versions of objects are not presented by default, but you can access them using the console or programmatically. Because you are keeping earlier versions of objects, you can recover them if you need to.</p>
+<p>It is important to remember that once you turn on version, you cannot turn it off. However, you can suspend versioning. For more information on bucket versioning, see the Amazon Simple Storage Service Users Guide.</p>
+<p>Recall that when you created your bucket, you turned on versioning. In this task, you view the object versions available in your bucket.</p>
+<p>Return to the Amazon S3 console, and choose the Objects tab.</p>
+<p>Choose Show versions to turn on bucket versioning.</p>
+<p>Review the list of objects in the bucket.</p>
+<p>Notice that each file has a Version ID. These IDs are automatically generated by Amazon S3 when versioning is turned on.<br>
+You should also find two versions of the index.HTML file because you uploaded a new version of the file. The current version is the file that you uploaded when you updated your website.</p>
+<!-- flag of hidden posts --></body></html></div></article></div></main><footer><div class="paginator"></div><!-- Webmention 显示区域--><div class="webmention-section webmention-empty" data-page-url="posts/4e2f.html" data-full-url="https://cytrogen.icu/posts/4e2f.html" data-mode="static">
+              <h3 class="webmention-title">Webmentions (<span class="webmention-count">0</span>)</h3>
+              <div class="webmention-list"></div>
+              <span>暂无 Webmentions</span>
+            </div><div class="copyright"><p>© 2025 - 2026 <a href="https://cytrogen.icu">Cytrogen</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/cytrogen/hexo-theme-ares" target="_blank">hexo-theme-ares</a>.</p></div></footer></div></div><a class="back-to-top" href="#top" aria-label="返回顶部"><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M3.293 9.707a1 1 0 010-1.414L9.586 2a2 2 0 012.828 0l6.293 6.293a1 1 0 01-1.414 1.414L11 3.414V17a1 1 0 11-2 0V3.414L2.707 9.707a1 1 0 01-1.414 0z"></path></svg></a><script>document.addEventListener('DOMContentLoaded', function() {
+  const codeBlocks = document.querySelectorAll('figure.highlight');
+  
+  codeBlocks.forEach(block => {
+    let caption = block.querySelector('figcaption');
+    if (!caption) {
+      caption = document.createElement('figcaption');
+      block.insertBefore(caption, block.firstChild);
+    }
+
+    const info = document.createElement('div');
+    info.className = 'info';
+    
+    const filename = caption.querySelector('span');
+    if (filename) {
+      filename.className = 'filename';
+      info.appendChild(filename);
+    }
+    
+    const lang = block.className.split(' ')[1];
+    if (lang) {
+      const langSpan = document.createElement('span');
+      langSpan.className = 'lang-name';
+      langSpan.textContent = lang;
+      info.appendChild(langSpan);
+    }
+
+    const sourceLink = caption.querySelector('a');
+    if (sourceLink) {
+      sourceLink.className = 'source-link';
+      info.appendChild(sourceLink);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    const codeHeight = block.scrollHeight;
+    const threshold = 300;
+
+    if (codeHeight > threshold) {
+      block.classList.add('folded');
+      
+      const toggleBtn = document.createElement('button');
+      toggleBtn.textContent = '展开';
+      toggleBtn.addEventListener('click', () => {
+        block.classList.toggle('folded');
+        toggleBtn.textContent = block.classList.contains('folded') ? '展开' : '折叠';
+      });
+      actions.appendChild(toggleBtn);
+    }
+
+    const copyBtn = document.createElement('button');
+    copyBtn.textContent = '复制';
+    copyBtn.addEventListener('click', async () => {
+      const codeLines = block.querySelectorAll('.code .line');
+      const code = Array.from(codeLines)
+        .map(line => line.textContent)
+        .join('\n')
+        .replace(/\n\n/g, '\n');
+      
+      try {
+        await navigator.clipboard.writeText(code);
+        copyBtn.textContent = '已复制';
+        copyBtn.classList.add('copied');
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+          copyBtn.classList.remove('copied');
+        }, 3000);
+      } catch (err) {
+        console.error('复制失败:', err);
+        copyBtn.textContent = '复制失败';
+        
+        setTimeout(() => {
+          copyBtn.textContent = '复制';
+        }, 3000);
+      }
+    });
+    actions.appendChild(copyBtn);
+
+    caption.innerHTML = '';
+    caption.appendChild(info);
+    caption.appendChild(actions);
+
+    const markedLines = block.getAttribute('data-marked-lines');
+    if (markedLines) {
+      const lines = markedLines.split(',');
+      lines.forEach(range => {
+        if (range.includes('-')) {
+          const [start, end] = range.split('-').map(Number);
+          for (let i = start; i <= end; i++) {
+            const line = block.querySelector(`.line-${i}`);
+            if (line) line.classList.add('marked');
+          }
+        } else {
+          const line = block.querySelector(`.line-${range}`);
+          if (line) line.classList.add('marked');
+        }
+      });
+    }
+  });
+});</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    
+    if (!themeToggle) return;
+    
+    const getCurrentTheme = () => {
+      return document.documentElement.getAttribute('data-theme') || 'light';
+    };
+    
+    const updateUI = (theme) => {
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', isDark.toString());
+    };
+    
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+      
+      const pageWrapper = document.getElementById('page-wrapper');
+      if (pageWrapper) {
+        pageWrapper.setAttribute('data-theme', theme);
+      }
+      
+      // Find and remove the temporary anti-flicker style tag if it exists.
+      // This ensures the main stylesheet takes full control after the initial load.
+      const antiFlickerStyle = document.getElementById('anti-flicker-style');
+      if (antiFlickerStyle) {
+        antiFlickerStyle.remove();
+      }
+      
+      localStorage.setItem('theme', theme);
+      updateUI(theme);
+    };
+    
+    const toggleTheme = () => {
+      const current = getCurrentTheme();
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+    
+    updateUI(getCurrentTheme());
+    
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQuery.addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          const theme = e.matches ? 'dark' : 'light';
+          setTheme(theme);
+        }
+      });
+    }
+  });
+})();
+</script><script src="../js/details-toggle.js" defer></script><script>(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    const backToTopBtn = document.querySelector('.back-to-top');
+    
+    if (!backToTopBtn) return;
+    
+    const toggleButtonVisibility = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const shouldShow = scrollTop > 200;
+      
+      if (shouldShow) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    };
+    
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleButtonVisibility();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    const scrollToTop = (event) => {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    toggleButtonVisibility();
+  });
+})();</script></body></html>
