@@ -20,6 +20,7 @@
 @use '_partial/back-to-top';
 @use '_partial/webmention';
 @use '_partial/diary';
+@use '_partial/neodb';
 
 @media screen and (min-width: $breakpoint-desktop) {
   .wrap {

@@ -27,7 +27,7 @@ body {
   margin: 0;
   color: $text-color;
   font-size: var(--font-size-body);
-  line-height: 1.6;
+  line-height: 1.8;
   background-color: $background-color;
   font-family: $base-font-family;
 }
@@ -167,7 +167,7 @@ sub {
 }
 
 p {
-  margin: 1rem 0;
+  margin: var(--spacing-paragraph) 0;
 }
 
 ul,
